@@ -17,7 +17,6 @@ var swig = require('swig');
 var path = require('path');
 var chalk = require('chalk');
 var lusca = require('lusca');
-var csrf = lusca.csrf();
 var io = require('socket.io');
 var morgan = require('morgan');
 var express = require('express');
@@ -188,7 +187,6 @@ function Cthulhu(config) {
    * Enable Lusca security
    */
   app.use(lusca({
-    // csrf: true,
     csp: {
       default_src: "'self'",
       script_src:  "'self'",
@@ -203,51 +201,19 @@ function Cthulhu(config) {
     xssProtection: true
   }));
 
-  app.use(function(req, res, next) {
-    var access_token = req.query.access_token;
-    if (/api/.test(req.originalUrl)) {
-      if (access_token) {
-        User
-          .findOne({ accessToken: access_token })
-          .exec(function(err, user) {
-            if (err) return next(err);
-            if (user.accessToken == access_token) {
-              req.user = user;
-              return next();
-            } else {
-              return res.status(401).json({
-                message: 'You must supply access_token'
-              });
-            }
-          })
-      } else {
-        return res.status(401).json({
-          message: 'You must supply access_token'
-        });
-      }
-    } else {
-      csrf(req, res, next);
-    }
-  });
+  /**
+   * Add CSRF (Cross-Site Request Forgery) protection
+   */
+  app.use(middleware.csrf);
 
+  /**
+   * Deserialize user from session
+   * @param  {[type]}   id   [description]
+   * @param  {Function} done [description]
+   * @return {[type]}        [description]
+   */
   app.use(app.sentinal.auth.deserializeUser(function(id, done) {
-    User.findOne({ _id: id }).exec(function(err, user) {
-      /**
-       * If err, pass new Error
-       */
-      if (err) {
-        return done(err);
-      }
-
-      /**
-       * If no user exists, pass new Error with message
-       */
-      if (!user) {
-        return done(new Error("Invalid id."));
-      }
-
-      return done(null, user);
-    });
+    User.findOne({ _id: id }).exec(done);
   }));
 
   /**

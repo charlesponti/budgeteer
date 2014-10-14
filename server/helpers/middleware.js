@@ -7,7 +7,6 @@
 var _ = require('lodash');
 var chalk = require('chalk');
 var lusca = require('lusca');
-var csrf = lusca.csrf();
 var User = require('../models/user');
 
 function CthulhuMiddleware() {
@@ -17,6 +16,12 @@ function CthulhuMiddleware() {
    * @type {Object}
    */
   var self = this;
+
+  /**
+   * Store default csrf function
+   * @type {Function}
+   */
+  self._csrf = lusca.csrf();
 
   /**
    * Server either the development version of the minified version of
@@ -149,6 +154,12 @@ function CthulhuMiddleware() {
     };
   };
 
+  /**
+   * CSRF middleware function
+   * @param  {IncomingMessage}   req
+   * @param  {ServerResponse}   res
+   * @param  {Function} next
+   */
   this.csrf = function(req, res, next) {
     var access_token = req.query.access_token;
     if (/api/.test(req.originalUrl)) {
@@ -172,7 +183,7 @@ function CthulhuMiddleware() {
         });
       }
     } else {
-      csrf(req, res, next);
+      self._csrf(req, res, next);
     }
   };
 

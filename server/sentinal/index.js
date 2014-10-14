@@ -12,7 +12,6 @@ var _ = require('lodash');
  * @type {exports}
  */
 var Auth = require("./auth");
-var Crypt = require("./crypt");
 
 /**
  * `Sentinal` constructor
@@ -26,12 +25,7 @@ function Sentinal(config) {
    * @public
    */
   this.auth = Auth;
-  
-  /**
-   * @type {Crypt}
-   * @public
-   */
-  this.crypt = Crypt;
+
 
   /**
    * Check that config was passed
