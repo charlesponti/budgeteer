@@ -7,6 +7,7 @@
 var _ = require('lodash');
 var chalk = require('chalk');
 var lusca = require('lusca');
+var EventEmitter = require('events').EventEmitter;
 var User = require('../models/user');
 
 function CthulhuMiddleware() {
@@ -23,6 +24,12 @@ function CthulhuMiddleware() {
    */
   self._csrf = lusca.csrf();
 
+  /**
+   * Add EventEmitter to middleware
+   * @type {EventEmitter}
+   */
+  self.emitter = new EventEmitter();
+  
   /**
    * Server either the development version of the minified version of
    * the browseriy bundle based on the NODE_ENV
