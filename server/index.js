@@ -276,7 +276,7 @@ function Cthulhu(config) {
      * Emit initial message
      */
     app.socket.on('connection', function(socket) {
-      socket.emit('message', { message: 'Cthulhu has you in its grips.' });
+      socket.emit('born', { message: 'Cthulhu has you in its grips.' });
     });
 
     /**
