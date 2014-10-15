@@ -23,11 +23,21 @@ function TaskController() {
     next();
   };
 
+  /**
+   * Retrieve either all user's tasks or a specific set of tasks if tasks query
+   * is passed.
+   * @param  {IncomingMessage}   req
+   * @param  {ServerResponse}   res
+   * @param  {Function} next
+   */
   this.index = function(req, res, next) {
-    if (req.params.id) {
-      return Task.find({})
+    var tasks;
+    if (req.query.id) {
+      tasks = req.user.tasks.where({ id: { $in: req.params.id }})
+    } else {
+      tasks = req.user.tasks;
     }
-    req.user.tasks.exec(function(err, tasks) {
+    tasks.exec(function(err, tasks) {
       if (err) {
         return res.status(500).json({ 
           message: 'There was an issue fetching your tasks' 
@@ -67,7 +77,7 @@ function TaskController() {
       if (err) {
         return res.status(500).json({ 
           message: 'There was an issue creating your task',
-          raw: err.errors
+          raw: err
         });
       }
       res.status(201).json({ task: task });
