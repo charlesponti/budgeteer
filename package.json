@@ -5,11 +5,20 @@
   "main": "bin/cthulhu",
   "repository": "http://github.com/theponti/cthulhu",
   "scripts": {
-    "test": "NODE_ENV=test mocha --recursive test",
+    "test": "NODE_ENV=test mocha --ui tdd --recursive test",
     "start": "node bin/cthulhu",
     "supervise": "supervisor bin/cthulhu",
     "build-dev": "browserify -e client/scripts/main.js -t jstify -o public/scripts/bundle.dev.js -d",
     "build-min": "browserify -e client/scripts/main.js -t jstify -t uglifyify -o public/scripts/bundle.min.js"
+  },
+  "testling": {
+    "harness": "mocha-tdd",
+    "files": "test/*.js",
+    "browsers": [
+      "ie/8..latest",
+      "chrome/latest",
+      "firefox/latest"
+    ]
   },
   "dependencies": {
     "async": "^0.9.0",
@@ -27,6 +36,7 @@
     "express-session": "^1.7.6",
     "express-validator": "^2.3.0",
     "fs-extra": "^0.12.0",
+    "inherits": "^2.0.1",
     "jquery": "^2.1.1",
     "lodash": "^2.4.1",
     "lusca": "^1.0.1",
@@ -36,8 +46,6 @@
     "nodemailer": "^1.2.1",
     "oauth": "^0.9.12",
     "optimist": "^0.6.1",
-    "q": "^1.0.1",
-    "react": "^0.11.2",
     "restler": "^3.2.2",
     "socket.io": "^1.1.0",
     "swig": "^1.4.2",
@@ -55,7 +63,9 @@
     "gulp-rename": "^1.2.0",
     "gulp-uglify": "^1.0.0",
     "gulp-watch": "^0.7.0",
+    "html-browserify": "0.0.4",
     "jshint-stylish": "^0.4.0",
+    "jstify": "^0.5.0",
     "matchdep": "~0.3.0",
     "mocha": "^1.21.5",
     "sinon": "^1.10.3",

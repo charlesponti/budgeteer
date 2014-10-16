@@ -23,19 +23,28 @@ router.get('/about', function(req, res) {
  * TODO Set up central error logging system
  */
 router.get('/error', function(err, req, res) {
-  var message = "There was an issue processing your request. Our unicorns will"+
-    " look into the issue after their trip to Candy Mountain.";
-  req.flash("error", err.message || message);
-  res.redirect("/");
+  var message = 'There was an issue processing your request. Our unicorns will'+
+    ' look into the issue after their trip to Candy Mountain.';
+  req.flash('error', err.message || message);
+  res.redirect('/');
 });
 
 /**
- * Render home.jade
- * @param  {http.IncomingMessage} req
- * @param  {http.ServerResponse} res
+ * Render home
+ * @param  {IncomingMessage} req
+ * @param  {ServerResponse} res
  */
 router.get('/', function(req, res) {
-  res.render("home", { user: req.user });
+  res.render('home', { user: req.user });
+});
+
+/**
+ * Render layout for all other routes
+ * @param  {IncomingMessage} req
+ * @param  {ServerResponse} res
+ */
+router.get('*', function(req, res) {
+  res.render('layout', { user: req.user });
 });
 
 module.exports = router;
