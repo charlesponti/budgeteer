@@ -33,7 +33,7 @@ function TaskController() {
   this.index = function(req, res, next) {
     var tasks;
     if (req.query.id) {
-      tasks = req.user.tasks.where({ id: { $in: req.params.id }})
+      tasks = req.user.tasks.where({ id: { $in: req.params.id }});
     } else {
       tasks = req.user.tasks;
     }
