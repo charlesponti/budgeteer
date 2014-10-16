@@ -177,7 +177,7 @@ function CthulhuMiddleware() {
           .findOne({ accessToken: access_token })
           .exec(function(err, user) {
             self.emitter.emit('api-user', err, user, req, res, next);
-          })
+          });
       } else {
         return res.status(401).json({
           message: 'You must supply access_token'
@@ -200,7 +200,7 @@ function CthulhuMiddleware() {
     if (err) {
       return next(err);
     }
-    if (user.accessToken == access_token) {
+    if (user.accessToken == req.query.access_token) {
       req.user = user;
       return next();
     } else {
