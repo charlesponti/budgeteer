@@ -19,7 +19,7 @@ var TaskMainView = Backbone.View.extend({
   },
 
   render: function() {
-    $('#app').html(this.$el.html(this.template());
+    $('#app').html(this.$el.html(this.template()));
   }
 
 });

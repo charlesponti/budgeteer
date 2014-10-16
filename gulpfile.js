@@ -38,13 +38,10 @@ gulp.task('clean-styles', function(done) {
   del(['./public/styles'], done);
 });
 
-gulp.task("jshint", function(done) {
-  var stream = gulp.src(sources.js.dir)
-      .pipe(jsHint())
-      .pipe(jsHint.reporter(stylish));
-  stream.on('end', function() {
-    done();
-  });
+gulp.task("jshint", function() {
+  return gulp.src(sources.js.dir)
+    .pipe(jsHint())
+    .pipe(jsHint.reporter(stylish));
 });
 
 /**
@@ -52,13 +49,22 @@ gulp.task("jshint", function(done) {
  * This task will bundle all of the client side scripts and place
  * the bundled file into `public/scripts/bundle.js`.
  */
-gulp.task('scripts', ['clean-scripts'], function() {
-  // build bundle
+gulp.task('scripts', ['clean-scripts', 'lint-client'], function() {
   return browserify(sources.js.main)
     .transform('jstify')
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('public/scripts/'));
+});
+
+/**
+ * `lint-client` task
+ * Run JSHint over client-side Javascript files
+ */
+gulp.task('lint-client', function() {
+  return gulp.src(sources.js.dir)
+      .pipe(jsHint())
+      .pipe(jsHint.reporter(stylish));
 });
 
 /**
@@ -75,23 +81,19 @@ gulp.task('bundle-tests', function() {
 gulp.task('lint-backend', function() {
   return gulp.src(sources.backend)
       .pipe(jsHint())
-      .pipe(jsHint.reporter(stylish))
-      .pipe(uglify());
+      .pipe(jsHint.reporter(stylish));
 });
 
 // Build CSS from Less files
-gulp.task('styles', ['clean-styles'], function(done) {
-  var stream = gulp.src(sources.styles.main)
+gulp.task('styles', ['clean-styles'], function() {
+  return gulp.src(sources.styles.main)
       .pipe(less())
       .pipe(concatinate(sources.styles.build))
       .pipe(gulp.dest(sources.styles.buildDirectory));
-  stream.on('end', function() {
-    done();
-  });
 });
 
 // Watch for file changes
-gulp.task('watch', function(done) {
+gulp.task('watch', function() {
   gulp.src(sources.styles.all).pipe(watch({
     glob: 'client/styles/**/*.less'
   }, function() {
@@ -111,5 +113,5 @@ gulp.task('watch', function(done) {
   }));
 });
 
-gulp.task('build', [ 'styles', 'scripts' ]);
+gulp.task('build', [ 'styles',  ]);
 gulp.task('default', ['lint-backend', 'watch', 'build' ]);

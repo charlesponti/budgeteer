@@ -1,5 +1,6 @@
 'use strict';
 
+var io = window.io;
 window.$ = require('jquery');
 window.Backbone = require('backbone');
 Backbone.$ = $;

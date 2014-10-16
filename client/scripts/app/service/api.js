@@ -1,3 +1,5 @@
+'use strict';
+
 var $ = require('jquery');
 
 function APIService() {
@@ -11,10 +13,10 @@ function APIService() {
    * @return {jQuery.Deferred}
    */
   this.request = function apiRequest(options) {
-    var deferred = new jQuery.Deferred();
+    var deferred = new $.Deferred();
 
     $.ajax({
-      url: '/api/'+path,
+      url: '/api/'+options.path,
       method: options.method,
       data: options.data || {}
     })
@@ -78,6 +80,6 @@ function APIService() {
     return this.request({ path: path, method: 'DELETE', data: data });
   };
 
-};
+}
 
 module.exports = new APIService();

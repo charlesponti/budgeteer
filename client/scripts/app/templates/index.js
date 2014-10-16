@@ -6,4 +6,4 @@ module.exports = {
     list: require('./tasks/list.html')
   }
 
-}
+};
