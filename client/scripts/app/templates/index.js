@@ -1,5 +1,7 @@
 'use strict';
 
+var TaskListView = require('./tasks/list.html');
+
 module.exports = {
 
   tasks: {

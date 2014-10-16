@@ -6,13 +6,13 @@
  */
 var TaskMainView = Backbone.View.extend({
 
-  el: 'div',
+  tagName: 'div',
 
   id: 'task-app',
 
   className: 'tasks',
 
-  template: App.templates.tasks.list,
+  template: _.template(App.templates.tasks.list),
 
   initialize: function() {
     this.render();

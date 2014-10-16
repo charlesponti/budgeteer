@@ -2,6 +2,7 @@
 
 var io = window.io;
 window.$ = require('jquery');
+window._ = require('lodash');
 window.Backbone = require('backbone');
 Backbone.$ = $;
 
