@@ -10,6 +10,7 @@ var env = process.env.NODE_ENV;
 /**
  * Module dependencies.
  * @type {exports}
+ * @private
  */
 var _ = require('lodash');
 var http = require('http');
@@ -118,7 +119,6 @@ function Cthulhu(config) {
    * Compress static files
    */
   app.use(compress());
-  app.use(morgan('dev'));
 
   /**
    * Parse body of requests
