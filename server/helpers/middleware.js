@@ -106,23 +106,31 @@ function CthulhuMiddleware() {
    * @param  {Function} next
    */
   this.logger = function(req, res, next) {
-    for (var i = 0; i < 2; i++) {
-      console.log("");
-    }
+    var startTime = new Date();
+    
+    // Print spaces between requests
+    ['', ''].forEach(function(x) { console.log(x); });
 
-    console.log(chalk.red(new Date()));
+    // Print startTime of request
+    console.log(chalk.red(startTime));
 
-    // Check for params
+    // Print HTTP method and url of request
+    console.log(
+      chalk.blue.bgRed.bold(req.method),
+      chalk.blue(req.url)
+    );
+
+    // Log params if it isn't empty
     if (_.size(req.params)) {
       self.logObj("Params", req.params);
     }
 
-    // Check for data
+    // Log body if it isn't empty
     if (_.size(req.body)) {
       self.logObj("Body", req.body);
     }
 
-    // Check for query
+    // Log query if it isn't empty
     if (_.size(req.query)) {
       self.logObj("Query", req.query);
     }
@@ -179,9 +187,10 @@ function CthulhuMiddleware() {
             self.emitter.emit('api-user', err, user, req, res, next);
           });
       } else {
-        return res.status(401).json({
-          message: 'You must supply access_token'
-        });
+        self._csrf(req, res, next);
+        // return res.status(401).json({
+        //   message: 'You must supply access_token'
+        // });
       }
     } else {
       self._csrf(req, res, next);
