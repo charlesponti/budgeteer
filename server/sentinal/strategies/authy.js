@@ -11,7 +11,7 @@ var env = process.env.NODE_ENV;
  * @type {exports}
  */
 var _ = require('lodash');
-var restler = require('restler');
+var request = require('superagent');
 
 /**
  * `Authy` constructor
@@ -97,7 +97,7 @@ function Authy(config) {
  */
 Authy.prototype.register = function authyRegister(email, cellphone, country_code, callback) {
 
-  restler.post(this.url+'/protected/json/users/new', {
+  request.post(this.url+'/protected/json/users/new', {
     data: {
       user: {
         email: email,
@@ -130,7 +130,7 @@ Authy.prototype.smsRegister = function authySmsRegister(id, force, callback) {
     callback = force;
   }
 
-  return restler.get(url, {
+  return request.get(url, {
     query: query
   }).on('success', function(result, response) {
     callback(null, result);
@@ -149,7 +149,7 @@ Authy.prototype.smsRegister = function authySmsRegister(id, force, callback) {
 Authy.prototype.verify = function authyVerify(token, id, callback) {
   var url = this.url+'/protected/json/verify/'+token+'/'+id;
 
-  return restler.get(url, {
+  return request.get(url, {
     query: this.query
   }).on('success', function(result, response) {
     callback(null, result);

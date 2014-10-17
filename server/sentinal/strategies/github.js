@@ -4,8 +4,8 @@
  * Module dependencies
  */
 var _ = require('lodash');
-var REST = require('restler');
 var qs = require('querystring');
+var request = require('superagent');
 
 /**
  * `Github` constructor
@@ -40,28 +40,29 @@ function Github(config) {
   };
 
   this.callback = function GithubAuthCallback(req, res, next) {
-    REST.post(self.access_token_url, {
-      query: {
-        client_id: self.client_id,
-        client_secret: self.client_secret,
-        code: req.query.code,
-        redirect_uri: self.callback_url
-      }
-    }).on('complete', function(data) {
-      var query = qs.parse(data);
-      var access_token = query.access_token;
+    return request
+            .post(self.access_token_url)
+            .query({
+              client_id: self.client_id,
+              client_secret: self.client_secret,
+              code: req.query.code,
+              redirect_uri: self.callback_url
+            })
+            .end(function(data) {
+              var query = qs.parse(data);
+              var access_token = query.access_token;
 
-      /**
-       * Save token and profile to user
-       */
-      self.get_profile(access_token, function(profile) {
-        req._oauth = {
-          token: access_token,
-          profile: profile
-        };
-        return next();
-      });
-    });
+              /**
+               * Save token and profile to user
+               */
+              self.get_profile(access_token, function(profile) {
+                req._oauth = {
+                  token: access_token,
+                  profile: profile
+                };
+                return next();
+              });
+            });
   };
 
   /**
@@ -70,9 +71,10 @@ function Github(config) {
    * @param  {Function} callback
    */
   this.get_profile = function GithubGetProfile(access_token, callback) {
-    REST.get(self.profile_url + qs.stringify({
-      access_token: access_token
-    })).on('complete', callback);
+    return request
+            .get(self.profile_url)
+            .query({ access_token: access_token })
+            .end(callback);
   };
 
 }

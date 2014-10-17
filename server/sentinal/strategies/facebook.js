@@ -1,12 +1,12 @@
-"use strict";
+'use strict';
 
 /**
  * Module dependencies
  * @type {exports}
  */
 var _ = require('lodash');
-var REST = require("restler");
-var qs = require("querystring");
+var request = require('superagent');
+var qs = require('querystring');
 
 /**
  * Export Facebook module
@@ -14,22 +14,26 @@ var qs = require("querystring");
  * @returns {module}
  * @constructor
  */
-module.exports = function Facebook(options) {
-
+function FacebookStrategy(options) {
+  /**
+   * Extend `this` with passed options
+   */
+  _.extend(this, options);
+  
   /**
    * Check for necessary elements
    */
   ['app_id', 'callback_url', 'app_secret'].forEach(function(key) {
     if (!options[key]) {
-      throw new Error("Must supply Facebook with "+key);
+      throw new Error('Must supply Facebook with '+key);
     }
   });
 
-  var self = _.extend({}, options);
+  var self = this;
 
-  self.oauth_route_url = "https://www.facebook.com/dialog/oauth?";
-  self.access_token_url = "https://graph.facebook.com/oauth/access_token?";
-  self.profile_url = "https://graph.facebook.com/me?";
+  self.oauth_route_url = 'https://www.facebook.com/dialog/oauth?';
+  self.access_token_url = 'https://graph.facebook.com/oauth/access_token';
+  self.profile_url = 'https://graph.facebook.com/me';
 
   /**
    * Send request to authorize request to Facebook
@@ -42,49 +46,53 @@ module.exports = function Facebook(options) {
       client_id: self.app_id,
       state: res.locals._csrf,
       redirect_uri: self.callback_url,
-      scope: "public_profile,email"
+      scope: 'public_profile,email'
     }));
   };
 
   self.callback = function(req, res, next) {
-    REST.get(self.access_token_url, {
-      query: {
-        client_id: self.app_id,
-        redirect_uri: self.callback_url,
-        client_secret: self.app_secret,
-        code: req.query.code
-      }
-    }).on("complete", function(data) {
-      /**
-       * Parse query string returned from Facebook
-       */
-      var query = qs.parse(data);
+    return request
+            .get(self.access_token_url)
+            .query({
+                client_id: self.app_id,
+                redirect_uri: self.callback_url,
+                client_secret: self.app_secret,
+                code: req.query.code
+            })
+            .end(function(data) {
+                /**
+                 * Parse query string returned from Facebook
+                 */
+                var query = qs.parse(data);
 
-      /**
-       * Get access_token
-       * @type {String}
-       */
-      var token = query.access_token;
+                /**
+                 * Get access_token
+                 * @type {String}
+                 */
+                var token = query.access_token;
 
-      /**
-       * Get user's Facebook profile
-       */
-      self.get_profile(token, function(profile) {
-        req._oauth = {
-          token: token,
-          profile: profile
-        };
-        return next();
-      });
-    });
+                /**
+                 * Get user's Facebook profile
+                 */
+                self.get_profile(token, function(profile) {
+                  req._oauth = {
+                    token: token,
+                    profile: profile
+                  };
+                  return next();
+                });
+              });
   };
       
   self.get_profile = function(access_token, callback) {
-    REST.get(self.profile_url+qs.stringify({
-      access_token: access_token
-    })).on("complete", callback);
+    return request
+            .get(self.profile_url)
+            .query({ access_token: access_token })
+            .end(callback);
   };
 
-  return self;
+}
 
+module.exports = function(config) {
+  return new FacebookStrategy(config);
 };

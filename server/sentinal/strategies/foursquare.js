@@ -7,7 +7,7 @@
  */
 var _ = require('lodash');
 var oauth = require('oauth');
-var REST = require('restler');
+var request = require('superagent');
 var qs = require("querystring");
 
 /**
@@ -82,7 +82,7 @@ module.exports = function Foursquare(options) {
 
   self.get_profile = function(access_token, callback) {
     if (access_token) {
-      REST.get(self.profile_url+qs.stringify({
+      request.get(self.profile_url+qs.stringify({
         oauth_token: access_token,
         v: "20140806"
       })).on("complete", callback);
