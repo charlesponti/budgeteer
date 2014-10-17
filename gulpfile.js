@@ -7,7 +7,6 @@ var watch = require('gulp-watch');
 var uglify = require('gulp-uglify');
 var jsHint = require('gulp-jshint');
 var rename = require('gulp-rename');
-var html = require('html-browserify');
 var browserify = require('browserify');
 var stylish = require('jshint-stylish');
 var concatinate = require('gulp-concat');
@@ -55,7 +54,6 @@ gulp.task('clean-styles', function(done) {
  */
 gulp.task('build-scripts', ['clean-scripts', 'lint-client'], function() {
   return browserify(sources.js.main)
-    .transform(html)
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('public/scripts/'));
@@ -114,7 +112,7 @@ gulp.task('watch', function() {
   }));
 
   gulp.src(sources.js.dir).pipe(watch({
-    glob: 'client/scripts/**/*.js'
+    glob: 'client/scripts/**/*'
   }, function() {
     gulp.start('build-scripts');
   }));
