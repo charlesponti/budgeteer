@@ -1,6 +1,6 @@
 'use strict';
 
-var $ = require('jquery');
+var request = require('superagent/superagent');
 
 function APIService() {
 
@@ -47,7 +47,9 @@ function APIService() {
    * @return {jQuery.Deferred}
    */
   this.post = function(path, data) {
-    return this.request({ path: path, method: 'POST', data: data });
+    data = data || {};
+    data._csrf = $('#csrf').data('value');
+    return request.post(path).send(data);
   };
 
   /**
