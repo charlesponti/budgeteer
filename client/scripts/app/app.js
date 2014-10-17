@@ -1,31 +1,16 @@
 "use strict";
 
-var AppModel = Backbone.Model.extend({
+var EventEmitter = require('events').EventEmitter;
+var merge = require('react/lib/merge');
 
-  collections: {},
+var App = merge(EventEmitter.prototype, {
 
-  views: {},
-
-  models: {},
-
-  currentView: null,
-
-  /**
-   * Add templates module
-   * @type {exports}
-   */
-  templates: require('./templates'),
-
-  /**
-   * Add API Service
-   * @type {exports}
-   */
   API: require("./service/api"),
-  
-  start: function() {
-    var AppRouter = require("./router");
 
-    this.Router = new AppRouter();
+  start: function() {
+    var Router = require("./router");
+
+    this.Router = new Router();
 
     Backbone.history.start({
       pushState: true
@@ -34,4 +19,4 @@ var AppModel = Backbone.Model.extend({
 
 });
 
-module.exports = AppModel;
+module.exports = App;
