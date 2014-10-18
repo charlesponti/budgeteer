@@ -5,8 +5,8 @@
  * @type {exports}
  */
 var _ = require('lodash');
-var request = require('superagent');
 var qs = require('querystring');
+var request = require('superagent');
 
 /**
  * Export Facebook module
