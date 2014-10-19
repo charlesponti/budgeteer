@@ -4,6 +4,7 @@
  * Module dependencies
  * @type {[type]}
  */
+var Promise = require('es6-promise').Promise;
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
 
