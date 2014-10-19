@@ -54,20 +54,31 @@ function GoogleStrategy(config) {
         redirect_uri: self.redirect_uri,
         grant_type: 'authorization_code'
       })
-      .end(self.onAuthorizationResponse);
+      .end(self.onAuthorizationResponse.bind(this, req, res, next));
   };
 
   /**
-   * Handle callback response from Google
-   * @param  {Object} response
+   * Handle authorization response
+   * @param {Request} req
+   * @param {Response} res
+   * @param {function} next
+   * @param {object} response
    */
-  self.onAuthorizationResponse = function(response) {
+  self.onAuthorizationResponse = function(req, res, next, response) {
     var access_token = JSON.parse(response.text).access_token;
 
-    self.get_profile(access_token, self.onProfileResponse);
+    self.get_profile(access_token, 
+      self.onProfileResponse.bind(this, req, res, next));
   };
 
-  self.onProfileResponse = function(response) {
+  /**
+   * Handle profile response
+   * @param {Request} req
+   * @param {Response} res
+   * @param {function} next
+   * @param {object} response
+   */
+  self.onProfileResponse = function(req, res, next, response) {
     req._oauth = {
       token: access_token,
       profile: JSON.parse(response.text)

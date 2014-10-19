@@ -2,7 +2,9 @@
 
 'use strict';
 
-var TaskStore = require('../../stores/tasks-store');
+var _ = require('lodash');
+var TaskListItem = require('./ListItem.jsx');
+var TaskStore = require('../../stores/TaskStore');
 
 var TaskList = React.createClass({
 
@@ -10,12 +12,17 @@ var TaskList = React.createClass({
 
   getInitialState: function() {
     var self = this;
+    TaskStore.on('loaded', function(data) {
+      self.setState({ tasks: data.tasks });
+    });
     return { tasks: TaskStore.getRecords() }
   },
 
   render: function() {
-    var todos = TaskStore.getRecords();
-    return <ul className="list-group">{todos}</ul>;
+    var tasks = _.map(this.state.tasks, function(task) {
+      return (<TaskListItem key={task._id} task={task} />)
+    });
+    return (<ul className="list-group">{tasks}</ul>);
   }
 
 });

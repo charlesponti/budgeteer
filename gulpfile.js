@@ -105,23 +105,17 @@ gulp.task('build-styles', ['clean-styles'], function() {
  * Watch for file changes
  */
 gulp.task('watch', function() {
-  gulp.src(sources.styles.all).pipe(watch({
-    glob: 'client/styles/**/*.less'
-  }, function() {
-    gulp.start('build-styles');
-  }));
+  // Watch .less files
+  gulp.src(sources.styles.all)
+    .pipe(watch('client/styles/**/*.less', ['build-styles']));
 
-  gulp.src(sources.js.dir).pipe(watch({
-    glob: 'client/scripts/**/*'
-  }, function() {
-    gulp.start('build-scripts');
-  }));
+  // Watch client-side .js files
+  gulp.src(sources.js.dir)
+    .pipe(watch('client/scripts/**/*', ['build-scripts']));
 
-  gulp.src(sources.backend).pipe(watch({
-    glob: sources.backend
-  }, function() {
-    gulp.start('lint-backend');
-  }));
+  // Watch server-side .js files
+  gulp.src(sources.backend)
+    .pipe(watch(sources.backend, ['lint-backend']));
 });
 
 gulp.task('build', [ 'build-styles',  'build-scripts' ]);

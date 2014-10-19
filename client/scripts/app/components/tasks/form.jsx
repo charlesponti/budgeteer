@@ -1,5 +1,9 @@
 'use strict';
 
+var React = require('react');
+var TaskConstants = require('../../constants/TaskConstants');
+var TaskDispatcher = require('../../dispatchers/TaskDispatcher');
+
 var TaskForm = React.createClass({
 
   /**
@@ -8,16 +12,14 @@ var TaskForm = React.createClass({
    * @param  {String} id Id of form
    */
   handleSubmit: function(e, id) {
+    e.preventDefault();
     var form = this.getDOMNode();
-    App.API.post('/api/tasks', {
-      title: form.title.value,
-      description: form.description.value
-    }).end(function(err, response) {
-      err = err || response.error;
-      if (err) {
-        return console.log(err);
+    TaskDispatcher.dispatch({
+      action: TaskConstants.CREATE,
+      data: {
+        title: form.title.value,
+        description: form.description.value
       }
-      console.log(response.body);
     });
   },
 
