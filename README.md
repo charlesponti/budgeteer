@@ -1,6 +1,9 @@
 
-This Is A Cthulhu Production
+A Evernote-esque application
 
-![cthulhu](http://img3.wikia.nocookie.net/__cb20120509185304/powerlisting/images/9/90/Great-cthulhu.jpg)
-
-A NodeJS, ExpressJS, BackboneJS, MongoDB, & Browserify boilerplate application
+Build with:
+* **NodeJS**
+* **ExpressJS**
+* **ReactJS**
+* **MongoDB**
+* **Browserify**
