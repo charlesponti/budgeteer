@@ -28,11 +28,11 @@ var TaskForm = React.createClass({
     return (
       <form onSubmit={this.handleSubmit} role="form">
         <div className="form-group">
-          <label for="title"> Title </label>
+          <label htmlFor="title"> Title </label>
           <input className="form-control" name="title" />
         </div>
         <div className="form-group">
-          <label for="title"> Description </label>
+          <label htmlFor="title"> Description </label>
           <input className="form-control" name="description" />
         </div>
         <button className="btn btn-success">Create Task</button>
