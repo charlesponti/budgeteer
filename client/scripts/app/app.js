@@ -11,7 +11,7 @@ var App = merge(EventEmitter.prototype, {
     return $('#csrf').data('value');
   },
 
-start: function() {
+  start: function() {
     var Router = require("./router.jsx");
 
     this.Router = new Router();
