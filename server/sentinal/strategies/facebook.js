@@ -19,7 +19,7 @@ function FacebookStrategy(options) {
    * Extend `this` with passed options
    */
   _.extend(this, options);
-  
+
   /**
    * Check for necessary elements
    */
@@ -59,11 +59,11 @@ function FacebookStrategy(options) {
                 client_secret: self.app_secret,
                 code: req.query.code
             })
-            .end(function(data) {
+            .end(function(response) {
                 /**
                  * Parse query string returned from Facebook
                  */
-                var query = qs.parse(data);
+                var query = qs.parse(response.text);
 
                 /**
                  * Get access_token
@@ -74,16 +74,16 @@ function FacebookStrategy(options) {
                 /**
                  * Get user's Facebook profile
                  */
-                self.get_profile(token, function(profile) {
+                self.get_profile(token, function(response) {
                   req._oauth = {
                     token: token,
-                    profile: profile
+                    profile: JSON.parse(response.text)
                   };
                   return next();
                 });
               });
   };
-      
+
   self.get_profile = function(access_token, callback) {
     return request
             .get(self.profile_url)
