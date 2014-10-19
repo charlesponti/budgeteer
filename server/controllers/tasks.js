@@ -58,9 +58,18 @@ var TaskController = merge(events.EventEmitter.prototype, {
 
   destroy: function(req, res, next) {
     req.user.tasks
-      .where({ id: req.body.id })
+      .where({ _id: req.body.id })
       .exec(function(err, tasks) {
-        TaskController.emit('after-delete', err, tasks, req, res, next);
+        if (err) {
+          return console.log(err);
+        }
+        console.log(tasks);
+        if (tasks.length) {
+          return tasks[0].remove(function(err, task) {
+            TaskController.emit('after-delete', err, req, res, next);
+          });
+        }
+        res.status(404).json({ message: 'Task not found' });
       });
   }
 });
@@ -86,11 +95,18 @@ TaskController.on('create-find', function(err, tasks, req, res, next) {
   });
 });
 
-TaskController.on('after-delete', function(err, tasks, req, res, next) {
+/**
+ * Finish request after task has been deleted
+ * @param  {error|null} err
+ * @param  {Request} req
+ * @param  {Response} res
+ * @param  {function} next
+ */
+TaskController.on('after-delete', function(err, req, res, next) {
   if (err) {
     console.log(err);
   }
-  res.flash('success', 'Task deleted');
+  req.flash('success', 'Task deleted');
   res.status(200).json({ message: 'Task Deleted', task: req.body.id });
 });
 
