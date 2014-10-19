@@ -3,6 +3,7 @@
 /**
  * Module dependencies
  */
+var _ = require('lodash');
 var BaseStore = require('./base-store');
 var request = require('superagent/superagent');
 var TaskConstants = require('../constants/TaskConstants');
@@ -25,6 +26,12 @@ var TaskStore = BaseStore.new({
     }
 
     return this._records;
+  },
+
+  remove: function(id) {
+    this._records = _.reject(this._records, function(task) {
+      return task._id == id;
+    });
   },
 
   load: function() {
@@ -51,7 +58,6 @@ var TaskStore = BaseStore.new({
           _csrf: App.getCSRF()
         })
         .end(function(err, response) {
-          debugger
           err = err || response.error;
           if (err) {
             return console.log(err);
@@ -68,8 +74,9 @@ var TaskStore = BaseStore.new({
         id: data._id, _csrf: App.getCSRF()
       })
       .end(function(err, response) {
-        debugger;
-      });
+        this.remove(response.body.task);
+        this.emit('loaded', this._records);
+      }.bind(this));
   },
 
   /**
