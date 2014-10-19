@@ -18,6 +18,7 @@ var request = require('superagent');
 function GoogleStrategy(config) {
   
   _.extend(this, config);
+  
   var self = this;
 
   /**
@@ -45,6 +46,7 @@ function GoogleStrategy(config) {
   self.callback = function(req, res, next) {
     return request
       .post(self.access_token_url)
+      .type('form')
       .send({
         code: req.query.code,
         client_id: self.client_id,
@@ -52,13 +54,13 @@ function GoogleStrategy(config) {
         redirect_uri: self.redirect_uri,
         grant_type: 'authorization_code'
       })
-      .end(function(data) {
-        var access_token = data.access_token;
+      .end(function(response) {
+        var access_token = JSON.parse(response.text).access_token;
 
-        self.get_profile(access_token, function(profile) {
+        self.get_profile(access_token, function(response) {
           req._oauth = {
             token: access_token,
-            profile: profile
+            profile: JSON.parse(response.text)
           };
           return next();
         });
