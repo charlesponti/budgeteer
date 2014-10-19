@@ -7,7 +7,11 @@ var App = merge(EventEmitter.prototype, {
 
   API: require("./service/api"),
 
-  start: function() {
+  getCSRF: function() {
+    return $('#csrf').data('value');
+  },
+
+start: function() {
     var Router = require("./router.jsx");
 
     this.Router = new Router();

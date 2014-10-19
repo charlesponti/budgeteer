@@ -36,8 +36,8 @@ function APIService() {
    * @param  {Object} data [description]
    * @return {jQuery.Deferred}
    */
-  this.get = function(path, data) {
-    return this.request({ path: path, method: 'GET', data: data });
+  this.get = function(path, callback) {
+    return request.get('/api'+path, callback);
   };
 
   /**
@@ -49,7 +49,7 @@ function APIService() {
   this.post = function(path, data) {
     data = data || {};
     data._csrf = $('#csrf').data('value');
-    return request.post(path).send(data);
+    return this.request({ path: path, method: 'DELETE', data: data });
   };
 
   /**
@@ -78,7 +78,9 @@ function APIService() {
    * @param  {Object} data [description]
    * @return {jQuery.Deferred}
    */
-  this.delete = function(path, data) {
+  this.del = function(path, data, callback) {
+    data = data || {};
+    data._csrf = $('#csrf').data('value');
     return this.request({ path: path, method: 'DELETE', data: data });
   };
 

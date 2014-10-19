@@ -13,13 +13,6 @@ var BaseStore = merge(EventEmitter.prototype, {
 
   _records: [],
 
-  load: function() {
-    var self = this;
-    return App.API.get(self.url).then(function(data) {
-      self.emit('loaded', data);
-    });
-  },
-
   getRecords: function() {
     return this._records;
   },
