@@ -4,25 +4,14 @@
  * Module dependencies
  * @type {[type]}
  */
-var EventEmitter = require('events').EventEmitter;
-var merge = require('react/lib/merge');
+var BaseStore = require('./base-store');
 
-var TasksStore = merge(EventEmitter.prototype, {
+var TasksStore = BaseStore.new({
 
-  _records: [],
-
-  load: function() {
-    var self = this;
-    return App.API.get('tasks').then(function(data) {
-      self._records = data.tasks;
-      self.emit('loaded');
-    });
-  },
-
-  getRecords: function() {
-    return this._records;
-  }
+  url: 'tasks'
 
 });
+
+debugger;
 
 module.exports = TasksStore;
