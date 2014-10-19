@@ -5,6 +5,7 @@
  * @type {exports}
  */
 var _ = require('lodash');
+var util = require('util');
 var chalk = require('chalk');
 var lusca = require('lusca');
 var EventEmitter = require('events').EventEmitter;
@@ -188,9 +189,6 @@ function CthulhuMiddleware() {
           });
       } else {
         self._csrf(req, res, next);
-        // return res.status(401).json({
-        //   message: 'You must supply access_token'
-        // });
       }
     } else {
       self._csrf(req, res, next);
