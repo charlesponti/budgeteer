@@ -1,21 +1,21 @@
 "use strict";
 
+/**
+ * Module dependencies
+ */
 var React = require('react');
-var TaskApp = require('./components/tasks/App.jsx');
+var Router = require('react-router');
+var Routes = Router.Routes;
+var Route = Router.Route;
 
-var AppRouter = Backbone.Router.extend({
-  
-  routes: {
-    'tasks': 'loadTaskApp',
-
-    // Default - catch all
-    '*actions': 'defaultAction'
-  },
-
-  loadTaskApp: function() {  
-    React.renderComponent(<TaskApp />, $('#app').get(0));
-  }
-
-});
-
-module.exports = AppRouter;
+/**
+ * export Routes Component
+ */
+module.exports = (
+  <Routes location="history">
+    <Route handler={require('./app.jsx')}>
+      <Route name="tasks" path="/tasks" handler={require('./components/tasks/App.jsx')} />
+      <Route name="index" path="/" handler={require('./components/index.jsx')} />
+    </Route>
+  </Routes>
+);

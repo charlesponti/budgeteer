@@ -2,7 +2,7 @@
 
 'use strict';
 
-var react = require('react');
+var React = require('react');
 var TaskForm = require('./Form.jsx');
 var TaskList = require('./List.jsx');
 var TaskStore = require('../../stores/TaskStore');
@@ -28,14 +28,14 @@ var TaskApp = React.createClass({
   render: function() {
     return (
       <div className="row">
-        
+
         <h1 className="text-center"> Tasks </h1>
 
         <div className="col-sm-6" >
           <TaskList id='task-list' />
-        </div>  
-          
-        <div className="col-sm-6" >        
+        </div>
+
+        <div className="col-sm-6" >
           <TaskForm id='task-form' />
         </div>
 

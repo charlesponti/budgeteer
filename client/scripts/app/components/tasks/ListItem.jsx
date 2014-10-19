@@ -29,10 +29,10 @@ var TaskListItem = React.createClass({
       <li className="list-group-item">
         <b>{task.title}</b>
         {/* <p>{task.description}</p> */}
-        <button onClick={this._onDeleteClick} 
-          className="btn btn-danger pull-right"> Delete </button>
+        <i onClick={this._onDeleteClick}
+          className="fa fa-remove pull-right" alt="Delete"></i>
       </li>
-    )
+    );
   }
 
 });
