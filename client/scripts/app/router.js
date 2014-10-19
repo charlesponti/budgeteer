@@ -1,6 +1,7 @@
 "use strict";
 
-var React = window.React;
+var React = require('react');
+var TasksStore = require('./stores/tasks-store');
 
 var AppRouter = Backbone.Router.extend({
   
@@ -12,12 +13,9 @@ var AppRouter = Backbone.Router.extend({
   },
 
   loadTaskApp: function() {
-    var TaskForm = require('./view/tasks/form.jsx');
-    var TaskList = require('./view/tasks/list.jsx');
+    TasksStore.load();
     var TaskMainView = require('./view/tasks/main.jsx');
     React.renderComponent(new TaskMainView(), $('#app').get(0));
-    React.renderComponent(new TaskList(), $('#task-list').get(0));
-    React.renderComponent(new TaskForm(), $('#task-form').get(0));
   }
 
 });
