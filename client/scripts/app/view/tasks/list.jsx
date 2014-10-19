@@ -1,13 +1,21 @@
+/** @jsx React.DOM */
+
 'use strict';
 
-var TaskStore = require('../../store/tasks');
+var TaskStore = require('../../stores/tasks-store');
 
 var TaskList = React.createClass({
 
+  displayName: 'TaskList',
+
+  getInitialState: function() {
+    var self = this;
+    return { tasks: TaskStore.getRecords() }
+  },
+
   render: function() {
-    return (
-      <ul className="list-group">{todos}</ul>
-    )
+    var todos = TaskStore.getRecords();
+    return <ul className="list-group">{todos}</ul>;
   }
 
 });
