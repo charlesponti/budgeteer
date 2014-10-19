@@ -1,4 +1,9 @@
+/** @jsx React.DOM */
+
 'use strict';
+
+var TaskForm = require('./form.jsx');
+var TaskList = require('./list.jsx');
 
 /**
  * Main view for the Tasks application
@@ -15,13 +20,9 @@ var TaskMainView = React.createClass({
         <div className="col-sm-6 col-sm-offset-3" >
           <h1 className="text-center"> Tasks </h1>
           
-          <div id='task-list'>
-            
-          </div>
+          <TaskList id='task-list' />
           
-          <div id='task-form'>
-            
-          </div>
+          <TaskForm id='task-form' />
 
         </div>
         
