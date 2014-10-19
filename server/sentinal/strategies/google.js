@@ -54,19 +54,27 @@ function GoogleStrategy(config) {
         redirect_uri: self.redirect_uri,
         grant_type: 'authorization_code'
       })
-      .end(function(response) {
-        var access_token = JSON.parse(response.text).access_token;
-
-        self.get_profile(access_token, function(response) {
-          req._oauth = {
-            token: access_token,
-            profile: JSON.parse(response.text)
-          };
-          return next();
-        });
-      });
+      .end(self.onAuthorizationResponse);
   };
 
+  /**
+   * Handle callback response from Google
+   * @param  {Object} response
+   */
+  self.onAuthorizationResponse = function(response) {
+    var access_token = JSON.parse(response.text).access_token;
+
+    self.get_profile(access_token, self.onProfileResponse);
+  };
+
+  self.onProfileResponse = function(response) {
+    req._oauth = {
+      token: access_token,
+      profile: JSON.parse(response.text)
+    };
+    return next();
+  };
+  
   self.get_profile = function(access_token, callback) {
     return request
       .get(self.profile_url)
