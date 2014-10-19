@@ -12,6 +12,4 @@ var TasksStore = BaseStore.new({
 
 });
 
-debugger;
-
 module.exports = TasksStore;
