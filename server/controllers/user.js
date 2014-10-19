@@ -23,9 +23,9 @@ var sentinal = require('../sentinal');
  * @public
  */
 function UserController() {
-  
+
   this.emitter = new Emitter();
-  
+
   /**
    * Reference to this
    * @type {Object}
@@ -41,7 +41,7 @@ function UserController() {
    */
   this.logIn = function(req, res, next) {
     User.findOne({ email: req.body.email }).exec(function(err, user) {
-      
+
       if (err) {
         req.flash('error', 'There was an unexpected server error.');
         return res.redirect('/login');
@@ -49,10 +49,10 @@ function UserController() {
 
       if (user) {
         return user.sendReset(function(err) {
-          self.emitter.emit('send-reset', err, user, req, res);  
+          self.emitter.emit('send-reset', err, user, req, res);
         });
       }
-      
+
       user = new User({ email: req.body.email });
       user.save(function(err, user) {
         if (err) {
@@ -348,7 +348,7 @@ function UserController() {
       req.flash("error", err.message);
       return res.status(500).redirect(req.user ? '/account' : '/login');
     }
-    
+
     // Login user if no user logged in
     if (!req.user) {
       req.login(user);
@@ -377,7 +377,7 @@ function UserController() {
     var oauth = req._oauth;
 
     user = user || req.user || new User();
-    
+
     return user.linkOAuth(provider, oauth.token, oauth.profile, function(err, user) {
       self.emitter.emit('oauth-linked', err, user, req, res);
     });
@@ -395,11 +395,11 @@ function UserController() {
     if (err) {
       req.flash("error", provider+" account could not be unlinked.");
       return res.redirect("/account");
-    } 
+    }
     req.flash("success", provider+" account unlinked!");
     return res.redirect("/account");
   });
-  
+
   /**
    * Finish request after local authentication has finished
    * @param  {Error} err
@@ -441,9 +441,9 @@ function UserController() {
   router.get('/reset/:token', this.confirmReset);
   router.get('/confirm/:token', this.confirmAccount);
   router.get('/delete', this.deleteAccount);
-  
+
   this.router = router;
-  
+
 }
 
 module.exports = new UserController();
