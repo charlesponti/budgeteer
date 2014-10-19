@@ -63,7 +63,6 @@ var TaskController = merge(events.EventEmitter.prototype, {
         if (err) {
           return console.log(err);
         }
-        console.log(tasks);
         if (tasks.length) {
           return tasks[0].remove(function(err, task) {
             TaskController.emit('after-delete', err, req, res, next);
@@ -106,7 +105,6 @@ TaskController.on('after-delete', function(err, req, res, next) {
   if (err) {
     console.log(err);
   }
-  req.flash('success', 'Task deleted');
   res.status(200).json({ message: 'Task Deleted', task: req.body.id });
 });
 
