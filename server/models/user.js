@@ -121,7 +121,7 @@ UserSchema.methods = {
     this.authy.id = authyResponse.id;
     this.authy.token = authyResponse.token;
     this.save(callback);
-  },  
+  },
 
   /**
    * @description Link user's OAuth provider account
@@ -135,7 +135,7 @@ UserSchema.methods = {
   linkOAuth: function(provider, token, profile, callback) {
     if (!this.email) {
       var email = this.getEmail(provider, profile);
-      this.email = email;      
+      this.email = email;
     }
     this[provider].id = profile.id;
     this[provider].profile = profile;
@@ -212,7 +212,7 @@ UserSchema.methods = {
    * @return {Boolean}
    */
   is_connected: function() {
-    return this.foursquare.token || 
+    return this.foursquare.token ||
             this.facebook.token ||
             this.google.token ||
             this.twitter.token;
