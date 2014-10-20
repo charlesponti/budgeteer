@@ -22,8 +22,12 @@ var UserStore = BaseStore.new({
    */
   load: function() {
     request.get('/api/me').end(function(err, response) {
-      this._user = response.body;
-      this.emit('loaded', this._user);
+      if (err) {
+        throw err
+      } else {
+        this._user = response.body;
+        this.emit('loaded', this._user);
+      }
     }.bind(this));
   },
 
