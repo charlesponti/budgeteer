@@ -16,7 +16,7 @@ var ConnectedAccount = require('./ConnectedAccount.jsx');
 var ConnectedAccounts = React.createClass({
 
   propTypes: {
-    accounts: React.PropTypes.object.isRequired
+    accounts: React.PropTypes.object
   },
 
   /**
