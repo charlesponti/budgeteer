@@ -3,14 +3,14 @@
 var del = require('del');
 var gulp = require('gulp');
 var less = require('gulp-less');
+var gutil = require('gulp-util');
+var webpack = require('webpack');
 var watch = require('gulp-watch');
 var uglify = require('gulp-uglify');
 var jsHint = require('gulp-jshint');
 var rename = require('gulp-rename');
-var browserify = require('browserify');
 var stylish = require('jshint-stylish');
 var concatinate = require('gulp-concat');
-var source = require('vinyl-source-stream');
 
 var sources = {
   js: {
@@ -52,11 +52,15 @@ gulp.task('clean-styles', function(done) {
  * This task will bundle all of the client side scripts and place
  * the bundled file into `public/scripts/bundle.js`.
  */
-gulp.task('build-scripts', ['clean-scripts', 'lint-client'], function() {
-  return browserify(sources.js.main)
-    .bundle()
-    .pipe(source('bundle.js'))
-    .pipe(gulp.dest('public/scripts/'));
+gulp.task('build-scripts', ['clean-scripts', 'lint-client'], function(done) {
+  return webpack(require('./webpack.config'), function (err, stats) {
+    
+    if (err) {
+      throw new gutil.PluginError('[build-js]', err);
+    }
+
+    done();
+  });
 });
 
 /**
@@ -67,17 +71,6 @@ gulp.task('lint-client', function() {
   return gulp.src(sources.js.dir)
       .pipe(jsHint())
       .pipe(jsHint.reporter(stylish));
-});
-
-/**
- * `bundle-tests` task
- * This task will bundle the client-side tests.
- */
-gulp.task('bundle-tests', function() {
-  return browserify('./client/test/specs/main.js')
-    .bundle()
-    .pipe(source('bundle.js'))
-    .pipe(gulp.dest('./client/test/'));
 });
 
 /**
@@ -119,4 +112,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build', [ 'build-styles',  'build-scripts' ]);
-gulp.task('default', ['lint-backend', 'watch', 'build' ]);
+gulp.task('default', [ 'watch' ]);
