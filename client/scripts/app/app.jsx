@@ -5,7 +5,7 @@
  */
 var React = require('react');
 var Link = require('react-router').Link;
-
+var UserStore = require('./stores/UserStore');
 /**
  * Create Application
  * @requires module: events
@@ -15,6 +15,10 @@ var App = module.exports = React.createClass({
 
   getCSRF: function() {
     return $('#csrf').data('value');
+  },
+
+  componentWillMount: function() {
+    UserStore.load();
   },
 
   render: function() {
@@ -40,7 +44,7 @@ var App = module.exports = React.createClass({
               </ul>
               <ul className="nav navbar-nav navbar-right">
                   <li>
-                    <a id="user" href="/account"> Account</a>
+                    <li><Link to="account">Account</Link></li>
                   </li>
                   <li>
                     <a href="/logout">Logout</a>
