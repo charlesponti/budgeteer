@@ -4,7 +4,7 @@
  * Module dependencies
  */
 var _ = require('lodash');
-var BaseStore = require('./base-store');
+var BaseStore = require('./BaseStore');
 var request = require('superagent/superagent');
 var TaskConstants = require('../constants/TaskConstants');
 var TaskDispatcher = require('../dispatchers/TaskDispatcher');
