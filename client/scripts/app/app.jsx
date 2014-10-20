@@ -6,6 +6,7 @@
 var React = require('react');
 var Link = require('react-router').Link;
 var UserStore = require('./stores/UserStore');
+
 /**
  * Create Application
  * @requires module: events
@@ -13,14 +14,26 @@ var UserStore = require('./stores/UserStore');
  */
 var App = module.exports = React.createClass({
 
-  getCSRF: function() {
-    return $('#csrf').data('value');
+  statics: {
+    /**
+     * Return CSRF token
+     * @return {string}
+     */
+    getCSRF: function() {
+      return $('#csrf').data('value');
+    }
   },
-
+  
+  /**
+   * Handle logic when component will mount to DOM
+   */
   componentWillMount: function() {
     UserStore.load();
   },
 
+  /**
+   * Render application
+   */
   render: function() {
     return (
       <div>
@@ -59,14 +72,6 @@ var App = module.exports = React.createClass({
         <div className="container-fluid app">
           {this.props.activeRouteHandler()}
         </div>
-      </div>
-    );
-  },
-
-  renderIndex: function() {
-    return (
-      <div>
-        <h2>Index</h2>
       </div>
     );
   }
