@@ -49,7 +49,7 @@ var week = day * 7;
  * `Cthulhu` constructor
  * @param {Object} config Initial configuration of application
  * @constructor
- * 
+ *
  * EXAMPLE USAGE:
  * ```js
  *  var app = require('cthulhu')({
@@ -85,8 +85,11 @@ function Cthulhu(config) {
   /**
    * Set mailer
    */
-  this.mailer = 
+  this.mailer =
   app.mailer = mailer(config.Mailer);
+
+  app.use(morgan('dev'));
+  app.use(middleware.logger);
 
   /**
    * Set folder for static files (javascript and css)
@@ -102,7 +105,7 @@ function Cthulhu(config) {
    * Set directory where views are stored.
    */
   app.set('views', path.join(__dirname, config.views || './views'));
-  
+
   /**
    * Set view engine
    */
@@ -114,7 +117,7 @@ function Cthulhu(config) {
    */
   app.set('view cache', false);
   swig.setDefaults({ cache: false });
-  
+
   /**
    * Compress static files
    */
@@ -231,7 +234,7 @@ function Cthulhu(config) {
     mongoose.connect(db, function(err) {
       if (err) {
         return console.log(err);
-      } 
+      }
       app.db = mongoose.connection;
       console.log('Connected to '+chalk.red.bold(db)+' database.');
     });
@@ -283,7 +286,7 @@ function Cthulhu(config) {
      * Start application server.
      */
     server.listen(app.get('port'), function() {
-      console.log(chalk.blue.bold('Cthulhu'), 
+      console.log(chalk.blue.bold('Cthulhu'),
         'has risen at port ' + chalk.blue.bold(app.get('port')) + ' in',
         chalk.red.bold(app.get('env'))
       );
@@ -305,7 +308,7 @@ module.exports = function() {
   var config = require('./config');
 
   /**
-   * Check if there is a current instance of Cthulhu. If so, return that 
+   * Check if there is a current instance of Cthulhu. If so, return that
    * instance. If not, create new Cthulhu, attach to GLOBAL, and return it..
    */
   if (!Cthulhu._instance) {
