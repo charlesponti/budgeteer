@@ -75,6 +75,7 @@ var TaskController = merge(events.EventEmitter.prototype, {
 
 TaskController.on('create-find', function(err, tasks, req, res, next) {
   if (err) {
+    req.log('error', err);
     return res.status(500).json({
       message: 'There was an issue creating your tasks'
     });
@@ -85,9 +86,9 @@ TaskController.on('create-find', function(err, tasks, req, res, next) {
   task.user_id = req.user.id;
   task.save(function(err, task) {
     if (err) {
+      req.log('error', err);
       return res.status(500).json({
-        message: 'There was an issue creating your task',
-        raw: err
+        message: 'There was an issue creating your task'
       });
     }
     res.status(201).json({ task: task });
@@ -96,7 +97,7 @@ TaskController.on('create-find', function(err, tasks, req, res, next) {
 
 /**
  * Finish request after task has been deleted
- * @param  {error|null} err
+ * @param  {?error} err
  * @param  {Request} req
  * @param  {Response} res
  * @param  {function} next
