@@ -61,7 +61,8 @@
     "socket.io": "^1.1.0",
     "superagent": "^0.20.0",
     "swig": "^1.4.2",
-    "underscore": "^1.7.0"
+    "underscore": "^1.7.0",
+    "winston": "^0.8.1"
   },
   "devDependencies": {
     "browserify": "^6.1.0",
