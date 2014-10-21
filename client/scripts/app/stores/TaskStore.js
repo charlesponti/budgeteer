@@ -4,6 +4,7 @@
  * Module dependencies
  */
 var _ = require('lodash');
+var $ = require('jquery');
 var App = require('../app.jsx');
 var BaseStore = require('./BaseStore');
 var request = require('superagent/superagent');
@@ -40,16 +41,14 @@ var TaskStore = BaseStore.new({
    * Load tasks fro API
    */
   load: function() {
-    request
-      .get('/api/tasks')
-      .end(function(err, response) {
-        if (err) {
-          throw err;
-        } else {
-          this._records = response.body.tasks;
-          this.emit('loaded', this._records);
-        }
-      }.bind(this));
+    $.get('/api/tasks')
+      .then(function(response) {
+        this._records = response.tasks;
+        this.emit('loaded', this._records);
+      }.bind(this))
+      .fail(function(err) {
+        throw err;
+      });
     return this;
   },
 
@@ -62,18 +61,18 @@ var TaskStore = BaseStore.new({
   create: function(data) {
     request
       .post('/api/tasks')
+      .type('form')
       .send({
         title: data.title,
         description: data.description,
         _csrf: App.getCSRF()
       })
       .end(function(err, response) {
-        err = err || response.error;
         if (err) {
           throw err;
         } else {
-          this.add(response.body.task);
-          this.emit('loaded');
+          this._records.push(response.body.task);
+          this.emit('loaded', this._records);
         }
       }.bind(this));
     return this;

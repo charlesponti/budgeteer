@@ -9,19 +9,14 @@ var TaskList = React.createClass({
 
   displayName: 'TaskList',
 
-  getInitialState: function() {
-    var self = this;
-    TaskStore.on('loaded', function() {
-      self.setState({ tasks: TaskStore.getRecords() });
-    });
-    return { tasks: TaskStore.getRecords() };
-  },
-
   render: function() {
-    var tasks = _.map(this.state.tasks, function(task) {
-      return (<TaskListItem key={task._id} task={task} />);
-    });
-    return (<ul className="list-group">{tasks}</ul>);
+    return (
+      <ul className="list-group">
+        {_.map(this.props.tasks, function(task) {
+          return (<TaskListItem key={task._id} task={task} />);
+        })}
+      </ul>
+    );
   }
 
 });

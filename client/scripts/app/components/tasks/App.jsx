@@ -15,11 +15,21 @@ var TaskApp = React.createClass({
   displayName: 'TaskApp',
 
   /**
+   * Get initial state of component
+   */
+  getInitialState: function() {
+    return { tasks: null };
+  },
+
+  /**
    * Perform actions when componet will get mounted to the DOM
    */
-  componentWillMount: function() {
-    // Load Tasks from API
-    TaskStore.load();
+  componentDidMount: function() {
+    TaskStore.load().on('loaded', function(tasks) {
+      if (this.isMounted()) {
+        this.setState({ tasks: tasks });
+      }
+    }.bind(this));
   },
 
   /**
@@ -32,7 +42,7 @@ var TaskApp = React.createClass({
         <h1 className="text-center"> Tasks </h1>
 
         <div className="col-sm-6" >
-          <TaskList id='task-list' />
+          <TaskList id='task-list' tasks={this.state.tasks}/>
         </div>
 
         <div className="col-sm-6" >
@@ -40,7 +50,7 @@ var TaskApp = React.createClass({
         </div>
 
       </div>
-    )
+    );
   }
 
 });

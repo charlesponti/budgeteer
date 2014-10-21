@@ -39,7 +39,7 @@ var TaskForm = React.createClass({
         </div>
         <button className="btn btn-success">Create Task</button>
       </form>
-    )
+    );
   }
 
 });
