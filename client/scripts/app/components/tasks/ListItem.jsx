@@ -15,9 +15,21 @@ var TaskListItem = React.createClass({
    * @param  {SyntheticEvent} e
    * @param  {string} id HTMLElement id
    */
-  _onDeleteClick: function(e, id) {
+  onDeleteClick: function(e, id) {
     TaskDispatcher.dispatch({
       action: TaskConstants.DESTROY,
+      data: this.props.task
+    });
+  },
+
+  /**
+   * Handle edit click
+   * @param  {SyntheticEvent} e
+   * @param  {string} id HTMLElement id
+   */
+  onEditClick: function(e, id) {
+    TaskDispatcher.dispatch({
+      action: TaskConstants.EDIT,
       data: this.props.task
     });
   },
@@ -29,8 +41,10 @@ var TaskListItem = React.createClass({
       <li className="list-group-item">
         <b>{task.title}</b>
         {/* <p>{task.description}</p> */}
-        <i onClick={this._onDeleteClick}
+        <i onClick={this.onDeleteClick}
           className="fa fa-remove pull-right" alt="Delete"></i>
+        <i onClick={this.onEditClick}
+          className="fa fa-pencil pull-right" alt="Edit"></i>
       </li>
     );
   }
