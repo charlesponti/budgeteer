@@ -8,11 +8,12 @@ var _ = require('lodash');
 var util = require('util');
 var chalk = require('chalk');
 var lusca = require('lusca');
+var winston = require('winston');
 var EventEmitter = require('events').EventEmitter;
 var User = require('../models/user');
 
 function CthulhuMiddleware() {
-  
+
   /**
    * Create reference to scope
    * @type {Object}
@@ -30,11 +31,11 @@ function CthulhuMiddleware() {
    * @type {EventEmitter}
    */
   self.emitter = new EventEmitter();
-  
+
   /**
    * Server either the development version of the minified version of
    * the browseriy bundle based on the NODE_ENV
-   * @param  {IncomingMessage}   req  
+   * @param  {IncomingMessage}   req
    * @param  {ServerResponse}   res
    * @param  {Function} next
    */
@@ -57,7 +58,7 @@ function CthulhuMiddleware() {
   this.cors = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,DELETE');
-    res.header('Access-Control-Allow-Headers', 
+    res.header('Access-Control-Allow-Headers',
       'X-Requested-With, X-Access-Token, X-Revision, Content-Type');
 
     if ('OPTIONS' === req.method) {
@@ -73,17 +74,17 @@ function CthulhuMiddleware() {
   this.remember = function(config) {
     if (config.passRoutes && config.passRoutes.join) {
       var passRoutes = new RegExp(config.passRoutes.join("|"), "i");
-      
+
       return function(req, res, next) {
         var path = req.path.split('/')[1];
-        
+
         if (passRoutes.test(path)) {
           return next();
         }
 
         req.session.returnTo = req.path;
         next();
-      };      
+      };
     } else {
       throw new Error("Must supply passRoutes config as Array of strings");
     }
@@ -107,19 +108,11 @@ function CthulhuMiddleware() {
    * @param  {Function} next
    */
   this.logger = function(req, res, next) {
-    var startTime = new Date();
+
+    req.log = winston.log;
+    req.info = winston.info;
     
-    // Print spaces between requests
-    ['', ''].forEach(function(x) { console.log(x); });
-
-    // Print startTime of request
-    console.log(chalk.red(startTime));
-
-    // Print HTTP method and url of request
-    console.log(
-      chalk.blue.bgRed.bold(req.method),
-      chalk.blue(req.url)
-    );
+    var startTime = new Date();
 
     // Log params if it isn't empty
     if (_.size(req.params)) {
@@ -146,7 +139,7 @@ function CthulhuMiddleware() {
   this.locals = function(config) {
     /**
      * Middleware
-     * @param  {IncomingMessage}   req  
+     * @param  {IncomingMessage}   req
      * @param  {ServerResponse}   res
      * @param  {Function} next
      */
@@ -171,8 +164,8 @@ function CthulhuMiddleware() {
   };
 
   /**
-   * Add conditional CSRF protection. If the request is for the api, 
-   * permissions are checked through the acess_token in req.query. If not, 
+   * Add conditional CSRF protection. If the request is for the api,
+   * permissions are checked through the acess_token in req.query. If not,
    * the `_csrf` token is used in req.body.
    * @param  {IncomingMessage}   req
    * @param  {ServerResponse}   res
@@ -198,9 +191,9 @@ function CthulhuMiddleware() {
   /**
    * Handle database query for user with access_token supplied to /api reqest
    * @param  {Error|null}   err
-   * @param  {User|null}   user 
+   * @param  {User|null}   user
    * @param  {IncomingMessage}   req
-   * @param  {ServerResponse}   res  
+   * @param  {ServerResponse}   res
    * @param  {Function} next
    */
   this.emitter.on('api-user', function(err, user, req, res, next) {
