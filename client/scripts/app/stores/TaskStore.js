@@ -72,6 +72,9 @@ var TaskStore = BaseStore.new({
           throw err;
         } else {
           this._records.push(response.body.task);
+          TaskDispatcher.dispatch({
+            action: TaskConstants.CREATED
+          });
           this.emit('loaded', this._records);
         }
       }.bind(this));
