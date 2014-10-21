@@ -44,7 +44,10 @@ var TaskStore = BaseStore.new({
     $.get('/api/tasks')
       .then(function(response) {
         this._records = response.tasks;
-        this.emit('loaded', this._records);
+        TaskDispatcher.dispatch({
+          action: TaskConstants.LOADED,
+          data: this._records
+        });
       }.bind(this))
       .fail(function(err) {
         throw err;
@@ -73,9 +76,9 @@ var TaskStore = BaseStore.new({
         } else {
           this._records.push(response.body.task);
           TaskDispatcher.dispatch({
-            action: TaskConstants.CREATED
+            action: TaskConstants.CREATED,
+            data: this._records
           });
-          this.emit('loaded', this._records);
         }
       }.bind(this));
     return this;
@@ -92,10 +95,39 @@ var TaskStore = BaseStore.new({
           throw err;
         } else {
           this.remove(response.body.task);
-          this.emit('loaded', this._records);
+          TaskDispatcher.dispatch({
+            action: TaskConstants.UPDATED,
+            data: this._records
+          });
         }
       }.bind(this));
     return this;
+  },
+
+  update: function(data) {
+    request
+      .put('/api/tasks')
+      .type('form')
+      .send({
+        id: data._id,
+        title: data.title,
+        description: data.description,
+        _csrf: App.getCSRF()
+      })
+      .end(function(err, response) {
+        if (err) {
+          throw err;
+        } else {
+          var task = response.body.task;
+          this._records = _.map(this._records, function(record) {
+            return record._id == task._id ? task : record;
+          });
+          TaskDispatcher.dispatch({
+            action: TaskConstants.UPDATED,
+            data: this._records
+          });
+        }
+      }.bind(this));
   },
 
   /**

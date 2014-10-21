@@ -53,7 +53,21 @@ var TaskController = merge(events.EventEmitter.prototype, {
   },
 
   update: function(req, res, next) {
-
+    req.user.tasks
+      .findOne({ _id: req.body.id })
+      .exec(function(err, task) {
+        if (err) {
+          return console.log(err);
+        }
+        if (task) {
+          task.title = req.body.title || task.title;
+          task.description = req.body.description || task.description;
+          return task.save(function(err, task) {
+            TaskController.emit('after-update', err, task, req, res, next);
+          });
+        }
+        res.status(404).json({ message: 'Task not found' });
+      });
   },
 
   destroy: function(req, res, next) {
@@ -107,6 +121,21 @@ TaskController.on('after-delete', function(err, req, res, next) {
     console.log(err);
   }
   res.status(200).json({ message: 'Task Deleted', task: req.body.id });
+});
+
+/**
+ * Finish request after task has been updated
+ * @param  {?error} err
+ * @param  {Task} task
+ * @param  {Request} req
+ * @param  {Response} res
+ * @param  {function} next
+ */
+TaskController.on('after-update', function(err, task, req, res, next) {
+  if (err) {
+    console.log(err);
+  }
+  res.status(200).json({ message: 'Task Updated', task: task });
 });
 
 var router = express.Router();

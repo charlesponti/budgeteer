@@ -10,7 +10,7 @@ var TaskForm = React.createClass({
    * Get initial state of component
    */
   getInitialState: function() {
-    return { title: '', description: '' };
+    return { _id: '', title: '', description: '' };
   },
 
   /**
@@ -20,14 +20,15 @@ var TaskForm = React.createClass({
    */
   onSubmit: function(e, id) {
     e.preventDefault();
+    var event = this.state._id.length ? 'UPDATE' : 'CREATE';
     TaskDispatcher.dispatch({
-      action: TaskConstants.CREATE,
+      action: TaskConstants[event],
       data: this.state
     });
   },
 
   componentWillMount: function() {
-    TaskDispatcher.register(this.dispatcher.bind(this));
+    TaskDispatcher.register(this.dispatcher);
   },
 
   /**
@@ -42,6 +43,9 @@ var TaskForm = React.createClass({
         break;
       case TaskConstants.EDIT:
         this.setState(payload.data);
+        break;
+      case TaskConstants.UPDATED:
+        this.setState({ title: '', description: '' });
         break;
     }
     return true;
@@ -61,6 +65,7 @@ var TaskForm = React.createClass({
   render: function() {
     return (
       <form onSubmit={this.onSubmit} role="form">
+        <input type="hidden" value={this.state._id} />
         <div className="form-group">
           <label htmlFor="title"> Title </label>
           <input className="form-control"

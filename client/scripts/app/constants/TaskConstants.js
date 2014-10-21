@@ -14,8 +14,6 @@ module.exports = {
 
   DESTROYED: 'task-destroyed',
 
-  EDIT: 'task-edit',
-
-  EDITED: 'task-edited'
+  EDIT: 'task-edit'
 
 };
