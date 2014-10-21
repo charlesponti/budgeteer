@@ -154,11 +154,6 @@ function Cthulhu(config) {
   }));
 
   /**
-   * Set command line logging
-   */
-  app.use(middleware.logger);
-
-  /**
    * Remember original destination before login.
    */
   app.use(middleware.remember({
