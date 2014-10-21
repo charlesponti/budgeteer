@@ -22,14 +22,20 @@ var TaskApp = React.createClass({
   },
 
   /**
+   * Handle `loaded` event of TaskStore
+   * @param {array} tasks
+   */
+  onTaskStoreLoaded: function(tasks) {
+    if (this.isMounted()) {
+      this.setState({ tasks: tasks });
+    }
+  },
+
+  /**
    * Perform actions when componet will get mounted to the DOM
    */
   componentDidMount: function() {
-    TaskStore.load().on('loaded', function(tasks) {
-      if (this.isMounted()) {
-        this.setState({ tasks: tasks });
-      }
-    }.bind(this));
+    TaskStore.load().on('loaded', this.onTaskStoreLoaded.bind(this));
   },
 
   /**
