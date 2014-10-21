@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var $ = require('jquery');
 var request = require('superagent/superagent');
 var BaseStore = require('./BaseStore');
 
@@ -21,13 +22,9 @@ var UserStore = BaseStore.new({
    * Load currently authenticated user from API
    */
   load: function() {
-    request.get('/api/me').end(function(err, response) {
-      if (err) {
-        throw err
-      } else {
-        this._user = response.body;
-        this.emit('loaded', this._user);
-      }
+    $.getJSON('/api/me', function(response) {
+      this._user = response;
+      this.emit('loaded', this._user);
     }.bind(this));
   },
 
