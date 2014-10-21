@@ -14,25 +14,32 @@ var Account = React.createClass({
    */
   displayName: 'Account',
 
-  props: {
-    user: React.PropTypes.object,
-    accounts: React.PropTypes.object
+  /**
+   * Get initial state of component
+   */
+  getInitialState: function() {
+    return { user: null, accounts: null };
   },
 
-  statics: {
-    onUserStoreLoaded: function() {
-      this.setState({
-        user: UserStore.getUser(),
-        accounts: UserStore.getUserAccounts() 
-      });
-    }
+  /**
+   * Set state of component when UserStore is loaded
+   */
+  onUserStoreLoaded: function() {
+    this.setState({
+      user: UserStore.getUser(),
+      accounts: UserStore.getUserAccounts() 
+    });
   },
 
+  /**
+   * Perform logic when component is about to mount to
+   * the DOM
+   */
   componentWillMount: function() {
     if (UserStore._user) {
-      Account.onUserStoreLoaded();
+      this.onUserStoreLoaded();
     } else {
-      UserStore.on('loaded', Account.onUserStoreLoaded);
+      UserStore.on('loaded', this.onUserStoreLoaded);
     }
   },
 
@@ -40,7 +47,7 @@ var Account = React.createClass({
     return (
       <div className="col-sm-6 col-sm-offset-3">
         <h1 className="text-center"> Account </h1>
-        <ConnectedAccounts accounts={this.props.accounts} />
+        <ConnectedAccounts accounts={this.state.accounts} />
       </div>
     );
   }
