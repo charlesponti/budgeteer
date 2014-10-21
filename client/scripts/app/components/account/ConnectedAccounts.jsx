@@ -15,27 +15,14 @@ var ConnectedAccount = require('./ConnectedAccount.jsx');
  */
 var ConnectedAccounts = React.createClass({
 
-  propTypes: {
-    accounts: React.PropTypes.object.isRequired
-  },
-
-  /**
-   * Perform logic when component is about to be mounted to
-   * DOM
-   */
-  componentWillMount: function() {
-    UserStore.on('loaded', function() {
-      this.setState({ accounts: UserStore.getUserAccounts() });
-    }.bind(this));
-  },
-
   /**
    * Create and return React DOM
    * @return {object}
    */
   render: function() {
-    var accounts = _.each(this.props.accounts, function(account) {
-      return <ConnectedAccount account={account} />;
+    var accounts = [];
+    _.forIn(this.props.accounts, function(profile, provider) {
+      accounts.push(<ConnectedAccount provider={provider} profile={profile} />);
     });
     return (
       <ul className="list-group">{accounts}</ul>

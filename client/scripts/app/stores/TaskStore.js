@@ -4,6 +4,7 @@
  * Module dependencies
  */
 var _ = require('lodash');
+var App = require('../app.jsx');
 var BaseStore = require('./BaseStore');
 var request = require('superagent/superagent');
 var TaskConstants = require('../constants/TaskConstants');
@@ -11,10 +12,11 @@ var TaskDispatcher = require('../dispatchers/TaskDispatcher');
 
 /**
  * Store which will hold tasks
+ * @requires module: lodash
  * @requires module: superagent/superagent
- * @requires module: BaseStore
- * @requires module: TaskConstants
- * @requires module: TaskDispatcher
+ * @requires module: ./BaseStore
+ * @requires module: ../constants/TaskConstants
+ * @requires module: ../dispatchers/TaskDispatcher
  */
 var TaskStore = BaseStore.new({
 
@@ -34,13 +36,21 @@ var TaskStore = BaseStore.new({
     });
   },
 
+  /**
+   * Load tasks fro API
+   */
   load: function() {
-    return request
+    request
       .get('/api/tasks')
       .end(function(err, response) {
-        this._records = response.body.tasks;
-        this.emit('loaded', this._records);
+        if (err) {
+          throw err;
+        } else {
+          this._records = response.body.tasks;
+          this.emit('loaded', this._records);
+        }
       }.bind(this));
+    return this;
   },
 
   /**
@@ -50,33 +60,40 @@ var TaskStore = BaseStore.new({
    * @param  {string} data.description
    */
   create: function(data) {
-    return request
-        .post('/api/tasks')
-        .send({
-          title: data.title,
-          description: data.description,
-          _csrf: App.getCSRF()
-        })
-        .end(function(err, response) {
-          err = err || response.error;
-          if (err) {
-            return console.log(err);
-          }
-          TaskStore.add(response.body.task);
-          TaskStore.emit('loaded');
-        });
+    request
+      .post('/api/tasks')
+      .send({
+        title: data.title,
+        description: data.description,
+        _csrf: App.getCSRF()
+      })
+      .end(function(err, response) {
+        err = err || response.error;
+        if (err) {
+          throw err;
+        } else {
+          this.add(response.body.task);
+          this.emit('loaded');
+        }
+      }.bind(this));
+    return this;
   },
 
   destroy: function(data) {
-    return request
+    request
       .del('/api/tasks')
       .send({
         id: data._id, _csrf: App.getCSRF()
       })
       .end(function(err, response) {
-        this.remove(response.body.task);
-        this.emit('loaded', this._records);
+        if (err) {
+          throw err;
+        } else {
+          this.remove(response.body.task);
+          this.emit('loaded', this._records);
+        }
       }.bind(this));
+    return this;
   },
 
   /**
