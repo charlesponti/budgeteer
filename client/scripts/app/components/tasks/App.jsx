@@ -35,7 +35,7 @@ var TaskApp = React.createClass({
    * Perform actions when componet will get mounted to the DOM
    */
   componentDidMount: function() {
-    TaskStore.load().on('loaded', this.onTaskStoreLoaded.bind(this));
+    TaskStore.load().on('loaded', this.onTaskStoreLoaded);
   },
 
   /**

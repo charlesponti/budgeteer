@@ -38,16 +38,42 @@ var TaskList = React.createClass({
   },
 
   /**
+   * Filter tasks by search term
+   * @param  {SyntheticEvent} e 
+   * @param  {string} id
+   */
+  onSearchFieldChange: function(e, id) {
+    var searchTerm = e.target.value;
+    var records = TaskStore.getRecords();
+    if (searchTerm.length) {
+      var regExp = new RegExp(searchTerm, 'i');
+      this.setState({
+        tasks: records.filter(function(task) { 
+          return regExp.test(task.title);
+        })
+      });
+    } else {
+      this.setState({ tasks: records });
+    }
+  },
+
+  /**
    * Render component
    * @return {ReactCompositeComponent}
    */
   render: function() {
     return (
-      <ul className="list-group">
-        {_.map(this.state.tasks, function(task) {
-          return (<TaskListItem key={task._id} task={task} />);
-        })}
-      </ul>
+      <div>
+        <form role="form">
+          <input className="form-control"
+            onChange={this.onSearchFieldChange} placeholder="Search" />
+        </form>
+        <ul className="list-group">
+          {_.map(this.state.tasks, function(task) {
+            return (<TaskListItem key={task._id} task={task} />);
+          })}
+        </ul>
+      </div>
     );
   }
 
