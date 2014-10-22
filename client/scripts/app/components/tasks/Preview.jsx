@@ -17,8 +17,9 @@ var Preview = React.createClass({
    * @returns {ReactCompositeComponent}
    */
   render: function() {
+    var rawMarkup = marked(this.props.text);
     return (
-      <div className="preview">{marked(this.props.text)}</div>
+      <div className="preview" dangerouslySetInnerHTML={{__html: rawMarkup}}/>
     );
   }
 
