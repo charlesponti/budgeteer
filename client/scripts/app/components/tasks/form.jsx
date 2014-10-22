@@ -38,12 +38,10 @@ var TaskForm = React.createClass({
    */
   dispatcher: function(payload) {
     switch(payload.action) {
-      case TaskConstants.CREATED:
-        this.setState({ title: '', description: '' });
-        break;
       case TaskConstants.EDIT:
         this.setState(payload.data);
         break;
+      case TaskConstants.CREATED:
       case TaskConstants.UPDATED:
         this.setState({ title: '', description: '' });
         break;
