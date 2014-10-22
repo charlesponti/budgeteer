@@ -17,9 +17,6 @@ var TasksRouter = require('./tasks');
  */
 var router = express.Router();
 
-// User
-router.use('/account', UserRouter.router);
-
 // Log Out
 router.post('/login', UserRouter.logIn);
 router.get('/login', UserRouter.serve.login);

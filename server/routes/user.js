@@ -80,19 +80,6 @@ function UserController() {
         return res.redirect('/account');
       }
       return res.render('users/login');
-    },
-    /**
-     * Serve account page if req is authenticated
-     * @param  {IncomingMessage} req
-     * @param  {ServerResponse} res
-     * @param  {Function} next
-     */
-    account: function serveAccount(req, res, next) {
-      if (req.isAuthenticated()) {
-        return res.render('users/account');
-      }
-      req.flash('error', 'You must be logged in to access your account.');
-      res.redirect('/login');
     }
   };
 
@@ -192,17 +179,6 @@ function UserController() {
         });
     }
     return self.emitter.emit('link-oauth', null, req.user, 'github', req, res);
-  };
-
-  /**
-   * Unlink OAuth provider from user
-   * @param {String} provider
-   * @returns {Function}
-   */
-  this.unlinkOAuth = function(provider, req, res, next) {
-    req.user.unlinkOAuth(provider, function(err, user) {
-      self.emit('unlink-oauth', err, user, provider, res, res);
-    });
   };
 
   /**
@@ -376,7 +352,8 @@ function UserController() {
       req.login(user);
     }
 
-    res.render('users/account');
+    req.flash('success', 'Account linked');
+    res.redirect('/account');
   };
 
   /**
@@ -387,14 +364,19 @@ function UserController() {
    * @param {Error} err
    * @returns {Function}
    */
-  this.emitter.on('unlink-oauth', function(err, user, provider, req, res) {
-    if (err) {
-      req.flash("error", provider+" account could not be unlinked.");
+  this.unlinkOAuth = function(req, res, next) {
+    var provider = request.params.provider;
+
+    req.user.unlinkOAuth(function(err, user) {
+      if (err) {
+        req.flash("error", provider+" account could not be unlinked.");
+        return res.redirect("/account");
+      }
+      
+      req.flash("success", provider+" account unlinked!");
       return res.redirect("/account");
-    }
-    req.flash("success", provider+" account unlinked!");
-    return res.redirect("/account");
-  });
+    });
+  };
 
   /**
    * Finish request after local authentication has finished
@@ -433,13 +415,11 @@ function UserController() {
   /**
    * Routes
    */
-  router.get('/', this.serve.account);
   router.get('/reset/:token', this.confirmReset);
   router.get('/confirm/:token', this.confirmAccount);
   router.get('/delete', this.deleteAccount);
 
   this.router = router;
-
 }
 
 module.exports = new UserController();
