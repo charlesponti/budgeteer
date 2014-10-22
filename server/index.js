@@ -24,6 +24,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var flash = require('express-flash');
 var compress = require('compression');
+var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
 var cookieParser = require('cookie-parser');
@@ -37,7 +38,6 @@ var MongoStore = require('connect-mongo')(express_session);
  * @type {exports}
  */
 var mailer = require('./mailer');
-var User = require('./models/user');
 var sentinal = require('./sentinal');
 var middleware = require('./util/middleware');
 var auth = require('./util/auth');
@@ -88,6 +88,8 @@ function Cthulhu(config) {
    */
   this.mailer =
   app.mailer = mailer(config.Mailer);
+
+  app.use(favicon(__dirname + '/../public/favicon.ico'));
 
   app.use(morgan('dev'));
   app.use(middleware.logger);
@@ -142,6 +144,13 @@ function Cthulhu(config) {
    */
   app.use(errorHandler());
 
+  app.use(function(req, res, next) {
+    req.isAuthenticated = auth.isAuthenticated;
+    req.login = auth.logIn;
+    req.logout = auth.logOut;
+    next();
+  });
+
   /**
    * Create session store
    */
@@ -171,11 +180,6 @@ function Cthulhu(config) {
    * environment.
    */
   app.use(middleware.browserify);
-
-  /**
-   * Set up Sentinal
-   */
-  app.use(app.sentinal.initialize(config.oauth));
 
   /**
    * Set up Sentianl CORS headers

@@ -8,24 +8,11 @@
 var _ = require('lodash');
 
 /**
- * Application dependencies
- * @type {exports}
- */
-var Auth = require("./auth");
-
-/**
  * `Sentinal` constructor
  * @constructor
  * @public
  */
 function Sentinal(config) {
-  
-  /**
-   * @type {Auth}
-   * @public
-   */
-  this.auth = Auth;
-
 
   /**
    * Check that config was passed
@@ -75,21 +62,7 @@ function Sentinal(config) {
   if (_.isPlainObject(config.Authy)) {
     this.Authy = require('./strategies/authy')(config.Authy);
   }
-
-  /**
-   * Initialize Sentinal
-   * @return {Function}
-   * @public
-   */
-  this.initialize = function(config) {
-    return function(req, res, next) {
-      req.isAuthenticated = Auth.isAuthenticated;
-      req.login = Auth.logIn;
-      req.logout = Auth.logOut;
-      next();
-    };
-  };
-
+  
 }
 
 /**
