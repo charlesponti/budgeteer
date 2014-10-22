@@ -23,26 +23,36 @@ var UserSchema = new Schema({
   confirmAccountToken: {  type: String, unique: true, sparse: true },
   facebook: {
     id: { type: String, unique: true, sparse: true },
+    name: String,
+    photo: String,
     token: String,
     profile: Schema.Types.Mixed
   },
   twitter: {
     id: { type: String, unique: true, sparse: true },
+    name: String,
+    photo: String,
     token: String,
     profile: Schema.Types.Mixed
   },
   google: {
     id: { type: String, unique: true, sparse: true },
+    name: String,
+    photo: String,
     token: String,
     profile: Schema.Types.Mixed
   },
   foursquare: {
     id: { type: String, unique: true, sparse: true },
+    name: String,
+    photo: String,
     token: String,
     profile: Schema.Types.Mixed
   },
   github: {
     id: { type: String, unique: true, sparse: true },
+    name: String,
+    photo: String,
     token: String,
     profile: Schema.Types.Mixed
   },
@@ -137,13 +147,14 @@ UserSchema.methods = {
     var provider = oauth.provider;
 
     if (!this.email) {
-      var email = this.getEmail(provider, profile);
-      this.email = email;
+      this.email = this.getEmail(provider, profile);
     }
     
     this[provider].id = profile.id;
     this[provider].profile = profile;
     this[provider].token = oauth.token;
+    this[provider].photo = this.getOAuthPhoto(provider, profile);
+    this[provider].name = this.getOAuthName(provider, profile);
     this.save(callback);
     return this;
   },
@@ -164,51 +175,51 @@ UserSchema.methods = {
   },
 
   /**
-   * @description Return url for user's Facebook photo
+   * Return url for user's provider photo
+   * @param {string} provider
+   * @param {object} profile
    * @return {String}
    * @api public
    */
-  getFacebookPhoto: function() {
-    var id = this.facebook && this.facebook.profile.id;
-    return 'https://graph.facebook.com/' + id + '/picture?type=large';
+  getOAuthPhoto: function(provider, profile) {
+    switch (provider) {
+      case 'facebook':
+        return 'https://graph.facebook.com/'+profile.id+'/picture?type=large';
+      case 'google':
+        return profile.image.url.replace("sz=50", "sz=200");
+      case 'foursquare':
+        return profile.photo.prefix+'original'+profile.photo.suffix;
+      case 'twitter':
+        return profile.profile_image_url.replace("_normal", "");
+      case 'github':
+        return profile.avatar_url;
+    }
   },
 
   /**
-   * @description Get user's Google+ profile photo
+   * Return name of user on provider
+   * @param {string} provider
+   * @param {object} profile
    * @return {String}
    * @api public
    */
-  googlePhoto: function() {
-    return this.google.profile.image.url.replace("sz=50", "sz=200");
-  },
-
-  /**
-   * @description Get user's Twitter profile photo
-   * @return {String}
-   * @api public
-   */
-  twitterPhoto: function() {
-    return this.twitter.profile.profile_image_url.replace("_normal", "");
-  },
-
-  /**
-   * @description Get user's Foursquare profile first name and last name
-   * @return {String}
-   * @api public
-   */
-  foursquareName: function() {
-    var profile = this.foursquare.profile;
-    return profile.firstName + " " + profile.lastName;
-  },
-
-  /**
-   * @description Get user's Foursquare profile photo
-   * @return {String}
-   * @api public
-   */
-  foursquarePhoto: function() {
-    var profile = this.foursquare.profile;
-    return profile.photo.prefix+'original'+profile.photo.suffix;
+  getOAuthName: function(provider, profile) {
+    // TODO Store user screenname/email from provider
+    // {{ current_user.facebook.profile.email }}
+    // {{ current_user.twitter.profile.screen_name }}
+    // {{ current_user.google.profile.emails[0].value }}
+    // {{ current_user.foursquareName() }}
+    // {{ current_user.github.profile.login }}
+    switch(provider) {
+      case 'facebook':
+      case 'github':
+      case 'twitter':
+        return profile.name;
+      case 'google':
+        return profile.displayName;
+      case 'foursquare':
+        return profile.firstName + " " + profile.lastName;
+    }
   },
 
   /**
