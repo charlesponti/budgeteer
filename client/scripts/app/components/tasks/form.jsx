@@ -10,7 +10,10 @@ var TaskForm = React.createClass({
    * Get initial state of component
    */
   getInitialState: function() {
-    return { _id: '', title: '', description: '' };
+    return { 
+      task: { _id: '', title: '', description: '' },
+      buttonText: 'Create Task' 
+    };
   },
 
   /**
@@ -23,7 +26,7 @@ var TaskForm = React.createClass({
     var event = this.state._id.length ? 'UPDATE' : 'CREATE';
     TaskDispatcher.dispatch({
       action: TaskConstants[event],
-      data: this.state
+      data: this.state.task
     });
   },
 
@@ -39,11 +42,14 @@ var TaskForm = React.createClass({
   dispatcher: function(payload) {
     switch(payload.action) {
       case TaskConstants.EDIT:
-        this.setState(payload.data);
+        this.setState({ task: payload.data, buttonText: 'Edit Task' });
         break;
       case TaskConstants.CREATED:
       case TaskConstants.UPDATED:
-        this.setState({ title: '', description: '' });
+        this.setState({ 
+          task: { title: '', description: '' },
+          buttonText: 'Create Task'
+        });
         break;
     }
     return true;
@@ -61,22 +67,23 @@ var TaskForm = React.createClass({
    * Render component
    */
   render: function() {
+    var task = this.state.task;
     return (
       <form onSubmit={this.onSubmit} role="form">
-        <input type="hidden" value={this.state._id} />
+        <input type="hidden" value={task._id} />
         <div className="form-group">
           <label htmlFor="title"> Title </label>
           <input className="form-control"
-            name="title" onChange={this.handleChange} value={this.state.title}/>
+            name="title" onChange={this.handleChange} value={task.title}/>
         </div>
         <div className="form-group">
           <label htmlFor="title"> Description </label>
           <textarea className="form-control"
             name="description"
             onChange={this.handleChange}
-            value={this.state.description} />
+            value={task.description} />
         </div>
-        <button className="btn btn-success">Create Task</button>
+        <button className="btn btn-success">{this.state.buttonText}</button>
       </form>
     );
   }

@@ -21,7 +21,7 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onCheckboxClick: function() {
-    this.props.task.completed = !this.props.task.completed
+    this.props.task.completed = !this.props.task.completed;
     TaskDispatcher.dispatch({
       action: TaskConstants.COMPLETED,
       data: this.props.task
@@ -52,8 +52,15 @@ var TaskListItem = React.createClass({
     });
   },
 
-  onClick: function() {
-    this.setState({ showDescription: !this.state.showDescription });
+  /**
+   * Handle click
+   * @param  {SyntheticEvent} e
+   * @param  {string} id HTMLElement id
+   */
+  onClick: function(e, id) {
+    if (e.target.classList.contains('list-group-item')) {
+      this.setState({ showDescription: !this.state.showDescription });  
+    }
   },
 
   render: function() {
