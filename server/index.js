@@ -39,7 +39,8 @@ var MongoStore = require('connect-mongo')(express_session);
 var mailer = require('./mailer');
 var User = require('./models/user');
 var sentinal = require('./sentinal');
-var middleware = require('./helpers/middleware');
+var middleware = require('./util/middleware');
+var auth = require('./util/auth');
 
 var hour = 3600000;
 var day = hour * 24;
@@ -206,13 +207,8 @@ function Cthulhu(config) {
 
   /**
    * Deserialize user from session
-   * @param  {[type]}   id   [description]
-   * @param  {Function} done [description]
-   * @return {[type]}        [description]
    */
-  app.use(app.sentinal.auth.deserializeUser(function(id, done) {
-    User.findOne({ _id: id }).exec(done);
-  }));
+  app.use(auth.deserializeUser)
 
   /**
    * Set local variables for use in views

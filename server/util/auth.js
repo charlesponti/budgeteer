@@ -48,7 +48,7 @@ function Auth() {
    */
   this.deserializeUser = function(req, res, next) {
     if (req.session.user) {
-      User 
+      return User 
         .findOne({ _id: req.session.user })
         .exec(function(err, user) {
           req.user = user;
