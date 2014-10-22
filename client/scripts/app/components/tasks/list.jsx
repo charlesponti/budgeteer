@@ -23,8 +23,7 @@ var TaskList = React.createClass({
   dispatcher: function(payload) {
     switch(payload.action) {
       case TaskConstants.LOADED:
-        this.setState({ tasks: payload.data });
-        break;
+      case TaskConstants.CREATED:
       case TaskConstants.UPDATED:
         this.setState({ tasks: payload.data });
         break;
