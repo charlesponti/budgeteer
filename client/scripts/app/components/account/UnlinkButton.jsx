@@ -28,7 +28,7 @@ var UnlinkButton = React.createClass({
    * @returns {string}
    */
   getHref: function() {
-    return '/unlink/' + this.props.provider;
+    return '/auth/unlink/'+this.props.provider;
   },
 
   render: function() {

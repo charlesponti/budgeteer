@@ -24,7 +24,6 @@ router.get('/logout', UserRouter.logOut);
 
 // Authentication
 router.use('/auth', AuthRouter);
-router.use('/unlink', AuthRouter);
 
 // API
 router.get('/api/me', ApiRouter.getMe);

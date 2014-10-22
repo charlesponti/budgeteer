@@ -20,7 +20,7 @@ var UserController = require('./user');
 var router = express.Router();
 
 // Unlink OAuth
-router.get('/unlink/:provier', Cthulhu.securePath, UserController.unlinkOAuth);
+router.get('/unlink/:provider', Cthulhu.securePath, UserController.unlinkOAuth);
 
 // Facebook
 router.get('/facebook', sentinal.Facebook.authorize);

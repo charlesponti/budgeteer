@@ -365,9 +365,9 @@ function UserController() {
    * @returns {Function}
    */
   this.unlinkOAuth = function(req, res, next) {
-    var provider = request.params.provider;
+    var provider = req.params.provider;
 
-    req.user.unlinkOAuth(function(err, user) {
+    req.user.unlinkOAuth(provider, function(err, user) {
       if (err) {
         req.flash("error", provider+" account could not be unlinked.");
         return res.redirect("/account");
