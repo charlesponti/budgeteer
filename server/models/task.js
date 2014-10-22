@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var TaskSchema = new mongoose.Schema({
   title: { type: String, unique: true, required: true },
   description: { type: String, unique: true, required: true },
+  completed: { type: Boolean, required: true },
   user_id: { type: String, required: true },
   created_at: String,
   updated_at: String

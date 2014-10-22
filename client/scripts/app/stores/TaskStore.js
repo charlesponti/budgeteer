@@ -23,20 +23,6 @@ var TaskStore = BaseStore.new({
 
   url: 'tasks',
 
-  add: function(task) {
-    if (_.isArray(this._records)) {
-      this._records.push(task);
-    }
-
-    return this._records;
-  },
-
-  remove: function(id) {
-    this._records = _.reject(this._records, function(task) {
-      return task._id == id;
-    });
-  },
-
   /**
    * Load tasks fro API
    */
@@ -74,7 +60,7 @@ var TaskStore = BaseStore.new({
         if (err) {
           throw err;
         } else {
-          this._records.push(response.body.task);
+          this.add(response.body.task);
           TaskDispatcher.dispatch({
             action: TaskConstants.CREATED,
             data: this._records
@@ -114,20 +100,39 @@ var TaskStore = BaseStore.new({
         description: data.description,
         _csrf: App.getCSRF()
       })
-      .end(function(err, response) {
-        if (err) {
-          throw err;
-        } else {
-          var task = response.body.task;
-          this._records = _.map(this._records, function(record) {
-            return record._id == task._id ? task : record;
-          });
-          TaskDispatcher.dispatch({
-            action: TaskConstants.UPDATED,
-            data: this._records
-          });
-        }
-      }.bind(this));
+      .end(this.onUpdateResponse.bind(this));
+  },
+
+  /**
+   * Mark task as completed
+   * @param {object} data
+   * @return {TaskStore}
+   */
+  completed: function(data) {
+    request
+      .put('/api/tasks')
+      .type('form')
+      .send({
+        id: data._id,
+        completed: data.completed,
+        _csrf: App.getCSRF()
+      })
+      .end(this.onUpdateResponse.bind(this));
+  },
+
+  /**
+   * Handle success response from update requests
+   */
+  onUpdateResponse: function(err, response) {
+    if (err) {
+      throw err;
+    } else {
+      this.updateRecord(response.body.task);
+      TaskDispatcher.dispatch({
+        action: TaskConstants.UPDATED,
+        data: this._records
+      });
+    }
   },
 
   /**
@@ -144,6 +149,9 @@ var TaskStore = BaseStore.new({
         break;
       case TaskConstants.DESTROY:
         TaskStore.destroy(payload.data);
+        break;
+      case TaskConstants.COMPLETED:
+        TaskStore.completed(payload.data);
         break;
     }
 

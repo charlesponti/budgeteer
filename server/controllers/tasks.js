@@ -62,6 +62,7 @@ var TaskController = merge(events.EventEmitter.prototype, {
         if (task) {
           task.title = req.body.title || task.title;
           task.description = req.body.description || task.description;
+          task.completed = req.body.completed || task.completed;
           return task.save(function(err, task) {
             TaskController.emit('after-update', err, task, req, res, next);
           });
@@ -97,6 +98,7 @@ TaskController.on('create-find', function(err, tasks, req, res, next) {
   var task = new Task();
   task.title = req.body.title;
   task.description = req.body.description;
+  task.completed = false;
   task.user_id = req.user.id;
   task.save(function(err, task) {
     if (err) {

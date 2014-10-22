@@ -11,6 +11,19 @@ var TaskListItem = React.createClass({
   },
 
   /**
+   * Handle checkbox click
+   * @param  {SyntheticEvent} e
+   * @param  {string} id HTMLElement id
+   */
+  onCheckboxClick: function() {
+    this.props.task.completed = !this.props.task.completed
+    TaskDispatcher.dispatch({
+      action: TaskConstants.COMPLETED,
+      data: this.props.task
+    });
+  },
+
+  /**
    * Handle delete click
    * @param  {SyntheticEvent} e
    * @param  {string} id HTMLElement id
@@ -39,6 +52,8 @@ var TaskListItem = React.createClass({
 
     return (
       <li className="list-group-item">
+        <input type="checkbox"
+          onClick={this.onCheckboxClick} checked={task.completed}/>
         <b>{task.title}</b>
         {/* <p>{task.description}</p> */}
         <i onClick={this.onDeleteClick}
