@@ -62,6 +62,12 @@ var TaskList = React.createClass({
    * @return {ReactCompositeComponent}
    */
   render: function() {
+    var sorted = (this.state.tasks || []).sort(function(task) {
+      if (task.completed) {
+        return 1;
+      }
+      return -1;
+    });
     return (
       <div>
         <form role="form" className="task-search">
@@ -69,7 +75,7 @@ var TaskList = React.createClass({
             onChange={this.onSearchFieldChange} placeholder="Search" />
         </form>
         <ul className="list-group">
-          {_.map(this.state.tasks, function(task) {
+          {_.map(sorted, function(task) {
             return (<TaskListItem key={task._id} task={task} />);
           })}
         </ul>
