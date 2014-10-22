@@ -43,18 +43,35 @@ var TaskList = React.createClass({
    * @param  {string} id
    */
   onSearchFieldChange: function(e, id) {
+    var isTerm, completedTerm;
     var searchTerm = e.target.value;
+    var completedRegex = /is:\w+\s/;
     var records = TaskStore.getRecords();
+
+    if (completedRegex.test(searchTerm)) {
+      isTerm = completedRegex.exec(searchTerm)[0];
+      completedTerm = isTerm.trim().replace('is:','');
+      if (completedTerm == 'done') {
+        records = records.filter(function(task) { 
+          return task.completed == true;
+        });
+      }
+      if (completedTerm == 'notdone') {
+        records = records.filter(function(task) { 
+          return task.completed == false;
+        });
+      }
+      searchTerm = searchTerm.replace(isTerm, '');
+    }
+
     if (searchTerm.length) {
       var regExp = new RegExp(searchTerm, 'i');
-      this.setState({
-        tasks: records.filter(function(task) { 
-          return regExp.test(task.title);
-        })
+      records = records.filter(function(task) { 
+        return regExp.test(task.title);
       });
-    } else {
-      this.setState({ tasks: records });
     }
+
+    this.setState({ tasks: records });
   },
 
   /**
