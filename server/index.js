@@ -164,6 +164,11 @@ function Cthulhu(config) {
   }));
 
   /**
+   * Deserialize user from session
+   */
+  app.use(auth.deserializeUser)
+
+  /**
    * Remember original destination before login.
    */
   app.use(middleware.remember({
@@ -179,7 +184,7 @@ function Cthulhu(config) {
    * Serve either dev or min version of javascript depending on
    * environment.
    */
-  app.use(middleware.browserify);
+  app.use(middleware.serve_bundle);
 
   /**
    * Set up Sentianl CORS headers
@@ -208,11 +213,6 @@ function Cthulhu(config) {
    * Add CSRF (Cross-Site Request Forgery) protection
    */
   app.use(middleware.csrf);
-
-  /**
-   * Deserialize user from session
-   */
-  app.use(auth.deserializeUser)
 
   /**
    * Set local variables for use in views

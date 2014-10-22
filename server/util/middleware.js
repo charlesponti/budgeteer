@@ -39,7 +39,7 @@ function CthulhuMiddleware() {
    * @param  {ServerResponse}   res
    * @param  {Function} next
    */
-  this.browserify = function(req, res, next) {
+  this.serve_bundle = function(req, res, next) {
     var suffix = process.env.NODE_ENV === "development" ? "dev" : "min";
 
     if (req.url === "/scripts/bundle.js") {

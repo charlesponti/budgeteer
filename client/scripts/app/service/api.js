@@ -1,6 +1,6 @@
 'use strict';
 
-var request = require('superagent/superagent');
+var request = require('superagent/lib/client');
 
 function APIService() {
 

@@ -64,7 +64,7 @@ var TaskList = React.createClass({
   render: function() {
     return (
       <div>
-        <form role="form">
+        <form role="form" className="task-search">
           <input className="form-control"
             onChange={this.onSearchFieldChange} placeholder="Search" />
         </form>

@@ -10,7 +10,7 @@ var marked = require('marked');
 var Preview = React.createClass({
 
   propTypes: {
-    description: React.PropTypes.string.isRequired
+    text: React.PropTypes.string.isRequired
   },
 
   /**
@@ -18,7 +18,7 @@ var Preview = React.createClass({
    */
   render: function() {
     return (
-      <div className="preview">{marked(this.props.description)}</div>
+      <div className="preview">{marked(this.props.text)}</div>
     );
   }
 

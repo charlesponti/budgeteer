@@ -7,14 +7,14 @@ var _ = require('lodash');
 var $ = require('jquery');
 var App = require('../app.jsx');
 var BaseStore = require('./BaseStore');
-var request = require('superagent/superagent');
+var request = require('superagent/lib/client');
 var TaskConstants = require('../constants/TaskConstants');
 var TaskDispatcher = require('../dispatchers/TaskDispatcher');
 
 /**
  * Store which will hold tasks
  * @requires module: lodash
- * @requires module: superagent/superagent
+ * @requires module: superagent/lib/client
  * @requires module: ./BaseStore
  * @requires module: ../constants/TaskConstants
  * @requires module: ../dispatchers/TaskDispatcher

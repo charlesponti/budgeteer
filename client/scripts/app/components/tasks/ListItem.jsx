@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var Preview = require('./Preview.jsx');
 var TaskConstants = require('../../constants/TaskConstants');
 var TaskDispatcher = require('../../dispatchers/TaskDispatcher');
 
@@ -8,6 +9,10 @@ var TaskListItem = React.createClass({
 
   propTypes: {
     task: React.PropTypes.object.isRequired
+  },
+
+  getInitialState: function() {
+    return { showDescription: false };
   },
 
   /**
@@ -47,11 +52,15 @@ var TaskListItem = React.createClass({
     });
   },
 
+  onClick: function() {
+    this.setState({ showDescription: !this.state.showDescription });
+  },
+
   render: function() {
     var task = this.props.task;
 
     return (
-      <li className="list-group-item">
+      <li className="list-group-item" onClick={this.onClick}>
         <input type="checkbox" className="task-checkbox"
           onClick={this.onCheckboxClick} defaultChecked={task.completed}/>
         <b>{task.title}</b>
@@ -60,6 +69,7 @@ var TaskListItem = React.createClass({
           className="fa fa-remove pull-right" alt="Delete"></i>
         <i onClick={this.onEditClick}
           className="fa fa-pencil pull-right" alt="Edit"></i>
+        {this.state.showDescription ? <Preview text={task.description}/> : null}
       </li>
     );
   }

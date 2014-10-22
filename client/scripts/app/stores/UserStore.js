@@ -2,13 +2,13 @@
 
 var _ = require('lodash');
 var $ = require('jquery');
-var request = require('superagent/superagent');
+var request = require('superagent/lib/client');
 var BaseStore = require('./BaseStore');
 
 /**
  * Store to hold current user
  * @requires module: lodash
- * @requires module: superagent/superagent
+ * @requires module: superagent/lib/client
  * @requires module: ./BaseStore
  */
 var UserStore = BaseStore.new({
