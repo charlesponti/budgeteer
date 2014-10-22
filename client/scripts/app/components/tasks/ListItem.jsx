@@ -52,7 +52,7 @@ var TaskListItem = React.createClass({
 
     return (
       <li className="list-group-item">
-        <input type="checkbox"
+        <input type="checkbox" className="task-checkbox"
           onClick={this.onCheckboxClick} defaultChecked={task.completed}/>
         <b>{task.title}</b>
         {/* <p>{task.description}</p> */}
