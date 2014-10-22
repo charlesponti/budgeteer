@@ -132,14 +132,18 @@ UserSchema.methods = {
    * @return {User}
    * @api public
    */
-  linkOAuth: function(provider, token, profile, callback) {
+  linkOAuth: function(oauth, callback) {
+    var profile = oauth.profile;
+    var provider = oauth.provider;
+
     if (!this.email) {
       var email = this.getEmail(provider, profile);
       this.email = email;
     }
+    
     this[provider].id = profile.id;
     this[provider].profile = profile;
-    this[provider].token = token;
+    this[provider].token = oauth.token;
     this.save(callback);
     return this;
   },
