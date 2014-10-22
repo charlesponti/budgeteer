@@ -5,7 +5,6 @@
  * @type {exports}
  * @private
  */
-var _ = require('lodash');
 var express = require('express');
 var Emitter = require('events').EventEmitter;
 
@@ -15,7 +14,6 @@ var Emitter = require('events').EventEmitter;
  * @private
  */
 var User = require('../models/user');
-var sentinal = require('../sentinal');
 
 /**
  * `UserController` constructor
@@ -274,7 +272,7 @@ function UserController() {
   /**
    * Reset account with token
    * @param {Error} err
-   * @param {User|null} user
+   * @param {?User} user
    * @param {http.IncomingMessage} req
    * @param {http.ServerResponse} res
    */
@@ -283,6 +281,7 @@ function UserController() {
       req.flash('error', 'There was an error deleting your account.');
       return res.redirect('/login');
     }
+    
     req.login(user);
     req.flash('success', 'Logged in.');
     return res.redirect('/account');
@@ -305,7 +304,7 @@ function UserController() {
 
   /**
    * Finish request after account is deleted
-   * @param  {Error|null} err
+   * @param  {?Error} err
    * @param  {http.IncomingMessage} req
    * @param  {http.ServerResponse} res
    */
@@ -322,7 +321,7 @@ function UserController() {
   /**
    * Confirm account with token
    * @param {Error} err
-   * @param {User|null} user
+   * @param {?User} user
    * @param {http.IncomingMessage} req
    * @param {http.ServerResponse} res
    */
@@ -337,32 +336,10 @@ function UserController() {
   });
 
   /**
-   * Callback for linking Oauth
-   * @param {Error|null} err
-   * @param {User|null} user
-   * @param {IncomingMessage} req
-   * @param {ServerResponse} res
-   */
-  this.emitter.on('oauth-linked', function onLinkOAuth(err, user, req, res) {
-    if (err) {
-      req.flash("error", err.message);
-      return res.status(500).redirect(req.user ? '/account' : '/login');
-    }
-
-    // Login user if no user logged in
-    if (!req.user) {
-      req.login(user);
-    }
-
-    req.flash("success", "Account linked.");
-    return res.redirect("/account");
-  });
-
-  /**
    * Callback used after User table is queried for user's with specified
    * email
-   * @param  {Error|null} err
-   * @param  {User|null} user
+   * @param  {?Error} err
+   * @param  {?User} user
    * @param  {String} provider
    * @param  {IncomingMessage} req
    * @param  {ServerResponse} res
@@ -374,14 +351,33 @@ function UserController() {
       return res.status(500).redirect(req.user ? '/account' : '/login');
     }
 
-    var oauth = req._oauth;
+    req._oauth.provider = provider;
 
     user = user || req.user || new User();
 
-    return user.linkOAuth(provider, oauth.token, oauth.profile, function(err, user) {
-      self.emitter.emit('oauth-linked', err, user, req, res);
-    });
+    return user.linkOAuth(req._oauth, self.onOauthLinked.bind(self, req, res));
   });
+
+  /**
+   * Callback for linking Oauth
+   * @param {?Error} err
+   * @param {?User} user
+   * @param {IncomingMessage} req
+   * @param {ServerResponse} res
+   */
+  this.onOauthLinked = function(req, res, err, user) {
+    if (err) {
+      req.flash("error", err.message);
+      return res.status(500).redirect(req.user ? '/account' : '/login');
+    }
+
+    // Login user if no user logged in
+    if (!req.user) {
+      req.login(user);
+    }
+
+    res.render('users/account');
+  };
 
   /**
    * Callback to be called after OAuth provider is unlinked

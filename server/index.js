@@ -313,8 +313,7 @@ module.exports = function() {
     /**
      * Setup Cthulhu routes
      */
-    var router = require('./routes');
-    Cthulhu._instance.use(router());
+    Cthulhu._instance.use(require('./routes'));
   }
 
   return Cthulhu._instance;
