@@ -11,7 +11,7 @@ var TaskForm = React.createClass({
    */
   getInitialState: function() {
     return { 
-      task: { _id: '', title: '', description: '' },
+      task: { title: '', description: '' },
       buttonText: 'Create Task' 
     };
   },
@@ -23,7 +23,7 @@ var TaskForm = React.createClass({
    */
   onSubmit: function(e, id) {
     e.preventDefault();
-    var event = this.state._id.length ? 'UPDATE' : 'CREATE';
+    var event = this.state.task._id ? 'UPDATE' : 'CREATE';
     TaskDispatcher.dispatch({
       action: TaskConstants[event],
       data: this.state.task
@@ -58,8 +58,10 @@ var TaskForm = React.createClass({
   handleChange: function(e, id) {
     var form = this.getDOMNode();
     this.setState({
-      title: form.title.value,
-      description: form.description.value,
+      task: {
+        title: form.title.value,
+        description: form.description.value  
+      }
     });
   },
 

@@ -98,6 +98,7 @@ TaskController.on('create-find', function(err, tasks, req, res, next) {
   var task = new Task();
   task.title = req.body.title;
   task.description = req.body.description;
+  task.category = req.body.category || 'default';
   task.completed = false;
   task.user_id = req.user.id;
   task.save(function(err, task) {
