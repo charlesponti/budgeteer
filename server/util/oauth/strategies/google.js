@@ -65,32 +65,37 @@ function GoogleStrategy(config) {
    * @param {object} response
    */
   self.onAuthorizationResponse = function(req, res, next, response) {
-    var access_token = JSON.parse(response.text).access_token;
+    var token = JSON.parse(response.text).access_token;
 
-    self.get_profile(access_token, 
-      self.onProfileResponse.bind(this, req, res, next));
+    self.get_profile.call(self, token, req, res, next);
   };
 
   /**
    * Handle profile response
+   * @param {String} token
    * @param {Request} req
    * @param {Response} res
    * @param {function} next
    * @param {object} response
    */
-  self.onProfileResponse = function(req, res, next, response) {
+  self.onProfileResponse = function(token, req, res, next, response) {
     req._oauth = {
-      token: access_token,
-      profile: JSON.parse(response.text)
+      token: token,
+      profile: response.body
     };
     return next();
   };
-  
-  self.get_profile = function(access_token, callback) {
+    
+  /**
+   * Get user's Google profile
+   * @param  {String}   token
+   * @param  {Function} callback
+   */
+  self.get_profile = function(token, req, res, next) {
     return request
       .get(self.profile_url)
-      .query({ access_token: access_token })
-      .end(callback);
+      .query({ access_token: token })
+      .end(self.onProfileResponse.bind(self, token, req, res, next));
   };
 
 }
