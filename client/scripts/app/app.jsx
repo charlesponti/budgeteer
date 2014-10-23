@@ -3,6 +3,7 @@
 /**
  * Module dependencies
  */
+var meow = 'cake';
 var React = require('react');
 var Link = require('react-router').Link;
 var UserStore = require('./stores/UserStore');

@@ -6,4 +6,4 @@ Build with:
 * **ExpressJS**
 * **ReactJS**
 * **MongoDB**
-* **Browserify**
+* **Webpack**

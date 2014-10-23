@@ -1,4 +1,3 @@
-'use strict';
 
 var React = require('react');
 
@@ -8,6 +7,6 @@ module.exports = React.createClass({
       <div>
         <h2>Index</h2>
       </div>
-    );
+      )
   }
 });

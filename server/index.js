@@ -62,7 +62,7 @@ var week = day * 7;
  *  });
  * ```
  */
-function Cthulhu(config) {
+function cthulhu(config) {
 
   var app = express();
 
@@ -73,9 +73,7 @@ function Cthulhu(config) {
 
   /**
    * Set sentinal
-   * @type {[type]}
    */
-  this.sentinal =
   app.sentinal = sentinal(config.OAuth);
 
   /**
@@ -86,7 +84,6 @@ function Cthulhu(config) {
   /**
    * Set mailer
    */
-  this.mailer =
   app.mailer = mailer(config.Mailer);
 
   app.use(favicon(__dirname + '/../public/favicon.ico'));
@@ -221,21 +218,7 @@ function Cthulhu(config) {
     appName: config.appName
   }));
 
-  /**
-   * Connect to database
-   */
-  app.startDB = function() {
-    var db = config.DB;
-    mongoose.connect(db, function(err) {
-      if (err) {
-        return console.log(err);
-      }
-      app.db = mongoose.connection;
-      console.log('Connected to '+chalk.red.bold(db)+' database.');
-    });
-  };
-
-  this.securePath = function(req, res, next) {
+  app.securePath = function(req, res, next) {
     var message = 'You must be logged in to access this resource';
     if (req.isAuthenticated()) {
       next();
@@ -250,25 +233,30 @@ function Cthulhu(config) {
   };
 
   /**
-   * Extend this with new Express application
-   */
-  _.extend(this, app);
-
-
-  /**
    * Start Cthulhu.
    */
-  this.start = function() {
+  app.start = function() {
+    /**
+     * Create server
+     */
+    var server = http.createServer(app);
+
     /**
      * Add socket to app and begin listening on port.
      */
-    var server = http.createServer(app);
     app.socket = io.listen(server).sockets;
 
     /**
      * Connect to database
      */
-    app.startDB();
+    var db = config.DB;
+    mongoose.connect(db, function(err) {
+      if (err) {
+        return console.log(err);
+      }
+      app.db = mongoose.connection;
+      console.log('Connected to '+chalk.red.bold(db)+' database.');
+    });
 
     /**
      * Emit initial message
@@ -288,6 +276,8 @@ function Cthulhu(config) {
     });
   };
 
+  return app;
+
 }
 
 /**
@@ -306,15 +296,15 @@ module.exports = function() {
    * Check if there is a current instance of Cthulhu. If so, return that
    * instance. If not, create new Cthulhu, attach to GLOBAL, and return it..
    */
-  if (!Cthulhu._instance) {
+  if (!cthulhu._instance) {
     GLOBAL.Cthulhu =
-    Cthulhu._instance = new Cthulhu(config);
+    cthulhu._instance = cthulhu(config);
 
     /**
      * Setup Cthulhu routes
      */
-    Cthulhu._instance.use(require('./routes'));
+    cthulhu._instance.use(require('./routes'));
   }
 
-  return Cthulhu._instance;
+  return cthulhu._instance;
 };
