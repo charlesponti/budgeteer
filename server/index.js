@@ -166,7 +166,7 @@ function Cthulhu(config) {
   /**
    * Deserialize user from session
    */
-  app.use(auth.deserializeUser)
+  app.use(auth.deserializeUser);
 
   /**
    * Remember original destination before login.
