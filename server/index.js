@@ -38,7 +38,7 @@ var MongoStore = require('connect-mongo')(express_session);
  * @type {exports}
  */
 var mailer = require('./mailer');
-var sentinal = require('./sentinal');
+var sentinal = require('./util/sentinal');
 var middleware = require('./util/middleware');
 var auth = require('./util/auth');
 
@@ -47,20 +47,10 @@ var day = hour * 24;
 var week = day * 7;
 
 /**
- * `Cthulhu` constructor
+ * Factory function that creates a new Express application using
+ * supplied configuration.
  * @param {Object} config Initial configuration of application
- * @constructor
- *
- * EXAMPLE USAGE:
- * ```js
- *  var app = require('cthulhu')({
- *    port: 4000,
- *    static: '../public',
- *    views: '../app/views',
- *    sessionSecret: 'meerkatmanorrox',
- *    appName: 'Cthulhu Grand'
- *  });
- * ```
+ * @private
  */
 function cthulhu(config) {
 
@@ -281,9 +271,8 @@ function cthulhu(config) {
 }
 
 /**
- * Export factory that returns new Cthulhu
- * @param  {Object} config
- * @return {Cthulhu}
+ * Export factory that returns new express.Application
+ * @return {express.Application}
  */
 module.exports = function() {
   /**
@@ -293,8 +282,8 @@ module.exports = function() {
   var config = require('./config');
 
   /**
-   * Check if there is a current instance of Cthulhu. If so, return that
-   * instance. If not, create new Cthulhu, attach to GLOBAL, and return it..
+   * Check if there is a current instance of the applicaton. If so, return that
+   * instance. If not, create new application, attach to GLOBAL, and return it.
    */
   if (!cthulhu._instance) {
     GLOBAL.Cthulhu =

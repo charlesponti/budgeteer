@@ -8,11 +8,6 @@ var crypto = require('crypto');
 var Schema = mongoose.Schema;
 
 /**
- * App dependencies
- */
-var sentinal = require('../sentinal');
-
-/**
  * @desc User Schema
  * @type {mongoose.Schema}
  */
