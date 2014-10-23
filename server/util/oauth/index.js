@@ -8,11 +8,12 @@
 var _ = require('lodash');
 
 /**
- * `Sentinal` constructor
- * @constructor
- * @public
+ * Factory function to create a oauth wrapper of oauth strategies
+ * @private
  */
-function Sentinal(config) {
+function oauth(config) {
+
+  var oauth = {};
 
   /**
    * Check that config was passed
@@ -25,44 +26,46 @@ function Sentinal(config) {
    * Attach Facebook OAuth strategy if configuration exists for it
    */
   if (_.isPlainObject(config.Facebook)) {
-    this.Facebook = require('./strategies/facebook')(config.Facebook);
+    oauth.Facebook = require('./strategies/facebook')(config.Facebook);
   }
 
   /**
    * Attach Google OAuth strategy if configuration exists for it
    */
   if (_.isPlainObject(config.Google)) {
-    this.Google = require('./strategies/google')(config.Google);
+    oauth.Google = require('./strategies/google')(config.Google);
   }
 
   /**
    * Attach Twitter OAuth strategy if configuration exists for it
    */
   if (_.isPlainObject(config.Twitter)) {
-    this.Twitter = require('./strategies/twitter')(config.Twitter);
+    oauth.Twitter = require('./strategies/twitter')(config.Twitter);
   }
 
   /**
    * Attach Foursquare OAuth strategy if configuration exists for it
    */
   if (_.isPlainObject(config.Foursquare)) {
-    this.Foursquare = require('./strategies/foursquare')(config.Foursquare);
+    oauth.Foursquare = require('./strategies/foursquare')(config.Foursquare);
   }
 
   /**
    * Attach Github OAuth strategy if configuration exists for it
    */
   if (_.isPlainObject(config.Github)) {
-    this.Github = require('./strategies/github')(config.Github);
+    oauth.Github = require('./strategies/github')(config.Github);
   }
 
   /**
    * Attach Authy strategy if configuration exists for it
    */
   if (_.isPlainObject(config.Authy)) {
-    this.Authy = require('./strategies/authy')(config.Authy);
+    oauth.Authy = require('./strategies/authy')(config.Authy);
   }
   
+  return oauth;
+
 }
 
 /**
@@ -71,5 +74,5 @@ function Sentinal(config) {
  * @return {Sentinal}
  */
 module.exports = function(config) {
-  return new Sentinal(config);
+  return oauth(config);
 };

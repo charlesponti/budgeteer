@@ -38,7 +38,7 @@ var MongoStore = require('connect-mongo')(express_session);
  * @type {exports}
  */
 var mailer = require('./mailer');
-var sentinal = require('./util/sentinal');
+var oauth = require('./util/oauth');
 var middleware = require('./util/middleware');
 var auth = require('./util/auth');
 
@@ -62,9 +62,9 @@ function cthulhu(config) {
   app._config = config;
 
   /**
-   * Set sentinal
+   * Set oauth
    */
-  app.sentinal = sentinal(config.OAuth);
+  app.oauth = oauth(config.OAuth);
 
   /**
    * Set port. First check configuration or use 3000 as a fallback.
