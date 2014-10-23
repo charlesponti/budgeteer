@@ -353,7 +353,8 @@ function UserController() {
     }
 
     req.flash('success', 'Account linked');
-    res.redirect('/account');
+    res.render('pop');
+    // res.redirect('/account');
   };
 
   /**
