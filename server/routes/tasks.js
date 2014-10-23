@@ -63,6 +63,7 @@ var TaskController = merge(events.EventEmitter.prototype, {
           task.title = req.body.title || task.title;
           task.description = req.body.description || task.description;
           task.completed = req.body.completed || task.completed;
+          task.category = req.body.category || 'default';
           return task.save(function(err, task) {
             TaskController.emit('after-update', err, task, req, res, next);
           });

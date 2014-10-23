@@ -99,6 +99,7 @@ var TaskStore = BaseStore.new({
         id: data._id,
         title: data.title,
         description: data.description,
+        category: data.category,
         _csrf: App.getCSRF()
       })
       .end(this.onUpdateResponse.bind(this));

@@ -11,7 +11,7 @@ var TaskForm = React.createClass({
    */
   getInitialState: function() {
     return { 
-      task: { title: '', description: '' },
+      task: { _id: '', title: '', description: '' },
       buttonText: 'Create Task' 
     };
   },
@@ -23,7 +23,7 @@ var TaskForm = React.createClass({
    */
   onSubmit: function(e, id) {
     e.preventDefault();
-    var event = this.state.task._id ? 'UPDATE' : 'CREATE';
+    var event = this.state.task._id.length ? 'UPDATE' : 'CREATE';
     TaskDispatcher.dispatch({
       action: TaskConstants[event],
       data: this.state.task
@@ -47,7 +47,7 @@ var TaskForm = React.createClass({
       case TaskConstants.CREATED:
       case TaskConstants.UPDATED:
         this.setState({ 
-          task: { title: '', description: '' },
+          task: { id: '', title: '', description: '' },
           buttonText: 'Create Task'
         });
         break;
@@ -59,8 +59,10 @@ var TaskForm = React.createClass({
     var form = this.getDOMNode();
     this.setState({
       task: {
+        _id: form.id.value,
         title: form.title.value,
-        description: form.description.value  
+        description: form.description.value,
+        category: form.category.value || 'default'
       }
     });
   },
@@ -72,7 +74,7 @@ var TaskForm = React.createClass({
     var task = this.state.task;
     return (
       <form onSubmit={this.onSubmit} role="form">
-        <input type="hidden" value={task._id} />
+        <input type="hidden" name="id" value={task._id} />
         <div className="form-group">
           <label htmlFor="title"> Title </label>
           <input className="form-control"
@@ -85,7 +87,15 @@ var TaskForm = React.createClass({
             onChange={this.handleChange}
             value={task.description} />
         </div>
+        <div className="form-group">
+          <select name="category" className="form-control" onChange={this.handleChange}>
+            <option value="default"> Default </option>
+            <option value="work"> Work </option>
+            <option value="personal"> Personal </option>
+          </select>
+        </div>
         <button className="btn btn-success">{this.state.buttonText}</button>
+
       </form>
     );
   }
