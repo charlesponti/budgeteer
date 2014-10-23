@@ -6,10 +6,8 @@
   "repository": "http://github.com/theponti/cthulhu",
   "scripts": {
     "test": "NODE_ENV=test mocha --ui tdd --recursive test",
-    "start": "node bin/cthulhu",
-    "supervise": "supervisor bin/cthulhu",
-    "build-dev": "browserify -e client/scripts/main.js -t reactify -o public/scripts/bundle.dev.js -d",
-    "build-min": "browserify -e client/scripts/main.js -t reacttify -t uglifyify -o public/scripts/bundle.min.js"
+    "start": "NODE_ENV=development node bin/cthulhu",
+    "supervise": "NODE_ENV=development supervisor bin/cthulhu"
   },
   "testling": {
     "harness": "mocha-tdd",
@@ -79,6 +77,12 @@
     "gulp-watch": "^0.7.0",
     "jshint-stylish": "^0.4.0",
     "jsx-loader": "^0.11.2",
+    "karma": "^0.12.24",
+    "karma-chrome-launcher": "^0.1.5",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-jasmine": "^0.1.5",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-safari-launcher": "^0.1.1",
     "less-loader": ">=0.7.2",
     "matchdep": "~0.3.0",
     "mocha": "^1.21.5",
