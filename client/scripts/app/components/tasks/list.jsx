@@ -43,9 +43,10 @@ var TaskList = React.createClass({
    * @param  {string} id
    */
   onSearchFieldChange: function(e, id) {
-    var isTerm, completedTerm;
+    var isTerm, completedTerm, categoryTerm, category;
     var searchTerm = e.target.value;
     var completedRegex = /is:\w+\s/;
+    var categoryRegex = /category:\w+\s/;
     var records = TaskStore.getRecords();
 
     if (completedRegex.test(searchTerm)) {
@@ -64,7 +65,17 @@ var TaskList = React.createClass({
       searchTerm = searchTerm.replace(isTerm, '');
     }
 
+    if (categoryRegex.test(searchTerm)) {
+      category = categoryRegex.exec(searchTerm)[0];
+      categoryTerm = category.trim().replace('category:','');
+      records = records.filter(function(task) { 
+        return (new RegExp(categoryTerm)).test(task.category);
+      });
+      searchTerm = searchTerm.replace(category, '');
+    }
+
     if (searchTerm.length) {
+      searchTerm = searchTerm.replace(' ', '');
       var regExp = new RegExp(searchTerm, 'i');
       records = records.filter(function(task) { 
         return regExp.test(task.title);

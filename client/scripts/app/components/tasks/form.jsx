@@ -46,10 +46,7 @@ var TaskForm = React.createClass({
         break;
       case TaskConstants.CREATED:
       case TaskConstants.UPDATED:
-        this.setState({ 
-          task: { id: '', title: '', description: '' },
-          buttonText: 'Create Task'
-        });
+        this.setState(this.getInitialState());
         break;
     }
     return true;
@@ -95,9 +92,8 @@ var TaskForm = React.createClass({
           </select>
         </div>
         <button className="btn btn-success">{this.state.buttonText}</button>
-
       </form>
-    );
+    )
   }
 
 });
