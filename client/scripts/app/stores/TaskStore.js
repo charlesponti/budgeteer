@@ -4,7 +4,6 @@
  * Module dependencies
  */
 var _ = require('lodash');
-var $ = require('jquery');
 var App = require('../app.jsx');
 var BaseStore = require('./BaseStore');
 var request = require('superagent/lib/client');
@@ -27,17 +26,19 @@ var TaskStore = BaseStore.new({
    * Load tasks fro API
    */
   load: function() {
-    $.get('/api/tasks')
-      .then(function(response) {
-        this._records = response.tasks;
-        TaskDispatcher.dispatch({
-          action: TaskConstants.LOADED,
-          data: this._records
-        });
+    request
+      .get('/api/tasks')
+      .end(function(err, response) {
+        if (err) {
+          throw err;
+        } else {
+          this._records = response.body.tasks;
+          TaskDispatcher.dispatch({
+            action: TaskConstants.LOADED,
+            data: this._records
+          });
+        }
       }.bind(this))
-      .fail(function(err) {
-        throw err;
-      });
     return this;
   },
 
