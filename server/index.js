@@ -37,11 +37,15 @@ var MongoStore = require('connect-mongo')(express_session);
  * Application dependencies
  * @type {exports}
  */
-var mailer = require('./mailer');
-var oauth = require('./util/oauth');
-var middleware = require('./util/middleware');
 var auth = require('./util/auth');
+var oauth = require('./util/oauth');
+var mailer = require('./util/mailer');
+var middleware = require('./util/middleware');
 
+/**
+ * Create time variables for use in Time-To-Live settings
+ * @type {Number}
+ */
 var hour = 3600000;
 var day = hour * 24;
 var week = day * 7;

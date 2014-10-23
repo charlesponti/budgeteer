@@ -40,6 +40,7 @@ var TaskController = merge(events.EventEmitter.prototype, {
           message: 'There was an issue fetching your tasks'
         });
       }
+      Cthulhu.socket.emit('tasks', { tasks: tasks });
       res.status(200).json({ tasks: tasks });
     });
   },

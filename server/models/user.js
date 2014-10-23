@@ -231,10 +231,19 @@ UserSchema.methods = {
   /**
    * @desc Make random token
    * @return {String}
-   * @api public
+   * @public
    */
   makeToken: function() {
     return crypto.randomBytes(32).toString('base64');
+  },
+
+  /**
+   * @desc Make random token
+   * @return {Number}
+   * @private
+   */
+  makeSixDigitToken: function() {
+    return Math.floor(Math.random() * 100000) + 300000;
   },
 
   /**
