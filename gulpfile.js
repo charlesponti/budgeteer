@@ -14,8 +14,8 @@ var concatinate = require('gulp-concat');
 
 var sources = {
   js: {
-    dir: './client/scripts/**/*.js',
-    main: './client/scripts/main.js'
+    dir: './client/app/**/*.js',
+    main: './client/app/main.js'
   },
   styles: {
     main: './client/styles/main.less',
