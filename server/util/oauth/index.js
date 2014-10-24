@@ -69,9 +69,10 @@ function oauth(config) {
 }
 
 /**
- * Export factory function that returns new Sentinal
+ * Export factory function that returns a new oauth module configured
+ * with supplied configuration
  * @param  {Object} config Configuration
- * @return {Sentinal}
+ * @return {Object}
  */
 module.exports = function(config) {
   return oauth(config);
