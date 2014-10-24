@@ -13,7 +13,7 @@ var _ = require('lodash');
  */
 function oauth(config) {
 
-  var oauth = {};
+  var module = {};
 
   /**
    * Check that config was passed
@@ -26,45 +26,45 @@ function oauth(config) {
    * Attach Facebook OAuth strategy if configuration exists for it
    */
   if (_.isPlainObject(config.Facebook)) {
-    oauth.Facebook = require('./strategies/facebook')(config.Facebook);
+    module.Facebook = require('./strategies/facebook')(config.Facebook);
   }
 
   /**
    * Attach Google OAuth strategy if configuration exists for it
    */
   if (_.isPlainObject(config.Google)) {
-    oauth.Google = require('./strategies/google')(config.Google);
+    module.Google = require('./strategies/google')(config.Google);
   }
 
   /**
    * Attach Twitter OAuth strategy if configuration exists for it
    */
   if (_.isPlainObject(config.Twitter)) {
-    oauth.Twitter = require('./strategies/twitter')(config.Twitter);
+    module.Twitter = require('./strategies/twitter')(config.Twitter);
   }
 
   /**
    * Attach Foursquare OAuth strategy if configuration exists for it
    */
   if (_.isPlainObject(config.Foursquare)) {
-    oauth.Foursquare = require('./strategies/foursquare')(config.Foursquare);
+    module.Foursquare = require('./strategies/foursquare')(config.Foursquare);
   }
 
   /**
    * Attach Github OAuth strategy if configuration exists for it
    */
   if (_.isPlainObject(config.Github)) {
-    oauth.Github = require('./strategies/github')(config.Github);
+    module.Github = require('./strategies/github')(config.Github);
   }
 
   /**
    * Attach Authy strategy if configuration exists for it
    */
   if (_.isPlainObject(config.Authy)) {
-    oauth.Authy = require('./strategies/authy')(config.Authy);
+    module.Authy = require('./strategies/authy')(config.Authy);
   }
   
-  return oauth;
+  return module;
 
 }
 

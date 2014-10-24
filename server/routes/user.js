@@ -384,7 +384,7 @@ function UserController() {
    * @param  {IncomingMessage} req
    * @param  {ServerResponse} res
    */
-  controller.on('account-create', function(err, user, req, res) {
+  controller.onAccountCreate = function(err, user, req, res) {
     if (err) {
       req.flash("error", "There was an error. Our developers are looking into it");
       return res.redirect("/login");
@@ -392,7 +392,7 @@ function UserController() {
     req.login(user);
     req.flash("success", "Account created.");
     res.redirect("/account");
-  });
+  };
 
   /**
    * Log in user
@@ -400,12 +400,15 @@ function UserController() {
    * @param  {http.IncomingMessage} req
    * @param  {http.ServerResponse} res
    */
-  controller.on('login', function(user, req, res) {
+  controller.onLogIn = function(user, req, res) {
     req.login(user);
     req.flash("success", "Logged In.");
     res.redirect("/account");
-  });
+  };
 
+  controller.on('login', controller.onLogIn);
+  controller.on('account-create', controller.onAccountCreate);
+  
   /**
    * Create router
    */
