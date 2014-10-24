@@ -5,6 +5,7 @@
  * @type {exports}
  * @private
  */
+var _ = require('lodash');
 var express = require('express');
 var Emitter = require('events').EventEmitter;
 
@@ -16,20 +17,17 @@ var Emitter = require('events').EventEmitter;
 var User = require('../models/user');
 
 /**
- * `UserController` constructor
- * @constructor
- * @public
+ * Factory function that constructs the user controller
+ * @private
  */
 function UserController() {
 
-  this.emitter = new Emitter();
-
   /**
-   * Reference to this
+   * Construct new controller
    * @type {Object}
    * @private
    */
-  var self = this;
+  var controller = _.extend({}, Emitter.prototype);
 
   /**
    * Sign up user through two-factor authentication
@@ -37,7 +35,7 @@ function UserController() {
    * @param {ServerResponse} res
    * @param {Function} next
    */
-  this.logIn = function(req, res, next) {
+  controller.logIn = function(req, res, next) {
     User.findOne({ email: req.body.email }).exec(function(err, user) {
 
       if (err) {
@@ -47,7 +45,7 @@ function UserController() {
 
       if (user) {
         return user.sendReset(function(err) {
-          self.emitter.emit('send-reset', err, user, req, res);
+          controller.emit('send-reset', err, user, req, res);
         });
       }
 
@@ -68,7 +66,7 @@ function UserController() {
    * Serve templates
    * @type {Object}
    */
-  this.serve = {
+  controller.serve = {
     /**
      * Serve sign up page
      * @param {IncomingMessage} req
@@ -89,7 +87,7 @@ function UserController() {
    * @param {ServerResponse} res
    * @param {Function} next
    */
-  this.logOut = function(req, res, next) {
+  controller.logOut = function(req, res, next) {
     req.logout();
     res.redirect("/");
   };
@@ -100,15 +98,15 @@ function UserController() {
    * @param {ServerResponse} res
    * @param {Function} next
    */
-  this.linkFacebook = function(req, res, next) {
+  controller.linkFacebook = function(req, res, next) {
     if (!req.user) {
       return User
         .findOne({ email: req._oauth.profile.email })
         .exec(function(err, user) {
-          self.emitter.emit('link-oauth', err, user, 'facebook', req, res);
+          controller.emit('link-oauth', err, user, 'facebook', req, res);
         });
     }
-    return self.emitter.emit('link-oauth', null, req.user, 'facebook', req, res);
+    return controller.emit('link-oauth', null, req.user, 'facebook', req, res);
   };
 
   /**
@@ -117,15 +115,15 @@ function UserController() {
    * @param {ServerResponse} res
    * @param {Function} next
    */
-  this.linkGoogle = function(req, res, next) {
+  controller.linkGoogle = function(req, res, next) {
     if (!req.user) {
       return User
         .findOne({ email: req._oauth.profile.emails[0].value })
         .exec(function(err, user) {
-          self.emitter.emit('link-oauth', err, user, 'google', req, res);
+          controller.emit('link-oauth', err, user, 'google', req, res);
         });
     }
-    return self.emitter.emit('link-oauth', null, req.user, 'google', req, res);
+    return controller.emit('link-oauth', null, req.user, 'google', req, res);
   };
 
   /**
@@ -136,15 +134,15 @@ function UserController() {
    @param {IncomingMessage} req
    @param {ServerResponse} res
    */
-  this.linkTwitter = function(req, res, next) {
+  controller.linkTwitter = function(req, res, next) {
     if (!req.user) {
       return User
         .findOne({ email: req._oauth.profile.email })
         .exec(function(err, user) {
-          self.emitter.emit('link-oauth', err, user, 'twitter', req, res);
+          controller.emit('link-oauth', err, user, 'twitter', req, res);
         });
     }
-    return self.emitter.emit('link-oauth', null, req.user, 'twitter', req, res);
+    return controller.emit('link-oauth', null, req.user, 'twitter', req, res);
   };
 
   /**
@@ -153,15 +151,15 @@ function UserController() {
    * @param {ServerResponse} res
    * @param {Function} next
    */
-  this.linkFoursquare = function(req, res, next) {
+  controller.linkFoursquare = function(req, res, next) {
     if (!req.user) {
       User
         .findOne({ email: req._oauth.profile.email })
         .exec(function(err, user) {
-          self.emitter.emit('link-oauth', err, user, 'foursquare', req, res);
+          controller.emit('link-oauth', err, user, 'foursquare', req, res);
         });
     }
-    return self.emitter.emit('link-oauth', null, req.user, 'foursquare', req, res);
+    return controller.emit('link-oauth', null, req.user, 'foursquare', req, res);
   };
 
   /**
@@ -170,15 +168,15 @@ function UserController() {
    * @param {ServerResponse} res
    * @param {Function} next
    */
-  this.linkGithub = function(req, res, next) {
+  controller.linkGithub = function(req, res, next) {
     if (!req.user) {
       return User
         .findOne({ email: req._oauth.profile.email })
         .exec(function(err, user) {
-          self.emitter.emit('link-oauth', err, user, 'github', req, res);
+          controller.emit('link-oauth', err, user, 'github', req, res);
         });
     }
-    return self.emitter.emit('link-oauth', null, req.user, 'github', req, res);
+    return controller.emit('link-oauth', null, req.user, 'github', req, res);
   };
 
   /**
@@ -187,9 +185,9 @@ function UserController() {
    * @param {http.ServerResponse} res
    * @param {Function} next
    */
-  this.deleteAccount = function deleteAccount(req, res, next) {
+  controller.deleteAccount = function deleteAccount(req, res, next) {
     User.remove({ _id: req.user.id }).exec(function(err) {
-      self.emitter.emit('account-delete', self, req, res);
+      controller.emit('account-delete', controller, req, res);
     });
   };
 
@@ -199,7 +197,7 @@ function UserController() {
    * @param {http.ServerResponse} res
    * @param {Function} next
    */
-  this.confirmAccount = function confirmAccount(req, res, next) {
+  controller.confirmAccount = function confirmAccount(req, res, next) {
     User
       .findOne({ confirmAccountToken: req.params.token })
       .exec(function(err, user) {
@@ -214,7 +212,7 @@ function UserController() {
         }
 
         user.confirmAccount(function(err) {
-          self.emitter.emit('account-confirm', err, user, req, res);
+          controller.emit('account-confirm', err, user, req, res);
         });
       });
   };
@@ -225,7 +223,7 @@ function UserController() {
    * @param {http.ServerResponse} res
    * @param {Function} next
    */
-  this.confirmReset = function confirmReset(req, res, next) {
+  controller.confirmReset = function confirmReset(req, res, next) {
     User
       .findOne({ resetToken: req.params.token })
       .exec(function(err, user) {
@@ -240,7 +238,7 @@ function UserController() {
         }
 
         user.confirmReset(function(err) {
-          self.emitter.emit('confirm-reset', err, user, req, res);
+          controller.emit('confirm-reset', err, user, req, res);
         });
       });
   };
@@ -252,7 +250,7 @@ function UserController() {
    * @param {http.IncomingMessage} req
    * @param {http.ServerResponse} res
    */
-  this.emitter.on('confirm-reset', function(err, user, req, res) {
+  controller.on('confirm-reset', function(err, user, req, res) {
     if (err) {
       req.flash('error', 'There was an error deleting your account.');
       return res.redirect('/login');
@@ -269,7 +267,7 @@ function UserController() {
    * @param  {IncomingMessage} req
    * @param  {ServerResponse} res
    */
-  this.emitter.on('send-reset', function sendReset(err, user, req, res) {
+  controller.on('send-reset', function sendReset(err, user, req, res) {
     if (err) {
       req.flash('error', 'There was an error deleting your account.');
       return res.redirect('/login');
@@ -284,7 +282,7 @@ function UserController() {
    * @param  {http.IncomingMessage} req
    * @param  {http.ServerResponse} res
    */
-  this.emitter.on('account-delete', function onDeleteAccount(err, req, res) {
+  controller.on('account-delete', function onDeleteAccount(err, req, res) {
     if (err) {
       req.flash('error', 'There was an error deleting your account.');
       return res.redirect('/account');
@@ -301,7 +299,7 @@ function UserController() {
    * @param {http.IncomingMessage} req
    * @param {http.ServerResponse} res
    */
-  this.emitter.on('account-confirm', function onConfirmAccount(err, user, req, res) {
+  controller.on('account-confirm', function onConfirmAccount(err, user, req, res) {
     if (err) {
       req.flash('error', 'There was an error confirming your account');
       return res.redirect('/login');
@@ -321,7 +319,7 @@ function UserController() {
    * @param  {ServerResponse} res
    * @return {Function}
    */
-  this.emitter.on('link-oauth', function(err, user, provider, req, res) {
+  controller.on('link-oauth', function(err, user, provider, req, res) {
     if (err) {
       req.flash('error', 'There was an unexpected server error.');
       return res.status(500).redirect(req.user ? '/account' : '/login');
@@ -331,7 +329,7 @@ function UserController() {
 
     user = user || req.user || new User();
 
-    return user.linkOAuth(req._oauth, self.onOauthLinked.bind(self, req, res));
+    return user.linkOAuth(req._oauth, controller.onOauthLinked.bind(controller, req, res));
   });
 
   /**
@@ -341,7 +339,7 @@ function UserController() {
    * @param {IncomingMessage} req
    * @param {ServerResponse} res
    */
-  this.onOauthLinked = function(req, res, err, user) {
+  controller.onOauthLinked = function(req, res, err, user) {
     if (err) {
       req.flash("error", err.message);
       return res.status(500).redirect(req.user ? '/account' : '/login');
@@ -365,7 +363,7 @@ function UserController() {
    * @param {Error} err
    * @returns {Function}
    */
-  this.unlinkOAuth = function(req, res, next) {
+  controller.unlinkOAuth = function(req, res, next) {
     var provider = req.params.provider;
 
     req.user.unlinkOAuth(provider, function(err, user) {
@@ -386,7 +384,7 @@ function UserController() {
    * @param  {IncomingMessage} req
    * @param  {ServerResponse} res
    */
-  this.emitter.on('account-create', function(err, user, req, res) {
+  controller.on('account-create', function(err, user, req, res) {
     if (err) {
       req.flash("error", "There was an error. Our developers are looking into it");
       return res.redirect("/login");
@@ -402,7 +400,7 @@ function UserController() {
    * @param  {http.IncomingMessage} req
    * @param  {http.ServerResponse} res
    */
-  this.emitter.on('login', function(user, req, res) {
+  controller.on('login', function(user, req, res) {
     req.login(user);
     req.flash("success", "Logged In.");
     res.redirect("/account");
@@ -416,11 +414,14 @@ function UserController() {
   /**
    * Routes
    */
-  router.get('/reset/:token', this.confirmReset);
-  router.get('/confirm/:token', this.confirmAccount);
-  router.get('/delete', this.deleteAccount);
+  router.get('/reset/:token', controller.confirmReset);
+  router.get('/confirm/:token', controller.confirmAccount);
+  router.get('/delete', controller.deleteAccount);
 
-  this.router = router;
+  controller.router = router;
+
+  return controller;
+
 }
 
-module.exports = new UserController();
+module.exports = UserController();
