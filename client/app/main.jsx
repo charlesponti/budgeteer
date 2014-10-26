@@ -1,18 +1,23 @@
 'use strict';
 
-/**
- * Module dependencies
- */
+var appRouter;
+var io = window.io;
+var React = require('react');
 var Router = require('react-router');
 var Routes = Router.Routes;
 var Route = Router.Route;
+var socket = io.connect('http://localhost:4000');
+
+socket.on('born', function (data) {
+  console.log(data);
+});
 
 /**
- * export Routes Component
+ * Create app router component
  */
-module.exports = (
+appRouter = (
   <Routes location="history">
-    <Route handler={require('./app.jsx')}>
+    <Route handler={require('./components/layout.jsx')}>
       <Route name="account" path="/account"
         handler={require('./components/account/Main.jsx')} />
       <Route name="tasks" path="/tasks"
@@ -22,3 +27,5 @@ module.exports = (
     </Route>
   </Routes>
 );
+
+React.renderComponent(appRouter, document.getElementById('app'));

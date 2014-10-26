@@ -2,6 +2,8 @@
 // Generated on Thu Oct 23 2014 15:45:57 GMT+0100 (BST)
 
 module.exports = function(config) {
+  'use strict';
+
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -15,8 +17,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/**/*.js',
-      'client/scripts/test/**/*.js'
+      'client/app/test/**/*.js'
     ],
 
 
@@ -63,4 +64,5 @@ module.exports = function(config) {
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false
   });
+
 };

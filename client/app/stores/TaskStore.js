@@ -4,7 +4,6 @@
  * Module dependencies
  */
 var _ = require('lodash');
-var App = require('../app.jsx');
 var BaseStore = require('./BaseStore');
 var service = require('../service/api');
 var TaskConstants = require('../constants/TaskConstants');

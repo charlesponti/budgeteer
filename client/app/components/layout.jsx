@@ -5,7 +5,7 @@
  */
 var React = require('react');
 var Link = require('react-router').Link;
-var UserStore = require('./stores/UserStore');
+var UserStore = require('../stores/UserStore');
 
 /**
  * Create Application
