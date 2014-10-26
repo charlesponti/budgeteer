@@ -67,15 +67,17 @@ var TaskListItem = React.createClass({
     var task = this.props.task;
 
     return (
-      <li className="list-group-item" onClick={this.onClick}>
-        <input type="checkbox" className="task-checkbox"
-          onClick={this.onCheckboxClick} defaultChecked={task.completed}/>
-        <b>{task.title}</b>
-        {/* <p>{task.description}</p> */}
-        <i onClick={this.onDeleteClick}
-          className="fa fa-remove pull-right" alt="Delete"></i>
-        <i onClick={this.onEditClick}
-          className="fa fa-pencil pull-right" alt="Edit"></i>
+      <li className="list-group-item task-list-item" onClick={this.onClick}>
+        <div>
+          <input type="checkbox" className="task-checkbox"
+            onClick={this.onCheckboxClick} defaultChecked={task.completed}/>
+          <b>{task.title}</b>
+          {/* <p>{task.description}</p> */}
+          <i onClick={this.onDeleteClick}
+            className="fa fa-remove pull-right" alt="Delete"></i>
+          <i onClick={this.onEditClick}
+            className="fa fa-pencil pull-right" alt="Edit"></i>
+        </div>
         <span className="task-category pull-right">{task.category}</span>
         {this.state.showDescription ? <Preview text={task.description}/> : null}
       </li>
