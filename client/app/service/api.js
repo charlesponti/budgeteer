@@ -1,8 +1,14 @@
 'use strict';
 
-var request = require('superagent/lib/client');
+var _ = require('lodash');
 
-function APIService() {
+function APIService(newService) {
+
+  var service = {};
+
+  service.getCSRF = function() {
+    return $('#csrf').data('value');
+  };
 
   /**
    * Make AJAX request to `/api`
@@ -12,78 +18,86 @@ function APIService() {
    * @param  {Object} options.data
    * @return {jQuery.Deferred}
    */
-  this.request = function apiRequest(options) {
-    var deferred = new $.Deferred();
-
-    $.ajax({
-      url: '/api/'+options.path,
-      method: options.method,
-      data: options.data || {}
-    })
-    .done(function(data) {
-      deferred.resolve(data);
-    })
-    .fail(function(data) {
-      deferred.reject(data);
+  service.request = function apiRequest(options) {
+    return new Promise(function(resolve, reject) {
+      $.ajax({
+        url: '/api/'+options.path,
+        method: options.method,
+        data: options.data || {}
+      })
+      .done(function(data) {
+        resolve(data);
+      })
+      .fail(function(data) {
+        reject(data);
+      });
     });
-
-    return deferred.promise();
   };
 
   /**
    * Make GET request to `/api`
    * @param  {String} path
-   * @param  {Object} data [description]
+   * @param  {Object} data
    * @return {jQuery.Deferred}
    */
-  this.get = function(path, callback) {
-    return request.get('/api'+path, callback);
+  service.get = function(path, data) {
+    return service.request({ path: path, method: 'GET', data: data });
   };
 
   /**
    * Make POST request to `/api`
    * @param  {String} path
-   * @param  {Object} data [description]
+   * @param  {Object} data
    * @return {jQuery.Deferred}
    */
-  this.post = function(path, data) {
+  service.post = function(path, data) {
     data = data || {};
     data._csrf = $('#csrf').data('value');
-    return this.request({ path: path, method: 'DELETE', data: data });
+    return service.request({ path: path, method: 'DELETE', data: data });
   };
 
   /**
    * Make PUT request to `/api`
    * @param  {String} path
-   * @param  {Object} data [description]
+   * @param  {Object} data
    * @return {jQuery.Deferred}
    */
-  this.put = function(path, data) {
-    return this.request({ path: path, method: 'PUT', data: data });
+  service.put = function(path, data) {
+    data = data || {};
+    data._csrf = service.getCSRF();
+    return service.request({ path: path, method: 'PUT', data: data });
   };
 
   /**
    * Make PATCH request to `/api`
    * @param  {String} path
-   * @param  {Object} data [description]
+   * @param  {Object} data
    * @return {jQuery.Deferred}
    */
-  this.patch = function(path, data) {
-    return this.request({ path: path, method: 'PATCH', data: data });
+  service.patch = function(path, data) {
+    data = data || {};
+    data._csrf = service.getCSRF();
+    return service.request({ path: path, method: 'PATCH', data: data });
   };
 
   /**
    * Make DELETE request to `/api`
    * @param  {String} path
-   * @param  {Object} data [description]
+   * @param  {Object} data
    * @return {jQuery.Deferred}
    */
-  this.del = function(path, data, callback) {
+  service.del = function(path, data, callback) {
     data = data || {};
-    data._csrf = $('#csrf').data('value');
-    return this.request({ path: path, method: 'DELETE', data: data });
+    data._csrf = service.getCSRF();
+    return service.request({ path: path, method: 'DELETE', data: data });
   };
+
+  if (_.isPlainObject(newService)) {
+    service = _.extend(service, newService);
+  }
+
+  return service;
 
 }
 
-module.exports = new APIService();
+module.exports = APIService();
