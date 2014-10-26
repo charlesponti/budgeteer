@@ -26,19 +26,17 @@ var TaskStore = BaseStore.new({
    * Load tasks fro API
    */
   load: function() {
-    request
-      .get('/api/tasks')
-      .end(function(err, response) {
-        if (err) {
-          throw err;
-        } else {
-          this._records = response.body.tasks;
-          TaskDispatcher.dispatch({
-            action: TaskConstants.LOADED,
-            data: this._records
-          });
-        }
-      }.bind(this))
+    $.get('/api/tasks')
+      .success(function(response) {
+        TaskStore._records = response.tasks;
+        TaskDispatcher.dispatch({
+          action: TaskConstants.LOADED,
+          data: TaskStore._records
+        });
+      })
+      .fail(function() {
+        debugger;
+      });
     return this;
   },
 

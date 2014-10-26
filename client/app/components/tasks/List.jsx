@@ -21,12 +21,14 @@ var TaskList = React.createClass({
   },
 
   dispatcher: function(payload) {
-    switch(payload.action) {
-      case TaskConstants.LOADED:
-      case TaskConstants.CREATED:
-      case TaskConstants.UPDATED:
-        this.setState({ tasks: payload.data });
-        break;
+    if (this.isMounted()) {
+      switch(payload.action) {
+        case TaskConstants.LOADED:
+        case TaskConstants.CREATED:
+        case TaskConstants.UPDATED:
+          this.setState({ tasks: payload.data });
+          break;
+      }
     }
   },
 
