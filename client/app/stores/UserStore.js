@@ -27,7 +27,7 @@ var UserStore = BaseStore.new({
         UserStore._user = response;
         UserStore.emit('loaded', UserStore._user);
       });
-    return this;
+    return UserStore;
   },
 
   /**
