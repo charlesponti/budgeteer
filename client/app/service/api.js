@@ -90,4 +90,4 @@ service.del = function(path, data, callback) {
   return service.request({ path: path, method: 'DELETE', data: data });
 };
 
-module.exports = Object.freeze(service);
+module.exports = service;

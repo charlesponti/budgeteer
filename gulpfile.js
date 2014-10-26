@@ -11,10 +11,12 @@ var jsHint = require('gulp-jshint');
 var rename = require('gulp-rename');
 var stylish = require('jshint-stylish');
 var concatinate = require('gulp-concat');
+var webpackConfig = require('./webpack.config');
 
 var sources = {
   js: {
     dir: './client/app/**/*.js',
+    tests: './client/test/specs/**/*.js',
     main: './client/app/main.jsx'
   },
   styles: {
@@ -53,7 +55,23 @@ gulp.task('clean-styles', function(done) {
  * the bundled file into `public/scripts/bundle.js`.
  */
 gulp.task('build-scripts', ['clean-scripts', 'lint-client'], function(done) {
-  return webpack(require('./webpack.config'), function (err, stats) {
+  return webpack(webpackConfig[0], function (err, stats) {
+    
+    if (err) {
+      throw new gutil.PluginError('[build-js]', err);
+    }
+
+    done();
+  });
+});
+
+/**
+ * `build-scripts` task.
+ * This task will bundle all of the client side scripts and place
+ * the bundled file into `public/scripts/bundle.js`.
+ */
+gulp.task('build-client-test', function(done) {
+  return webpack(webpackConfig[1], function (err, stats) {
     
     if (err) {
       throw new gutil.PluginError('[build-js]', err);
@@ -105,6 +123,10 @@ gulp.task('watch', function() {
   // Watch client-side .js files
   gulp.src(sources.js.dir)
     .pipe(watch('client/app/**/*', ['build-scripts']));
+
+  // Watch client-side tests
+  gulp.src(sources.js.tests)
+    .pipe(watch('client/test/specs/*', ['build-client-test']));
 
   // Watch server-side .js files
   gulp.src(sources.backend)

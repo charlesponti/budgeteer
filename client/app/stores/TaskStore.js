@@ -15,7 +15,7 @@ var TaskConstants = require('../constants/TaskConstants');
  * @requires module: ../service/api
  * @requires module: ../constants/TaskConstants
  */
-var TaskStore = BaseStore.new({
+var TaskStore = _.merge(BaseStore, {
 
   url: 'tasks',
 
@@ -45,7 +45,7 @@ var TaskStore = BaseStore.new({
    */
   create: function(data) {
     service
-      .post('/api/tasks', data)
+      .post('tasks', data)
       .then(function(response) {
         TaskStore.add(response.task);
         TaskStore.dispatch({

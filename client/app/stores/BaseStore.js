@@ -14,22 +14,6 @@ BaseStore.url = undefined;
 BaseStore._records = [];
 
 /**
- * Create an extension of BaseStore
- * @param  {object} newStore
- * @return {object}
- */
-BaseStore.new = function(newStore) {
-  newStore = _.merge(new Dispatcher(), newStore, this);
-  
-  // If new store has a init method, call it before returning new store
-  if (_.isFunction(newStore.init)) {
-    newStore.init();
-  }
-
-  return newStore;
-};
-
-/**
  * Return store's records
  * @return {array}
  */
@@ -39,14 +23,25 @@ BaseStore.getRecords = function() {
 
 /**
  * Add record
- * @param {object} record
+ * @param {*} records
  */
-BaseStore.add = function(record) {
-  if (_.isArray(this._records)) {
-    this._records.push(record);
+BaseStore.add = function(records) {
+  if (_.isArray(records)) {
+    var areObjects = _.every(records, function(record) { 
+      return _.isPlainObject(record);
+    });
+    // Only add 
+    if (areObjects) {
+      this._records.concat(records);  
+    } else {
+      throw new Error('BaseStore#add only takes an object or an array of objects');
+    }
+  } else if (_.isPlainObject(records)) {
+    this._records.push(records);  
   } else {
-    this._records = [record];
+    throw new Error('BaseStore#add only takes an object or an array of objects');
   }
+
   return this._records;
 };
 

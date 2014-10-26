@@ -11,7 +11,7 @@ var UserConstants = require('../constants/UserConstants');
  * @requires module: ./BaseStore
  * @requires module: ../service/api
  */
-var UserStore = BaseStore.new({
+var UserStore = _.merge(BaseStore, {
 
   /**
    * @type {?object}
