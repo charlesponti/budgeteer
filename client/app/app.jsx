@@ -3,15 +3,15 @@
 /**
  * Module dependencies
  */
-var meow = 'cake';
 var React = require('react');
 var Link = require('react-router').Link;
 var UserStore = require('./stores/UserStore');
 
 /**
  * Create Application
- * @requires module: events
- * @requires module: react/lib/merge
+ * @requires module: react
+ * @requires module: react-router
+ * @requires module: ./stores/UserStore
  */
 var App = module.exports = React.createClass({
   
