@@ -1,31 +1,32 @@
 'use strict';
 
 var _ = require('lodash');
-var request = require('superagent/lib/client');
 var BaseStore = require('./BaseStore');
+var service = require('../service/api');
 
 /**
  * Store to hold current user
  * @requires module: lodash
- * @requires module: superagent/lib/client
  * @requires module: ./BaseStore
+ * @requires module: ../service/api
  */
 var UserStore = BaseStore.new({
 
   /**
-   * @type {null|object}
+   * @type {?object}
    */
-  _user: null,
+  _user: undefined,
 
   /**
    * Load currently authenticated user from API
    */
   load: function() {
-    request
-      .get('/api/me', function(response) {
-      this._user = response.body;
-      this.emit('loaded', this._user);
-    }.bind(this));
+    service
+      .get('/api/me')
+      .then(function(response) {
+        UserStore._user = response;
+        UserStore.emit('loaded', UserStore._user);
+      });
     return this;
   },
 
@@ -34,7 +35,7 @@ var UserStore = BaseStore.new({
    * @returns {Object}
    */
   getUser: function() {
-    return this._user;
+    return UserStore._user;
   },
 
   /**
@@ -42,9 +43,17 @@ var UserStore = BaseStore.new({
    * @return {array}
    */
   getUserAccounts: function() {
-    return _.pick(this._user || {}, function(value, key) {
+    return _.pick(UserStore._user || {}, function(value, key) {
       return _.contains(['facebook', 'google', 'foursquare', 'twitter', 'github'], key);
     });
+  },
+
+  /**
+   * Return user's access token
+   * @return {string}
+   */
+  getAccessToken: function() {
+    return UserStore._user ? UserStore._user.accessToken : undefined;
   }
 
 });
