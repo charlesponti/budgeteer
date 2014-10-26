@@ -6,15 +6,15 @@
 var _ = require('lodash');
 var App = require('../app.jsx');
 var BaseStore = require('./BaseStore');
-var request = require('superagent/lib/client');
+var service = require('../service/api');
 var TaskConstants = require('../constants/TaskConstants');
 var TaskDispatcher = require('../dispatchers/TaskDispatcher');
 
 /**
  * Store which will hold tasks
  * @requires module: lodash
- * @requires module: superagent/lib/client
  * @requires module: ./BaseStore
+ * @requires module: ../service/api
  * @requires module: ../constants/TaskConstants
  * @requires module: ../dispatchers/TaskDispatcher
  */
@@ -26,18 +26,18 @@ var TaskStore = BaseStore.new({
    * Load tasks fro API
    */
   load: function() {
-    $.get('/api/tasks')
-      .success(function(response) {
+    service.get('tasks')
+      .then(function(response) {
         TaskStore._records = response.tasks;
         TaskDispatcher.dispatch({
           action: TaskConstants.LOADED,
           data: TaskStore._records
         });
       })
-      .fail(function() {
-        debugger;
+      .catch(function() {
+        console.log(arguments);
       });
-    return this;
+    return TaskStore;
   },
 
   /**
@@ -47,92 +47,46 @@ var TaskStore = BaseStore.new({
    * @param  {string} data.description
    */
   create: function(data) {
-    request
-      .post('/api/tasks')
-      .type('form')
-      .send({
-        title: data.title,
-        description: data.description,
-        _csrf: App.getCSRF()
-      })
-      .end(function(err, response) {
-        if (err) {
-          throw err;
-        } else {
-          this.add(response.body.task);
-          TaskDispatcher.dispatch({
-            action: TaskConstants.CREATED,
-            data: this._records
-          });
-        }
-      }.bind(this));
-    return this;
+    service
+      .post('/api/tasks', data)
+      .then(function(response) {
+        TaskStore.add(response.task);
+        TaskDispatcher.dispatch({
+          action: TaskConstants.CREATED,
+          data: TaskStore._records
+        });
+      });
+    return TaskStore;
   },
 
   destroy: function(data) {
-    request
-      .del('/api/tasks')
-      .send({
-        id: data._id, _csrf: App.getCSRF()
-      })
-      .end(function(err, response) {
-        if (err) {
-          throw err;
-        } else {
-          this.remove(response.body.task);
-          TaskDispatcher.dispatch({
-            action: TaskConstants.UPDATED,
-            data: this._records
-          });
-        }
-      }.bind(this));
-    return this;
+    service
+      .del('tasks', data)
+      .then(function(response) {
+        TaskStore.remove(response.task);
+        TaskDispatcher.dispatch({
+          action: TaskConstants.UPDATED,
+          data: TaskStore._records
+        });
+      });
+    return TaskStore;
   },
 
   update: function(data) {
-    request
-      .put('/api/tasks')
-      .type('form')
-      .send({
-        id: data._id,
-        title: data.title,
-        description: data.description,
-        category: data.category,
-        _csrf: App.getCSRF()
-      })
-      .end(this.onUpdateResponse.bind(this));
-  },
-
-  /**
-   * Mark task as completed
-   * @param {object} data
-   * @return {TaskStore}
-   */
-  completed: function(data) {
-    request
-      .put('/api/tasks')
-      .type('form')
-      .send({
-        id: data._id,
-        completed: data.completed,
-        _csrf: App.getCSRF()
-      })
-      .end(this.onUpdateResponse.bind(this));
+    service
+      .put('tasks', data)
+      .then(TaskStore.onUpdateResponse.bind(TaskStore));
   },
 
   /**
    * Handle success response from update requests
    */
-  onUpdateResponse: function(err, response) {
-    if (err) {
-      throw err;
-    } else {
-      this.updateRecord(response.body.task);
-      TaskDispatcher.dispatch({
-        action: TaskConstants.UPDATED,
-        data: this._records
-      });
-    }
+  onUpdateResponse: function(response) {
+    TaskStore.updateRecord(response.task);
+    TaskDispatcher.dispatch({
+      action: TaskConstants.UPDATED,
+      data: TaskStore._records
+    });
   },
 
   /**
