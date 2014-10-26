@@ -18,4 +18,4 @@ describe('Task model', function() {
     task = null;
   });
 
-})
+});
