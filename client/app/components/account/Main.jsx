@@ -6,6 +6,7 @@
 var React = require('react');
 var UserStore = require('../../stores/UserStore');
 var ConnectedAccount = require('./ConnectedAccount.jsx');
+var UserConstants = require('../../constants/UserConstants');
 
 var Account = React.createClass({
 
@@ -24,11 +25,15 @@ var Account = React.createClass({
   /**
    * Set state of component when UserStore is loaded
    */
-  onUserStoreLoaded: function() {
-    this.setState({
-      user: UserStore.getUser(),
-      accounts: UserStore.getUserAccounts() 
-    });
+  UserStoreRegister: function(payload) {
+    switch(payload.action) {
+      case UserConstants.LOADED:
+        this.setState({
+          user: payload.data,
+          accounts: UserStore.getUserAccounts() 
+        });
+        break;
+    }
   },
 
   /**
@@ -37,10 +42,12 @@ var Account = React.createClass({
    */
   componentWillMount: function() {
     if (UserStore._user) {
-      this.onUserStoreLoaded();
-    } else {
-      UserStore.on('loaded', this.onUserStoreLoaded);
+      this.UserStoreRegister({
+        action: UserConstants.LOADED,
+        data: UserStore.getUser()
+      });
     }
+    UserStore.register(this.UserStoreRegister);
   },
 
   /**
