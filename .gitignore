@@ -13,3 +13,8 @@ public/scripts
 public/styles
 
 npm-debug.log
+
+bundle.js
+bundle.js.map
+bundle.test.js
+bundle.test.js.map
