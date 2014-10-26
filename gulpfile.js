@@ -104,7 +104,7 @@ gulp.task('watch', function() {
 
   // Watch client-side .js files
   gulp.src(sources.js.dir)
-    .pipe(watch('client/scripts/**/*', ['build-scripts']));
+    .pipe(watch('client/app/**/*', ['build-scripts']));
 
   // Watch server-side .js files
   gulp.src(sources.backend)

@@ -7,7 +7,8 @@
   "scripts": {
     "test": "NODE_ENV=test mocha --ui tdd --recursive test",
     "start": "NODE_ENV=development node bin/cthulhu --harmony",
-    "supervise": "NODE_ENV=development supervisor --harmony bin/cthulhu"
+    "supervise": "NODE_ENV=development supervisor --harmony bin/cthulhu",
+    "build-test": "webpack client/test/spec/**/main.test.js client/test/bundle.test.js"
   },
   "dependencies": {
     "async": "^0.9.0",

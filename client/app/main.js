@@ -8,4 +8,4 @@ socket.on('born', function (data) {
   console.log(data);
 });
 
-React.renderComponent(require("./router.jsx"), document.body);
+React.renderComponent(require("./router.jsx"), document.getElementById('app'));

@@ -26,6 +26,7 @@ var UserStore = BaseStore.new({
       this._user = response.body;
       this.emit('loaded', this._user);
     }.bind(this));
+    return this;
   },
 
   /**

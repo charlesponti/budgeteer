@@ -9,16 +9,12 @@
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    {% include 'partials/_nav.html' %}
+    {% if !current_user %}
+        {% include 'partials/_nav.html' %}
+    {% endif %}
     
     <div id="app" class="container-fluid">
         {% block content %}{% endblock %}
-        <button class="btn btn-default" id="meow"> Open </button>
-        <script type="text/javascript">
-            document.getElementById('meow').onclick = function() {
-                window.open('http://dev:4000/pop');
-            }
-        </script>
     </div>
 
     {% include 'partials/_flash.html' %}

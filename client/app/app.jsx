@@ -25,17 +25,40 @@ var App = module.exports = React.createClass({
     }
   },
   
+  getInitialState: function() {
+    return { user: undefined };
+  },
+
+  /**
+   * Handle logic when UserStore is loaded
+   * @param {Object} user Current user
+   */
+  onUserStoreLoaded: function(user) {
+    if (this.isMounted()) {
+      this.setState({ user: user });
+    }
+  },
+
   /**
    * Handle logic when component will mount to DOM
    */
   componentWillMount: function() {
-    UserStore.load();
+    UserStore.load().on('loaded', this.onUserStoreLoaded);
   },
 
   /**
    * Render application
    */
   render: function() {
+    var logButton, account;
+
+    if (this.state.user) {
+      account = <li><Link to="account">Account</Link></li>;
+      logButton = <li><a href="/logout">Sign Out</a></li>;
+    } else {
+      logButton = <li><a href="/login">Sign In</a></li>;
+    }
+
     return (
       <div>
         <nav className="nav navbar navbar-default navbar-fixed-top" role="navigation">
@@ -57,15 +80,8 @@ var App = module.exports = React.createClass({
                 <li><Link to="tasks">Tasks</Link></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
-                  <li>
-                    <li><Link to="account">Account</Link></li>
-                  </li>
-                  <li>
-                    <a href="/logout">Logout</a>
-                  </li>
-                  <li>
-                    <a href="/login"> Log In </a>
-                  </li>
+                  { account }
+                  { logButton }
               </ul>
             </div>
           </div>
