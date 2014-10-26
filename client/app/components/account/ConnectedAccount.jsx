@@ -28,19 +28,12 @@ var ConnectedAccount = React.createClass({
     return (
       <li className="list-group-item">
         <h4> {this.props.provider} </h4>
-        <div class="row">
-          <div class="col-sm-4">
-            <p>
-              <b> Name: </b> {profile.name}
-            </p>
-            <p>
-              <b> Screenname: </b> {profile.screen_name}
-            </p>
-          </div>
-          <div class="col-sm-4">
-            <UnlinkButton provider={provider}/>
-          </div>
+        <div className="col-sm-10">
+          <p>
+            <b> Name: </b> {profile.name}
+          </p>
         </div>
+        <UnlinkButton provider={provider}/>
       </li>
     );
   }

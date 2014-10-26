@@ -5,7 +5,7 @@
  */
 var React = require('react');
 var UserStore = require('../../stores/UserStore');
-var ConnectedAccounts = require('./ConnectedAccounts.jsx');
+var ConnectedAccount = require('./ConnectedAccount.jsx');
 
 var Account = React.createClass({
 
@@ -18,7 +18,7 @@ var Account = React.createClass({
    * Get initial state of component
    */
   getInitialState: function() {
-    return { user: null, accounts: null };
+    return { user: undefined, accounts: [] };
   },
 
   /**
@@ -43,14 +43,25 @@ var Account = React.createClass({
     }
   },
 
+  /**
+   * Render component
+   * @return {ReactCompositeComponent}
+   */
   render: function() {
+    var accounts = [];
+    _.forIn(this.state.accounts, function(profile, provider) {
+      accounts.push(<ConnectedAccount provider={provider} profile={profile} />);
+    });
     return (
       <div className="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <h1 className="text-center"> Account </h1>
-        <p>
-          <b>Access Token</b> {UserStore.getAccessToken()}
-        </p>
-        <ConnectedAccounts accounts={this.state.accounts} />
+        <ul className="list-group">
+          <li className="list-group-item">
+            <h4>Access Token</h4>
+            <p>{UserStore.getAccessToken()}</p>
+          </li>
+          {accounts}
+        </ul>
       </div>
     );
   }
