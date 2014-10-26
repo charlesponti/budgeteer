@@ -14,16 +14,6 @@ var UserStore = require('./stores/UserStore');
  * @requires module: react/lib/merge
  */
 var App = module.exports = React.createClass({
-
-  statics: {
-    /**
-     * Return CSRF token
-     * @return {string}
-     */
-    getCSRF: function() {
-      return $('#csrf').data('value');
-    }
-  },
   
   getInitialState: function() {
     return { user: undefined };
