@@ -22,7 +22,7 @@ var UserStore = BaseStore.new({
    */
   load: function() {
     service
-      .get('/api/me')
+      .get('me')
       .then(function(response) {
         UserStore._user = response;
         UserStore.emit('loaded', UserStore._user);
