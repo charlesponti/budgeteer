@@ -7,7 +7,6 @@ var _ = require('lodash');
 var BaseStore = require('./BaseStore');
 var service = require('../service/api');
 var TaskConstants = require('../constants/TaskConstants');
-var TaskDispatcher = require('../dispatchers/TaskDispatcher');
 
 /**
  * Store which will hold tasks
@@ -15,7 +14,6 @@ var TaskDispatcher = require('../dispatchers/TaskDispatcher');
  * @requires module: ./BaseStore
  * @requires module: ../service/api
  * @requires module: ../constants/TaskConstants
- * @requires module: ../dispatchers/TaskDispatcher
  */
 var TaskStore = BaseStore.new({
 
@@ -28,7 +26,7 @@ var TaskStore = BaseStore.new({
     service.get('tasks')
       .then(function(response) {
         TaskStore._records = response.tasks;
-        TaskDispatcher.dispatch({
+        TaskStore.dispatch({
           action: TaskConstants.LOADED,
           data: TaskStore._records
         });
@@ -50,7 +48,7 @@ var TaskStore = BaseStore.new({
       .post('/api/tasks', data)
       .then(function(response) {
         TaskStore.add(response.task);
-        TaskDispatcher.dispatch({
+        TaskStore.dispatch({
           action: TaskConstants.CREATED,
           data: TaskStore._records
         });
@@ -63,7 +61,7 @@ var TaskStore = BaseStore.new({
       .del('tasks', data)
       .then(function(response) {
         TaskStore.remove(response.task);
-        TaskDispatcher.dispatch({
+        TaskStore.dispatch({
           action: TaskConstants.UPDATED,
           data: TaskStore._records
         });
@@ -82,35 +80,33 @@ var TaskStore = BaseStore.new({
    */
   onUpdateResponse: function(response) {
     TaskStore.updateRecord(response.task);
-    TaskDispatcher.dispatch({
+    TaskStore.dispatch({
       action: TaskConstants.UPDATED,
       data: TaskStore._records
     });
-  },
+  }
 
-  /**
-   * Register dispatcher
-   */
-  dispatcherIndex: TaskDispatcher.register(function(payload) {
+});
 
-    switch (payload.action) {
-      case TaskConstants.CREATE:
-        TaskStore.create(payload.data);
-        break;
-      case TaskConstants.UPDATE:
-        TaskStore.update(payload.data);
-        break;
-      case TaskConstants.DESTROY:
-        TaskStore.destroy(payload.data);
-        break;
-      case TaskConstants.COMPLETED:
-        TaskStore.completed(payload.data);
-        break;
-    }
+TaskStore.register(function(payload) {
 
-    return true;
-  })
+  switch (payload.action) {
+    case TaskConstants.CREATE:
+      TaskStore.create(payload.data);
+      break;
+    case TaskConstants.UPDATE:
+      TaskStore.update(payload.data);
+      break;
+    case TaskConstants.DESTROY:
+      TaskStore.destroy(payload.data);
+      break;
+    case TaskConstants.COMPLETED:
+      TaskStore.completed(payload.data);
+      break;
+  }
 
+  return true;
+  
 });
 
 module.exports = TaskStore;

@@ -6,7 +6,6 @@ var React = require('react');
 var TaskListItem = require('./ListItem.jsx');
 var TaskStore = require('../../stores/TaskStore');
 var TaskConstants = require('../../constants/TaskConstants');
-var TaskDispatcher = require('../../dispatchers/TaskDispatcher');
 
 /**
  * TaskList component
@@ -36,7 +35,7 @@ var TaskList = React.createClass({
    * Handle logic when component will be mounted to the DOM
    */
   componentWillMount: function() {
-    TaskDispatcher.register(this.dispatcher);
+    TaskStore.register(this.dispatcher);
   },
 
   /**

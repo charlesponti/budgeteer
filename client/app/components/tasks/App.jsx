@@ -6,7 +6,6 @@ var React = require('react');
 var TaskForm = require('./Form.jsx');
 var TaskList = require('./List.jsx');
 var TaskStore = require('../../stores/TaskStore');
-var TaskDispatcher = require('../../dispatchers/TaskDispatcher');
 
 /**
  * Main view for the Tasks application

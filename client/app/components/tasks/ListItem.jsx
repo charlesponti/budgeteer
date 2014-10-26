@@ -2,8 +2,8 @@
 
 var React = require('react');
 var Preview = require('./Preview.jsx');
+var TaskStore = require('../../stores/TaskStore');
 var TaskConstants = require('../../constants/TaskConstants');
-var TaskDispatcher = require('../../dispatchers/TaskDispatcher');
 
 var TaskListItem = React.createClass({
 
@@ -22,7 +22,7 @@ var TaskListItem = React.createClass({
    */
   onCheckboxClick: function() {
     this.props.task.completed = !this.props.task.completed;
-    TaskDispatcher.dispatch({
+    TaskStore.dispatch({
       action: TaskConstants.COMPLETED,
       data: this.props.task
     });
@@ -34,7 +34,7 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onDeleteClick: function(e, id) {
-    TaskDispatcher.dispatch({
+    TaskStore.dispatch({
       action: TaskConstants.DESTROY,
       data: this.props.task
     });
@@ -46,7 +46,7 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onEditClick: function(e, id) {
-    TaskDispatcher.dispatch({
+    TaskStore.dispatch({
       action: TaskConstants.EDIT,
       data: this.props.task
     });

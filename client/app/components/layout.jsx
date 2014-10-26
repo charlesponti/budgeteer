@@ -6,6 +6,7 @@
 var React = require('react');
 var Link = require('react-router').Link;
 var UserStore = require('../stores/UserStore');
+var UserConstants = require('../constants/UserConstants');
 
 /**
  * Create Application
@@ -13,7 +14,7 @@ var UserStore = require('../stores/UserStore');
  * @requires module: react-router
  * @requires module: ./stores/UserStore
  */
-var App = module.exports = React.createClass({
+var Layout = module.exports = React.createClass({
   
   getInitialState: function() {
     return { user: undefined };
@@ -21,11 +22,14 @@ var App = module.exports = React.createClass({
 
   /**
    * Handle logic when UserStore is loaded
-   * @param {Object} user Current user
+   * @param {object} payload
    */
-  onUserStoreLoaded: function(user) {
+  UserStoreRegister: function(payload) {
     if (this.isMounted()) {
-      this.setState({ user: user });
+      switch(payload.action) {
+        case UserConstants.LOADED:
+          this.setState({ user: payload.data });
+      }
     }
   },
 
@@ -33,7 +37,8 @@ var App = module.exports = React.createClass({
    * Handle logic when component will mount to DOM
    */
   componentWillMount: function() {
-    UserStore.load().on('loaded', this.onUserStoreLoaded);
+    UserStore.load();
+    UserStore.register(this.UserStoreRegister);
   },
 
   /**

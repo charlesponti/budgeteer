@@ -1,72 +1,75 @@
 'use strict';
 
+var _ = require('lodash');
+var Dispatcher = require('flux').Dispatcher;
+
 /**
- * Module dependencies
- * @type {[type]}
+ * Create BaseStore
+ * @type {Dispatcher}
  */
-var EventEmitter = require('events').EventEmitter;
-var merge = require('react/lib/merge');
+var BaseStore = new Dispatcher();
 
-var BaseStore = merge(EventEmitter.prototype, {
+BaseStore.url = undefined;
 
-  url: null,
+BaseStore._records = [];
 
-  _records: [],
+/**
+ * Create an extension of BaseStore
+ * @param  {object} newStore
+ * @return {object}
+ */
+BaseStore.new = function(newStore) {
+  newStore = _.merge(new Dispatcher(), newStore, this);
   
-  /**
-   * Return store's records
-   * @return {array}
-   */
-  getRecords: function() {
-    return this._records || [];
-  },
-
-  /**
-   * Create an extension of BaseStore
-   * @param  {object} newStore
-   * @return {object}
-   */
-  new: function(newStore) {
-    return merge(BaseStore, newStore);
-  },
-
-  /**
-   * Add record
-   * @param {object} record
-   * @return {TaskStore}
-   */
-  add: function(record) {
-    if (_.isArray(this._records)) {
-      this._records.push(record);
-    } else {
-      this._records = [record];
-    }
-    return this._records;
-  },
-
-  /**
-   * Remove record
-   * @param  {string} id
-   * @return {TaskStore}
-   */
-  remove: function(id) {
-    this._records = _.reject(this._records, function(task) {
-      return task._id == id;
-    });
-    return this;
-  },
-
-  /**
-   * Update record
-   * @param {object} newRecord
-   */
-  updateRecord: function(newRecord) {
-    this._records = _.map(this._records, function(record) {
-      return record._id == newRecord._id ? newRecord : record;
-    });
-    return this;
+  // If new store has a init method, call it before returning new store
+  if (_.isFunction(newStore.init)) {
+    newStore.init();
   }
 
-});
+  return newStore;
+};
+
+/**
+ * Return store's records
+ * @return {array}
+ */
+BaseStore.getRecords = function() {
+  return this._records || [];
+};
+
+/**
+ * Add record
+ * @param {object} record
+ */
+BaseStore.add = function(record) {
+  if (_.isArray(this._records)) {
+    this._records.push(record);
+  } else {
+    this._records = [record];
+  }
+  return this._records;
+};
+
+/**
+ * Remove record
+ * @param  {string} id
+ */
+BaseStore.remove = function(id) {
+  this._records = _.reject(this._records, function(task) {
+    return task._id == id;
+  });
+  return this;
+};
+
+/**
+ * Update record
+ * @param {object} newRecord
+ */
+BaseStore.updateRecord = function(newRecord) {
+  this._records = _.map(this._records, function(record) {
+    return record._id == newRecord._id ? newRecord : record;
+  });
+  return this;
+};
 
 module.exports = BaseStore;

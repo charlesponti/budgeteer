@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
+var TaskStore = require('../../stores/TaskStore');
 var TaskConstants = require('../../constants/TaskConstants');
-var TaskDispatcher = require('../../dispatchers/TaskDispatcher');
 
 var TaskForm = React.createClass({
 
@@ -24,14 +24,14 @@ var TaskForm = React.createClass({
   onSubmit: function(e, id) {
     e.preventDefault();
     var event = this.state.task._id.length ? 'UPDATE' : 'CREATE';
-    TaskDispatcher.dispatch({
+    TaskStore.dispatch({
       action: TaskConstants[event],
       data: this.state.task
     });
   },
 
   componentWillMount: function() {
-    TaskDispatcher.register(this.dispatcher);
+    TaskStore.register(this.dispatcher);
   },
 
   /**
