@@ -45,8 +45,11 @@ var Account = React.createClass({
 
   render: function() {
     return (
-      <div className="col-sm-6 col-sm-offset-3">
+      <div className="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <h1 className="text-center"> Account </h1>
+        <p>
+          <b>Access Token</b> {UserStore.getAccessToken()}
+        </p>
         <ConnectedAccounts accounts={this.state.accounts} />
       </div>
     );
