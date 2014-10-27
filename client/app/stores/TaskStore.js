@@ -24,17 +24,23 @@ var TaskStore = _.merge(BaseStore, {
    */
   load: function() {
     service.get('tasks')
-      .then(function(response) {
-        TaskStore._records = response.tasks;
-        TaskStore.dispatch({
-          action: TaskConstants.LOADED,
-          data: TaskStore._records
-        });
-      })
+      .then(this.onLoadSuccess)
       .catch(function() {
         console.log(arguments);
       });
     return TaskStore;
+  },
+
+  /**
+   * Handle load success
+   * @param  {object} response
+   */
+  onLoadSuccess: function(response) {
+    TaskStore._records = response.tasks;
+    TaskStore.dispatch({
+      action: TaskConstants.LOADED,
+      data: TaskStore._records
+    });
   },
 
   /**
