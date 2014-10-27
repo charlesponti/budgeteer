@@ -27,7 +27,7 @@ TaskRouter.getUserTasks = function(req, res, next) {
  */
 TaskRouter.getUserTask = function(req, res, next) {
   if (req.isAuthenticated()) {
-    req.user.task = Task.find({ user_id: req.user.id, _id: req.body._id });
+    req.user.task = Task.findOne({ user_id: req.user.id, _id: req.body._id });
   }
   next();
 };
@@ -75,6 +75,24 @@ TaskRouter.onIndexFind = function(req, res) {
   };
 };
 
+/**
+ * Create new task
+ * @param  {Request}   req 
+ * @param  {Response}   res
+ * @param  {Function} next
+ */
+TaskRouter.create = function(req, res, next) {
+  req.user.tasks
+    .where({ title: req.body.title })
+    .exec(TaskRouter.createTask(req, res));
+};
+
+/**
+ * Update task
+ * @param  {IncomingMessage}   req
+ * @param  {ServerResponse}   res
+ * @param  {Function} next
+ */
 TaskRouter.update = function(req, res, next) {
   req.user.task.exec(function(err, task) {
     if (err) {
@@ -82,6 +100,7 @@ TaskRouter.update = function(req, res, next) {
     }
     
     if (task) {
+      console.log(task);
       task.title = req.body.title || task.title;
       task.description = req.body.description || task.description;
       task.completed = req.body.completed || task.completed;
@@ -93,7 +112,13 @@ TaskRouter.update = function(req, res, next) {
   });
 };
 
-TaskRouter.destroy = function(req, res) {
+/**
+ * Destroy task
+ * @param  {IncomingMessage}   req
+ * @param  {ServerResponse}   res
+ * @param  {Function} next
+ */
+TaskRouter.destroy = function(req, res, next) {
   req.user.task.exec(function(err, tasks) {
     if (err) {
       return console.log(err);
@@ -108,26 +133,16 @@ TaskRouter.destroy = function(req, res) {
 };
 
 /**
- * Create new task
- * @param  {Request}   req 
- * @param  {Response}   res
- * @param  {Function} next
- */
-TaskRouter.create = function(req, res, next) {
-  req.user.tasks
-    .where({ title: req.body.title })
-    .exec(TaskRouter.createTask(req, res));
-};
-
-/**
  * After checking for existing tasks with supplied title, create new 
  * task and attempt to save it.
  * @param  {IncomingMessage} req
  * @param  {ServerResponse}  res
- * @param  {?error} err
- * @param  {?array} tasks
  */
-TaskRouter.createTask = function(req, res, err, tasks) {
+TaskRouter.createTask = function(req, res) {
+  /**
+   * @param  {?error} err
+   * @param  {?array} tasks
+   */
   return function(err, tasks) {
 
     if (err) {
@@ -158,10 +173,12 @@ TaskRouter.createTask = function(req, res, err, tasks) {
  * Finish request after new task has been created
  * @param {object} req
  * @param {object} res
- * @param {?error} err
- * @param {?object} task
  */
 TaskRouter.onSave = function(req, res) {
+  /**
+   * @param {?error} err
+   * @param {?object} task
+   */
   return function(err, task) {
     if (err) {
       req.log('error', err);
@@ -191,16 +208,20 @@ TaskRouter.onDelete = function(req, res) {
 
 /**
  * Finish request after task has been updated
- * @param  {?error} err
- * @param  {Task} task
  * @param  {Request} req
  * @param  {Response} res
  */
-TaskRouter.afterUpdate = function(err, task, req, res) {
-  if (err) {
-    console.log(err);
-  }
-  res.status(200).json({ task: task });
+TaskRouter.afterUpdate = function(req, res) {
+  /**
+   * @param  {?error} err
+   * @param  {?Task} task
+   */
+  return function (err, task) {
+    if (err) {
+      console.log(err);
+    }
+    res.status(200).json({ task: task });
+  };
 };
 
 TaskRouter.get('/', Cthulhu.securePath, TaskRouter.getUserTasks, TaskRouter.index);
