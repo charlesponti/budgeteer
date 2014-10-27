@@ -90,29 +90,38 @@ var TaskStore = _.merge(BaseStore, {
       action: TaskConstants.UPDATED,
       data: TaskStore._records
     });
+  },
+
+  /**
+   * Handle events dispatched and received
+   * @param  {object} payload
+   * @return {boolean}
+   */
+  eventHandler: function(payload) {
+
+    switch (payload.action) {
+      case TaskConstants.CREATE:
+        TaskStore.create(payload.data);
+        break;
+      case TaskConstants.UPDATE:
+        TaskStore.update(payload.data);
+        break;
+      case TaskConstants.DESTROY:
+        TaskStore.destroy(payload.data);
+        break;
+      case TaskConstants.COMPLETED:
+        TaskStore.completed(payload.data);
+        break;
+    }
+
+    return true;
   }
 
 });
 
-TaskStore.register(function(payload) {
-
-  switch (payload.action) {
-    case TaskConstants.CREATE:
-      TaskStore.create(payload.data);
-      break;
-    case TaskConstants.UPDATE:
-      TaskStore.update(payload.data);
-      break;
-    case TaskConstants.DESTROY:
-      TaskStore.destroy(payload.data);
-      break;
-    case TaskConstants.COMPLETED:
-      TaskStore.completed(payload.data);
-      break;
-  }
-
-  return true;
-  
-});
+/**
+ * Register event handler
+ */
+TaskStore.register(TaskStore.eventHandler);
 
 module.exports = TaskStore;
