@@ -21,9 +21,11 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onCheckboxClick: function() {
+    // Negate 'completed' attribute of task
     this.props.task.completed = !this.props.task.completed;
+    // Dispatch event
     TaskStore.dispatch({
-      action: TaskConstants.COMPLETED,
+      action: TaskConstants.UPDATE,
       data: this.props.task
     });
   },

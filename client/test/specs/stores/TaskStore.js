@@ -93,4 +93,41 @@ describe('TaskStore', function() {
     });
   });
 
+  describe('.dispatch()', function() {
+    it('should call store.create on CREATE', function() {
+      store.create = sinon.spy();
+      store.dispatch({ action: TaskConstants.CREATE, data: 'foo' });
+      expect(store.create.called).to.equal(true);
+      expect(store.create.args[0][0]).to.equal('foo');
+    });
+    it('should call store.update on UPDATE', function() {
+      store.update = sinon.spy();
+      store.dispatch({ action: TaskConstants.UPDATE, data: 'foo' });
+      expect(store.update.called).to.equal(true);
+      expect(store.update.args[0][0]).to.equal('foo');
+    });
+    it('should call store.destroy on DESTROY', function() {
+      store.destroy = sinon.spy();
+      store.dispatch({ action: TaskConstants.DESTROY, data: 'foo' });
+      expect(store.destroy.called).to.equal(true);
+      expect(store.destroy.args[0][0]).to.equal('foo');
+    });
+  });
+
+  describe('.register()', function() {
+    var newDispatch;
+
+    beforeEach(function() {
+      newDispatch = sinon.stub();
+      store.register(newDispatch);
+    });
+
+    it('should call newDispatch', function() {
+      store.dispatch({ payload: 'foo', data: 'bar' });
+      expect(newDispatch.called).to.equal(true);
+      expect(newDispatch.args[0][0].payload).to.equal('foo');
+      expect(newDispatch.args[0][0].data).to.equal('bar');
+    });
+  });
+
 });
