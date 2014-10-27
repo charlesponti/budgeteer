@@ -15,106 +15,113 @@ var TaskConstants = require('../constants/TaskConstants');
  * @requires module: ../service/api
  * @requires module: ../constants/TaskConstants
  */
-var TaskStore = _.merge(BaseStore, {
+var TaskStore = BaseStore.extend();
 
-  url: 'tasks',
 
-  /**
-   * Load tasks fro API
-   */
-  load: function() {
-    service.get('tasks')
-      .then(this.onLoadSuccess)
-      .catch(function() {
-        console.log(arguments);
-      });
-    return TaskStore;
-  },
+TaskStore.url = 'tasks';
 
-  /**
-   * Handle load success
-   * @param  {object} response
-   */
-  onLoadSuccess: function(response) {
-    TaskStore._records = response.tasks;
-    TaskStore.dispatch({
-      action: TaskConstants.LOADED,
-      data: TaskStore._records
+/**
+ * Load tasks fro API
+ */
+TaskStore.load = function() {
+  service.get('tasks')
+    .then(this.onLoadSuccess)
+    .catch(function() {
+      console.log(arguments);
     });
-  },
+  return TaskStore;
+};
 
-  /**
-   * Send API request to create new task
-   * @param  {object} data
-   * @param  {string} data.title
-   * @param  {string} data.description
-   */
-  create: function(data) {
-    service
-      .post('tasks', data)
-      .then(function(response) {
-        TaskStore.add(response.task);
-        TaskStore.dispatch({
-          action: TaskConstants.CREATED,
-          data: TaskStore._records
-        });
+/**
+ * Add new tasks and dispatch events
+ * @param {object} response
+ */
+TaskStore.onLoadSuccess = function(response) {
+  TaskStore.add(response.tasks);
+  TaskStore.dispatch({
+    action: TaskConstants.LOADED,
+    data: TaskStore._records
+  });
+};
+
+/**
+ * Send API request to create new task
+ * @param  {object} data Task to be created
+ */
+TaskStore.create = function(data) {
+  service
+    .post('tasks', data)
+    .then(function(response) {
+      TaskStore.add(response.task);
+      TaskStore.dispatch({
+        action: TaskConstants.CREATED,
+        data: TaskStore._records
       });
-    return TaskStore;
-  },
-
-  destroy: function(data) {
-    service
-      .del('tasks', data)
-      .then(function(response) {
-        TaskStore.remove(response.task);
-        TaskStore.dispatch({
-          action: TaskConstants.UPDATED,
-          data: TaskStore._records
-        });
-      });
-    return TaskStore;
-  },
-
-  update: function(data) {
-    service
-      .put('tasks', data)
-      .then(TaskStore.onUpdateResponse.bind(TaskStore));
-  },
-
-  /**
-   * Handle success response from update requests
-   */
-  onUpdateResponse: function(response) {
-    TaskStore.updateRecord(response.task);
-    TaskStore.dispatch({
-      action: TaskConstants.UPDATED,
-      data: TaskStore._records
     });
-  },
+  return TaskStore;
+};
 
-  /**
-   * Handle events dispatched and received
-   * @param  {object} payload
-   * @return {boolean}
-   */
-  eventHandler: function(payload) {
+/**
+ * Send request to API to delete record
+ * @param  {object} data Task to be updated
+ */
+TaskStore.destroy = function(data) {
+  service
+    .del('tasks', data)
+    .then(function(response) {
+      TaskStore.remove(response.task);
+      TaskStore.dispatch({
+        action: TaskConstants.UPDATED,
+        data: TaskStore._records
+      });
+    });
+  return TaskStore;
+};
 
-    switch (payload.action) {
-      case TaskConstants.CREATE:
-        TaskStore.create(payload.data);
-        break;
-      case TaskConstants.UPDATE:
-        TaskStore.update(payload.data);
-        break;
-      case TaskConstants.DESTROY:
-        TaskStore.destroy(payload.data);
-        break;
-    }
+/**
+ * Send request to API to update record
+ * @param  {object} data Task to be updated
+ */
+TaskStore.update = function(data) {
+  service
+    .put('tasks', data)
+    .then(TaskStore.onUpdateSuccess)
+    .catch(TaskStore.onUpdateFail);
+};
 
-    return true;
+/**
+ * Update record in TaskStore._records
+ * @param {object} response Response from API
+ */
+TaskStore.onUpdateResponse = function(response) {
+  TaskStore.updateRecord(response.task);
+  TaskStore.dispatch({
+    action: TaskConstants.UPDATED,
+    data: TaskStore._records
+  });
+};
+
+/**
+ * Handle events dispatched and received
+ * @param  {object} payload
+ * @return {boolean}
+ */
+TaskStore.eventHandler = function(payload) {
+
+  switch (payload.action) {
+    case TaskConstants.CREATE:
+      TaskStore.create(payload.data);
+      break;
+    case TaskConstants.UPDATE:
+      TaskStore.update(payload.data);
+      break;
+    case TaskConstants.DESTROY:
+      TaskStore.destroy(payload.data);
+      break;
   }
 
-});
+  return true;
+};
 
 /**
  * Register event handler

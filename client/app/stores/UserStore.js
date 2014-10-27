@@ -11,55 +11,53 @@ var UserConstants = require('../constants/UserConstants');
  * @requires module: ./BaseStore
  * @requires module: ../service/api
  */
-var UserStore = _.merge(BaseStore, {
+var UserStore = BaseStore.extend();
 
-  /**
-   * @type {?object}
-   */
-  _user: undefined,
+/**
+ * @type {?object}
+ */
+UserStore._user = undefined;
 
-  /**
-   * Load currently authenticated user from API
-   */
-  load: function() {
-    service
-      .get('me')
-      .then(function(response) {
-        UserStore._user = response;
-        UserStore.dispatch({
-          action: UserConstants.LOADED, 
-          data: UserStore._user
-        });
+/**
+ * Load currently authenticated user from API
+ */
+UserStore.load = function() {
+  service
+    .get('me')
+    .then(function(response) {
+      UserStore._user = response;
+      UserStore.dispatch({
+        action: UserConstants.LOADED, 
+        data: UserStore._user
       });
-    return UserStore;
-  },
-
-  /**
-   * Return user currently logged in
-   * @returns {Object}
-   */
-  getUser: function() {
-    return UserStore._user;
-  },
-
-  /**
-   * Return array of user's social media accounts
-   * @return {array}
-   */
-  getUserAccounts: function() {
-    return _.pick(UserStore._user || {}, function(value, key) {
-      return _.contains(['facebook', 'google', 'foursquare', 'twitter', 'github'], key);
     });
-  },
+  return UserStore;
+};
 
-  /**
-   * Return user's access token
-   * @return {string}
-   */
-  getAccessToken: function() {
-    return UserStore._user ? UserStore._user.accessToken : undefined;
-  }
+/**
+ * Return user currently logged in
+ * @returns {Object}
+ */
+UserStore.getUser = function() {
+  return UserStore._user;
+};
 
-});
+/**
+ * Return array of user's social media accounts
+ * @return {array}
+ */
+UserStore.getUserAccounts = function() {
+  return _.pick(UserStore._user || {}, function(value, key) {
+    return _.contains(['facebook', 'google', 'foursquare', 'twitter', 'github'], key);
+  });
+};
+
+/**
+ * Return user's access token
+ * @return {string}
+ */
+UserStore.getAccessToken = function() {
+  return UserStore._user ? UserStore._user.accessToken : undefined;
+};
 
 module.exports = UserStore;

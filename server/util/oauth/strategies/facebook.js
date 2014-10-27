@@ -15,10 +15,6 @@ var request = require('superagent');
  * @constructor
  */
 function FacebookStrategy(options) {
-  /**
-   * Extend `this` with passed options
-   */
-  _.extend(this, options);
 
   /**
    * Check for necessary elements
@@ -29,11 +25,11 @@ function FacebookStrategy(options) {
     }
   });
 
-  var self = this;
+  var strategy = _.extend({}, options);
 
-  self.oauth_route_url = 'https://www.facebook.com/dialog/oauth?';
-  self.access_token_url = 'https://graph.facebook.com/oauth/access_token';
-  self.profile_url = 'https://graph.facebook.com/me';
+  strategy.oauth_route_url = 'https://www.facebook.com/dialog/oauth?';
+  strategy.access_token_url = 'https://graph.facebook.com/oauth/access_token';
+  strategy.profile_url = 'https://graph.facebook.com/me';
 
   /**
    * Send request to authorize request to Facebook
@@ -41,22 +37,22 @@ function FacebookStrategy(options) {
    * @param {express.response} res
    * @param {Function} next
    */
-  self.authorize = function(req, res, next) {
-    res.redirect(self.oauth_route_url + qs.stringify({
-      client_id: self.app_id,
+  strategy.authorize = function(req, res, next) {
+    res.redirect(strategy.oauth_route_url + qs.stringify({
+      client_id: strategy.app_id,
       state: res.locals._csrf,
-      redirect_uri: self.callback_url,
+      redirect_uri: strategy.callback_url,
       scope: 'public_profile,email'
     }));
   };
 
-  self.callback = function(req, res, next) {
+  strategy.callback = function(req, res, next) {
     return request
-            .get(self.access_token_url)
+            .get(strategy.access_token_url)
             .query({
-                client_id: self.app_id,
-                redirect_uri: self.callback_url,
-                client_secret: self.app_secret,
+                client_id: strategy.app_id,
+                redirect_uri: strategy.callback_url,
+                client_secret: strategy.app_secret,
                 code: req.query.code
             })
             .end(function(response) {
@@ -74,7 +70,7 @@ function FacebookStrategy(options) {
                 /**
                  * Get user's Facebook profile
                  */
-                self.get_profile(token, function(response) {
+                strategy.get_profile(token, function(response) {
                   req._oauth = {
                     token: token,
                     profile: JSON.parse(response.text)
@@ -84,15 +80,16 @@ function FacebookStrategy(options) {
               });
   };
 
-  self.get_profile = function(access_token, callback) {
+  strategy.get_profile = function(access_token, callback) {
     return request
-            .get(self.profile_url)
+            .get(strategy.profile_url)
             .query({ access_token: access_token })
             .end(callback);
   };
 
+  return strategy;
 }
 
 module.exports = function(config) {
-  return new FacebookStrategy(config);
+  return FacebookStrategy(config);
 };

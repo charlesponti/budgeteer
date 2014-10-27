@@ -7,7 +7,7 @@ var Dispatcher = require('flux').Dispatcher;
  * Create BaseStore
  * @type {Dispatcher}
  */
-var BaseStore = new Dispatcher();
+var BaseStore = _.extend(Dispatcher.prototype, {});
 
 BaseStore.url = undefined;
 
@@ -32,7 +32,7 @@ BaseStore.add = function(records) {
     });
     // Only add 
     if (areObjects) {
-      this._records.concat(records);  
+      this._records = this._records.concat(records);
     } else {
       throw new Error('BaseStore#add only takes an object or an array of objects');
     }
@@ -65,6 +65,13 @@ BaseStore.updateRecord = function(newRecord) {
     return record._id == newRecord._id ? newRecord : record;
   });
   return this;
+};
+
+BaseStore.extend = function(config) {
+  var newStore = new Dispatcher();
+  _.extend(newStore, config || {});
+  _.extend(newStore, BaseStore);
+  return newStore;
 };
 
 module.exports = BaseStore;
