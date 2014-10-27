@@ -76,10 +76,8 @@ var TaskListItem = React.createClass({
           <b>{task.title}</b>
         </div>
         <div className='task-actions'>
-          <i onClick={this.onDeleteClick}
-            className="fa fa-remove pull-right" alt="Delete"></i>
-          <i onClick={this.onEditClick}
-            className="fa fa-pencil pull-right" alt="Edit"></i>
+          <i onClick={this.onEditClick} className="fa fa-pencil" alt="Edit"></i>
+          <i onClick={this.onDeleteClick} className="fa fa-remove" alt="Delete"></i>
         </div>
         <span className="task-category pull-right">{task.category}</span>
         {this.state.showDescription ? <Preview text={task.description}/> : null}
