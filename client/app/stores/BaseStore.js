@@ -30,19 +30,19 @@ BaseStore.add = function(records) {
     var areObjects = _.every(records, function(record) { 
       return _.isPlainObject(record);
     });
-    // Only add 
+
+    // Only add if all values in array are objects, throw error if not
     if (areObjects) {
       this._records = this._records.concat(records);
-    } else {
-      throw new Error('BaseStore#add only takes an object or an array of objects');
-    }
+      return this._records;
+    } 
   } else if (_.isPlainObject(records)) {
-    this._records.push(records);  
-  } else {
-    throw new Error('BaseStore#add only takes an object or an array of objects');
-  }
-
-  return this._records;
+    // Add record to store
+    this._records.push(records);
+    return this._records;
+  } 
+  
+  throw new Error('BaseStore#add only takes an object or an array of objects');
 };
 
 /**

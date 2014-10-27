@@ -27,7 +27,7 @@ router.use('/auth', AuthRouter);
 
 // API
 router.get('/api/me', ApiRouter.getMe);
-router.use('/api/tasks', TasksRouter.router);
+router.use('/api/tasks', TasksRouter);
 
 // App Routes
 router.use('/', AppRouter);

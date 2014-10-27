@@ -51,7 +51,7 @@ service.get = function(path, data) {
 service.post = function(path, data) {
   data = data || {};
   data._csrf = $('#csrf').data('value');
-  return service.request({ path: path, method: 'DELETE', data: data });
+  return service.request({ path: path, method: 'POST', data: data });
 };
 
 /**
