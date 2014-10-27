@@ -109,9 +109,6 @@ var TaskStore = _.merge(BaseStore, {
       case TaskConstants.DESTROY:
         TaskStore.destroy(payload.data);
         break;
-      case TaskConstants.COMPLETED:
-        TaskStore.completed(payload.data);
-        break;
     }
 
     return true;
