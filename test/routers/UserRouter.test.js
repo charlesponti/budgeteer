@@ -339,12 +339,10 @@ describe('router', function() {
 
     beforeEach(function() {
       fn = router.onAccountCreate(req, res);
-      sinon.spy(req, 'login');
     });
 
     afterEach(function() {
       fn = null;
-      req.login.restore();
     });
 
     it('should return server error', function() {

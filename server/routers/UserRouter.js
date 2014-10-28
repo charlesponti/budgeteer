@@ -402,7 +402,7 @@ router.onAccountCreate = function(req, res) {
    */
   return function(err, user) {
     if (err) {
-      return res.status(500).json({ message: 'Server Error' });
+      return res.status(500).json({ message: 'Server error' });
     }
 
     req.login(user);
