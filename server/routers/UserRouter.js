@@ -339,25 +339,26 @@ router.linkOauth = function(provider, req, res) {
 
 /**
  * Callback for linking Oauth
- * @param {?Error} err
- * @param {?User} user
  * @param {Request} req
  * @param {Response} res
  */
-router.onOauthLinked = function(req, res, err, user) {
-  if (err) {
-    req.flash("error", err.message);
-    return res.status(500).redirect(req.user ? '/account' : '/login');
-  }
+router.onOauthLinked = function(req, res) {
+  /**
+   * @param {?Error} err
+   * @param {?User} user
+   */
+  return function(err, user) {
+    if (err) {
+      return res.status(500).json({ message: 'Server error' });
+    }
 
-  // Login user if no user logged in
-  if (!req.user) {
-    req.login(user);
-  }
+    // Login user if no user logged in
+    if (!req.user) {
+      req.login(user);
+    }
 
-  req.flash('success', 'Account linked');
-  res.render('pop');
-  // res.redirect('/account');
+    res.render('pop');
+  };
 };
 
 /**

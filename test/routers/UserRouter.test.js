@@ -266,32 +266,37 @@ describe('router', function() {
       expect(res.redirect.getCall(0).args[0]).to.equal('/account');
     });
   });
-  describe('link-oauth', function() {
+
+  describe('.onOauthLinked()', function() {
 
     beforeEach(function() {
-      req.user.linkOAuth = sinon.spy();
-      req.user.hasProvider = sinon.stub();
-      req._oauth = { token: 'fooToken', profile: { id: '123' } };
+      sinon.spy(req.user, 'linkOAuth');
+      sinon.spy(req.user, 'hasProvider');
+    });
+
+    afterEach(function() {
+      req.user.linkOAuth.restore();
+      req.user.hasProvider.restore();
     });
 
     it('should handle error with req.user', function() {
-      router.emit('link-oauth', true, null, 'foo', req, res);
-      expect(req.flash.getCall(0).args[0]).to.equal('error');
+      router.onOauthLinked(req, res)(new Error(), null);
       expect(res.status.args[0][0]).to.equal(500);
-      expect(res.redirect.args[0][0]).to.equal('/account');
-    });
-    it('should handle error without req.user', function() {
-      req.user = null;
-      router.emit('link-oauth', true, null, 'foo', req, res);
-      expect(req.flash.getCall(0).args[0]).to.equal('error');
-      expect(res.status.args[0][0]).to.equal(500);
-      expect(res.redirect.args[0][0]).to.equal('/login');
+      expect(res.json.args[0][0].message).to.equal('Server error');
     });
     it('should handle success with req.user', function() {
-      router.emit('link-oauth', false, null, 'foo', req, res);
-      expect(req.user.linkOAuth.args[0][0]).to.equal('foo');
-      expect(req.user.linkOAuth.args[0][1]).to.equal('fooToken');
-      expect(req.user.linkOAuth.args[0][2].id).to.equal('123');
+      router.onOauthLinked(req, res)(null, null);
+      expect(req.login.called).to.equal(false);
+      expect(res.render.called).to.equal(true);
+      expect(res.render.args[0][0]).to.equal('pop');
+    });
+    it('should handle success without req.user', function() {
+      var mockedReq = Object.create(req);
+      mockedReq.user = null;
+      router.onOauthLinked(mockedReq, res)(null, null);
+      expect(req.login.called).to.equal(true);
+      expect(res.render.called).to.equal(true);
+      expect(res.render.args[0][0]).to.equal('pop');
     });
   });
 
