@@ -1,22 +1,16 @@
 "use strict";
 
-var config = require('../../src/server/config');
-var Sentinal = require("../../src/server/sentinal/index")(config.OAuth);
-
-describe("Sentinal.Auth", function() {
+describe("Util: auth", function() {
 
   var Auth, req;
   var sinon = require("sinon");
   var expect = require("chai").expect;
+  var auth = require('../../server/util/auth');
+  var HttpFixtures = require('../fixtures/http');
 
   beforeEach(function() {
-    req = {
-      user: null,
-      session: {
-        user: null
-      }
-    };
-    Auth = Sentinal.auth;
+    Auth = auth;
+    req = HttpFixtures.req();
   });
 
   afterEach(function() {

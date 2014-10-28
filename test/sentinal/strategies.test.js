@@ -3,17 +3,17 @@
 var chai = require('chai');
 var expect = chai.expect;
 
-describe('Sentinal Strategies', function() {
+describe('OAuth Strategies', function() {
 
-  var sentinal;
+  var oauth;
 
   beforeEach(function() {
-    sentinal = require('../../src/server/sentinal');
+    oauth = require('../../server/util/oauth');
   });
 
   describe('Facebook Strategy', function() {
     it('should throw error if no app_id', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Facebook: {
           app_secret: 'fooId',
           callback_url: 'http://foo.com'
@@ -21,7 +21,7 @@ describe('Sentinal Strategies', function() {
       })).to.throw('Must supply Facebook with app_id');
     });
     it('should throw error if no app_secret', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Facebook: {
           app_id: 'fooId',
           callback_url: 'http://foo.com'
@@ -29,7 +29,7 @@ describe('Sentinal Strategies', function() {
       })).to.throw('Must supply Facebook with app_secret');
     });
     it('should throw error if no callback_url', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Facebook: {
           app_id: 'fooId',
           app_secret: 'fooSecret'
@@ -37,7 +37,7 @@ describe('Sentinal Strategies', function() {
       })).to.throw('Must supply Facebook with callback_url');
     });
     it('should set Facebook', function() {
-      var oauth = sentinal({ 
+      var oauth = oauth({ 
         Facebook: {
           app_id: 'fooId',
           app_secret: 'fooSecret',
@@ -52,7 +52,7 @@ describe('Sentinal Strategies', function() {
 
   describe('Google Strategy', function() {
     it('should throw error if no client_id', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Google: {
           app_secret: 'fooId',
           callback_url: 'http://foo.com'
@@ -60,7 +60,7 @@ describe('Sentinal Strategies', function() {
       })).to.throw('Must supply Google Strategy with client_id');
     });
     it('should throw error if no client_secret', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Google: {
           client_id: 'fooId',
           callback_url: 'http://foo.com'
@@ -68,7 +68,7 @@ describe('Sentinal Strategies', function() {
       })).to.throw('Must supply Google Strategy with client_secret');
     });
     it('should throw error if no redirect_uri', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Google: {
           client_id: 'fooId',
           client_secret: 'fooSecret'
@@ -76,7 +76,7 @@ describe('Sentinal Strategies', function() {
       })).to.throw('Must supply Google Strategy with redirect_uri');
     });
     it('should set Google', function() {
-      var oauth = sentinal({ 
+      var oauth = oauth({ 
         Google: {
           client_id: 'fooId',
           client_secret: 'fooSecret',
@@ -91,7 +91,7 @@ describe('Sentinal Strategies', function() {
 
   describe('Twitter Strategy', function() {
     it('should throw error if no client_id', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Twitter: {
           consumer_secret: 'fooId',
           callback_url: 'http://foo.com'
@@ -99,7 +99,7 @@ describe('Sentinal Strategies', function() {
       })).to.throw('Must supply Twitter Strategy with consumer_key');
     });
     it('should throw error if no client_secret', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Twitter: {
           consumer_key: 'fooId',
           callback_url: 'http://foo.com'
@@ -107,7 +107,7 @@ describe('Sentinal Strategies', function() {
       })).to.throw('Must supply Twitter Strategy with consumer_secret');
     });
     it('should throw error if no callback_url', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Twitter: {
           consumer_key: 'fooId',
           consumer_secret: 'fooSecret'
@@ -115,7 +115,7 @@ describe('Sentinal Strategies', function() {
       })).to.throw('Must supply Twitter Strategy with callback_url');
     });
     it('should set Twitter', function() {
-      var oauth = sentinal({ 
+      var oauth = oauth({ 
         Twitter: {
           consumer_key: 'fooId',
           consumer_secret: 'fooSecret',
@@ -130,7 +130,7 @@ describe('Sentinal Strategies', function() {
 
 describe('Foursquare Strategy', function() {
     it('should throw error if no client_id', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Foursquare: {
           client_secret: 'fooId',
           callback_url: 'http://foo.com'
@@ -138,7 +138,7 @@ describe('Foursquare Strategy', function() {
       })).to.throw('Must supply Foursquare Strategy with client_id');
     });
     it('should throw error if no client_secret', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Foursquare: {
           client_id: 'fooId',
           callback_url: 'http://foo.com'
@@ -146,7 +146,7 @@ describe('Foursquare Strategy', function() {
       })).to.throw('Must supply Foursquare Strategy with client_secret');
     });
     it('should throw error if no callback_url', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Foursquare: {
           client_id: 'fooId',
           client_secret: 'fooSecret'
@@ -154,7 +154,7 @@ describe('Foursquare Strategy', function() {
       })).to.throw('Must supply Foursquare Strategy with callback_url');
     });
     it('should set Foursquare', function() {
-      var oauth = sentinal({ 
+      var oauth = oauth({ 
         Foursquare: {
           client_id: 'fooId',
           client_secret: 'fooSecret',
@@ -169,7 +169,7 @@ describe('Foursquare Strategy', function() {
 
 describe('Github Strategy', function() {
     it('should throw error if no client_id', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Github: {
           client_secret: 'fooId',
           callback_url: 'http://foo.com'
@@ -177,7 +177,7 @@ describe('Github Strategy', function() {
       })).to.throw('Must supply Github Strategy with client_id');
     });
     it('should throw error if no client_secret', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Github: {
           client_id: 'fooId',
           callback_url: 'http://foo.com'
@@ -185,7 +185,7 @@ describe('Github Strategy', function() {
       })).to.throw('Must supply Github Strategy with client_secret');
     });
     it('should throw error if no callback_url', function() {
-      expect(sentinal.bind(this, { 
+      expect(oauth.bind(this, { 
         Github: {
           client_id: 'fooId',
           client_secret: 'fooSecret'
@@ -193,7 +193,7 @@ describe('Github Strategy', function() {
       })).to.throw('Must supply Github Strategy with callback_url');
     });
     it('should set Github', function() {
-      var oauth = sentinal({ 
+      var oauth = oauth({ 
         Github: {
           client_id: 'fooId',
           client_secret: 'fooSecret',

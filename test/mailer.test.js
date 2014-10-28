@@ -1,16 +1,15 @@
 'use strict';
 
-var sinon = require('sinon');
-var expect = require('chai').expect;
-var Mailer = require('../src/server/mailer');
-var config = require('../src/server/config');
-
 describe('Mailer', function() {
 
   var mailer;
+  var sinon = require('sinon');
+  var expect = require('chai').expect;
+  var config = require('../server/config');
+  var Mailer = require('../server/util/mailer')(config.Mailer);
 
   beforeEach(function() {
-    mailer = new Mailer(config.Mailer);
+    mailer = Mailer;
     mailer.transporter.sendMail = sinon.spy();
   });
   
@@ -46,7 +45,7 @@ describe('Mailer', function() {
       
       describe('.welcome', function() {
         it('should call sendMail with correct args', function() {
-          emails.users.welcome({ 
+          emails.users.welcome({
             email: 'foo@foo.com',  
             confirmAccountToken: 'foobar'
           });

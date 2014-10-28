@@ -12,7 +12,7 @@ var expect = require("chai").expect;
  * @type {exports}
  */
 var HTTPFixtures = require('./fixtures/http');
-var middleware = require("../src/server/helpers/middleware");
+var middleware = require("../server/util/middleware");
 
 describe("Cthulhu middleware", function() {
 

@@ -296,7 +296,7 @@ module.exports = function() {
     /**
      * Setup Cthulhu routes
      */
-    cthulhu._instance.use(require('./routes'));
+    cthulhu._instance.use(require('./routers'));
   }
 
   return cthulhu._instance;

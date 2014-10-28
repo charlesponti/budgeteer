@@ -5,7 +5,7 @@ describe('ApiController', function() {
   GLOBAL.App = {};
   var expect = require('chai').expect;
   var HttpFixtures = require('../fixtures/http');
-  var ApiController = require('../../src/server/controllers/api');
+  var ApiController = require('../../server/routers/ApiRouter');
 
   var req = HttpFixtures.req();
   var res = HttpFixtures.res();

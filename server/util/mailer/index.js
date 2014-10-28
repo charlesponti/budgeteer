@@ -7,11 +7,6 @@ var _ = require('lodash');
 var nodemailer = require('nodemailer');
 
 /**
- * Application dependencies
- * @type {exports}
- */
-
-/**
  * `Mailer` constructor
  * @constructor
  */
