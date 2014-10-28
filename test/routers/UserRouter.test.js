@@ -334,6 +334,34 @@ describe('router', function() {
 
   });
 
+  describe('.onAccountCreate()', function() {
+    var fn;
+
+    beforeEach(function() {
+      fn = router.onAccountCreate(req, res);
+      sinon.spy(req, 'login');
+    });
+
+    afterEach(function() {
+      fn = null;
+      req.login.restore();
+    });
+
+    it('should return server error', function() {
+      fn(new Error(), null);
+      expect(req.login.called).to.equal(false);
+      expect(res.status.args[0][0]).to.equal(500);
+      expect(res.json.args[0][0].message).to.equal('Server error');
+    });
+
+    it('should return success response', function() {
+      fn(null, User);
+      expect(req.login.called).to.equal(true);
+      expect(res.redirect.called).to.equal(true);
+      expect(res.redirect.args[0][0]).to.equal('/account');
+    });
+  });
+
   describe('.onLogIn()', function() {
     it('should login user', function() {
       router.onLogIn('foo', req, res);

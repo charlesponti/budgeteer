@@ -402,11 +402,10 @@ router.onAccountCreate = function(req, res) {
    */
   return function(err, user) {
     if (err) {
-      req.flash("error", "There was an error. Our developers are looking into it");
-      return res.redirect("/login");
+      return res.status(500).json({ message: 'Server Error' });
     }
+
     req.login(user);
-    req.flash("success", "Account created.");
     return res.redirect("/account");
   };
 };
