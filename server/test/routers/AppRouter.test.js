@@ -1,13 +1,11 @@
-
-var expect = require('chai').expect;
-var HttpFixtures = require('../fixtures/http');
-var AppRouter = require('../../server/routers/AppRouter');
-
 describe('AppController', function() {
   'use strict';
 
-  var req, res, router;
+  require('../spec_helper');
 
+  var req, res, router;
+  var HttpFixtures = require('../fixtures/http');
+  var AppRouter = require('../../routers/AppRouter');
 
   beforeEach(function() {
     router = AppRouter;

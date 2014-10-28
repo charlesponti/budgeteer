@@ -1,10 +1,8 @@
 'use strict';
 
-require('../spec_helper');
-
 var chai = require('chai');
 var expect = chai.expect;
-var Task = require('../../server/models/task');
+var Task = require('../../models/task');
 
 describe('Task model', function() {
 

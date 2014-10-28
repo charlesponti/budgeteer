@@ -5,11 +5,7 @@ var expect = chai.expect;
 
 describe('OAuth Strategies', function() {
 
-  var oauth;
-
-  beforeEach(function() {
-    oauth = require('../../server/util/oauth');
-  });
+  var oauth = require('../../util/oauth');
 
   describe('Facebook Strategy', function() {
     it('should throw error if no app_id', function() {

@@ -1,22 +1,16 @@
-"use strict";
-
-/**
- * Module dependencies
- * @type {exports}
- */
-var sinon = require("sinon");
-var expect = require("chai").expect;
-
-/**
- * Test dependencies
- * @type {exports}
- */
-var HTTPFixtures = require('./fixtures/http');
-var middleware = require("../server/util/middleware");
-
 describe("Cthulhu middleware", function() {
-
+  "use strict";
+  
   var req, res, next;
+
+  require('../spec_helper');
+
+  /**
+   * Test dependencies
+   * @type {exports}
+   */
+  var HTTPFixtures = require('../fixtures/http');
+  var middleware = require("../../util/middleware");
 
   beforeEach(function() {
     req = HTTPFixtures.req();

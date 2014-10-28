@@ -1,6 +1,6 @@
 'use strict';
 
-var User = require('../../server/models/user');
+var User = require('../../models/user');
 
 var user = new User({
   email: 'foo@foo.com',

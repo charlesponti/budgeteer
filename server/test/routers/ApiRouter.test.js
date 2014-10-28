@@ -1,37 +1,44 @@
-'use strict';
+describe('Routers: ApiRouter', function() {
+  'use strict';
 
-describe('ApiController', function() {
-
-  GLOBAL.App = {};
+  var req, res;
   var expect = require('chai').expect;
   var HttpFixtures = require('../fixtures/http');
-  var ApiController = require('../../server/routers/ApiRouter');
+  var ApiRouter = require('../../routers/ApiRouter');
 
-  var req = HttpFixtures.req();
-  var res = HttpFixtures.res();
+  beforeEach(function() {
+    req = HttpFixtures.req();
+    res = HttpFixtures.res();
+  });
+
+  afterEach(function() {
+    req = HttpFixtures.req();
+    res = HttpFixtures.res();
+  });
+
 
   describe('#getMe', function() {
     it('should return 400 if req not authenticated', function() {
       req.isAuthenticated.returns(false);
-      ApiController.getMe(req, res);
+      ApiRouter.getMe(req, res);
       expect(res.status.called).to.equal(true);
       expect(res.status.args[0][0]).to.equal(401);
     });
     it('should return send correct json if user not authenticated', function() {
       req.isAuthenticated.returns(false);
-      ApiController.getMe(req, res);
+      ApiRouter.getMe(req, res);
       expect(res.json.called).to.equal(true);
       expect(res.json.args[0][0].message).to.equal('No user signed in.');
     });
     it('should return 200 if req is authenticated', function() {
       req.isAuthenticated.returns(true);
-      ApiController.getMe(req, res);
+      ApiRouter.getMe(req, res);
       expect(res.status.called).to.equal(true);
       expect(res.status.args[0][0]).to.equal(401);
     });
     it('should return send correct json if user not authenticated', function() {
       req.isAuthenticated.returns(true);
-      ApiController.getMe(req, res);
+      ApiRouter.getMe(req, res);
       expect(res.json.called).to.equal(true);
     });
   });

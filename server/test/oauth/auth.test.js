@@ -1,11 +1,10 @@
-"use strict";
-
 describe("Util: auth", function() {
-
+  "use strict";
+  
   var Auth, req;
   var sinon = require("sinon");
   var expect = require("chai").expect;
-  var auth = require('../../server/util/auth');
+  var auth = require('../../util/auth');
   var HttpFixtures = require('../fixtures/http');
 
   beforeEach(function() {

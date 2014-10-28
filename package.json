@@ -5,7 +5,7 @@
   "main": "bin/cthulhu",
   "repository": "http://github.com/theponti/cthulhu",
   "scripts": {
-    "test": "NODE_ENV=test mocha --ui tdd --recursive test",
+    "test": "NODE_ENV=test mocha --ui tdd --recursive server/test",
     "start": "NODE_ENV=development node bin/cthulhu --harmony",
     "supervise": "NODE_ENV=development supervisor --harmony bin/cthulhu",
     "build-test": "webpack client/test/spec/**/main.test.js client/test/bundle.test.js"

@@ -1,13 +1,10 @@
-'use strict';
-
-var expect = require("chai").expect;
-var sinon = require("sinon");
-GLOBAL.Cthulhu = require('../../server')();
-var User = require('../../server/models/user');
-
 describe("User", function() {
-
+  'use strict';
+  
+  require('../spec_helper');
+  
   var user;
+  var User = require('../../models/user');
 
   beforeEach(function() {
     user = new User({ email: 'foo@foo.com'});

@@ -5,8 +5,8 @@ describe('Mailer', function() {
   var mailer;
   var sinon = require('sinon');
   var expect = require('chai').expect;
-  var config = require('../server/config');
-  var Mailer = require('../server/util/mailer')(config.Mailer);
+  var config = require('../../config');
+  var Mailer = require('../../util/mailer')(config.Mailer);
 
   beforeEach(function() {
     mailer = Mailer;
