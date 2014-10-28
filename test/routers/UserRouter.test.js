@@ -207,112 +207,140 @@ describe('router', function() {
     });
   });
 
-  describe('Events', function() {
-    describe('account-delete', function() {
-      it('should handle error', function() {
-        router.emit('account-delete', true, req, res);
-        expect(req.flash.getCall(0).args[0]).to.equal('error');
-        expect(res.redirect.calledWith('/account'));
-        expect(req.logout.called).to.equal(false);
-      });
-      it('should handle success', function() {
-        router.emit('account-delete', false, req, res);
-        expect(req.logout.called).to.equal(true);
-        expect(req.flash.getCall(0).args[0]).to.equal('success');
-        expect(res.redirect.calledWith('/')).to.equal(true);
-      });
-    });
-    describe('account-confirm', function() {
-      it('should handle error', function() {
-        router.emit('account-confirm', true, null, req, res);
-        expect(req.flash.getCall(0).args[0]).to.equal('error');
-        expect(res.redirect.calledWith('/login'));
-        expect(req.login.called).to.equal(false);
-      });
-      it('should handle success', function() {
-        router.emit('account-confirm', false, 'foo', req, res);
-        expect(req.login.calledWith('foo')).to.equal(true);
-        expect(req.flash.getCall(0).args[0]).to.equal('success');
-        expect(res.redirect.calledWith('/account')).to.equal(true);
-      });
-    });
-    describe('oauth-linked', function() {
-      it('should handle error with req.user', function() {
-        var err = { message: 'foo' };
-        router.emit('oauth-linked', err, null, req, res);
-        expect(req.flash.calledWith('error', 'foo')).to.equal(true);
-        expect(res.status.getCall(0).args[0]).to.equal(500);
-        expect(res.redirect.getCall(0).args[0]).to.equal('/account');
-      });
-      it('should handle error without req.user', function() {
-        var err = { message: 'foo' };
-        req.user = null;
-        router.emit('oauth-linked', err, null, req, res);
-        expect(req.flash.calledWith('error', 'foo')).to.equal(true);
-        expect(res.status.getCall(0).args[0]).to.equal(500);
-        expect(res.redirect.getCall(0).args[0]).to.equal('/login');
-      });
-      it('should handle success with req.user', function() {
-        req.user = null;
-        router.emit('oauth-linked', null, 'foo', req, res);
-        expect(req.login.getCall(0).args[0]).to.equal('foo');
-        expect(req.flash.getCall(0).args[0]).to.equal('success');
-        expect(res.redirect.getCall(0).args[0]).to.equal('/account');
-      });
-      it('should handle success without req.user', function() {
-        router.emit('oauth-linked', null, 'foo', req, res);
-        expect(req.login.called).to.equal(false);
-        expect(req.flash.getCall(0).args[0]).to.equal('success');
-        expect(res.redirect.getCall(0).args[0]).to.equal('/account');
-      });
-    });
-    describe('link-oauth', function() {
 
-      beforeEach(function() {
-        req.user.linkOAuth = sinon.spy();
-        req.user.hasProvider = sinon.stub();
-        req._oauth = { token: 'fooToken', profile: { id: '123' } };
-      });
-
-      it('should handle error with req.user', function() {
-        router.emit('link-oauth', true, null, 'foo', req, res);
-        expect(req.flash.getCall(0).args[0]).to.equal('error');
-        expect(res.status.args[0][0]).to.equal(500);
-        expect(res.redirect.args[0][0]).to.equal('/account');
-      });
-      it('should handle error without req.user', function() {
-        req.user = null;
-        router.emit('link-oauth', true, null, 'foo', req, res);
-        expect(req.flash.getCall(0).args[0]).to.equal('error');
-        expect(res.status.args[0][0]).to.equal(500);
-        expect(res.redirect.args[0][0]).to.equal('/login');
-      });
-      it('should handle success with req.user', function() {
-        router.emit('link-oauth', false, null, 'foo', req, res);
-        expect(req.user.linkOAuth.args[0][0]).to.equal('foo');
-        expect(req.user.linkOAuth.args[0][1]).to.equal('fooToken');
-        expect(req.user.linkOAuth.args[0][2].id).to.equal('123');
-      });
+  describe('account-delete', function() {
+    it('should handle error', function() {
+      router.emit('account-delete', true, req, res);
+      expect(req.flash.getCall(0).args[0]).to.equal('error');
+      expect(res.redirect.calledWith('/account'));
+      expect(req.logout.called).to.equal(false);
     });
-    describe('unlink-oauth', function() {
-      it('should handle error', function() {
-        router.emit('unlink-oauth', true, null, 'foo', req, res);
-        expect(req.flash.args[0][0]).to.equal('error');
-        expect(res.redirect.args[0][0]).to.equal('/account');
-      });
-      it('should handle success', function() {
-        router.emit('unlink-oauth', false, null, 'foo', req, res);
-        expect(req.flash.args[0][0]).to.equal('success');
-        expect(res.redirect.args[0][0]).to.equal('/account');
-      });
-    });
-    describe('login', function() {
-      it('should login user', function() {
-        router.emit('login', 'foo', req, res);
-        expect(req.login.args[0][0]).to.equal('foo');
-        expect(req.flash.args[0][0]).to.equal('success');
-        expect(res.redirect.args[0][0]).to.equal('/account');
-      });
+    it('should handle success', function() {
+      router.emit('account-delete', false, req, res);
+      expect(req.logout.called).to.equal(true);
+      expect(req.flash.getCall(0).args[0]).to.equal('success');
+      expect(res.redirect.calledWith('/')).to.equal(true);
     });
   });
+  describe('account-confirm', function() {
+    it('should handle error', function() {
+      router.emit('account-confirm', true, null, req, res);
+      expect(req.flash.getCall(0).args[0]).to.equal('error');
+      expect(res.redirect.calledWith('/login'));
+      expect(req.login.called).to.equal(false);
+    });
+    it('should handle success', function() {
+      router.emit('account-confirm', false, 'foo', req, res);
+      expect(req.login.calledWith('foo')).to.equal(true);
+      expect(req.flash.getCall(0).args[0]).to.equal('success');
+      expect(res.redirect.calledWith('/account')).to.equal(true);
+    });
+  });
+  describe('oauth-linked', function() {
+    it('should handle error with req.user', function() {
+      var err = { message: 'foo' };
+      router.emit('oauth-linked', err, null, req, res);
+      expect(req.flash.calledWith('error', 'foo')).to.equal(true);
+      expect(res.status.getCall(0).args[0]).to.equal(500);
+      expect(res.redirect.getCall(0).args[0]).to.equal('/account');
+    });
+    it('should handle error without req.user', function() {
+      var err = { message: 'foo' };
+      req.user = null;
+      router.emit('oauth-linked', err, null, req, res);
+      expect(req.flash.calledWith('error', 'foo')).to.equal(true);
+      expect(res.status.getCall(0).args[0]).to.equal(500);
+      expect(res.redirect.getCall(0).args[0]).to.equal('/login');
+    });
+    it('should handle success with req.user', function() {
+      req.user = null;
+      router.emit('oauth-linked', null, 'foo', req, res);
+      expect(req.login.getCall(0).args[0]).to.equal('foo');
+      expect(req.flash.getCall(0).args[0]).to.equal('success');
+      expect(res.redirect.getCall(0).args[0]).to.equal('/account');
+    });
+    it('should handle success without req.user', function() {
+      router.emit('oauth-linked', null, 'foo', req, res);
+      expect(req.login.called).to.equal(false);
+      expect(req.flash.getCall(0).args[0]).to.equal('success');
+      expect(res.redirect.getCall(0).args[0]).to.equal('/account');
+    });
+  });
+  describe('link-oauth', function() {
+
+    beforeEach(function() {
+      req.user.linkOAuth = sinon.spy();
+      req.user.hasProvider = sinon.stub();
+      req._oauth = { token: 'fooToken', profile: { id: '123' } };
+    });
+
+    it('should handle error with req.user', function() {
+      router.emit('link-oauth', true, null, 'foo', req, res);
+      expect(req.flash.getCall(0).args[0]).to.equal('error');
+      expect(res.status.args[0][0]).to.equal(500);
+      expect(res.redirect.args[0][0]).to.equal('/account');
+    });
+    it('should handle error without req.user', function() {
+      req.user = null;
+      router.emit('link-oauth', true, null, 'foo', req, res);
+      expect(req.flash.getCall(0).args[0]).to.equal('error');
+      expect(res.status.args[0][0]).to.equal(500);
+      expect(res.redirect.args[0][0]).to.equal('/login');
+    });
+    it('should handle success with req.user', function() {
+      router.emit('link-oauth', false, null, 'foo', req, res);
+      expect(req.user.linkOAuth.args[0][0]).to.equal('foo');
+      expect(req.user.linkOAuth.args[0][1]).to.equal('fooToken');
+      expect(req.user.linkOAuth.args[0][2].id).to.equal('123');
+    });
+  });
+
+  describe('.unlinkOauth', function() {
+    it('should call req.user.unlinkOAuth', function() {
+      sinon.spy(router, 'onUnlinkOauth');
+      sinon.spy(req.user, 'unlinkOAuth');
+      req.params.provider = 'facebook';
+      router.unlinkOAuth(req, res);
+      expect(req.user.unlinkOAuth.called).to.equal(true);
+      expect(req.user.unlinkOAuth.args[0][0]).to.equal('facebook');
+      router.onUnlinkOauth.restore();
+      req.user.unlinkOAuth.restore();
+    });
+  });
+
+  describe('.onUnlinkOauth()', function() {
+
+    var fn;
+
+    beforeEach(function() {
+      fn = router.onUnlinkOauth(req, res);
+    });
+
+    afterEach(function() {
+      fn = null;
+    });
+
+    it('should return server error', function() {
+      fn(new Error(), null);
+      expect(res.status.args[0][0]).to.equal(500);
+      expect(res.json.args[0][0].message).to.equal('Server error');
+    });
+
+    it('should return success response', function() {
+      fn(null, User);
+      expect(res.status.args[0][0]).to.equal(200);
+      expect(res.json.args[0][0].message).to.equal('Account unlinked');
+    });
+
+  });
+
+  describe('.onLogIn()', function() {
+    it('should login user', function() {
+      router.onLogIn('foo', req, res);
+      expect(req.login.args[0][0]).to.equal('foo');
+      expect(req.flash.args[0][0]).to.equal('success');
+      expect(res.redirect.args[0][0]).to.equal('/account');
+    });
+  });
+
 });

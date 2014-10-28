@@ -369,15 +369,25 @@ router.onOauthLinked = function(req, res, err, user) {
 router.unlinkOAuth = function(req, res) {
   var provider = req.params.provider;
 
-  req.user.unlinkOAuth(provider, function(err, user) {
+  req.user.unlinkOAuth(provider, router.onUnlinkOauth(req, res));
+};
+
+/**
+ * Handle response after
+ * @param {Request} req
+ * @param {Response} res
+ * @returns {*}
+ */
+router.onUnlinkOauth = function(req, res) {
+  /**
+   * @param {?Error} err
+   */
+  return function(err) {
     if (err) {
-      req.flash("error", provider+" account could not be unlinked.");
-      return res.redirect("/account");
+      return res.status(500).json({ message: 'Server error' });
     }
-    
-    req.flash("success", provider+" account unlinked!");
-    return res.redirect("/account");
-  });
+    return res.status(200).json({ message: 'Account unlinked' })
+  };
 };
 
 /**
