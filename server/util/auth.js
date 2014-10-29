@@ -38,7 +38,7 @@ auth.logOut = function() {
 
 /**
  * Deserialize user
- * @param  {Request} req
+ * @param {Request} req
  * @param {Response} res
  * @param {Function} next
  */
