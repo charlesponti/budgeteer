@@ -188,11 +188,14 @@ router.sendReset = function(req, res) {
 
 /**
  * Finish request after account is deleted
- * @param  {?Error} err
  * @param  {Request} req
  * @param  {Response} res
  */
-router.onAccountDelete = function(err, req, res) {
+router.onAccountDelete = function(req, res) {
+  /**
+   * @param {Error} err
+   * @param {?User} user
+   */
   return function(err, user) {
     if (err) {
       req.flash('error', 'There was an error deleting your account.');
@@ -219,7 +222,7 @@ router.onAccountConfirm = function(req, res) {
       req.flash('error', 'There was an error confirming your account');
       return res.redirect('/login');
     }
-    
+
     req.login(user);
     req.flash('success', 'Account confirmed');
     return res.redirect('/account');
