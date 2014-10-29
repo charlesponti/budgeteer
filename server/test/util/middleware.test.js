@@ -1,20 +1,14 @@
 describe("Cthulhu middleware", function() {
   "use strict";
   
-  var req, res, next;
-
   require('../spec_helper');
-
-  /**
-   * Test dependencies
-   * @type {exports}
-   */
-  var HTTPFixtures = require('../fixtures/http');
+  
+  var req, res, next;
   var middleware = require("../../util/middleware");
 
   beforeEach(function() {
-    req = HTTPFixtures.req();
-    res = HTTPFixtures.res();
+    req = HttpFixtures.req();
+    res = HttpFixtures.res();
     next = sinon.spy();
   });
 
@@ -31,19 +25,6 @@ describe("Cthulhu middleware", function() {
         .to.equal('\u001b[32mFoo\u001b[39m: \u001b[36m{"bar":"bar"}\u001b[39m');
       console.log.restore();
     });
-  });
-
-  describe('.logger', function() {
-
-  });
-
-  describe('.browserify', function() {
-    it('should return the bundle.dev.js', function() {});
-    it('should return the bundle.min.js', function() {});
-  });
-
-  describe('.cors', function() {
-    it('shoudl set the correct headers', function() {});
   });
 
   describe('.csrf', function() {
@@ -72,13 +53,11 @@ describe("Cthulhu middleware", function() {
     });
   });
 
-  describe('Events', function() {
-    describe('api-user', function() {
-      it('should call next if error', function() {
-        middleware.emitter.emit('api-user', 'foo', null, req, res, next);
-        expect(next.called).to.equal(true);
-        expect(next.args[0][0]).to.equal('foo');
-      });
+  describe('.onApiUser()', function() {
+    it('should call next if error', function() {
+      // middleware.emitter.emit('api-user', 'foo', null, req, res, next);
+      // expect(next.called).to.equal(true);
+      // expect(next.args[0][0]).to.equal('foo');
     });
   });
 

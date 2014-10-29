@@ -1,10 +1,6 @@
-'use strict';
-
-var chai = require('chai');
-var expect = chai.expect;
-
 describe('OAuth Strategies', function() {
-
+  'use strict';
+  
   var oauth = require('../../util/oauth');
 
   describe('Facebook Strategy', function() {

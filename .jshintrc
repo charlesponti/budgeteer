@@ -82,13 +82,14 @@
     "yui"           : false,    // Yahoo User Interface
 
     // Custom Globals
-    "globals"       : {
+    "globals": {
       "_": true,
       "Backbone": true,
       "$": true,
+      "HttpFixtures": true,
       "Cthulhu": true,
       "Sentinal": true,
-      "App": true,
-      "APP": true
+      "sinon": true,
+      "expect": true
     }
 }

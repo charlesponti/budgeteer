@@ -4,7 +4,6 @@ describe('Router: AuthRouter', function() {
   require('../spec_helper');
 
   var res, req, mockedreq;
-  var HttpFixtures = require('../fixtures/http');
   var AuthRouter = require('../../routers/AuthRouter');
 
   beforeEach(function() {

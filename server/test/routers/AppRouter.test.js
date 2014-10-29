@@ -4,7 +4,6 @@ describe('AppController', function() {
   require('../spec_helper');
 
   var req, res, router;
-  var HttpFixtures = require('../fixtures/http');
   var AppRouter = require('../../routers/AppRouter');
 
   beforeEach(function() {

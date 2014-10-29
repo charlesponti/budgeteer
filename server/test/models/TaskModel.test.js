@@ -1,12 +1,8 @@
-'use strict';
-
-var chai = require('chai');
-var expect = chai.expect;
-var Task = require('../../models/task');
-
 describe('Task model', function() {
+  'use strict';
 
   var task;
+  var Task = require('../../models/task');
 
   beforeEach(function() {
     task = new Task();
