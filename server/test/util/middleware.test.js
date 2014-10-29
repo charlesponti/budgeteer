@@ -24,7 +24,11 @@ describe("Cthulhu middleware", function() {
     beforeEach(function() {
       sandbox = sinon.sandbox.create();
       exec = sinon.spy();
+      sandbox.stub(User, 'findOne', function() {
+        return { exec: exec };
+      });
       sandbox.stub(middleware, '_csrf');
+      sandbox.stub(middleware, 'onApiUser');
     });
 
     afterEach(function() {
@@ -46,6 +50,8 @@ describe("Cthulhu middleware", function() {
       req.originalUrl = '/api/foo';
       req.query.access_token = 'foobar';
       middleware.csrf(req, res, next);
+      expect(User.findOne.called).to.equal(true);
+      expect(middleware.onApiUser.called).to.equal(true);
       expect(middleware._csrf.called).to.equal(false);
     });
   });

@@ -88,9 +88,30 @@ router.logOut = function(req, res, next) {
  * @param {Function} next
  */
 router.deleteAccount = function deleteAccount(req, res, next) {
-  User.remove({ _id: req.user.id }).exec(function(err) {
-    router.emit('account-delete', router, req, res);
-  });
+  User
+    .remove({ _id: req.user.id })
+    .exec(router.onAccountDelete(req, res));
+};
+
+/**
+ * Finish request after account is deleted
+ * @param  {Request} req
+ * @param  {Response} res
+ */
+router.onAccountDelete = function(req, res) {
+  /**
+   * @param {Error} err
+   * @param {?User} user
+   */
+  return function(err, user) {
+    if (err) {
+      req.flash('error', 'There was an error deleting your account.');
+      return res.redirect('/account');
+    }
+    req.logout();
+    req.flash("success", "Your account has been deleted.");
+    return res.redirect('/');
+  };
 };
 
 /**
@@ -163,7 +184,7 @@ router.confirmReset = function(req, res) {
     req.login(user);
     req.flash('success', 'Logged in.');
     return res.redirect('/account');
-  }
+  };
 };
 
 /**
@@ -183,27 +204,6 @@ router.sendReset = function(req, res) {
     }
     req.flash('success', 'You will receive a new login link at '+user.email+'.');
     return res.redirect('/login');
-  };
-};
-
-/**
- * Finish request after account is deleted
- * @param  {Request} req
- * @param  {Response} res
- */
-router.onAccountDelete = function(req, res) {
-  /**
-   * @param {Error} err
-   * @param {?User} user
-   */
-  return function(err, user) {
-    if (err) {
-      req.flash('error', 'There was an error deleting your account.');
-      return res.redirect('/account');
-    }
-    req.logout();
-    req.flash("success", "Your account has been deleted.");
-    return res.redirect('/');
   };
 };
 

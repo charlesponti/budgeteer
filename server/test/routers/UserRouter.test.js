@@ -113,96 +113,44 @@ describe('router', function() {
   });
   
   describe('.serve', function() {
-    describe(".login()", function() {
+    describe('.login()', function() {
       it('should call res.render with correct args', function() {
         router.serve.login(req, res);
-        expect(res.render.calledWith("users/login")).to.equal(true);
+        expect(res.render.calledWith('users/login')).to.equal(true);
       });
     });
-    describe(".account()", function() {
+    describe('.account()', function() {
       it('should call res.render with correct args', function() {
         req.isAuthenticated = sinon.stub().returns(true);
         router.serve.account(req, res);
-        expect(res.render.calledWith("users/account")).to.equal(true);
+        expect(res.render.calledWith('users/account')).to.equal(true);
       });
     });
   });
 
-  describe("#deleteAccount", function() {
-    var exec;
-
-    beforeEach(function() {
-      exec = sinon.spy();
-      User.remove = sinon.stub().returns({
-        exec: exec
-      });
-    });
-
-    afterEach(function() {
-      User.remove.reset();
-    });
-
-    it("should set twitter token to undefined", function() {
-      req.user._id = "1";
+  describe('.deleteAccount()', function() {
+    it('should call User.remove with req.user._id', function() {
+      var sandbox = sinon.sandbox.create();
+      sandbox.spy(User, 'remove');
+      req.user._id = '1';
       router.deleteAccount(req, res);
-      expect(User.remove.calledWith({ _id: "1" })).to.equal(false);
-    });
-  });
-
-  describe("onDeleteAccount", function() {
-
-    var next;
-
-    beforeEach(function() {
-      next = sinon.spy();
-    });
-
-    afterEach(function() {
-      next = null;
-    });
-
-    describe("if error", function() {
-      it("should call next with error", function() {
-        router.emit('account-delete', true, req, res);
-        expect(next.calledWith("foo"));
-      });
-      it("should not call req.logout", function() {
-        router.emit('account-delete', true, req, res);
-        expect(req.logout.called).to.equal(false);
-      });
-      it("should not call res.redirect", function() {
-        router.emit('account-delete', true, req, res);
-        expect(res.redirect.called).to.equal(true);
-      });
-    });
-
-    describe("if no error", function() {
-      it("should call req.logout", function() {
-        router.emit('account-delete', null, req, res);
-        expect(req.logout.called).to.equal(true);
-      });
-      it("should call req.flash with success", function() {
-        router.emit('account-delete', null, req, res);
-        expect(req.flash.calledWith("success", "Your account has been deleted."))
-          .to.equal(true);
-      });
-      it("should call res.redirect with correct path", function() {
-        router.emit('account-delete', null, req, res);
-        expect(res.redirect.calledWith("/")).to.equal(true);
-      });
+      expect(User.remove.calledWith({ _id: '1' })).to.equal(false);
+      User.remove.restore();
     });
   });
   
-  describe('.confirmAccount', function() {
+  describe('.confirmAccount()', function() {
     it('should call User.find with correct args', function() {
-      req.params.token = 'foobar';
       var exec = sinon.spy();
-      User.findOne = sinon.stub(User, 'findOne', function() {
+      var sandbox = sinon.sandbox.create();
+      sandbox.stub(User, 'findOne', function() {
         return { exec: exec };
       });
+      req.params.token = 'foobar';
       router.confirmAccount(req, res);
       expect(User.findOne.calledWith({ confirmAccountToken: 'foobar'})).to.equal(true);
       expect(exec.called).to.equal(true);
+      sandbox.restore();
     });
   });
 

@@ -33,6 +33,8 @@ router.getOauthUserQuery = function(provider, profile) {
       return { email: profile.email };
     case 'google':
       return { email: profile.emails[0].value };
+    default:
+      throw new Error('You have supplied an unsupported provider');
   }
 };
 
