@@ -207,29 +207,30 @@ describe('router', function() {
   });
 
 
-  describe('account-delete', function() {
+  describe('.onAccountDelete()', function() {
     it('should handle error', function() {
-      router.emit('account-delete', true, req, res);
+      var fn = router.onAccountDelete(req, res)(new Error(), undefined);
       expect(req.flash.getCall(0).args[0]).to.equal('error');
       expect(res.redirect.calledWith('/account'));
       expect(req.logout.called).to.equal(false);
     });
     it('should handle success', function() {
-      router.emit('account-delete', false, req, res);
+      var fn = router.onAccountDelete(req, res)(undefined, undefined);
       expect(req.logout.called).to.equal(true);
       expect(req.flash.getCall(0).args[0]).to.equal('success');
       expect(res.redirect.calledWith('/')).to.equal(true);
     });
   });
-  describe('account-confirm', function() {
+
+  describe('.onAccountConfirm()', function() {
     it('should handle error', function() {
-      router.emit('account-confirm', true, null, req, res);
+      var fn = router.onAccountConfirm(req, res)(new Error(), null);
       expect(req.flash.getCall(0).args[0]).to.equal('error');
       expect(res.redirect.calledWith('/login'));
       expect(req.login.called).to.equal(false);
     });
     it('should handle success', function() {
-      router.emit('account-confirm', false, 'foo', req, res);
+      var fn = router.onAccountConfirm(req, res)(null, null);
       expect(req.login.calledWith('foo')).to.equal(true);
       expect(req.flash.getCall(0).args[0]).to.equal('success');
       expect(res.redirect.calledWith('/account')).to.equal(true);

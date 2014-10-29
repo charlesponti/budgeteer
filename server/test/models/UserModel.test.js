@@ -3,16 +3,14 @@ describe("User", function() {
   
   require('../spec_helper');
   
-  var user;
-  var User = require('../../models/user');
+  var user = GLOBAL.user;
 
   beforeEach(function() {
-    user = new User({ email: 'foo@foo.com'});
     user.save = sinon.spy();
   });
 
   afterEach(function() {
-    user = null;
+    user = undefined;
   });
 
   describe('#linkOAuth', function() {
