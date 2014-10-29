@@ -67,6 +67,18 @@ router.serve = {
       return res.redirect('/account');
     }
     return res.render('users/login');
+  },
+  /**
+   * Serve account page
+   * @param {Request} req
+   * @param {Response} res
+   * @param {Function} next
+   */
+  account: function serveAccountPage(req, res, next) {
+    if (req.isAuthenticated()) {
+      return res.render('users/account');
+    }
+    return res.redirect('users/login');
   }
 };
 
