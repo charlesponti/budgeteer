@@ -8,7 +8,7 @@ var crypto = require('crypto');
 var Schema = mongoose.Schema;
 
 /**
- * @desc User Schema
+ * User Schema
  * @type {mongoose.Schema}
  */
 var UserSchema = new Schema({
@@ -71,7 +71,7 @@ UserSchema.pre('save', function(next) {
 });
 
 /**
- * @desc User methods
+ * User methods
  * @type {mongoose.Schema.methods}
  */
 UserSchema.methods = {
@@ -101,19 +101,19 @@ UserSchema.methods = {
         break;
       case 'facebook':
       case 'github':
+      case 'twitter':
       case 'foursquare':
         email = profile.email;
         break;
       default:
-        email = profile.email;
-        break;
+        throw new Error('You have supplied an unsupported provider:', provider);
     }
 
     return email;
   },
 
   /**
-   * @description Check if user has provider and if the profile id matches
+   * Check if user has provider and if the profile id matches
    * @param {String} provider Name of OAuth provider
    * @param {String|Number} id Id of user on OAuth provider
    * @returns {Boolean}
@@ -129,7 +129,7 @@ UserSchema.methods = {
   },
 
   /**
-   * @description Link user's OAuth provider account
+   * Link user's OAuth provider account
    * @param {String} provider
    * @param {String} token
    * @param {Object} profile
@@ -155,7 +155,7 @@ UserSchema.methods = {
   },
 
   /**
-   * @description Unlink user's Facebook account
+   * Unlink user's Facebook account
    * @param {String} provider
    * @param {Function} callback
    * @return {User}
@@ -218,7 +218,7 @@ UserSchema.methods = {
   },
 
   /**
-   * @description Determine if user has any linked social networks
+   * Determine if user has any linked social networks
    * @return {Boolean}
    */
   is_connected: function() {
@@ -229,7 +229,7 @@ UserSchema.methods = {
   },
 
   /**
-   * @desc Make random token
+   * Make random token
    * @return {String}
    * @public
    */
@@ -238,7 +238,7 @@ UserSchema.methods = {
   },
 
   /**
-   * @desc Make random token
+   * Make random token
    * @return {Number}
    * @private
    */
