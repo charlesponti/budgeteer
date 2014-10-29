@@ -49,8 +49,6 @@ describe('Router: AuthRouter', function() {
       expect(res.redirect.getCall(0).args[0]).to.equal('/account');
     });
     it('should handle success without req.user', function() {
-      var mockedreq = (req);
-      mockedreq.user = null;
       AuthRouter.linkOauth(mockedreq, res)(undefined, undefined);
       expect(req.login.called).to.equal(false);
       expect(req.flash.getCall(0).args[0]).to.equal('success');
@@ -71,20 +69,18 @@ describe('Router: AuthRouter', function() {
     });
 
     it('should handle error with req.user', function() {
-      AuthRouter.onOauthLinked(req, res)(new Error(), null);
+      AuthRouter.onOauthLinked(req, res, new Error(), null);
       expect(res.status.args[0][0]).to.equal(500);
       expect(res.json.args[0][0].message).to.equal('Server error');
     });
     it('should handle success with req.user', function() {
-      AuthRouter.onOauthLinked(req, res)(null, null);
+      AuthRouter.onOauthLinked(req, res, null, null);
       expect(req.login.called).to.equal(false);
       expect(res.render.called).to.equal(true);
       expect(res.render.args[0][0]).to.equal('pop');
     });
     it('should handle success without req.user', function() {
-      var mockedReq = Object.create(req);
-      mockedReq.user = null;
-      AuthRouter.onOauthLinked(mockedReq, res)(null, null);
+      AuthRouter.onOauthLinked(mockedreq, res, null, null);
       expect(req.login.called).to.equal(true);
       expect(res.render.called).to.equal(true);
       expect(res.render.args[0][0]).to.equal('pop');
