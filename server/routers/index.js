@@ -26,7 +26,7 @@ router.get('/logout', UserRouter.logOut);
 router.use('/auth', AuthRouter);
 
 // API
-router.get('/api/me', ApiRouter.me);
+router.get('/api/me', ApiRouter.getMe);
 router.use('/api/tasks', TaskRouter);
 
 // App Routes

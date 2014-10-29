@@ -2,8 +2,6 @@ describe('Routers: ApiRouter', function() {
   'use strict';
 
   var req, res;
-  var expect = require('chai').expect;
-  var HttpFixtures = require('../fixtures/http');
   var ApiRouter = require('../../routers/ApiRouter');
 
   beforeEach(function() {
@@ -12,10 +10,9 @@ describe('Routers: ApiRouter', function() {
   });
 
   afterEach(function() {
-    req = HttpFixtures.req();
-    res = HttpFixtures.res();
+    req = undefined;
+    res = undefined;
   });
-
 
   describe('#getMe', function() {
     it('should return 400 if req not authenticated', function() {
@@ -34,7 +31,7 @@ describe('Routers: ApiRouter', function() {
       req.isAuthenticated.returns(true);
       ApiRouter.getMe(req, res);
       expect(res.status.called).to.equal(true);
-      expect(res.status.args[0][0]).to.equal(401);
+      expect(res.status.args[0][0]).to.equal(200);
     });
     it('should return send correct json if user not authenticated', function() {
       req.isAuthenticated.returns(true);

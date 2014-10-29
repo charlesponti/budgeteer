@@ -10,7 +10,7 @@ var router = express.Router();
  * @param  {IncomingMessage} req
  * @param  {ServerResponse} res
  */
-router.me = function(req, res) {
+router.getMe = function(req, res) {
   if (req.isAuthenticated()) {
     var user = _.omit(req.user.toJSON(), "hashed_password", "salt");
     res.status(200).json(user);
@@ -19,6 +19,6 @@ router.me = function(req, res) {
   }
 };
 
-router.get('/me', router.me);
+router.get('/', router.getMe);
 
 module.exports = router;

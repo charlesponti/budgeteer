@@ -21,38 +21,68 @@ describe('Router: AuthRouter', function() {
 
   describe('.linkOauth()', function() {
 
+    var exec, sandbox;
+
     beforeEach(function() {
-      req._oauth = { provider: 'facebook' };
+      sandbox = sinon.sandbox.create();
+      exec = sandbox.spy();
+      sandbox.spy(User, 'findOne', function() {
+        return { exec: exec };
+      });
+      req._oauth = {
+        profile: { email: 'foo@foo.com', emails: [{value: 'foo@foo.com'}]}
+      };
     });
 
     afterEach(function() {
       req._oauth = null;
+      sandbox.restore();
     });
 
-    it('should handle error with req.user', function() {
-      var err = { message: 'foo' };
-      AuthRouter.linkOauth(req, res)(new Error(), null);
-      expect(req.flash.calledWith('error', 'foo')).to.equal(true);
-      expect(res.status.getCall(0).args[0]).to.equal(500);
-      expect(res.redirect.getCall(0).args[0]).to.equal('/account');
+    describe('Facebook', function() {
+      it('should call User.findOne with correct query', function() {
+        req._oauth.provider = 'facebook';
+        AuthRouter.linkOauth(req, res);
+        expect(User.findOne.getCall(0).args[0]).to.deep.equal({
+          email: 'foo@foo.com'
+        });
+      });
     });
-    it('should handle error without req.user', function() {
-      AuthRouter.linkOauth(mockedreq, res)(new Error(), null);
-      expect(req.flash.calledWith('error', 'foo')).to.equal(true);
-      expect(res.status.getCall(0).args[0]).to.equal(500);
-      expect(res.redirect.getCall(0).args[0]).to.equal('/login');
+    describe('Google', function() {
+      it('should call User.findOne with correct query', function() {
+        req._oauth.provider = 'google';
+        AuthRouter.linkOauth(req, res);
+        expect(User.findOne.getCall(0).args[0]).to.deep.equal({
+          email: 'foo@foo.com'
+        });
+      });
     });
-    it('should handle success with req.user', function() {
-      AuthRouter.linkOauth(req, res)(undefined, undefined);
-      expect(req.login.getCall(0).args[0]).to.equal('foo');
-      expect(req.flash.getCall(0).args[0]).to.equal('success');
-      expect(res.redirect.getCall(0).args[0]).to.equal('/account');
+    describe('Twitter', function() {
+      it('should call User.findOne with correct query', function() {
+        req._oauth.provider = 'twitter';
+        AuthRouter.linkOauth(req, res);
+        expect(User.findOne.getCall(0).args[0]).to.deep.equal({
+          email: 'foo@foo.com'
+        });
+      });
     });
-    it('should handle success without req.user', function() {
-      AuthRouter.linkOauth(mockedreq, res)(undefined, undefined);
-      expect(req.login.called).to.equal(false);
-      expect(req.flash.getCall(0).args[0]).to.equal('success');
-      expect(res.redirect.getCall(0).args[0]).to.equal('/account');
+    describe('Foursquare', function() {
+      it('should call User.findOne with correct query', function() {
+        req._oauth.provider = 'foursquare';
+        AuthRouter.linkOauth(req, res);
+        expect(User.findOne.getCall(0).args[0]).to.deep.equal({
+          email: 'foo@foo.com'
+        });
+      });
+    });
+    describe('Github', function() {
+      it('should call User.findOne with correct query', function() {
+        req._oauth.provider = 'github';
+        AuthRouter.linkOauth(req, res);
+        expect(User.findOne.getCall(0).args[0]).to.deep.equal({
+          email: 'foo@foo.com'
+        });
+      });
     });
   });
 

@@ -1,4 +1,4 @@
-describe('AppController', function() {
+describe('Routers: AppRouter', function() {
   'use strict';
 
   require('../spec_helper');

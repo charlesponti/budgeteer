@@ -47,20 +47,29 @@ router.getOauthUserQuery = function(provider, profile) {
  */
 router.linkOauth = function(req, res, next) {
   var oauth = req._oauth;
-  var onOauthLinked = router.onOauthLinked.bind(router, req, res);
   var query = router.getOauthUserQuery(oauth.provider, oauth.profile);
 
   User
     .findOne(query)
-    .exec(function(err, user) {
-      if (err) {
-        req.flash('error', 'There was an unexpected server error.');
-        return res.status(500).redirect(req.user ? '/account' : '/login');
-      }
+    .exec(router.oauthUserFindCallback.bind(router, req, res));
+};
 
-      user = user || new User();
-      user.linkOAuth(oauth, onOauthLinked);
-    });
+/**
+ * Handle 
+ * @param  {[type]} req  [description]
+ * @param  {[type]} res  [description]
+ * @param  {[type]} err  [description]
+ * @param  {[type]} user [description]
+ * @return {[type]}      [description]
+ */
+router.oauthUserFindCallback = function(req, res, err, user) {
+  if (err) {
+    req.flash('error', 'There was an unexpected server error.');
+    return res.status(500).redirect(req.user ? '/account' : '/login');
+  }
+
+  user = user || new User();
+  user.linkOAuth(oauth, router.onOauthLinked.bind(router, req, res));
 };
 
 /**
