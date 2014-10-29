@@ -46,6 +46,7 @@ auth.deserializeUser = function(req, res, next) {
     User 
       .findOne({ _id: req.session.user })
       .exec(auth.deserializeUserCallback.bind(auth, req, res, next));
+    return;
   }
   next();
 };

@@ -32,8 +32,4 @@ router.use('/api/tasks', TaskRouter);
 // App Routes
 router.use('/', AppRouter);
 
-router.get('*', function(req, res, next) {
-  res.render('index');
-});
-
 module.exports =  router;
