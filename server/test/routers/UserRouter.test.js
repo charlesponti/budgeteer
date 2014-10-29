@@ -230,8 +230,7 @@ describe('router', function() {
       expect(req.login.called).to.equal(false);
     });
     it('should handle success', function() {
-      req.user = 'foo';
-      var fn = router.onAccountConfirm(req, res)(null, null);
+      var fn = router.onAccountConfirm(req, res)(null, 'foo');
       expect(req.login.calledWith('foo')).to.equal(true);
       expect(req.flash.getCall(0).args[0]).to.equal('success');
       expect(res.redirect.calledWith('/account')).to.equal(true);
