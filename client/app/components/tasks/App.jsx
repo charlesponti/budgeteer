@@ -30,11 +30,11 @@ var TaskApp = React.createClass({
 
         <h1 className="text-center"> Tasks </h1>
 
-        <div className="col-sm-6 task-list">
+        <div className="col-xs-12 col-md-10 col-md-offset-1 task-list">
           <TaskList id='task-list' />
         </div>
 
-        <div className="col-sm-6 task-form">
+        <div className="col-xs-12 col-md-10 col-md-offset-1 task-form">
           <TaskForm id='task-form' />
         </div>
 
