@@ -37,23 +37,41 @@ auth.logOut = function() {
 };
 
 /**
- * Deserializer user
- * @param  {Function} callback
- * @return {Function}
+ * Deserialize user
+ * @param  {Request} req
+ * @param {Response} res
+ * @param {Function} next
  */
 auth.deserializeUser = function(req, res, next) {
   if (req.session.user) {
     User 
       .findOne({ _id: req.session.user })
-      .exec(auth.deserializeUserCallback.bind(auth, req, res, next));
+      .exec(auth.assignUserToReq.bind(null, req, next));
     return;
   }
   next();
 };
 
-auth.deserializeUserCallback = function(req, res, next, err, user) {
+/**
+ * Assign user to request
+ * @param  {Request}   req
+ * @param  {Function} next
+ * @param  {?Error}   err
+ * @param  {?User}   user
+ */
+auth.assignUserToReq = function(req, next, err, user) {
+  if (err) {
+    throw err;
+  }
+
+  if (!user) {
+    throw new Error('No user found');
+  }
+  
   req.user = user;
   next();
 };
+
+auth.deserializeUserCallback = 
 
 module.exports = auth;

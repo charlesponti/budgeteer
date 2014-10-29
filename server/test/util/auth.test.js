@@ -36,33 +36,40 @@ describe("Util: auth", function() {
   });
 
   describe(".deserializeUser()", function() {
-    var next;
+    var next, sandbox;
 
     beforeEach(function() {
+      sandbox = sinon.sandbox.create();
+      sandbox.stub(User, 'findOne', function() {
+        return { exec: sinon.spy() };
+      });
       next = sinon.spy();
     });
 
     afterEach(function() {
       next = undefined;
+      sandbox.restore();
     });
 
     it("should call next if no req.session.user", function() {
       req.session.user = undefined;
       Auth.deserializeUser(req, undefined, next);
+      expect(User.findOne.called).to.equal(false);
       expect(next.called).to.equal(true);
     });
-    it("should call callback if req.session && req.session", function() {
-      req.session.user = "meow";
+    it('should find user if req.session.user', function() {
+      req.session.user = '1234';
       Auth.deserializeUser(req, undefined, next);
+      expect(User.findOne.args[0][0]).to.deep.equal({ _id: '1234'});
+      expect(next.called).to.equal(false);
     });
   });
 
-  describe('.deserializeUserCallback()', function() {
+  describe('.assignUserToReq()', function() {
     it('should assign user to req', function() {
       var next = sinon.spy();
-      Auth.deserializeUserCallback(req, null, next, null, 'foo');
+      Auth.assignUserToReq(req, next, null, 'foo');
       expect(req.user).to.equal('foo');
-      expect(next.called).to.equal(true);
     });
   });
 
