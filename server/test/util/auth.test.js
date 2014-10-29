@@ -35,49 +35,38 @@ describe("Util: auth", function() {
     });
   });
 
-  describe("#deserializeUser", function() {
-    var func, callback, next;
+  describe(".deserializeUser()", function() {
+    var next;
 
     beforeEach(function() {
-      callback = sinon.spy();
-      func = Auth.deserializeUser(callback);
       next = sinon.spy();
-      Auth.deserialize_done = sinon.spy();
     });
 
     afterEach(function() {
-      func = null;
+      next = undefined;
     });
 
-    it("should return a function", function() {
-      expect(typeof func).to.equal("function");
-    });
-    it("should call next if no req.session", function() {
-      req.session = null;
-      func(req, null, next);
-      expect(next.called).to.equal(true);
-    });
     it("should call next if no req.session.user", function() {
-      func(req, null, next);
+      req.session.user = undefined;
+      Auth.deserializeUser(req, undefined, next);
       expect(next.called).to.equal(true);
     });
     it("should call callback if req.session && req.session", function() {
       req.session.user = "meow";
-      func(req, null, next);
-      expect(callback.called).to.equal(true);
+      Auth.deserializeUser(req, undefined, next);
     });
   });
 
-  describe('deserialized event', function() {
+  describe('.deserializeUserCallback()', function() {
     it('should assign user to req', function() {
       var next = sinon.spy();
-      Auth.emitter.emit('deserialized', req, null, next, null, 'foo');
+      Auth.deserializeUserCallback(req, null, next, null, 'foo');
       expect(req.user).to.equal('foo');
       expect(next.called).to.equal(true);
     });
   });
 
-  describe("#logOut", function() {
+  describe(".logOut()", function() {
     it("should set value of req.session", function() {
       Auth.logOut.call(req);
       expect(req.session.user).to.equal(undefined);
