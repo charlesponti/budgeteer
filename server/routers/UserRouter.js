@@ -2,7 +2,6 @@
 
 /**
  * Module dependencies
- * @type {exports}
  * @private
  */
 var _ = require('lodash');
@@ -10,7 +9,6 @@ var express = require('express');
 
 /**
  * Application dependencies
- * @type {exports}
  * @private
  */
 var User = require('../models/user');
@@ -22,8 +20,8 @@ var router = express.Router();
 
 /**
  * Sign up user through two-factor authentication
- * @param {Request} req
- * @param {Response} res
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
  * @param {Function} next
  */
 router.logIn = function(req, res, next) {
@@ -58,8 +56,8 @@ router.logIn = function(req, res, next) {
 router.serve = {
   /**
    * Serve sign up page
-   * @param {Request} req
-   * @param {Response} res
+   * @param {IncomingMessage} req
+   * @param {ServerResponse} res
    * @param {Function} next
    */
   login: function serveLogin(req, res) {
@@ -70,8 +68,8 @@ router.serve = {
   },
   /**
    * Serve account page
-   * @param {Request} req
-   * @param {Response} res
+   * @param {IncomingMessage} req
+   * @param {ServerResponse} res
    * @param {Function} next
    */
   account: function serveAccountPage(req, res, next) {
@@ -84,8 +82,8 @@ router.serve = {
 
 /**
  * Log out user
- * @param {Request} req
- * @param {Response} res
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
  * @param {Function} next
  */
 router.logOut = function(req, res, next) {
@@ -95,8 +93,8 @@ router.logOut = function(req, res, next) {
 
 /**
  * Delete user
- * @param {Request} req
- * @param {Response} res
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
  * @param {Function} next
  */
 router.deleteAccount = function deleteAccount(req, res, next) {
@@ -107,8 +105,8 @@ router.deleteAccount = function deleteAccount(req, res, next) {
 
 /**
  * Finish request after account is deleted
- * @param  {Request} req
- * @param  {Response} res
+ * @param  {IncomingMessage} req
+ * @param  {ServerResponse} res
  */
 router.onAccountDelete = function(req, res) {
   /**
@@ -128,8 +126,8 @@ router.onAccountDelete = function(req, res) {
 
 /**
  * Confirm account with token
- * @param {Request} req
- * @param {Response} res
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
  * @param {Function} next
  */
 router.confirmAccount = function confirmAccount(req, res, next) {
@@ -154,8 +152,8 @@ router.confirmAccount = function confirmAccount(req, res, next) {
 
 /**
  * Confirm account with token
- * @param {Request} req
- * @param {Response} res
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
  * @param {Function} next
  */
 router.confirmReset = function confirmReset(req, res, next) {
@@ -180,8 +178,8 @@ router.confirmReset = function confirmReset(req, res, next) {
 
 /**
  * Reset account with token
- * @param {Request} req
- * @param {Response} res
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
  */
 router.confirmReset = function(req, res) {
   /**
@@ -201,8 +199,8 @@ router.confirmReset = function(req, res) {
 
 /**
  * Redirect back to login after reset token is sent to user
- * @param  {Request} req
- * @param  {Response} res
+ * @param  {IncomingMessage} req
+ * @param  {ServerResponse} res
  */
 router.sendReset = function(req, res) {
   /**
@@ -221,8 +219,8 @@ router.sendReset = function(req, res) {
 
 /**
  * Confirm account with token
- * @param {Request} req
- * @param {Response} res
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
  */
 router.onAccountConfirm = function(req, res) {
   /**
@@ -243,8 +241,8 @@ router.onAccountConfirm = function(req, res) {
 
 /**
  * Callback to be called after OAuth provider is unlinked
- * @param {Request} req
- * @param {Response} res
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
  * @returns {Function}
  */
 router.unlinkOAuth = function(req, res) {
@@ -255,8 +253,8 @@ router.unlinkOAuth = function(req, res) {
 
 /**
  * Handle response after
- * @param {Request} req
- * @param {Response} res
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
  * @returns {*}
  */
 router.onUnlinkOauth = function(req, res) {
@@ -273,8 +271,8 @@ router.onUnlinkOauth = function(req, res) {
 
 /**
  * Finish request after local authentication has finished
- * @param  {Request} req
- * @param  {Response} res
+ * @param  {IncomingMessage} req
+ * @param  {ServerResponse} res
  */
 router.onAccountCreate = function(req, res) {
   /**
@@ -294,8 +292,8 @@ router.onAccountCreate = function(req, res) {
 /**
  * Log in user
  * @param  {User} user
- * @param  {Request} req
- * @param  {Response} res
+ * @param  {IncomingMessage} req
+ * @param  {ServerResponse} res
  */
 router.onLogIn = function(user, req, res) {
   req.login(user);

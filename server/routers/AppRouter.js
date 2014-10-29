@@ -5,8 +5,8 @@ var router = express.Router();
 
 /**
  * Render static/about.jade
- * @param  {http.IncomingMessage} req
- * @param  {http.ServerResponse} res
+ * @param  {IncomingMessage} req
+ * @param  {ServerResponse} res
  */
 router.get('/about', function(req, res) {
   res.render('static/about');
@@ -14,8 +14,8 @@ router.get('/about', function(req, res) {
 
 /**
  * Handler for errors
- * @param {http.IncomingMessage} req
- * @param {http.ServerResponse} res
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
  * @param {Object} config
  *     @params {String} config.msg Message to display in flash message
  *     @params {String} config.url Url for redirect

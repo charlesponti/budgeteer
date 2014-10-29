@@ -2,7 +2,6 @@
 
 /**
  * Module depenencies
- * @type {exports}
  * @private
  */
 var _ = require('lodash');

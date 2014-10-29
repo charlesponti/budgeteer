@@ -2,7 +2,6 @@
 
 /**
  * Module dependencies
- * @type {exports}
  */
 var fs = require('fs');
 var path = require('path');

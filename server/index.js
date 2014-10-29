@@ -2,14 +2,12 @@
 
 /**
  * Current Node environment
- * @type {String}
  * @private
  */
 var env = process.env.NODE_ENV;
 
 /**
  * Module dependencies.
- * @type {exports}
  * @private
  */
 var _ = require('lodash');
@@ -35,7 +33,6 @@ var MongoStore = require('connect-mongo')(express_session);
 
 /**
  * Application dependencies
- * @type {exports}
  */
 var auth = require('./util/auth');
 var oauth = require('./util/oauth');

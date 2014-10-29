@@ -2,13 +2,11 @@
 
 /**
  * Module dependencies
- * @type {exports}
  */
 var express = require('express');
 
 /**
  * Application dependencies
- * @type {exports}
  */
 var oauth = Cthulhu.oauth;
 var User = require('../models/user');
@@ -39,10 +37,9 @@ router.getOauthUserQuery = function(provider, profile) {
 };
 
 /**
- * Callback used after User table is queried for user's with specified
- * email
- * @param  {Request} req
- * @param  {Response} res
+ * Find user with OAuth profile assigned to them
+ * @param  {IncomingMessage} req
+ * @param  {ServerResponse} res
  * @param  {Function} next
  */
 router.linkOauth = function(req, res, next) {
@@ -55,12 +52,11 @@ router.linkOauth = function(req, res, next) {
 };
 
 /**
- * Handle 
- * @param  {[type]} req  [description]
- * @param  {[type]} res  [description]
- * @param  {[type]} err  [description]
- * @param  {[type]} user [description]
- * @return {[type]}      [description]
+ * Link OAuth profile to found user
+ * @param  {IncomingMessage} req
+ * @param  {ServerResponse} res
+ * @param  {?Error} err
+ * @param  {?User} user
  */
 router.oauthUserFindCallback = function(req, res, err, user) {
   if (err) {
@@ -74,8 +70,8 @@ router.oauthUserFindCallback = function(req, res, err, user) {
 
 /**
  * Callback for linking Oauth
- * @param {Request} req
- * @param {Response} res
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
  * @param {?Error} err
  * @param {?User} user
  */

@@ -77,8 +77,8 @@ TaskRouter.onIndexFind = function(req, res) {
 
 /**
  * Create new task
- * @param  {Request}   req 
- * @param  {Response}   res
+ * @param  {IncomingMessage}   req 
+ * @param  {ServerResponse}   res
  * @param  {Function} next
  */
 TaskRouter.create = function(req, res, next) {
@@ -194,8 +194,8 @@ TaskRouter.onSave = function(req, res) {
 /**
  * Finish request after task has been deleted
  * @param  {?error} err
- * @param  {Request} req
- * @param  {Response} res
+ * @param  {IncomingMessage} req
+ * @param  {ServerResponse} res
  */
 TaskRouter.onDelete = function(req, res) {
   return function(err) {
@@ -208,8 +208,8 @@ TaskRouter.onDelete = function(req, res) {
 
 /**
  * Finish request after task has been updated
- * @param  {Request} req
- * @param  {Response} res
+ * @param  {IncomingMessage} req
+ * @param  {ServerResponse} res
  */
 TaskRouter.afterUpdate = function(req, res) {
   /**

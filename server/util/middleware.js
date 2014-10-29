@@ -2,7 +2,6 @@
 
 /**
  * Module dependencies
- * @type {exports}
  */
 var _ = require('lodash');
 var util = require('util');

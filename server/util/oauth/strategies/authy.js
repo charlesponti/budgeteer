@@ -8,7 +8,6 @@ var env = process.env.NODE_ENV;
 
 /**
  * Module dependencies
- * @type {exports}
  */
 var _ = require('lodash');
 var request = require('superagent');
