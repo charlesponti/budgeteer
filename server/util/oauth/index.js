@@ -9,9 +9,8 @@ var _ = require('lodash');
 
 /**
  * Factory function to create a oauth wrapper of oauth strategies
- * @private
  */
-function oauth(config) {
+module.exports = function oauth(config) {
 
   var module = {};
 
@@ -66,14 +65,4 @@ function oauth(config) {
   
   return module;
 
-}
-
-/**
- * Export factory function that returns a new oauth module configured
- * with supplied configuration
- * @param  {Object} config Configuration
- * @return {Object}
- */
-module.exports = function(config) {
-  return oauth(config);
 };
