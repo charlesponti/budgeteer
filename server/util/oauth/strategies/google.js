@@ -68,8 +68,8 @@ module.exports = function GoogleStrategy(config) {
   /**
    * Handle profile response
    * @param {String} token
-   * @param {Request} req
-   * @param {Response} res
+   * @param {IncomingMessage} req
+   * @param {ServerResponse} res
    * @param {function} next
    * @param {object} response
    */
