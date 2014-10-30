@@ -30,6 +30,9 @@ var TaskForm = React.createClass({
     });
   },
 
+  /**
+   * Handle logic when component is about to mount to DOM
+   */
   componentWillMount: function() {
     TaskStore.register(this.dispatcher);
   },
@@ -52,6 +55,11 @@ var TaskForm = React.createClass({
     return true;
   },
 
+  /**
+   * Handle change to form fields
+   * @param  {SyntheticEvent} e
+   * @param  {String} id
+   */
   handleChange: function(e, id) {
     var form = this.getDOMNode();
     this.setState({
