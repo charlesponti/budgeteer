@@ -4,6 +4,7 @@ var React = require('react');
 var Preview = require('./Preview.jsx');
 var TaskStore = require('../../stores/TaskStore');
 var TaskConstants = require('../../constants/TaskConstants');
+var TaskForm = require('./Form.jsx');
 
 var TaskListItem = React.createClass({
 
@@ -48,6 +49,8 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onEditClick: function(e, id) {
+    React.renderComponent(TaskForm, document.getElementById('myModal'));
+    $('#myModal').modal();
     TaskStore.dispatch({
       action: TaskConstants.EDIT,
       data: this.props.task
