@@ -57,7 +57,7 @@ var Layout = module.exports = React.createClass({
     return (
       <div>
         <nav className="nav navbar navbar-default navbar-fixed-top" role="navigation">
-          <div className="container-fluid">
+          <div className="container">
             <div className="nav-header">
               <button className="navbar-toggle collapsed"
                       type="button" data-toggle="collapse"
@@ -81,7 +81,7 @@ var Layout = module.exports = React.createClass({
             </div>
           </div>
         </nav>
-        <div className="container-fluid app">
+        <div className="container app">
           {this.props.activeRouteHandler()}
         </div>
       </div>
