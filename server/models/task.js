@@ -1,7 +1,14 @@
 'use strict';
 
+/**
+ * Module dependencies
+ */
 var mongoose = require('mongoose');
 
+/**
+ * Task Schema
+ * @type {mongoose.Schema}
+ */
 var TaskSchema = new mongoose.Schema({
   title: { type: String, unique: true, required: true },
   description: { type: String, unique: true, required: true },
@@ -12,6 +19,9 @@ var TaskSchema = new mongoose.Schema({
   updated_at: String
 });
 
+/**
+ * Perform actions before Task instance is saved
+ */
 TaskSchema.pre('save', function(next) {
   var date = new Date();
   if (this.isNew) {
