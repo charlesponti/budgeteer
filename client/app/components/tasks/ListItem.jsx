@@ -49,7 +49,7 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onEditClick: function(e, id) {
-    React.renderComponent(TaskForm, document.getElementById('myModal'));
+    // React.render(TaskForm, document.getElementById('myModal'));
     $('#myModal').modal();
     TaskStore.dispatch({
       action: TaskConstants.EDIT,

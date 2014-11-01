@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 'use strict';
 
 var React = require('react');
@@ -10,9 +8,9 @@ var TaskStore = require('../../stores/TaskStore');
 /**
  * Main view for the Tasks application
  */
-var TaskApp = React.createClass({
+var TaskMain = React.createClass({
 
-  displayName: 'TaskApp',
+  displayName: 'TaskMain',
 
   /**
    * Perform actions when componet will get mounted to the DOM
@@ -44,4 +42,4 @@ var TaskApp = React.createClass({
 
 });
 
-module.exports = TaskApp;
+module.exports = TaskMain;

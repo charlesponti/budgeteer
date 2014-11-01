@@ -67,6 +67,11 @@ BaseStore.updateRecord = function(newRecord) {
   return this;
 };
 
+/**
+ * Create a new store extended from BaseStore
+ * @param  {object} config
+ * @return {object}
+ */
 BaseStore.extend = function(config) {
   var newStore = new Dispatcher();
   _.extend(newStore, config || {});
