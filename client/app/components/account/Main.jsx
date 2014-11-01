@@ -46,6 +46,8 @@ var Account = React.createClass({
         action: UserConstants.LOADED,
         data: UserStore.getUser()
       });
+    } else {
+      UserStore.load();
     }
     UserStore.register(this.UserStoreRegister);
   },
