@@ -1,11 +1,20 @@
 'use strict';
 
+// Module dependencies
 var React = require('react');
-var Preview = require('./Preview.jsx');
-var TaskStore = require('../../stores/TaskStore');
-var TaskConstants = require('../../constants/TaskConstants');
-var TaskForm = require('./Form.jsx');
 
+// Application dependencies
+var TaskStore = require('../../stores/TaskStore');
+var AppDispatcher = require('../../dispatchers/App');
+var TaskConstants = require('../../constants/TaskConstants');
+
+// Factories
+var TaskForm = React.createFactory(require('./Form.jsx'));
+var Preview = React.createFactory(require('./Preview.jsx'));
+
+/**
+ * Task Component
+ */
 var TaskListItem = React.createClass({
 
   propTypes: {
@@ -49,8 +58,16 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onEditClick: function(e, id) {
-    // React.render(TaskForm, document.getElementById('myModal'));
-    $('#myModal').modal();
+    AppDispatcher.dispatch({
+      action: 'show-modal', 
+      data: {
+        title: 'Edit Task',
+        buttonText: 'Edit Task',
+        children: <TaskForm task={this.props.task}/>,
+        buttonEvent: TaskConstants.UPDATE
+      }
+    });
+
     TaskStore.dispatch({
       action: TaskConstants.EDIT,
       data: this.props.task
@@ -70,7 +87,6 @@ var TaskListItem = React.createClass({
 
   render: function() {
     var task = this.props.task;
-
     return (
       <li className="list-group-item task-list-item" onClick={this.onClick}>
         <div>
