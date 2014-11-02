@@ -2,6 +2,7 @@
 
 var React = require('react');
 var TaskStore = require('../../stores/TaskStore');
+var AppDispatcher = require('../../dispatchers/App');
 var TaskConstants = require('../../constants/TaskConstants');
 
 var TaskForm = React.createClass({
@@ -11,18 +12,15 @@ var TaskForm = React.createClass({
    */
   getInitialState: function() {
     return { 
-      task: { _id: '', title: '', description: '' },
+      task: this.props.task || { _id: '', title: '', description: '' },
       buttonText: 'Create Task' 
     };
   },
 
   /**
    * Handle form submission
-   * @param  {SyntheticEvent} e Event object
-   * @param  {String} id Id of form
    */
-  onSubmit: function(e, id) {
-    e.preventDefault();
+  onSubmit: function() {
     var event = this.state.task._id.length ? 'UPDATE' : 'CREATE';
     TaskStore.dispatch({
       action: TaskConstants[event],
@@ -34,7 +32,17 @@ var TaskForm = React.createClass({
    * Handle logic when component is about to mount to DOM
    */
   componentWillMount: function() {
+    AppDispatcher.register(this.appDispatcherIndex);
     TaskStore.register(this.dispatcher);
+  },
+
+  appDispatcherIndex: function(payload) {
+    switch(payload.action) {
+      case TaskConstants.UPDATE:
+        this.onSubmit();
+        break;
+    }
+    return true;
   },
 
   /**
@@ -99,7 +107,6 @@ var TaskForm = React.createClass({
             <option value="personal"> Personal </option>
           </select>
         </div>
-        <button className="btn btn-success">{this.state.buttonText}</button>
       </form>
     )
   }
