@@ -46,7 +46,7 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onDeleteClick: function(e, id) {
-    TaskStore.dispatch({
+    AppDispatcher.dispatch({
       action: AppConstants.TASK_DESTROY,
       data: this.props.task
     });

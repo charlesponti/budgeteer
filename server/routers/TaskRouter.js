@@ -119,13 +119,15 @@ TaskRouter.update = function(req, res, next) {
  * @param  {Function} next
  */
 TaskRouter.destroy = function(req, res, next) {
-  req.user.task.exec(function(err, tasks) {
+  req.user.task.exec(function(err, task) {
     if (err) {
       return console.log(err);
     }
-    
-    if (tasks.length) {
-      return tasks[0].remove(TaskRouter.onDelete(req, res));
+    console.log(arguments);
+    console.log(req.body);
+
+    if (task) {
+      return task.remove(TaskRouter.onDelete(req, res));
     }
     
     res.status(404).json({ message: 'Task not found' });
