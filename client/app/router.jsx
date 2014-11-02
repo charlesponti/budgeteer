@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
-var Tasks = require('./components/tasks/Main.jsx');
-var Account = require('./components/account/Main.jsx');
+var Tasks = React.createFactory(require('./components/tasks/Main.jsx'));
+var Account = React.createFactory(require('./components/account/Main.jsx'));
 
 var AppRouter = Backbone.Router.extend({
 
