@@ -25,14 +25,33 @@ UserStore._user = undefined;
 UserStore.load = function() {
   service
     .get('me')
-    .then(function(response) {
-      UserStore._user = response;
-      AppDispatcher.dispatch({
-        action: AppConstants.USER_LOADED,
-        data: UserStore._user
-      });
-    });
+    .then(UserStore.onLoadSuccess)
+    .catch(UserStore.onLoadFailure);
   return UserStore;
+};
+
+/**
+ * Handle success response from loading user
+ * @param  {object} response
+ */
+UserStore.onLoadSuccess = function(response) {
+  UserStore._user = response;
+  UserStore.emitChange();
+};
+
+/**
+ * Handle failure response from loading user
+ * @param  {object} response
+ */
+UserStore.onLoadFailure = function(response) {
+  console.log(response);
+};
+
+/**
+ * Emit change event
+ */
+UserStore.emitChange = function() {
+  UserStore.emit('change', UserStore._user);
 };
 
 /**

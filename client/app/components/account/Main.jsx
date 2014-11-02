@@ -28,15 +28,11 @@ var Account = React.createClass({
   /**
    * Set state of component when UserStore is loaded
    */
-  UserStoreRegister: function(payload) {
-    switch(payload.action) {
-      case UserConstants.LOADED:
-        this.setState({
-          user: payload.data,
-          accounts: UserStore.getUserAccounts() 
-        });
-        break;
-    }
+  onUserStoreChange: function(user) {
+    this.setState({
+      user: user,
+      accounts: UserStore.getUserAccounts() 
+    });
   },
 
   /**
@@ -45,14 +41,11 @@ var Account = React.createClass({
    */
   componentWillMount: function() {
     if (UserStore._user) {
-      this.UserStoreRegister({
-        action: UserConstants.LOADED,
-        data: UserStore.getUser()
-      });
+      this.onUserStoreChange(UserStore._user);
     } else {
+      UserStore.on('change', this.onUserStoreChange);
       UserStore.load();
     }
-    AppDispatcher.register(this.UserStoreRegister);
   },
 
   /**
