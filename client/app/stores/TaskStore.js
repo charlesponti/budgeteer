@@ -93,7 +93,7 @@ TaskStore.update = function(data) {
  * Update record in TaskStore._records
  * @param {object} response Response from API
  */
-TaskStore.onUpdateResponse = function(response) {
+TaskStore.onUpdateSuccess = function(response) {
   TaskStore.updateRecord(response.task);
   TaskStore.dispatch({
     action: TaskConstants.UPDATED,
