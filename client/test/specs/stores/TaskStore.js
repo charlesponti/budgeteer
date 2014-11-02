@@ -2,7 +2,7 @@
 
 var service = require('../../../app/service/api');
 var TaskStore = require('../../../app/stores/TaskStore');
-var TaskConstants = require('../../../app/constants/TaskConstants');
+var AppConstants = require('../../../app/constants/App');
 var expect = window.chai.expect;
 
 describe('TaskStore', function() {
@@ -75,19 +75,19 @@ describe('TaskStore', function() {
   describe('.eventHandler()', function() {
     it('should call store.create on CREATE', function() {
       store.create = sinon.spy();
-      store.eventHandler({ action: TaskConstants.CREATE, data: 'foo' });
+      store.eventHandler({ action: AppConstants.CREATE, data: 'foo' });
       expect(store.create.called).to.equal(true);
       expect(store.create.args[0][0]).to.equal('foo');
     });
     it('should call store.update on UPDATE', function() {
       store.update = sinon.spy();
-      store.eventHandler({ action: TaskConstants.UPDATE, data: 'foo' });
+      store.eventHandler({ action: AppConstants.UPDATE, data: 'foo' });
       expect(store.update.called).to.equal(true);
       expect(store.update.args[0][0]).to.equal('foo');
     });
     it('should call store.destroy on DESTROY', function() {
       store.destroy = sinon.spy();
-      store.eventHandler({ action: TaskConstants.DESTROY, data: 'foo' });
+      store.eventHandler({ action: AppConstants.DESTROY, data: 'foo' });
       expect(store.destroy.called).to.equal(true);
       expect(store.destroy.args[0][0]).to.equal('foo');
     });
@@ -96,19 +96,19 @@ describe('TaskStore', function() {
   describe('.dispatch()', function() {
     it('should call store.create on CREATE', function() {
       store.create = sinon.spy();
-      store.dispatch({ action: TaskConstants.CREATE, data: 'foo' });
+      store.dispatch({ action: AppConstants.CREATE, data: 'foo' });
       expect(store.create.called).to.equal(true);
       expect(store.create.args[0][0]).to.equal('foo');
     });
     it('should call store.update on UPDATE', function() {
       store.update = sinon.spy();
-      store.dispatch({ action: TaskConstants.UPDATE, data: 'foo' });
+      store.dispatch({ action: AppConstants.UPDATE, data: 'foo' });
       expect(store.update.called).to.equal(true);
       expect(store.update.args[0][0]).to.equal('foo');
     });
     it('should call store.destroy on DESTROY', function() {
       store.destroy = sinon.spy();
-      store.dispatch({ action: TaskConstants.DESTROY, data: 'foo' });
+      store.dispatch({ action: AppConstants.DESTROY, data: 'foo' });
       expect(store.destroy.called).to.equal(true);
       expect(store.destroy.args[0][0]).to.equal('foo');
     });

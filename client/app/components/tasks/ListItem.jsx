@@ -4,9 +4,9 @@
 var React = require('react');
 
 // Application dependencies
+var AppConstants = require('../../constants/App');
 var TaskStore = require('../../stores/TaskStore');
 var AppDispatcher = require('../../dispatchers/App');
-var TaskConstants = require('../../constants/TaskConstants');
 
 // Factories
 var TaskForm = React.createFactory(require('./Form.jsx'));
@@ -35,7 +35,7 @@ var TaskListItem = React.createClass({
     this.props.task.completed = !this.props.task.completed;
     // Dispatch event
     TaskStore.dispatch({
-      action: TaskConstants.UPDATE,
+      action: AppConstants.TASK_UPDATE,
       data: this.props.task
     });
   },
@@ -47,7 +47,7 @@ var TaskListItem = React.createClass({
    */
   onDeleteClick: function(e, id) {
     TaskStore.dispatch({
-      action: TaskConstants.DESTROY,
+      action: AppConstants.TASK_DESTROY,
       data: this.props.task
     });
   },
@@ -59,17 +59,17 @@ var TaskListItem = React.createClass({
    */
   onEditClick: function(e, id) {
     AppDispatcher.dispatch({
-      action: 'show-modal', 
+      action: AppConstants.TASK_UPDATE,
       data: {
         title: 'Edit Task',
         buttonText: 'Edit Task',
         children: <TaskForm task={this.props.task}/>,
-        buttonEvent: TaskConstants.UPDATE
+        buttonEvent: AppConstants.TASK_SUBMIT
       }
     });
 
     TaskStore.dispatch({
-      action: TaskConstants.EDIT,
+      action: AppConstants.TASK_EDIT,
       data: this.props.task
     });
   },

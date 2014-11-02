@@ -1,14 +1,20 @@
 'use strict';
 
+// Module dependencies
 var _ = require('lodash');
 var React = require('react');
+
+// Application dependencies
 var TaskStore = require('../../stores/TaskStore');
-var TaskConstants = require('../../constants/TaskConstants');
+var AppConstants = require('../../constants/App');
+var AppDispatcher = require('../../dispatchers/App');
+
+// Components
 var TaskListItem = React.createFactory(require('./ListItem.jsx'));
 
 /**
  * TaskList component
- * @type {ReactCompositeComponent}
+ * @type {ReactElement}
  */
 var TaskList = React.createClass({
 
@@ -18,12 +24,12 @@ var TaskList = React.createClass({
     return { tasks: this.props.tasks };
   },
 
-  dispatcher: function(payload) {
+  dispatcherIndex: function(payload) {
     if (this.isMounted()) {
       switch(payload.action) {
-        case TaskConstants.LOADED:
-        case TaskConstants.CREATED:
-        case TaskConstants.UPDATED:
+        case AppConstants.TASK_LOADED:
+        case AppConstants.TASK_CREATED:
+        case AppConstants.TASK_UPDATED:
           this.setState({ tasks: payload.data });
           break;
       }
@@ -34,7 +40,7 @@ var TaskList = React.createClass({
    * Handle logic when component will be mounted to the DOM
    */
   componentWillMount: function() {
-    TaskStore.register(this.dispatcher);
+    AppDispatcher.register(this.dispatcherIndex);
   },
 
   /**

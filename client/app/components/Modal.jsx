@@ -1,14 +1,21 @@
 'use strict';
 
+// Module dependencies
 var React = require('react');
-var AppDispatcher = require('../dispatchers/App');
-var TaskConstants = require('../constants/TaskConstants');
 
+// Application dependencies
+var AppConstants = require('../constants/App');
+var AppDispatcher = require('../dispatchers/App');
+
+/**
+ * Modal Componenet
+ * @type {ReactElement}
+ */
 var Modal = React.createClass({
 
   /**
    * Name used in debugging
-   * @type {String}
+   * @type {string}
    */
   displayName: 'Modal',
 
@@ -24,30 +31,51 @@ var Modal = React.createClass({
     };
   },
 
+  /**
+   * Handle events from AppDispatcher
+   * @param  {object} payload
+   * @return {boolean}
+   */
   dispatcherIndex: function(payload) {
     switch(payload.action) {
-      case 'show-modal':
+      case AppConstants.TASK_UPDATE:
+      case AppConstants.TASK_CREATE:
         this.setState(payload.data);
-        this.toggleModal();
+        this.show();
+        break;
+      case AppConstants.TASK_UPDATED:
+      case AppConstants.TASK_CREATED:
+        this.hide();
+        break;
     }
+    return true;
   },
 
   componentWillMount: function() {
     AppDispatcher.register(this.dispatcherIndex);
   },
 
-  toggleModal: function() {
-    $(this.getDOMNode()).modal();
+  /**
+   * Show modal
+   */
+  show: function() {
+    $(this.getDOMNode()).modal('show');
+  },
+  
+  /**
+   * Hide modal
+   */
+  hide: function() {
+    $(this.getDOMNode()).modal('hide');
   },
 
   onButtonClick: function() {
     AppDispatcher.dispatch({ action: this.state.buttonEvent });
-    this.toggleModal();
   },
 
   renderButtons: function() {
     return (
-      <button type="button" 
+      <button type="button"
         className='btn btn-success'
         onClick={this.onButtonClick}>
         {this.state.buttonText}

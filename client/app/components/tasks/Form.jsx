@@ -1,14 +1,22 @@
 'use strict';
 
+// Module dependencies
 var React = require('react');
+
+// Application dependencies
+var AppConstants = require('../../constants/App');
 var TaskStore = require('../../stores/TaskStore');
 var AppDispatcher = require('../../dispatchers/App');
-var TaskConstants = require('../../constants/TaskConstants');
 
+/**
+ * TaskForm Component
+ * @type {ReactElement}
+ */
 var TaskForm = React.createClass({
 
   /**
    * Get initial state of component
+   * @return {object}
    */
   getInitialState: function() {
     return { 
@@ -21,9 +29,16 @@ var TaskForm = React.createClass({
    * Handle form submission
    */
   onSubmit: function() {
-    var event = this.state.task._id.length ? 'UPDATE' : 'CREATE';
-    TaskStore.dispatch({
-      action: TaskConstants[event],
+    var event;
+
+    if (this.state.task._id.length) {
+      event = AppConstants.TASK_UPDATE_EXISTING;
+    } else {
+      event = AppConstants.TASK_CREATE_NEW;
+    }
+    
+    AppDispatcher.dispatch({
+      action: AppConstants[event],
       data: this.state.task
     });
   },
@@ -32,17 +47,7 @@ var TaskForm = React.createClass({
    * Handle logic when component is about to mount to DOM
    */
   componentWillMount: function() {
-    AppDispatcher.register(this.appDispatcherIndex);
-    TaskStore.register(this.dispatcher);
-  },
-
-  appDispatcherIndex: function(payload) {
-    switch(payload.action) {
-      case TaskConstants.UPDATE:
-        this.onSubmit();
-        break;
-    }
-    return true;
+    AppDispatcher.register(this.dispatcherIndex);
   },
 
   /**
@@ -50,13 +55,16 @@ var TaskForm = React.createClass({
    * @param  {object} payload
    * @return {boolean}
    */
-  dispatcher: function(payload) {
+  dispatcherIndex: function(payload) {
     switch(payload.action) {
-      case TaskConstants.EDIT:
+      case AppConstants.TASK_EDIT:
         this.setState({ task: payload.data, buttonText: 'Edit Task' });
         break;
-      case TaskConstants.CREATED:
-      case TaskConstants.UPDATED:
+      case AppConstants.TASK_SUBMIT:
+        this.onSubmit();
+        break;
+      case AppConstants.TASK_CREATED:
+      case AppConstants.TASK_UPDATED:
         this.setState(this.getInitialState());
         break;
     }

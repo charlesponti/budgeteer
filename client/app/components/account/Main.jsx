@@ -1,12 +1,15 @@
 'use strict';
 
-/**
- * Module dependencies
- */
+// Module dependencies
 var React = require('react');
+
+// Application dependencies
 var UserStore = require('../../stores/UserStore');
+var AppConstants = require('../../constants/App');
+var AppDispatcher = require('../../dispatchers/App');
+
+// Components
 var ConnectedAccount = require('./ConnectedAccount.jsx');
-var UserConstants = require('../../constants/UserConstants');
 
 var Account = React.createClass({
 
@@ -49,7 +52,7 @@ var Account = React.createClass({
     } else {
       UserStore.load();
     }
-    UserStore.register(this.UserStoreRegister);
+    AppDispatcher.register(this.UserStoreRegister);
   },
 
   /**

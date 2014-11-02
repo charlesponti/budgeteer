@@ -3,7 +3,8 @@
 var _ = require('lodash');
 var BaseStore = require('./BaseStore');
 var service = require('../service/api');
-var UserConstants = require('../constants/UserConstants');
+var AppConstants = require('../constants/App');
+var AppDispatcher = require('../dispatchers/App');
 
 /**
  * Store to hold current user
@@ -26,8 +27,8 @@ UserStore.load = function() {
     .get('me')
     .then(function(response) {
       UserStore._user = response;
-      UserStore.dispatch({
-        action: UserConstants.LOADED, 
+      AppDispatcher.dispatch({
+        action: AppConstants.USER_LOADED,
         data: UserStore._user
       });
     });

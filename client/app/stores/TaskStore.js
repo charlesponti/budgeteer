@@ -6,14 +6,15 @@
 var _ = require('lodash');
 var BaseStore = require('./BaseStore');
 var service = require('../service/api');
-var TaskConstants = require('../constants/TaskConstants');
+var AppConstants = require('../constants/App');
+var AppDispatcher = require('../dispatchers/App');
 
 /**
  * Store which will hold tasks
  * @requires module: lodash
  * @requires module: ./BaseStore
  * @requires module: ../service/api
- * @requires module: ../constants/TaskConstants
+ * @requires module: ../constants/AppConstants
  */
 var TaskStore = BaseStore.extend();
 
@@ -38,8 +39,8 @@ TaskStore.load = function() {
  */
 TaskStore.onLoadSuccess = function(response) {
   TaskStore.add(response.tasks);
-  TaskStore.dispatch({
-    action: TaskConstants.LOADED,
+  AppDispatcher.dispatch({
+    action: AppConstants.TASK_LOADED,
     data: TaskStore._records
   });
 };
@@ -53,8 +54,8 @@ TaskStore.create = function(data) {
     .post('tasks', data)
     .then(function(response) {
       TaskStore.add(response.task);
-      TaskStore.dispatch({
-        action: TaskConstants.CREATED,
+      AppDispatcher.dispatch({
+        action: AppConstants.TASK_CREATED,
         data: TaskStore._records
       });
     });
@@ -70,8 +71,8 @@ TaskStore.destroy = function(data) {
     .del('tasks', data)
     .then(function(response) {
       TaskStore.remove(response.task);
-      TaskStore.dispatch({
-        action: TaskConstants.UPDATED,
+      AppDispatcher.dispatch({
+        action: AppConstants.TASK_UPDATED,
         data: TaskStore._records
       });
     });
@@ -95,8 +96,8 @@ TaskStore.update = function(data) {
  */
 TaskStore.onUpdateSuccess = function(response) {
   TaskStore.updateRecord(response.task);
-  TaskStore.dispatch({
-    action: TaskConstants.UPDATED,
+  AppDispatcher.dispatch({
+    action: AppConstants.TASK_UPDATED,
     data: TaskStore._records
   });
 };
@@ -106,16 +107,16 @@ TaskStore.onUpdateSuccess = function(response) {
  * @param  {object} payload
  * @return {boolean}
  */
-TaskStore.eventHandler = function(payload) {
+TaskStore.dispatcherIndex = function(payload) {
 
   switch (payload.action) {
-    case TaskConstants.CREATE:
+    case AppConstants.TASK_CREATE_NEW:
       TaskStore.create(payload.data);
       break;
-    case TaskConstants.UPDATE:
+    case AppConstants.TASK_UPDATE_EXISTING:
       TaskStore.update(payload.data);
       break;
-    case TaskConstants.DESTROY:
+    case AppConstants.TASK_DESTROY:
       TaskStore.destroy(payload.data);
       break;
   }
@@ -126,6 +127,6 @@ TaskStore.eventHandler = function(payload) {
 /**
  * Register event handler
  */
-TaskStore.register(TaskStore.eventHandler);
+AppDispatcher.register(TaskStore.dispatcherIndex);
 
 module.exports = TaskStore;
