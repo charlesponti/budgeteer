@@ -2,10 +2,9 @@
 
 var _ = require('lodash');
 var React = require('react');
-
-var TaskListItem = require('./ListItem.jsx');
 var TaskStore = require('../../stores/TaskStore');
 var TaskConstants = require('../../constants/TaskConstants');
+var TaskListItem = React.createFactory(require('./ListItem.jsx'));
 
 /**
  * TaskList component
