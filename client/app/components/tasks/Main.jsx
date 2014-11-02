@@ -1,12 +1,18 @@
 'use strict';
 
+// Module dependencies
 var React = require('react');
-var TaskForm = require('./Form.jsx');
-var TaskList = require('./List.jsx');
+
+// Application dependencies
 var TaskStore = require('../../stores/TaskStore');
+
+// Components
+var TaskForm = React.createFactory(require('./Form.jsx'));
+var TaskList = React.createFactory(require('./List.jsx'));
 
 /**
  * Main view for the Tasks application
+ * @type {ReactElement}
  */
 var TaskMain = React.createClass({
 
@@ -30,10 +36,6 @@ var TaskMain = React.createClass({
 
         <div className="col-xs-12 col-md-10 col-md-offset-1 task-list">
           <TaskList id='task-list' />
-        </div>
-
-        <div className="col-xs-12 col-md-10 col-md-offset-1 task-form">
-          <TaskForm id='task-form' />
         </div>
 
       </div>
