@@ -7,6 +7,7 @@ var React = require('react');
 var AppConstants = require('../../constants/App');
 var TaskStore = require('../../stores/TaskStore');
 var AppDispatcher = require('../../dispatchers/App');
+var TaskActions = require('../../actions/TaskActions');
 
 // Factories
 var TaskForm = React.createFactory(require('./Form.jsx'));
@@ -14,6 +15,7 @@ var Preview = React.createFactory(require('./Preview.jsx'));
 
 /**
  * Task Component
+ * @type {ReactElement}
  */
 var TaskListItem = React.createClass({
 
@@ -21,6 +23,10 @@ var TaskListItem = React.createClass({
     task: React.PropTypes.object.isRequired
   },
 
+  /**
+   * Get initial state of component
+   * @return {object}
+   */
   getInitialState: function() {
     return { showDescription: false };
   },
@@ -33,11 +39,9 @@ var TaskListItem = React.createClass({
   onCheckboxClick: function() {
     // Negate 'completed' attribute of task
     this.props.task.completed = !this.props.task.completed;
+    
     // Dispatch event
-    TaskStore.dispatch({
-      action: AppConstants.TASK_UPDATE,
-      data: this.props.task
-    });
+    TaskActions.updateTask(this.props.update);
   },
 
   /**
@@ -46,10 +50,7 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onDeleteClick: function(e, id) {
-    AppDispatcher.dispatch({
-      action: AppConstants.TASK_DESTROY,
-      data: this.props.task
-    });
+    TaskActions.deleteTask(this.props.task);
   },
 
   /**
@@ -58,19 +59,9 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onEditClick: function(e, id) {
-    AppDispatcher.dispatch({
-      action: AppConstants.TASK_UPDATE,
-      data: {
-        title: 'Edit Task',
-        buttonText: 'Edit Task',
-        children: <TaskForm task={this.props.task}/>,
-        buttonEvent: AppConstants.TASK_SUBMIT
-      }
-    });
-
-    TaskStore.dispatch({
-      action: AppConstants.TASK_EDIT,
-      data: this.props.task
+    TaskActions.loadTaskForm({
+      title: 'Edit Task',
+      component: <TaskForm task={this.props.task}/>
     });
   },
 

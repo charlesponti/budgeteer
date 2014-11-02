@@ -38,13 +38,11 @@ var Modal = React.createClass({
    */
   dispatcherIndex: function(payload) {
     switch(payload.action) {
-      case AppConstants.TASK_UPDATE:
-      case AppConstants.TASK_CREATE:
+      case AppConstants.SHOW_MODAL:
         this.setState(payload.data);
         this.show();
         break;
-      case AppConstants.TASK_UPDATED:
-      case AppConstants.TASK_CREATED:
+      case AppConstants.CLOSE_MODAL:
         this.hide();
         break;
     }
@@ -69,10 +67,17 @@ var Modal = React.createClass({
     $(this.getDOMNode()).modal('hide');
   },
 
+  /**
+   * Dispatch designated buttonEvnet
+   */
   onButtonClick: function() {
-    AppDispatcher.dispatch({ action: this.state.buttonEvent });
+    this.state.buttonAction(this.state.component.props);
   },
 
+  /**
+   * Render modal buttons
+   * @return {ReactElement}
+   */
   renderButtons: function() {
     return (
       <button type="button"
@@ -92,10 +97,9 @@ var Modal = React.createClass({
               <h3 className="text-center">{this.state.title}</h3>
             </div>
             <div className="modal-body">
-              {this.state.children}
+              {this.state.component}
             </div>
             <div className="modal-footer">
-              {this.renderButtons()}
             </div>
           </div>
         </div>

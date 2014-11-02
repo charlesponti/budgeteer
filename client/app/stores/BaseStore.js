@@ -4,13 +4,12 @@
 var _ = require('lodash');
 var Dispatcher = require('flux').Dispatcher;
 var EventEmitter = require('events').EventEmitter;
-var merge = require('react/lib/merge');
 
 /**
  * Create BaseStore
  * @type {Dispatcher}
  */
-var BaseStore = merge(EventEmitter.prototype, {
+var BaseStore = _.extend(EventEmitter.prototype, {
 
   url: undefined,
 

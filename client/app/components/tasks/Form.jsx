@@ -7,6 +7,7 @@ var React = require('react');
 var AppConstants = require('../../constants/App');
 var TaskStore = require('../../stores/TaskStore');
 var AppDispatcher = require('../../dispatchers/App');
+var TaskActions = require('../../actions/TaskActions');
 
 /**
  * TaskForm Component
@@ -21,54 +22,8 @@ var TaskForm = React.createClass({
   getInitialState: function() {
     return { 
       task: this.props.task || { _id: '', title: '', description: '' },
-      buttonText: 'Create Task' 
+      buttonText: this.props.task ? 'Edit Task' : 'Create Task'
     };
-  },
-
-  /**
-   * Handle form submission
-   */
-  onSubmit: function() {
-    var event;
-
-    if (this.state.task._id.length) {
-      event = AppConstants.TASK_UPDATE_EXISTING;
-    } else {
-      event = AppConstants.TASK_CREATE_NEW;
-    }
-    
-    AppDispatcher.dispatch({
-      action: AppConstants[event],
-      data: this.state.task
-    });
-  },
-
-  /**
-   * Handle logic when component is about to mount to DOM
-   */
-  componentWillMount: function() {
-    AppDispatcher.register(this.dispatcherIndex);
-  },
-
-  /**
-   * Create dispatcher
-   * @param  {object} payload
-   * @return {boolean}
-   */
-  dispatcherIndex: function(payload) {
-    switch(payload.action) {
-      case AppConstants.TASK_EDIT:
-        this.setState({ task: payload.data, buttonText: 'Edit Task' });
-        break;
-      case AppConstants.TASK_SUBMIT:
-        this.onSubmit();
-        break;
-      case AppConstants.TASK_CREATED:
-      case AppConstants.TASK_UPDATED:
-        this.setState(this.getInitialState());
-        break;
-    }
-    return true;
   },
 
   /**
@@ -86,6 +41,15 @@ var TaskForm = React.createClass({
         category: form.category.value || 'default'
       }
     });
+  },
+
+  onSubmit: function(e, id) {
+    e.preventDefault();
+    if (this.state.task._id.length) {
+      TaskActions.updateTask(this.state.task);
+    } else {
+      TaskActions.createTask(this.state.task);
+    }
   },
 
   /**
@@ -115,6 +79,9 @@ var TaskForm = React.createClass({
             <option value="personal"> Personal </option>
           </select>
         </div>
+        <button className="pull-right btn btn-success">
+          {this.state.buttonText}
+        </button>
       </form>
     )
   }

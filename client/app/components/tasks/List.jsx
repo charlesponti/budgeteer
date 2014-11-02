@@ -20,19 +20,21 @@ var TaskList = React.createClass({
 
   displayName: 'TaskList',
 
+  /**
+   * Get initial state of component
+   * @return {object}
+   */
   getInitialState: function() {
     return { tasks: this.props.tasks };
   },
 
-  dispatcherIndex: function(payload) {
+  /**
+   * Handle change of TaskStore
+   * @param {array} tasks Array of tasks
+   */
+  onTaskStoreChange: function(tasks) {
     if (this.isMounted()) {
-      switch(payload.action) {
-        case AppConstants.TASK_LOADED:
-        case AppConstants.TASK_CREATED:
-        case AppConstants.TASK_UPDATED:
-          this.setState({ tasks: payload.data });
-          break;
-      }
+      this.setState({ tasks: tasks });
     }
   },
 
@@ -40,7 +42,7 @@ var TaskList = React.createClass({
    * Handle logic when component will be mounted to the DOM
    */
   componentWillMount: function() {
-    AppDispatcher.register(this.dispatcherIndex);
+    TaskStore.on('change', this.onTaskStoreChange);
   },
 
   /**

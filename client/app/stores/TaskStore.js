@@ -39,9 +39,13 @@ TaskStore.load = function() {
  */
 TaskStore.onLoadSuccess = function(response) {
   TaskStore.add(response.tasks);
+  TaskStore.emitChange();
+};
+
+TaskStore.emitChange = function() {
+  TaskStore.emit('change', TaskStore._records);
   AppDispatcher.dispatch({
-    action: AppConstants.TASK_LOADED,
-    data: TaskStore._records
+    action: AppConstants.CLOSE_MODAL
   });
 };
 
@@ -52,14 +56,16 @@ TaskStore.onLoadSuccess = function(response) {
 TaskStore.create = function(data) {
   service
     .post('tasks', data)
-    .then(function(response) {
-      TaskStore.add(response.task);
-      AppDispatcher.dispatch({
-        action: AppConstants.TASK_CREATED,
-        data: TaskStore._records
-      });
-    });
+    .then(TaskStore.onCreateSuccess);
   return TaskStore;
+};
+
+/**
+ * Handle success response from creating task
+ */
+TaskStore.onCreateSuccess = function(response) {
+  TaskStore.add(response.task);
+  TaskStore.emitChange();
 };
 
 /**
@@ -69,14 +75,16 @@ TaskStore.create = function(data) {
 TaskStore.destroy = function(data) {
   service
     .del('tasks', data)
-    .then(function(response) {
-      TaskStore.remove(response.task);
-      AppDispatcher.dispatch({
-        action: AppConstants.TASK_UPDATED,
-        data: TaskStore._records
-      });
-    });
+    .then(TaskStore.onDestorySuccess);
   return TaskStore;
+};
+
+/**
+ * Handle success response from deleting task
+ */
+TaskStore.onDestorySuccess = function(response) {
+  TaskStore.remove(response.task);
+  TaskStore.emitChange();
 };
 
 /**
@@ -96,10 +104,7 @@ TaskStore.update = function(data) {
  */
 TaskStore.onUpdateSuccess = function(response) {
   TaskStore.updateRecord(response.task);
-  AppDispatcher.dispatch({
-    action: AppConstants.TASK_UPDATED,
-    data: TaskStore._records
-  });
+  TaskStore.emitChange();
 };
 
 /**
@@ -110,10 +115,10 @@ TaskStore.onUpdateSuccess = function(response) {
 TaskStore.dispatcherIndex = function(payload) {
 
   switch (payload.action) {
-    case AppConstants.TASK_CREATE_NEW:
+    case AppConstants.TASK_CREATE:
       TaskStore.create(payload.data);
       break;
-    case AppConstants.TASK_UPDATE_EXISTING:
+    case AppConstants.TASK_UPDATE:
       TaskStore.update(payload.data);
       break;
     case AppConstants.TASK_DESTROY:
@@ -127,6 +132,6 @@ TaskStore.dispatcherIndex = function(payload) {
 /**
  * Register event handler
  */
-AppDispatcher.register(TaskStore.dispatcherIndex);
+TaskStore.dispatchToken = AppDispatcher.register(TaskStore.dispatcherIndex);
 
 module.exports = TaskStore;
