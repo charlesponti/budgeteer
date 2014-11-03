@@ -138,15 +138,14 @@ middleware.locals = function(config) {
       _.extend(res.locals, config);
     }
 
-    /**
-     * Set flash messages to response locals
-     */
+    // Set flash messages to response locals
     res.locals.success_message = {};
     res.locals.error_message = {};
+    
+    // Attach NODE_ENV to response locals
+    res.locals.env = process.env.NODE_ENV;
 
-    /**
-     * Add current_user(req.user) to response locals
-     */
+    // Add current_user(req.user) to response locals
     res.locals.app_name = config.appName || "Cthulhu";
     res.locals.current_user = req.user;
     next();
