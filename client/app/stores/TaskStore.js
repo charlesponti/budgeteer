@@ -81,6 +81,9 @@ TaskStore.destroy = function(data) {
 TaskStore.onDestorySuccess = function(response) {
   TaskStore.remove(response.task);
   TaskStore.emitChange(TaskStore._records);
+  AppDispatcher.dispatch({
+    action: AppConstants.CLOSE_MODAL
+  });
 };
 
 /**
