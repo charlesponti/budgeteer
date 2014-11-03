@@ -1,11 +1,18 @@
 
-<script src='/vendor/jquery/dist/jquery.min.js' ></script>
-<script src='/vendor/bootstrap/dist/js/bootstrap.min.js'></script>
-
 {% if current_user %}
 	<script src="/socket.io/socket.io.js"></script>
-	<script src='/scripts/bundle.js'></script>
+	
+    {% if env === 'production' %}
+        <script src='/scripts/bundle.prod.js'></script>
+    {% else %}
+        <script src='/scripts/bundle.js'></script>
+    {% endif %}
+    
+    <script src='/vendor/bootstrap/dist/js/bootstrap.min.js'></script>
 	<script type="text/csrf" id="csrf" data-value={{ _csrf }}></script>
+{% else %}
+    <script src='/vendor/jquery/dist/jquery.min.js' ></script>
+    <script src='/vendor/bootstrap/dist/js/bootstrap.min.js'></script>
 {% endif %}
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
