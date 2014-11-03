@@ -2,18 +2,18 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-    
+  
   target: "web",
 
   debug: true,
   
   devtool: "source-map",
   
-  entry: "./client/app/main.jsx",
+  entry: "./client/test/specs/main.js",
   
   output: {
-      path: "./public/scripts",
-      filename: "bundle.js"
+      path: "./client/test",
+      filename: "bundle.test.js"
   },
   
   resolve: {

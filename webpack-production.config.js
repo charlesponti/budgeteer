@@ -5,15 +5,15 @@ module.exports = {
     
   target: "web",
 
-  debug: true,
+  debug: false,
   
-  devtool: "source-map",
+  minimize: true,
   
   entry: "./client/app/main.jsx",
   
   output: {
       path: "./public/scripts",
-      filename: "bundle.js"
+      filename: "bundle.prod.js"
   },
   
   resolve: {
@@ -34,7 +34,8 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.DedupePlugin()
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin()
   ]
 
 };
