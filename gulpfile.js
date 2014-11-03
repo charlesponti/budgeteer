@@ -12,6 +12,8 @@ var rename = require('gulp-rename');
 var stylish = require('jshint-stylish');
 var concatinate = require('gulp-concat');
 var webpackConfig = require('./webpack.config');
+var webpackTestConfig = require('./webpack-test.config');
+var webpackProdConfig = require('./webpack-production.config');
 
 var sources = {
   js: {
@@ -49,36 +51,40 @@ gulp.task('clean-styles', function(done) {
   del(['./public/styles'], done);
 });
 
+var webpackCallback = function (done, err, stats) {
+    
+  if (err) {
+    throw new gutil.PluginError('[build-js]', err);
+  }
+
+  done();
+};
+
 /**
  * `build-scripts` task.
  * This task will bundle all of the client side scripts and place
  * the bundled file into `public/scripts/bundle.js`.
  */
 gulp.task('build-scripts', ['clean-scripts', 'lint-client'], function(done) {
-  return webpack(webpackConfig[0], function (err, stats) {
-    
-    if (err) {
-      throw new gutil.PluginError('[build-js]', err);
-    }
-
-    done();
-  });
+  return webpack(webpackConfig, webpackCallback.bind(this, done));
 });
 
 /**
- * `build-scripts` task.
+ * `build-client-prod` task.
  * This task will bundle all of the client side scripts and place
- * the bundled file into `public/scripts/bundle.js`.
+ * the bundled file into `public/scripts/bundle.prod.js`.
+ */
+gulp.task('build-client-prod', function(done) {
+  return webpack(webpackProdConfig, webpackCallback.bind(this, done));
+});
+
+/**
+ * `build-client-test` task.
+ * This task will bundle all of the client side test scripts and place
+ * the bundled file into `client/test/bundle.js`.
  */
 gulp.task('build-client-test', function(done) {
-  return webpack(webpackConfig[1], function (err, stats) {
-    
-    if (err) {
-      throw new gutil.PluginError('[build-js]', err);
-    }
-
-    done();
-  });
+  return webpack(webpackTestConfig, webpackCallback.bind(this, done));
 });
 
 /**
