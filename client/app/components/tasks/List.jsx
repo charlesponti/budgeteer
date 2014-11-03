@@ -42,7 +42,14 @@ var TaskList = React.createClass({
    * Handle logic when component will be mounted to the DOM
    */
   componentWillMount: function() {
-    TaskStore.on('change', this.onTaskStoreChange);
+    TaskStore.addChangeListener(this.onTaskStoreChange);
+  },
+
+  /**
+   * Handle logic when component will be unmounted from the DOM
+   */
+  componentWillUnmount: function() {
+    TaskStore.removeChangeListener(this.onTaskStoreChange);
   },
 
   /**
