@@ -16,9 +16,14 @@ var Modal = React.createFactory(require('./components/Modal.jsx'));
 // Attach lodash to window
 window._ = require('lodash');
 
+// Attach jQuery to window
+window.$ = 
+window.jQuery =
+require('jquery');
+
 // Attach Backbone to window
 window.Backbone = require('backbone');
-Backbone.$ = window.$;
+Backbone.$ = $;
 
 // Requery application router and start it
 var AppRouter = require('./router.jsx');
