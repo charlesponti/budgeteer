@@ -13,7 +13,7 @@ var TaskForm = React.createFactory(require('./Form.jsx'));
 var Preview = React.createClass({
 
   propTypes: {
-    text: React.PropTypes.string.isRequired
+    task: React.PropTypes.object.isRequired
   },
 
   onEditClick: function(e, id) {
