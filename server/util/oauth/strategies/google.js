@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Module depenencies
+ * Module dependencies
  * @private
  */
 var _ = require('lodash');
@@ -50,19 +50,7 @@ module.exports = function GoogleStrategy(config) {
         redirect_uri: strategy.redirect_uri,
         grant_type: 'authorization_code'
       })
-      .end(strategy.onAuthorizationResponse.bind(this, req, res, next));
-  };
-
-  /**
-   * Handle authorization response
-   * @param {Request} req
-   * @param {Response} res
-   * @param {function} next
-   * @param {object} response
-   */
-  strategy.onAuthorizationResponse = function(req, res, next, response) {
-    var token = JSON.parse(response.text).access_token;
-    strategy.get_profile.call(strategy, token, req, res, next);
+      .end(strategy.getProfile.bind(strategy, req, res, next));
   };
 
   /**
@@ -81,16 +69,18 @@ module.exports = function GoogleStrategy(config) {
     };
     return next();
   };
-    
+
   /**
    * Get user's Google profile
-   * @param  {String}   token
-   * @param  {Function} callback
+   * @param {IncomingMessage} req
+   * @param {ServerResponse} res
+   * @param {Function} next
+   * @param {object} response
    */
-  strategy.get_profile = function(token, req, res, next) {
-    return request
+  strategy.getProfile = function(req, res, next, response) {
+    request
       .get(strategy.profile_url)
-      .query({ access_token: token })
+      .query({ access_token: JSON.parse(response.text).access_token })
       .end(strategy.onProfileResponse.bind(strategy, token, req, res, next));
   };
 
