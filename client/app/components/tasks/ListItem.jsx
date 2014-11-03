@@ -46,27 +46,6 @@ var TaskListItem = React.createClass({
   },
 
   /**
-   * Handle delete click
-   * @param  {SyntheticEvent} e
-   * @param  {string} id HTMLElement id
-   */
-  onDeleteClick: function(e, id) {
-    TaskActions.deleteTask(this.props.task);
-  },
-
-  /**
-   * Handle edit click
-   * @param  {SyntheticEvent} e
-   * @param  {string} id HTMLElement id
-   */
-  onEditClick: function(e, id) {
-    TaskActions.loadTaskForm({
-      title: 'Edit Task',
-      component: <TaskForm task={this.props.task}/>
-    });
-  },
-
-  /**
    * Handle click
    * @param  {SyntheticEvent} e
    * @param  {string} id HTMLElement id
@@ -74,7 +53,7 @@ var TaskListItem = React.createClass({
   onTitleClick: function(e, id) {
     TaskActions.openTask({
       title: this.props.task.title,
-      component: <Preview text={this.props.task.description}/>
+      component: <Preview task={this.props.task}/>
     });
   },
 
@@ -86,10 +65,6 @@ var TaskListItem = React.createClass({
           <input type="checkbox" className="task-checkbox"
             onClick={this.onCheckboxClick} defaultChecked={task.completed}/>
           <h4 onClick={this.onTitleClick}>{task.title}</h4>
-        </div>
-        <div className='task-actions'>
-          <i onClick={this.onEditClick} className="fa fa-pencil" alt="Edit"></i>
-          <i onClick={this.onDeleteClick} className="fa fa-remove" alt="Delete"></i>
         </div>
         <span className="task-category pull-right">{task.category}</span>
       </li>
