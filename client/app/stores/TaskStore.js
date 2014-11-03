@@ -39,14 +39,7 @@ TaskStore.load = function() {
  */
 TaskStore.onLoadSuccess = function(response) {
   TaskStore.add(response.tasks);
-  TaskStore.emitChange();
-};
-
-TaskStore.emitChange = function() {
-  TaskStore.emit('change', TaskStore._records);
-  AppDispatcher.dispatch({
-    action: AppConstants.CLOSE_MODAL
-  });
+  TaskStore.emitChange(TaskStore._records);
 };
 
 /**
@@ -61,11 +54,14 @@ TaskStore.create = function(data) {
 };
 
 /**
- * Handle success response from creating task
+ * Add tasks to store, emit change event, and close modal window
  */
 TaskStore.onCreateSuccess = function(response) {
   TaskStore.add(response.task);
-  TaskStore.emitChange();
+  TaskStore.emitChange(TaskStore._records);
+  AppDispatcher.dispatch({
+    action: AppConstants.CLOSE_MODAL
+  });
 };
 
 /**
@@ -84,7 +80,7 @@ TaskStore.destroy = function(data) {
  */
 TaskStore.onDestorySuccess = function(response) {
   TaskStore.remove(response.task);
-  TaskStore.emitChange();
+  TaskStore.emitChange(TaskStore._records);
 };
 
 /**
@@ -104,7 +100,10 @@ TaskStore.update = function(data) {
  */
 TaskStore.onUpdateSuccess = function(response) {
   TaskStore.updateRecord(response.task);
-  TaskStore.emitChange();
+  TaskStore.emitChange(TaskStore._records);
+  AppDispatcher.dispatch({
+    action: AppConstants.CLOSE_MODAL
+  });
 };
 
 /**
