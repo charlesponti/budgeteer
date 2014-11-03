@@ -5,6 +5,7 @@ var React = require('react');
 
 // Application dependencies
 var TaskStore = require('../../stores/TaskStore');
+var TaskActions = require('../../actions/TaskActions');
 
 // Components
 var TaskForm = React.createFactory(require('./Form.jsx'));
@@ -25,6 +26,13 @@ var TaskMain = React.createClass({
     TaskStore.load();
   },
 
+  onAddClick: function() {
+    TaskActions.addTask({
+      title: 'Create Task',
+      component: <TaskForm />
+    });
+  },
+
   /**
    * Render view
    */
@@ -32,7 +40,10 @@ var TaskMain = React.createClass({
     return (
       <div className="row">
 
-        <h1 className="text-center"> Tasks </h1>
+        <h1 className="col-xs-12 col-md-10 col-md-offset-1 text-center"> 
+          Tasks
+          <i onClick={this.onAddClick} className="fa fa-plus pull-right"></i>
+        </h1>
 
         <div className="col-xs-12 col-md-10 col-md-offset-1 task-list">
           <TaskList id='task-list' />
