@@ -34,4 +34,11 @@ TaskActions.loadTaskForm = function(data) {
   });
 };
 
+TaskActions.openTask = function(data) {
+  AppDispatcher.dispatch({
+    action: AppConstants.SHOW_MODAL,
+    data: data
+  });
+};
+
 module.exports = TaskActions;

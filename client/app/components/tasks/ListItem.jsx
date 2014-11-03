@@ -10,6 +10,7 @@ var AppDispatcher = require('../../dispatchers/App');
 var TaskActions = require('../../actions/TaskActions');
 
 // Factories
+var Modal = React.createFactory(require('../Modal.jsx'));
 var TaskForm = React.createFactory(require('./Form.jsx'));
 var Preview = React.createFactory(require('./Preview.jsx'));
 
@@ -70,27 +71,27 @@ var TaskListItem = React.createClass({
    * @param  {SyntheticEvent} e
    * @param  {string} id HTMLElement id
    */
-  onClick: function(e, id) {
-    if (e.target.classList.contains('list-group-item')) {
-      this.setState({ showDescription: !this.state.showDescription });  
-    }
+  onTitleClick: function(e, id) {
+    TaskActions.openTask({
+      title: this.props.task.title,
+      component: <Preview text={this.props.task.description}/>
+    });
   },
 
   render: function() {
     var task = this.props.task;
     return (
-      <li className="list-group-item task-list-item" onClick={this.onClick}>
+      <li className="list-group-item task-list-item">
         <div>
           <input type="checkbox" className="task-checkbox"
             onClick={this.onCheckboxClick} defaultChecked={task.completed}/>
-          <b>{task.title}</b>
+          <b onClick={this.onTitleClick}>{task.title}</b>
         </div>
         <div className='task-actions'>
           <i onClick={this.onEditClick} className="fa fa-pencil" alt="Edit"></i>
           <i onClick={this.onDeleteClick} className="fa fa-remove" alt="Delete"></i>
         </div>
         <span className="task-category pull-right">{task.category}</span>
-        {this.state.showDescription ? <Preview text={task.description}/> : null}
       </li>
     );
   }
