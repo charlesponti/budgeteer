@@ -11,9 +11,47 @@ var EventEmitter = require('events').EventEmitter;
  */
 var BaseStore = _.extend(EventEmitter.prototype, {
 
+  /**
+   * Url to API endpoint
+   * @type {?string}
+   */
   url: undefined,
 
+  /**
+   * Name of change event
+   * @type {string}
+   */
+  changeEvent: 'change',
+
+  /**
+   * List of records in store
+   * @type {array}
+   */
   _records: [],
+
+  /**
+   * Emit change event
+   * @param {*} data
+   */
+  emitChange: function(data) {
+    this.emit('change', data);
+  },
+
+  /**
+   * Add change listener
+   * @param {Function} callback
+   */
+  addChangeListener: function(callback) {
+    this.on(this.changeEvent, callback);
+  },
+
+  /**
+   * Remove change listener
+   * @param {Function} callback
+   */
+  removeChangeListener: function(callback) {
+    this.removeListener(this.changeEvent, callback);
+  },
 
   /**
    * Return store's records
