@@ -20,7 +20,7 @@ var TaskMain = React.createClass({
   displayName: 'TaskMain',
 
   /**
-   * Perform actions when componet will get mounted to the DOM
+   * Perform actions when component will get mounted to the DOM
    */
   componentWillMount: function() {
     TaskStore.load();
