@@ -5,6 +5,10 @@ var Dispatcher = require('flux').Dispatcher;
 // Create instance of Dispatcher
 var AppDispatcher = new Dispatcher();
 
+/**
+ * Dispatch event for api actions
+ * @param {String|Object} action
+ */
 AppDispatcher.handleAPIAction = function(action) {
   this.dispatch({
     source: 'API_ACTION',
@@ -12,7 +16,10 @@ AppDispatcher.handleAPIAction = function(action) {
   });
 };
 
-// Convenience method to handle dispatch requests
+/**
+ * Dispatch event for view actions
+ * @param {String|Object} action
+ */
 AppDispatcher.handleViewAction = function(action) {
   this.dispatch({
     source: 'VIEW_ACTION',
