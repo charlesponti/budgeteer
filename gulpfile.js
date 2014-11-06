@@ -11,9 +11,6 @@ var jsHint = require('gulp-jshint');
 var rename = require('gulp-rename');
 var stylish = require('jshint-stylish');
 var concatinate = require('gulp-concat');
-var webpackConfig = require('./webpack.config');
-var webpackTestConfig = require('./webpack-test.config');
-var webpackProdConfig = require('./webpack-production.config');
 
 var sources = {
   js: {
@@ -66,7 +63,10 @@ var webpackCallback = function (done, err, stats) {
  * the bundled file into `public/scripts/bundle.js`.
  */
 gulp.task('build-scripts', ['clean-scripts', 'lint-client'], function(done) {
-  return webpack(webpackConfig, webpackCallback.bind(this, done));
+  return webpack(
+    require('./webpack-development.config'), 
+    webpackCallback.bind(this, done)
+  );
 });
 
 /**
@@ -75,7 +75,10 @@ gulp.task('build-scripts', ['clean-scripts', 'lint-client'], function(done) {
  * the bundled file into `public/scripts/bundle.prod.js`.
  */
 gulp.task('build-client-prod', function(done) {
-  return webpack(webpackProdConfig, webpackCallback.bind(this, done));
+  return webpack(
+    require('./webpack-production.config'), 
+    webpackCallback.bind(this, done)
+  );
 });
 
 /**
@@ -84,7 +87,10 @@ gulp.task('build-client-prod', function(done) {
  * the bundled file into `client/test/bundle.js`.
  */
 gulp.task('build-client-test', function(done) {
-  return webpack(webpackTestConfig, webpackCallback.bind(this, done));
+  return webpack(
+    require('./webpack-test.config'), 
+    webpackCallback.bind(this, done)
+  );
 });
 
 /**
