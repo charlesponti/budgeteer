@@ -20,14 +20,15 @@ var Modal = React.createClass({
   displayName: 'Modal',
 
   /**
-   * Get initial state of component
+   * Get initial state of component. The modal element is rendered on
+   * initial page load and remain hidden until the AppDispatcher fires
+   * the SHOW_MODAL action.
    * @return {object}
    */
   getInitialState: function() {
     return { 
-      title: undefined, 
-      buttonText: undefined,
-      children: undefined
+      title: undefined,
+      component: undefined
     };
   },
 
@@ -39,7 +40,7 @@ var Modal = React.createClass({
   dispatcherIndex: function(payload) {
     switch(payload.action) {
       case AppConstants.SHOW_MODAL:
-        this.setState(payload.data);
+        this.replaceState(payload.data);
         this.show();
         break;
       case AppConstants.CLOSE_MODAL:
@@ -65,27 +66,6 @@ var Modal = React.createClass({
    */
   hide: function() {
     $(this.getDOMNode()).modal('hide');
-  },
-
-  /**
-   * Dispatch designated buttonEvnet
-   */
-  onButtonClick: function() {
-    this.state.buttonAction(this.state.component.props);
-  },
-
-  /**
-   * Render modal buttons
-   * @return {ReactElement}
-   */
-  renderButtons: function() {
-    return (
-      <button type="button"
-        className='btn btn-success'
-        onClick={this.onButtonClick}>
-        {this.state.buttonText}
-      </button>
-    )
   },
 
   render: function() {
