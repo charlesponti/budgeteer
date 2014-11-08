@@ -1,29 +1,52 @@
 'use strict';
 
 var React = require('react');
+
+var AppDispatcher = require('./dispatchers/App');
+
 var Tasks = React.createFactory(require('./components/tasks/Main.jsx'));
+var TaskForm = React.createFactory(require('./components/tasks/Form.jsx'));
 var Account = React.createFactory(require('./components/account/Main.jsx'));
 
-var AppRouter = Backbone.Router.extend({
+var Router = Backbone.Router.extend({
 
   routes: {
     'tasks': 'tasks',
+    'tasks/compose': 'composeTask',
     'account': 'account'
   },
 
+  /**
+   * Render Tasks application
+   */
   tasks: function() {
     React.render(<Tasks/>, document.getElementById('app'));
   },
 
+  /**
+   * Render Tasks form
+   */
+  composeTask: function() {
+    React.render(<TaskForm/>, document.getElementById('app'));
+  },
+
+  /**
+   * Render Account application
+   */
   account: function() {
     React.render(<Account/>, document.getElementById('app'));
+  },
+
+  dispatcherIndex: function(payload) {
+    if (payload.navigate) {
+      this.navigate(payload.navigate, true);
+    }
   }
 
 });
 
-module.exports = {
-  start: function() {
-    new AppRouter();
-    Backbone.history.start({ pushState: true });
-  }
-};
+var App = new Router();
+
+AppDispatcher.register(App.dispatcherIndex.bind(App));
+
+Backbone.history.start({ pushState: true });
