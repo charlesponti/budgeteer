@@ -100,7 +100,6 @@ TaskRouter.update = function(req, res, next) {
     }
     
     if (task) {
-      console.log(task);
       task.title = req.body.title || task.title;
       task.description = req.body.description || task.description;
       task.completed = req.body.completed || task.completed;
