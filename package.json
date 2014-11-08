@@ -1,13 +1,13 @@
 {
-  "name": "cthulhu",
+  "name": "backpack",
   "version": "1.0.0",
   "private": false,
   "main": "bin/cthulhu",
-  "repository": "http://github.com/theponti/cthulhu",
+  "repository": "http://github.com/theponti/backpack",
   "scripts": {
     "test": "NODE_ENV=test mocha --ui tdd --recursive server/test",
     "start": "NODE_ENV=development node bin/cthulhu",
-    "start-prod": "NODE_ENV=development node bin/cthulhu",
+    "start-prod": "NODE_ENV=production node bin/cthulhu",
     "supervise": "NODE_ENV=development supervisor bin/cthulhu",
     "supervise-prod": "NODE_ENV=production supervisor bin/cthulhu",
     "build-test": "webpack client/test/spec/**/main.test.js client/test/bundle.test.js"
