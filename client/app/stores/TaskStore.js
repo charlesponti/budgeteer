@@ -7,6 +7,7 @@ var _ = require('lodash');
 var BaseStore = require('./BaseStore');
 var service = require('../service/api');
 var AppConstants = require('../constants/App');
+var AppActions = require('../actions/AppActions');
 var AppDispatcher = require('../dispatchers/App');
 
 /**
@@ -59,9 +60,6 @@ TaskStore.create = function(data) {
 TaskStore.onCreateSuccess = function(response) {
   TaskStore.add(response.task);
   TaskStore.emitChange(TaskStore._records);
-  AppDispatcher.dispatch({
-    action: AppConstants.CLOSE_MODAL
-  });
 };
 
 /**
@@ -81,9 +79,6 @@ TaskStore.destroy = function(data) {
 TaskStore.onDestorySuccess = function(response) {
   TaskStore.remove(response.task);
   TaskStore.emitChange(TaskStore._records);
-  AppDispatcher.dispatch({
-    action: AppConstants.CLOSE_MODAL
-  });
 };
 
 /**
@@ -104,9 +99,6 @@ TaskStore.update = function(data) {
 TaskStore.onUpdateSuccess = function(response) {
   TaskStore.updateRecord(response.task);
   TaskStore.emitChange(TaskStore._records);
-  AppDispatcher.dispatch({
-    action: AppConstants.CLOSE_MODAL
-  });
 };
 
 /**
