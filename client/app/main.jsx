@@ -26,8 +26,7 @@ window.Backbone = require('backbone');
 Backbone.$ = $;
 
 // Requery application router and start it
-var AppRouter = require('./router.jsx');
-AppRouter.start();
+require('./router.jsx');
 
 // Render modal
 React.render(<Modal/>, document.getElementById('modal'));
