@@ -27,9 +27,22 @@ var Modal = React.createClass({
    */
   getInitialState: function() {
     return { 
-      title: undefined,
-      component: undefined
+      title: undefined
     };
+  },
+
+  /**
+   * Render componet to modal body
+   * @param  {ReactElement} component
+   */
+  renderBody: function(component) {
+    var body = this.getDOMNode().querySelector('.modal-body');
+    
+    // Empty modal body
+    body.innerHTML = '';
+
+    // Render component to modal body
+    React.render(component, body);
   },
 
   /**
@@ -40,30 +53,30 @@ var Modal = React.createClass({
   dispatcherIndex: function(payload) {
     switch(payload.action) {
       case AppConstants.SHOW_MODAL:
-        this.replaceState(payload.data);
+        this.setState(payload.data);
+        this.renderBody(payload.data.component);
         this.show();
         break;
       case AppConstants.CLOSE_MODAL:
         this.hide();
         break;
     }
+    
+    // Return true for promise
     return true;
   },
 
+  // Perform logic when component will get mounted to DOM
   componentWillMount: function() {
     AppDispatcher.register(this.dispatcherIndex);
   },
 
-  /**
-   * Show modal
-   */
+  // Show modal
   show: function() {
     $(this.getDOMNode()).modal('show');
   },
   
-  /**
-   * Hide modal
-   */
+  // Hide modal
   hide: function() {
     $(this.getDOMNode()).modal('hide');
   },
@@ -77,7 +90,6 @@ var Modal = React.createClass({
               <h3 className="text-center">{this.state.title}</h3>
             </div>
             <div className="modal-body">
-              {this.state.component}
             </div>
             <div className="modal-footer">
             </div>

@@ -4,6 +4,7 @@ var React = require('react');
 var marked = require('marked');
 
 var TaskActions = require('../../actions/TaskActions');
+var AppActions = require('../../actions/AppActions');
 var TaskForm = React.createFactory(require('./Form.jsx'));
 
 /**
@@ -16,14 +17,23 @@ var Preview = React.createClass({
     task: React.PropTypes.object.isRequired
   },
 
+  /**
+   * Load modal with TaskForm
+   * @param  {SytheticEvent} e
+   * @param  {string} id
+   */
   onEditClick: function(e, id) {
-    TaskActions.loadTaskForm({
+    AppActions.loadModal({
       title: 'Edit Task',
-      data: this.props.task,
       component: <TaskForm task={this.props.task}/>
     });
   },
 
+  /**
+   * Dispatch delete task event
+   * @param  {SynteticEvent} e
+   * @param  {string} id
+   */
   onDeleteClick: function(e, id) {
     TaskActions.deleteTask(this.props.task);
   },

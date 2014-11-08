@@ -28,7 +28,10 @@ var TaskMain = React.createClass({
   },
 
   onAddClick: function() {
-    AppActions.navigate('tasks/compose');
+    AppActions.loadModal({
+      title: 'Create Task',
+      component: <TaskForm />
+    });
   },
 
   /**

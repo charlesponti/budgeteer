@@ -6,13 +6,6 @@ var AppDispatcher = require('../dispatchers/App');
 
 var TaskActions = {};
 
-TaskActions.addTask = function(data) {
-  AppDispatcher.dispatch({
-    action: AppConstants.SHOW_MODAL,
-    data: data
-  });
-};
-
 TaskActions.updateTask = function(task) {
   AppDispatcher.dispatch({
     action: AppConstants.TASK_UPDATE,

@@ -12,4 +12,11 @@ AppActions.navigate = function(route) {
   });
 };
 
+AppActions.loadModal = function(data) {
+  AppDispatcher.dispatch({
+    action: AppConstants.SHOW_MODAL,
+    data: data
+  });
+};
+
 module.exports = AppActions;

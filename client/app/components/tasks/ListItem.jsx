@@ -4,14 +4,9 @@
 var React = require('react');
 
 // Application dependencies
-var AppConstants = require('../../constants/App');
-var TaskStore = require('../../stores/TaskStore');
-var AppDispatcher = require('../../dispatchers/App');
 var TaskActions = require('../../actions/TaskActions');
 
 // Factories
-var Modal = React.createFactory(require('../Modal.jsx'));
-var TaskForm = React.createFactory(require('./Form.jsx'));
 var Preview = React.createFactory(require('./Preview.jsx'));
 
 /**

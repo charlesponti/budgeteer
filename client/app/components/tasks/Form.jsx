@@ -19,7 +19,8 @@ var TaskForm = React.createClass({
    * @return {object}
    */
   getInitialState: function() {
-    return { 
+    console.log(this.props.task);
+    return {
       task: this.props.task || { _id: '', title: '', description: '' },
       buttonText: this.props.task ? 'Edit Task' : 'Create Task'
     };

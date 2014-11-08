@@ -12,7 +12,6 @@ var Router = Backbone.Router.extend({
 
   routes: {
     'tasks': 'tasks',
-    'tasks/compose': 'composeTask',
     'account': 'account'
   },
 
@@ -21,13 +20,6 @@ var Router = Backbone.Router.extend({
    */
   tasks: function() {
     React.render(<Tasks/>, document.getElementById('app'));
-  },
-
-  /**
-   * Render Tasks form
-   */
-  composeTask: function() {
-    React.render(<TaskForm/>, document.getElementById('app'));
   },
 
   /**
