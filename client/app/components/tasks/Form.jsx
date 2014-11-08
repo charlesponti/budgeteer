@@ -4,9 +4,8 @@
 var React = require('react');
 
 // Application dependencies
-var AppConstants = require('../../constants/App');
 var TaskStore = require('../../stores/TaskStore');
-var AppDispatcher = require('../../dispatchers/App');
+var AppActions = require('../../actions/AppActions');
 var TaskActions = require('../../actions/TaskActions');
 
 /**
@@ -45,11 +44,14 @@ var TaskForm = React.createClass({
 
   onSubmit: function(e, id) {
     e.preventDefault();
+
     if (this.state.task._id.length) {
       TaskActions.updateTask(this.state.task);
     } else {
       TaskActions.createTask(this.state.task);
     }
+
+    AppActions.navigate('tasks');
   },
 
   /**
