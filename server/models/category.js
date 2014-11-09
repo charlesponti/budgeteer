@@ -15,19 +15,25 @@ var Category = mongoose.model('Category', CategorySchema);
  * @param  {Function} next
  */
 Category.validateName = function(next) {
-  Category
-    .find({ user: this.user, name: this.name })
-    .exec(function(err, docs) {
-      if (err) {
-        return next(err);
-      }
+  if (this.isNew || this.isModified('name')) {
+    Category
+      .find({ user: this.user, name: this.name })
+      .exec(function(err, docs) {
+        if (err) {
+          return next(err);
+        }
 
-      if (docs.length) {
-        return next(Error('Category with name '+this.name+' already exists'));
-      }
+        console.log();
 
-      next();
-    }.bind(this));
+        if (docs.length) {
+          return next(Error('Category with name '+this.name+' already exists'));
+        }
+
+        next();
+      }.bind(this));
+    return;
+  }
+  next();
 };
 
 CategorySchema.pre('save', Category.validateName);
