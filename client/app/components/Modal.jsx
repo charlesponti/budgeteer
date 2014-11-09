@@ -35,14 +35,16 @@ var Modal = React.createClass({
    * Render componet to modal body
    * @param  {ReactElement} component
    */
-  renderBody: function(component) {
-    var body = this.getDOMNode().querySelector('.modal-body');
+  renderIntoModalBody: function(component) {
+    var node = this.refs.modalBody.getDOMNode();
     
-    // Empty modal body
-    body.innerHTML = '';
+    // Empty modal body if modal body isn't empty
+    if (node.lastChild) {
+      node.removeChild(node.lastChild);
+    }
 
     // Render component to modal body
-    React.render(component, body);
+    React.render(component, node);
   },
 
   /**
@@ -54,7 +56,7 @@ var Modal = React.createClass({
     switch(payload.action) {
       case AppConstants.SHOW_MODAL:
         this.setState(payload.data);
-        this.renderBody(payload.data.component);
+        this.renderIntoModalBody(payload.data.component);
         this.show();
         break;
       case AppConstants.CLOSE_MODAL:
@@ -89,10 +91,8 @@ var Modal = React.createClass({
             <div className="modal-header">
               <h3 className="text-center">{this.state.title}</h3>
             </div>
-            <div className="modal-body">
-            </div>
-            <div className="modal-footer">
-            </div>
+            <div className="modal-body" ref="modalBody"></div>
+            <div className="modal-footer"></div>
           </div>
         </div>
       </div>
