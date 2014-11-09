@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var express = require('express');
-var Task = require('../models/task');
+var Task = require('../../models/task');
 
 var TaskRouter = express.Router();
 

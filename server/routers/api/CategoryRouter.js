@@ -1,0 +1,89 @@
+'use strict';
+
+// Module dependencies
+var _ = require("lodash");
+var express = require('express');
+
+// Application dependencies
+var Category = require('../../models/category');
+
+// Create router
+var router = express.Router();
+
+/**
+ * Get Categories belonging to user
+ * @param  {IncomingMessage}   req
+ * @param  {ServerResponse}   res
+ * @param  {Function} next
+ */
+router.readCategories = function(req, res, next) {
+  Category
+    .find({ user: req.user._id })
+    .exec(function(err, categories) {
+      if (err) {
+        throw err;
+      }
+      res.status(200).json({ categories: categories });
+    });
+};
+
+router.createCategory = function(req, res, next) {
+  var category = new Category({
+    name: req.body.name,
+    color: req.body.color,
+    user: req.user._id
+  });
+
+  category.save(function(err, category) {
+    if (err) {
+      return res.status(500).json({ message: err.message });
+    }
+
+    res.status(200).json({ message: 'Category created.', category: category });
+  });
+};
+
+router.updateCategory = function(req, res, next) {
+  Category
+    .findOne({ user: req.user._id, name: req.query.name })
+    .exec(function(err, category) {
+      if (err) {
+        return res.status(500).json({ message: err.message });
+      }
+      
+      if (category) {
+        category.name = req.body.name || category.name;
+        category.color = req.body.color || category.color;
+        category.save(function(err, category) {
+          if (err) {
+            return res.status(500).json({ message: err.message });
+          }
+          return res.status(200).json({
+            message: 'Category updated.',
+            category: category
+          });
+        });
+        return;
+      }
+
+      res.status(404).json({ message: 'Category could not be found.' });
+    });
+};
+
+router.onAfterUpdate = function() {
+
+};
+
+router.destroyCategory = function(req, res, next) {
+
+};
+
+router.get('/', Cthulhu.securePath, router.readCategories);
+router.post('/', Cthulhu.securePath, router.createCategory);
+router.put('/', Cthulhu.securePath, router.updateCategory);
+router.delete('/', Cthulhu.securePath, router.destroyCategory);
+
+// Export router
+module.exports = router;
+
+
