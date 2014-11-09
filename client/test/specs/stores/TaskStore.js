@@ -72,43 +72,22 @@ describe('TaskStore', function() {
     });
   });
 
-  describe('.eventHandler()', function() {
-    it('should call store.create on CREATE', function() {
+  describe('.dispatcherIndex()', function() {
+    it('should call store.create on TASK_CREATE', function() {
       store.create = sinon.spy();
-      store.eventHandler({ action: AppConstants.CREATE, data: 'foo' });
+      store.dispatcherIndex({ action: AppConstants.TASK_CREATE, data: 'foo' });
       expect(store.create.called).to.equal(true);
       expect(store.create.args[0][0]).to.equal('foo');
     });
-    it('should call store.update on UPDATE', function() {
+    it('should call store.update on TASK_UPDATE', function() {
       store.update = sinon.spy();
-      store.eventHandler({ action: AppConstants.UPDATE, data: 'foo' });
+      store.dispatcherIndex({ action: AppConstants.TASK_UPDATE, data: 'foo' });
       expect(store.update.called).to.equal(true);
       expect(store.update.args[0][0]).to.equal('foo');
     });
-    it('should call store.destroy on DESTROY', function() {
+    it('should call store.destroy on TASK_DESTROY', function() {
       store.destroy = sinon.spy();
-      store.eventHandler({ action: AppConstants.DESTROY, data: 'foo' });
-      expect(store.destroy.called).to.equal(true);
-      expect(store.destroy.args[0][0]).to.equal('foo');
-    });
-  });
-
-  describe('.dispatch()', function() {
-    it('should call store.create on CREATE', function() {
-      store.create = sinon.spy();
-      store.dispatch({ action: AppConstants.CREATE, data: 'foo' });
-      expect(store.create.called).to.equal(true);
-      expect(store.create.args[0][0]).to.equal('foo');
-    });
-    it('should call store.update on UPDATE', function() {
-      store.update = sinon.spy();
-      store.dispatch({ action: AppConstants.UPDATE, data: 'foo' });
-      expect(store.update.called).to.equal(true);
-      expect(store.update.args[0][0]).to.equal('foo');
-    });
-    it('should call store.destroy on DESTROY', function() {
-      store.destroy = sinon.spy();
-      store.dispatch({ action: AppConstants.DESTROY, data: 'foo' });
+      store.dispatcherIndex({ action: AppConstants.TASK_DESTROY, data: 'foo' });
       expect(store.destroy.called).to.equal(true);
       expect(store.destroy.args[0][0]).to.equal('foo');
     });
