@@ -27,6 +27,12 @@ router.readCategories = function(req, res, next) {
     });
 };
 
+/**
+ * Create new category
+ * @param  {IncomingMessage}   req
+ * @param  {ServerResponse}   res
+ * @param  {Function} next
+ */
 router.createCategory = function(req, res, next) {
   var category = new Category({
     name: req.body.name,
@@ -43,6 +49,12 @@ router.createCategory = function(req, res, next) {
   });
 };
 
+/**
+ * Update category
+ * @param  {IncomingMessage}   req
+ * @param  {ServerResponse}   res
+ * @param  {Function} next
+ */
 router.updateCategory = function(req, res, next) {
   Category
     .findOne({ user: req.user._id, name: req.query.name })
@@ -70,12 +82,30 @@ router.updateCategory = function(req, res, next) {
     });
 };
 
-router.onAfterUpdate = function() {
-
-};
-
+/**
+ * Destroy category
+ * @param  {IncomingMessage}   req
+ * @param  {ServerResponse}   res
+ * @param  {Function} next
+ */
 router.destroyCategory = function(req, res, next) {
+  Category
+    .findOne({ user: req.user._id, name: req.query.name })
+    .exec(function(err, category) {
+      if (err) {
+        return res.status(500).json({ message: err.message });
+      }
 
+      category.remove(function(err) {
+        if (err) {
+          return res.status(500).json({ message: err.message });
+        }
+
+        res.status(200).json({ 
+          message: 'Category '+category.name+' has been deleted'
+        });
+      });
+    });
 };
 
 router.get('/', Cthulhu.securePath, router.readCategories);
