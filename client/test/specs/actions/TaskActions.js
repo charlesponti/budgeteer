@@ -16,9 +16,23 @@ describe('Actions: TaskActions', function() {
     sandbox.restore();
   });
 
+  describe('.createTask()', function() {
+    it('should dispatch correct event', function() {
+      TaskActions.createTask('foo');
+      expect(AppDispatcher.dispatch.called).to.equal(true);
+    });
+  });
+
   describe('.updateTask()', function() {
     it('should dispatch correct event', function() {
       TaskActions.updateTask('foo');
+      expect(AppDispatcher.dispatch.called).to.equal(true);
+    });
+  });
+
+  describe('.deleteTask()', function() {
+    it('should dispatch correct event', function() {
+      TaskActions.deleteTask('foo');
       expect(AppDispatcher.dispatch.called).to.equal(true);
     });
   });

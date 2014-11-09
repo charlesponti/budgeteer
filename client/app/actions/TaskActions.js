@@ -27,18 +27,4 @@ TaskActions.deleteTask = function(task) {
   });
 };
 
-TaskActions.loadTaskForm = function(data) {
-  AppDispatcher.dispatch({
-    action: AppConstants.SHOW_MODAL,
-    data: data
-  });
-};
-
-TaskActions.openTask = function(data) {
-  AppDispatcher.dispatch({
-    action: AppConstants.SHOW_MODAL,
-    data: data
-  });
-};
-
 module.exports = TaskActions;
