@@ -224,6 +224,18 @@ function cthulhu(config) {
   };
 
   /**
+   * Connect to database
+   */
+  var db = config.DB;
+  mongoose.connect(db, function(err) {
+    if (err) {
+      return console.log(err);
+    }
+    app.db = mongoose.connection;
+    console.log('Connected to '+chalk.red.bold(db)+' database.');
+  });
+  
+  /**
    * Start Cthulhu.
    */
   app.start = function() {
@@ -236,18 +248,6 @@ function cthulhu(config) {
      * Add socket to app and begin listening on port.
      */
     app.socket = io.listen(server).sockets;
-
-    /**
-     * Connect to database
-     */
-    var db = config.DB;
-    mongoose.connect(db, function(err) {
-      if (err) {
-        return console.log(err);
-      }
-      app.db = mongoose.connection;
-      console.log('Connected to '+chalk.red.bold(db)+' database.');
-    });
 
     /**
      * Emit initial message
