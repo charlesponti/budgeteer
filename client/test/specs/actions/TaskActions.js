@@ -20,6 +20,10 @@ describe('Actions: TaskActions', function() {
     it('should dispatch correct event', function() {
       TaskActions.createTask('foo');
       expect(AppDispatcher.dispatch.called).to.equal(true);
+      expect(AppDispatcher.dispatch.getCall(0).args[0]).to.deep.equal({
+        action: 'TASK_CREATE',
+        data: 'foo'
+      });
     });
   });
 
@@ -27,6 +31,10 @@ describe('Actions: TaskActions', function() {
     it('should dispatch correct event', function() {
       TaskActions.updateTask('foo');
       expect(AppDispatcher.dispatch.called).to.equal(true);
+      expect(AppDispatcher.dispatch.getCall(0).args[0]).to.deep.equal({
+        action: 'TASK_UPDATE',
+        data: 'foo'
+      });
     });
   });
 
@@ -34,6 +42,10 @@ describe('Actions: TaskActions', function() {
     it('should dispatch correct event', function() {
       TaskActions.deleteTask('foo');
       expect(AppDispatcher.dispatch.called).to.equal(true);
+      expect(AppDispatcher.dispatch.getCall(0).args[0]).to.deep.equal({
+        action: 'TASK_DESTROY',
+        data: 'foo'
+      });
     });
   });
 
