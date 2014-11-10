@@ -4,7 +4,7 @@ describe('TaskRouter', function() {
 
   var req, res;
   var HttpFixtures = require('../fixtures/http');
-  var TaskRouter = require('../../routers/TaskRouter');
+  var TaskRouter = require('../../routers/api/TaskRouter');
 
   beforeEach(function() {
     req = HttpFixtures.req();
@@ -15,11 +15,5 @@ describe('TaskRouter', function() {
     req = null;
     res = null;
   });
-
-  // describe('.afterUpdate()', function() {
-    // it('should', function() {
-      // var fn = TaskRouter.afterUpdate();
-  //   });
-  // });
 
 });
