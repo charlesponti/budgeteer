@@ -5,6 +5,7 @@ var React = require('react');
 
 // Application dependencies
 var TaskActions = require('../../actions/TaskActions');
+var AppActions = require('../../actions/AppActions');
 
 // Factories
 var Preview = React.createFactory(require('./Preview.jsx'));
@@ -17,14 +18,6 @@ var TaskListItem = React.createClass({
 
   propTypes: {
     task: React.PropTypes.object.isRequired
-  },
-
-  /**
-   * Get initial state of component
-   * @return {object}
-   */
-  getInitialState: function() {
-    return { showDescription: false };
   },
 
   /**
@@ -46,7 +39,7 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onTitleClick: function(e, id) {
-    TaskActions.openTask({
+    AppActions.loadModal({
       title: this.props.task.title,
       component: <Preview task={this.props.task}/>
     });
