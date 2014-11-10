@@ -93,20 +93,4 @@ describe('TaskStore', function() {
     });
   });
 
-  describe('.register()', function() {
-    var newDispatch;
-
-    beforeEach(function() {
-      newDispatch = sinon.stub();
-      store.register(newDispatch);
-    });
-
-    it('should call newDispatch', function() {
-      store.dispatch({ payload: 'foo', data: 'bar' });
-      expect(newDispatch.called).to.equal(true);
-      expect(newDispatch.args[0][0].payload).to.equal('foo');
-      expect(newDispatch.args[0][0].data).to.equal('bar');
-    });
-  });
-
 });
