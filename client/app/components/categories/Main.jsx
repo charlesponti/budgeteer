@@ -40,17 +40,15 @@ var CategoryMain = React.createClass({
     return (
       <div className="row">
 
-        <h1 className="col-xs-12 col-md-10 col-md-offset-1 text-center"> 
+        <h1> 
           Categories
           <button onClick={this.onAddClick} 
             className="btn btn-default pull-right">
             Add Category
           </button>
         </h1>
-
-        <div className="col-xs-12 col-md-10 col-md-offset-1 task-list">
-          <CategoryList id='task-list' />
-        </div>
+        
+        <CategoryList className="task-list" id='task-list' />
 
       </div>
     );

@@ -49,7 +49,7 @@ var TabPanel = {
    */
   render: function() {
     return (
-      <div>
+      <div className={this.props.className}>
         <ul className="nav nav-pills" role="tablist" ref="tabpanelNav">
           {this.constructTabs()}
         </ul>

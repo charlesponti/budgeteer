@@ -40,17 +40,15 @@ var TaskMain = React.createClass({
     return (
       <div className="row">
 
-        <h1 className="col-xs-12 col-md-10 col-md-offset-1 text-center"> 
+        <h1> 
           Tasks
           <button onClick={this.onAddClick} 
             className="btn btn-default pull-right">
             Add Task
           </button>
         </h1>
-
-        <div className="col-xs-12 col-md-10 col-md-offset-1 task-list">
-          <TaskList id='task-list' />
-        </div>
+        
+        <TaskList className="task-list" id='task-list' />
 
       </div>
     );

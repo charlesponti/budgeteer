@@ -58,46 +58,18 @@ var CategoryList = React.createClass({
    * @param  {string} id
    */
   onSearchFieldChange: function(e, id) {
-    var isTerm, completedTerm, categoryTerm, category;
     var searchTerm = e.target.value;
-    var completedRegex = /is:\w+\s/;
-    var categoryRegex = /category:\w+\s/;
     var records = CategoryStore.getRecords();
-
-    if (completedRegex.test(searchTerm)) {
-      isTerm = completedRegex.exec(searchTerm)[0];
-      completedTerm = isTerm.trim().replace('is:','');
-      if (completedTerm == 'done') {
-        records = records.filter(function(task) { 
-          return task.completed == true;
-        });
-      }
-      if (completedTerm == 'notdone') {
-        records = records.filter(function(task) { 
-          return task.completed == false;
-        });
-      }
-      searchTerm = searchTerm.replace(isTerm, '');
-    }
-
-    if (categoryRegex.test(searchTerm)) {
-      category = categoryRegex.exec(searchTerm)[0];
-      categoryTerm = category.trim().replace('category:','');
-      records = records.filter(function(task) { 
-        return (new RegExp(categoryTerm)).test(task.category);
-      });
-      searchTerm = searchTerm.replace(category, '');
-    }
 
     if (searchTerm.length) {
       searchTerm = searchTerm.replace(' ', '');
       var regExp = new RegExp(searchTerm, 'i');
-      records = records.filter(function(task) { 
-        return regExp.test(task.title);
+      records = records.filter(function(record) { 
+        return regExp.test(record.name);
       });
     }
 
-    this.setState({ tasks: records });
+    this.setState({ records: records });
   },
 
   /**
