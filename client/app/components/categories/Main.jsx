@@ -5,31 +5,31 @@ var React = require('react');
 
 // Application dependencies
 var AppActions = require('../../actions/App');
-var TaskStore = require('../../stores/TaskStore');
+var CategoryStore = require('../../stores/CategoryStore');
 
 // Components
-var TaskForm = React.createFactory(require('./Form.jsx'));
-var TaskList = React.createFactory(require('./List.jsx'));
+var CategoryForm = React.createFactory(require('./Form.jsx'));
+var CategoryList = React.createFactory(require('./List.jsx'));
 
 /**
  * Main view for the Tasks application
  * @type {ReactElement}
  */
-var TaskMain = React.createClass({
+var CategoryMain = React.createClass({
 
-  displayName: 'TaskMain',
+  displayName: 'CategoryMain',
 
   /**
    * Perform actions when component will get mounted to the DOM
    */
   componentWillMount: function() {
-    TaskStore.load();
+    CategoryStore.load();
   },
 
   onAddClick: function() {
     AppActions.loadModal({
-      title: 'Create Task',
-      component: <TaskForm />
+      title: 'Create Category',
+      component: <CategoryForm />
     });
   },
 
@@ -41,15 +41,15 @@ var TaskMain = React.createClass({
       <div className="row">
 
         <h1 className="col-xs-12 col-md-10 col-md-offset-1 text-center"> 
-          Tasks
+          Categories
           <button onClick={this.onAddClick} 
             className="btn btn-default pull-right">
-            Add Task
+            Add Category
           </button>
         </h1>
 
         <div className="col-xs-12 col-md-10 col-md-offset-1 task-list">
-          <TaskList id='task-list' />
+          <CategoryList id='task-list' />
         </div>
 
       </div>
@@ -58,4 +58,4 @@ var TaskMain = React.createClass({
 
 });
 
-module.exports = TaskMain;
+module.exports = CategoryMain;

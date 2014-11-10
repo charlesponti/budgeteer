@@ -4,8 +4,7 @@
 var React = require('react');
 
 // Application dependencies
-var TaskActions = require('../../actions/TaskActions');
-var AppActions = require('../../actions/AppActions');
+var AppActions = require('../../actions/App');
 
 // Factories
 var Preview = React.createFactory(require('./Preview.jsx'));
@@ -30,7 +29,7 @@ var TaskListItem = React.createClass({
     this.props.task.completed = !this.props.task.completed;
     
     // Dispatch event
-    TaskActions.updateTask(this.props.update);
+    AppActions.updateTask(this.props.update);
   },
 
   /**

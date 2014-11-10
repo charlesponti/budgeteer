@@ -23,8 +23,6 @@ Category.validateName = function(next) {
           return next(err);
         }
 
-        console.log();
-
         if (docs.length) {
           return next(Error('Category with name '+this.name+' already exists'));
         }

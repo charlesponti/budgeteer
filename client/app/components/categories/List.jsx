@@ -5,36 +5,36 @@ var _ = require('lodash');
 var React = require('react');
 
 // Application dependencies
-var TaskStore = require('../../stores/TaskStore');
 var AppConstants = require('../../constants/App');
 var AppDispatcher = require('../../dispatchers/App');
+var CategoryStore = require('../../stores/CategoryStore');
 
 // Components
-var TaskListItem = React.createFactory(require('./ListItem.jsx'));
+var ListItem = React.createFactory(require('./ListItem.jsx'));
 
 /**
  * TaskList component
  * @type {ReactElement}
  */
-var TaskList = React.createClass({
+var CategoryList = React.createClass({
 
-  displayName: 'TaskList',
+  displayName: 'CategoryList',
 
   /**
    * Get initial state of component
    * @return {object}
    */
   getInitialState: function() {
-    return { tasks: this.props.tasks };
+    return { records: [] };
   },
 
   /**
-   * Handle change of TaskStore
-   * @param {array} tasks Array of tasks
+   * Handle change of store
+   * @param {array} records Array of records
    */
-  onTaskStoreChange: function(tasks) {
+  onCategoryStoreChange: function(records) {
     if (this.isMounted()) {
-      this.setState({ tasks: tasks });
+      this.setState({ records: records });
     }
   },
 
@@ -42,14 +42,14 @@ var TaskList = React.createClass({
    * Handle logic when component will be mounted to the DOM
    */
   componentWillMount: function() {
-    TaskStore.addChangeListener(this.onTaskStoreChange);
+    CategoryStore.addChangeListener(this.onCategoryStoreChange);
   },
 
   /**
    * Handle logic when component will be unmounted from the DOM
    */
   componentWillUnmount: function() {
-    TaskStore.removeChangeListener(this.onTaskStoreChange);
+    CategoryStore.removeChangeListener(this.onCategoryStoreChange);
   },
 
   /**
@@ -62,7 +62,7 @@ var TaskList = React.createClass({
     var searchTerm = e.target.value;
     var completedRegex = /is:\w+\s/;
     var categoryRegex = /category:\w+\s/;
-    var records = TaskStore.getRecords();
+    var records = CategoryStore.getRecords();
 
     if (completedRegex.test(searchTerm)) {
       isTerm = completedRegex.exec(searchTerm)[0];
@@ -105,12 +105,6 @@ var TaskList = React.createClass({
    * @return {ReactCompositeComponent}
    */
   render: function() {
-    var sorted = (this.state.tasks || []).sort(function(task) {
-      if (task.completed) {
-        return 1;
-      }
-      return -1;
-    });
     return (
       <div>
         <form role="form" className="task-search">
@@ -118,8 +112,8 @@ var TaskList = React.createClass({
             onChange={this.onSearchFieldChange} placeholder="Search" />
         </form>
         <ul className="list-group">
-          {_.map(sorted, function(task) {
-            return (<TaskListItem task={task} />);
+          {this.state.records.map(function(record) {
+            return (<ListItem record={record} />);
           })}
         </ul>
       </div>
@@ -128,4 +122,4 @@ var TaskList = React.createClass({
 
 });
 
-module.exports = TaskList;
+module.exports = CategoryList;

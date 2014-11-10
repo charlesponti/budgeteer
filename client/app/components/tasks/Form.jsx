@@ -4,9 +4,8 @@
 var React = require('react');
 
 // Application dependencies
+var AppActions = require('../../actions/App');
 var TaskStore = require('../../stores/TaskStore');
-var AppActions = require('../../actions/AppActions');
-var TaskActions = require('../../actions/TaskActions');
 var CategorySelect = React.createFactory(require('../categories/Select.jsx'));
 
 /**
@@ -20,7 +19,6 @@ var TaskForm = React.createClass({
    * @return {object}
    */
   getInitialState: function() {
-    console.log(this.props.task);
     return {
       task: this.props.task || { _id: '', title: '', description: '' },
       buttonText: this.props.task ? 'Edit Task' : 'Create Task'
@@ -48,9 +46,9 @@ var TaskForm = React.createClass({
     e.preventDefault();
 
     if (this.state.task._id.length) {
-      TaskActions.updateTask(this.state.task);
+      AppActions.updateTask(this.state.task);
     } else {
-      TaskActions.createTask(this.state.task);
+      AppActions.createTask(this.state.task);
     }
 
     AppActions.navigate('tasks');

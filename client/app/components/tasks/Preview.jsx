@@ -1,10 +1,11 @@
 'use strict';
 
+// Module dependencies
 var React = require('react');
 var marked = require('marked');
 
-var TaskActions = require('../../actions/TaskActions');
-var AppActions = require('../../actions/AppActions');
+// Application dependencies
+var AppActions = require('../../actions/App');
 var TaskForm = React.createFactory(require('./Form.jsx'));
 
 /**
@@ -35,7 +36,7 @@ var Preview = React.createClass({
    * @param  {string} id
    */
   onDeleteClick: function(e, id) {
-    TaskActions.deleteTask(this.props.task);
+    AppActions.deleteTask(this.props.task);
   },
 
   /**
