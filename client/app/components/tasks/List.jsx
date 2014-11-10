@@ -119,7 +119,7 @@ var TaskList = React.createClass({
         </form>
         <ul className="list-group">
           {_.map(sorted, function(task) {
-            return (<TaskListItem key={task._id} task={task} />);
+            return (<TaskListItem task={task} />);
           })}
         </ul>
       </div>

@@ -1,13 +1,13 @@
 'use strict';
 
-/**
- * Module dependencies
- */
+// Module dependencies
 var _ = require('lodash');
+
+// Application dependencies
 var BaseStore = require('./BaseStore');
 var service = require('../service/api');
+var AppActions = require('../actions/App');
 var AppConstants = require('../constants/App');
-var AppActions = require('../actions/AppActions');
 var AppDispatcher = require('../dispatchers/App');
 
 /**
@@ -19,7 +19,6 @@ var AppDispatcher = require('../dispatchers/App');
  */
 var TaskStore = BaseStore.extend();
 
-
 TaskStore.url = 'tasks';
 
 /**
@@ -28,9 +27,7 @@ TaskStore.url = 'tasks';
 TaskStore.load = function() {
   service.get('tasks')
     .then(this.onLoadSuccess)
-    .catch(function() {
-      console.log(arguments);
-    });
+    .catch(this.onLoadFailure);
   return TaskStore;
 };
 
@@ -39,8 +36,15 @@ TaskStore.load = function() {
  * @param {object} response
  */
 TaskStore.onLoadSuccess = function(response) {
-  TaskStore.add(response.tasks);
+  TaskStore._records = response.tasks;
   TaskStore.emitChange(TaskStore._records);
+};
+
+/**
+ * Handle load failure
+ */
+TaskStore.onLoadFailure = function() {
+  console.log(arguments);
 };
 
 /**

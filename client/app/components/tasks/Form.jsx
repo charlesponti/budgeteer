@@ -4,9 +4,9 @@
 var React = require('react');
 
 // Application dependencies
+var AppActions = require('../../actions/App');
 var TaskStore = require('../../stores/TaskStore');
-var AppActions = require('../../actions/AppActions');
-var TaskActions = require('../../actions/TaskActions');
+var CategorySelect = React.createFactory(require('../categories/Select.jsx'));
 
 /**
  * TaskForm Component
@@ -19,7 +19,6 @@ var TaskForm = React.createClass({
    * @return {object}
    */
   getInitialState: function() {
-    console.log(this.props.task);
     return {
       task: this.props.task || { _id: '', title: '', description: '' },
       buttonText: this.props.task ? 'Edit Task' : 'Create Task'
@@ -47,9 +46,9 @@ var TaskForm = React.createClass({
     e.preventDefault();
 
     if (this.state.task._id.length) {
-      TaskActions.updateTask(this.state.task);
+      AppActions.updateTask(this.state.task);
     } else {
-      TaskActions.createTask(this.state.task);
+      AppActions.createTask(this.state.task);
     }
 
     AppActions.navigate('tasks');
@@ -76,11 +75,7 @@ var TaskForm = React.createClass({
             value={task.description} />
         </div>
         <div className="form-group">
-          <select name="category" className="form-control" onChange={this.handleChange}>
-            <option value="default"> Default </option>
-            <option value="work"> Work </option>
-            <option value="personal"> Personal </option>
-          </select>
+          <CategorySelect onChange={this.handleChange}/>
         </div>
         <button className="pull-right btn btn-success">
           {this.state.buttonText}

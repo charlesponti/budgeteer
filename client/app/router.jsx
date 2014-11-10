@@ -4,8 +4,7 @@ var React = require('react');
 
 var AppDispatcher = require('./dispatchers/App');
 
-var Tasks = React.createFactory(require('./components/tasks/Main.jsx'));
-var TaskForm = React.createFactory(require('./components/tasks/Form.jsx'));
+var Tasks = React.createFactory(require('./components/TaskApp.jsx'));
 var Account = React.createFactory(require('./components/account/Main.jsx'));
 
 var Router = Backbone.Router.extend({

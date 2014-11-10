@@ -2,12 +2,10 @@
 
 // Module dependencies
 var _ = require('lodash');
-var Dispatcher = require('flux').Dispatcher;
 var EventEmitter = require('events').EventEmitter;
 
 /**
  * Create BaseStore
- * @type {Dispatcher}
  */
 var BaseStore = _.extend(EventEmitter.prototype, {
 
@@ -113,7 +111,7 @@ var BaseStore = _.extend(EventEmitter.prototype, {
    * @return {object}
    */
   extend: function(config) {
-    var newStore = new Dispatcher();
+    var newStore = {};
     _.extend(newStore, config || {});
     _.extend(newStore, BaseStore);
     return newStore;

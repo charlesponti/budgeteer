@@ -4,7 +4,7 @@
 var React = require('react');
 
 // Application dependencies
-var TaskActions = require('../../actions/TaskActions');
+var AppActions = require('../../actions/App');
 
 // Factories
 var Preview = React.createFactory(require('./Preview.jsx'));
@@ -20,14 +20,6 @@ var TaskListItem = React.createClass({
   },
 
   /**
-   * Get initial state of component
-   * @return {object}
-   */
-  getInitialState: function() {
-    return { showDescription: false };
-  },
-
-  /**
    * Handle checkbox click
    * @param  {SyntheticEvent} e
    * @param  {string} id HTMLElement id
@@ -37,7 +29,7 @@ var TaskListItem = React.createClass({
     this.props.task.completed = !this.props.task.completed;
     
     // Dispatch event
-    TaskActions.updateTask(this.props.update);
+    AppActions.updateTask(this.props.update);
   },
 
   /**
@@ -46,7 +38,7 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onTitleClick: function(e, id) {
-    TaskActions.openTask({
+    AppActions.loadModal({
       title: this.props.task.title,
       component: <Preview task={this.props.task}/>
     });

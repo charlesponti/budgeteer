@@ -5,11 +5,10 @@ var express = require('express');
 /**
  * Routers
  */
+var ApiRouter = require('./api');
 var AppRouter = require('./AppRouter');
 var AuthRouter = require('./AuthRouter');
-var ApiRouter = require('./ApiRouter');
 var UserRouter = require('./UserRouter');
-var TaskRouter = require('./TaskRouter');
 
 /**
  * Create new express router
@@ -26,8 +25,7 @@ router.get('/logout', UserRouter.logOut);
 router.use('/auth', AuthRouter);
 
 // API
-router.get('/api/me', ApiRouter.getMe);
-router.use('/api/tasks', TaskRouter);
+router.use('/api', ApiRouter);
 
 // App Routes
 router.use('/', AppRouter);
