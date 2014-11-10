@@ -7,6 +7,7 @@ var React = require('react');
 var TaskStore = require('../../stores/TaskStore');
 var AppActions = require('../../actions/AppActions');
 var TaskActions = require('../../actions/TaskActions');
+var CategorySelect = React.createFactory(require('../categories/Select.jsx'));
 
 /**
  * TaskForm Component
@@ -76,11 +77,7 @@ var TaskForm = React.createClass({
             value={task.description} />
         </div>
         <div className="form-group">
-          <select name="category" className="form-control" onChange={this.handleChange}>
-            <option value="default"> Default </option>
-            <option value="work"> Work </option>
-            <option value="personal"> Personal </option>
-          </select>
+          <CategorySelect onChange={this.handleChange}/>
         </div>
         <button className="pull-right btn btn-success">
           {this.state.buttonText}
