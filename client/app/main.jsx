@@ -3,7 +3,12 @@
 // Connect to WebSocket
 var io = window.io;
 var socket = io.connect('http://localhost:4000');
+
 socket.on('born', function (data) {
+  console.log(data);
+});
+
+socket.on('tasks', function (data) {
   console.log(data);
 });
 
