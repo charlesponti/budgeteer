@@ -46,14 +46,23 @@ var TaskListItem = React.createClass({
 
   render: function() {
     var task = this.props.task;
+
+    var categoryStyle = {
+      color: task.category.color
+    };
+
     return (
       <li className="list-group-item task-list-item">
         <div>
           <input type="checkbox" className="task-checkbox"
             onClick={this.onCheckboxClick} defaultChecked={task.completed}/>
           <h4 onClick={this.onTitleClick}>{task.title}</h4>
+
+          <div className="pull-right">
+            <i className="fa fa-tag fa-4" style={categoryStyle}></i>
+            {task.category.name}
+          </div>
         </div>
-        <span className="task-category pull-right">{task.category}</span>
       </li>
     );
   }
