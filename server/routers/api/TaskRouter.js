@@ -50,7 +50,10 @@ TaskRouter.index = function(req, res, next) {
     tasks = req.user.tasks;
   }
 
-  tasks.exec(TaskRouter.onIndexFind(req, res));
+  Task
+    .find()
+    .populate('category')
+    .exec(TaskRouter.onIndexFind(req, res));
 };
 
 /**
@@ -82,9 +85,15 @@ TaskRouter.onIndexFind = function(req, res) {
  * @param  {Function} next
  */
 TaskRouter.create = function(req, res, next) {
-  req.user.tasks
-    .where({ title: req.body.title })
-    .exec(TaskRouter.createTask(req, res));
+  var task = new Task({
+    title: req.body.title,
+    description: req.body.description,
+    category: req.body.category || 'default',
+    completed: req.body.completed || false,
+    user_id: req.user.id
+  });
+  
+  return task.save(TaskRouter.onSave(req, res));
 };
 
 /**
@@ -134,43 +143,6 @@ TaskRouter.destroy = function(req, res, next) {
 };
 
 /**
- * After checking for existing tasks with supplied title, create new 
- * task and attempt to save it.
- * @param  {IncomingMessage} req
- * @param  {ServerResponse}  res
- */
-TaskRouter.createTask = function(req, res) {
-  /**
-   * @param  {?error} err
-   * @param  {?array} tasks
-   */
-  return function(err, tasks) {
-
-    if (err) {
-      req.log('error', err);
-      return res.status(500).json({
-        message: 'There was an issue creating your tasks'
-      });
-    }
-
-    if (!tasks.length) {
-      var task = new Task({
-        title: req.body.title,
-        description: req.body.description,
-        category: req.body.category || 'default',
-        completed: req.body.completed || false,
-        user_id: req.user.id
-      });
-      return task.save(TaskRouter.onSave(req, res));
-    }
-
-    res.status(409).json({ 
-      message: 'There is already a task with this title' 
-    });
-  };
-};
-
-/**
  * Finish request after new task has been created
  * @param {object} req
  * @param {object} res
@@ -188,6 +160,7 @@ TaskRouter.onSave = function(req, res) {
         info: err.message
       });
     }
+    
     return res.status(201).json({ task: task });
   };
 };
