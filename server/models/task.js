@@ -10,13 +10,32 @@ var mongoose = require('mongoose');
  * @type {mongoose.Schema}
  */
 var TaskSchema = new mongoose.Schema({
-  title: { type: String, unique: true, required: true },
-  description: { type: String, unique: true, required: true },
-  completed: { type: Boolean, required: true },
-  category: { type: String, required: true },
-  user_id: { type: String, required: true },
-  created_at: String,
-  updated_at: String
+  title: { 
+    type: String, 
+    unique: true, 
+    required: true
+  },
+  description: { 
+    type: String, 
+    unique: true, 
+    required: true 
+  },
+  completed: { 
+    type: Boolean, 
+    required: true 
+  },
+  category: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    required: true, 
+    ref: 'Category'
+  },
+  user_id: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    required: true,
+    ref: 'User'
+  },
+  created_at: { type: Date },
+  updated_at: { type: Date }
 });
 
 /**
@@ -24,22 +43,22 @@ var TaskSchema = new mongoose.Schema({
  */
 TaskSchema.pre('save', function(next) {
   var date = new Date();
+  
   if (this.isNew) {
-    /**
-     * Update `created_at` attribute
-     * @type {String}
-     */
-    this.created_at = date.toString();
-    if (!this.category) {
-      this.category = 'default';
-    }
+    // Update `created_at` attribute
+    this.created_at = date;
   }
-  /**
-   * Update `updated_at` attribute
-   * @type {String}
-   */
-  this.updated_at = date.toString();
+
+  // Update `updated_at` attribute
+  this.updated_at = date;
+
   next();
 });
 
-module.exports = mongoose.model('Task', TaskSchema);
+var Task = mongoose.model('Task', TaskSchema);
+
+Task.on('foo', function(data) {
+  console.log(data);
+});
+
+module.exports = Task;
