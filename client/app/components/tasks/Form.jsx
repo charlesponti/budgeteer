@@ -5,14 +5,26 @@ var React = require('react');
 
 // Application dependencies
 var AppActions = require('../../actions/App');
+var FormMixin = require('../../mixins/Form.jsx');
 var TaskStore = require('../../stores/TaskStore');
 var CategorySelect = React.createFactory(require('../categories/Select.jsx'));
 
 /**
  * TaskForm Component
- * @type {ReactElement}
+ * @type {ReactComponent}
  */
 var TaskForm = React.createClass({
+
+  mixins: [FormMixin],
+
+  recordName: 'Task',
+
+  fields: [
+    { type: 'hidden', name: '_id' },
+    { type: 'input',  name: 'title' },
+    { type: 'textarea', name: 'description' },
+    { type: CategorySelect }
+  ],
 
   /**
    * Get initial state of component
@@ -20,8 +32,8 @@ var TaskForm = React.createClass({
    */
   getInitialState: function() {
     return {
-      task: this.props.task || { _id: '', title: '', description: '' },
-      buttonText: this.props.task ? 'Edit Task' : 'Create Task'
+      record: this.props.task || { _id: '', title: '', description: '' },
+      buttonText: this.props.record ? 'Edit Task' : 'Create Task'
     };
   },
 
@@ -33,11 +45,11 @@ var TaskForm = React.createClass({
   handleChange: function(e, id) {
     var form = this.getDOMNode();
     this.setState({
-      task: {
+      record: {
         _id: form.id.value,
         title: form.title.value,
         description: form.description.value,
-        category: form.category.value || 'default'
+        category: form.category.value._id || 'default'
       }
     });
   },
@@ -45,7 +57,7 @@ var TaskForm = React.createClass({
   onSubmit: function(e, id) {
     e.preventDefault();
 
-    if (this.state.task._id.length) {
+    if (this.state.record._id.length) {
       AppActions.updateTask(this.state.task);
     } else {
       AppActions.createTask(this.state.task);
@@ -58,15 +70,11 @@ var TaskForm = React.createClass({
    * Render component
    */
   render: function() {
-    var task = this.state.task;
+    var task = this.state.record;
     return (
       <form onSubmit={this.onSubmit} role="form">
         <input type="hidden" name="id" value={task._id} />
-        <div className="form-group">
-          <label htmlFor="title"> Title </label>
-          <input className="form-control"
-            name="title" onChange={this.handleChange} value={task.title}/>
-        </div>
+        {this.makeFormGroup('title', 'Title', this.handleChange)}
         <div className="form-group">
           <label htmlFor="title"> Description </label>
           <textarea className="form-control"
