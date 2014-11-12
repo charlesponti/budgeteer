@@ -46,10 +46,10 @@ var TaskForm = React.createClass({
     var form = this.getDOMNode();
     this.setState({
       record: {
-        _id: form.id.value,
+        _id: form._id.value,
         title: form.title.value,
         description: form.description.value,
-        category: form.category.value._id || 'default'
+        category: form.category.value
       }
     });
   },
@@ -57,13 +57,11 @@ var TaskForm = React.createClass({
   onSubmit: function(e, id) {
     e.preventDefault();
 
-    if (this.state.record._id.length) {
-      AppActions.updateTask(this.state.task);
-    } else {
-      AppActions.createTask(this.state.task);
-    }
-
-    AppActions.navigate('tasks');
+    // Determin if task should be created or updated based on presence of _id
+    var fn = this.state.record._id.length ? 'updateTask' : 'createTask';
+    
+    // Call updateTask or createTask
+    AppActions[fn](this.state.record);
   },
 
   /**
@@ -73,15 +71,17 @@ var TaskForm = React.createClass({
     var task = this.state.record;
     return (
       <form onSubmit={this.onSubmit} role="form">
-        <input type="hidden" name="id" value={task._id} />
-        {this.makeFormGroup('title', 'Title', this.handleChange)}
-        <div className="form-group">
-          <label htmlFor="title"> Description </label>
-          <textarea className="form-control"
-            name="description"
-            onChange={this.handleChange}
-            value={task.description} />
-        </div>
+        {this.makeField('hidden', '_id')}
+        {this.makeFormGroup({ 
+          type: 'input', 
+          name: 'title', 
+          label: 'Title', 
+          changeFn: this.handleChange})}
+        {this.makeFormGroup({ 
+          type: 'textarea', 
+          name: 'description', 
+          label: 'Description', 
+          changeFn: this.handleChange})}
         <div className="form-group">
           <CategorySelect onChange={this.handleChange}/>
         </div>
