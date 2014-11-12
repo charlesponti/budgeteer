@@ -25,7 +25,7 @@ var TaskList = React.createClass({
    * @return {object}
    */
   getInitialState: function() {
-    return { tasks: this.props.tasks };
+    return { tasks: undefined };
   },
 
   /**
@@ -62,21 +62,20 @@ var TaskList = React.createClass({
     var searchTerm = e.target.value;
     var completedRegex = /is:\w+\s/;
     var categoryRegex = /category:\w+\s/;
-    var records = TaskStore.getRecords();
+    // Clone tasks
+    var records = TaskStore.getRecords().slice(0);
 
     if (completedRegex.test(searchTerm)) {
       isTerm = completedRegex.exec(searchTerm)[0];
       completedTerm = isTerm.trim().replace('is:','');
-      if (completedTerm == 'done') {
-        records = records.filter(function(task) { 
-          return task.completed == true;
-        });
-      }
-      if (completedTerm == 'notdone') {
-        records = records.filter(function(task) { 
-          return task.completed == false;
-        });
-      }
+      records = records.filter(function(task) { 
+        switch(completedTerm) {
+          case 'done':
+            return task.completed === true;
+          case 'notdone':
+            return task.completed === false;
+        }
+      });
       searchTerm = searchTerm.replace(isTerm, '');
     }
 
@@ -84,7 +83,7 @@ var TaskList = React.createClass({
       category = categoryRegex.exec(searchTerm)[0];
       categoryTerm = category.trim().replace('category:','');
       records = records.filter(function(task) { 
-        return (new RegExp(categoryTerm)).test(task.category);
+        return (new RegExp(categoryTerm, 'i')).test(task.category.name);
       });
       searchTerm = searchTerm.replace(category, '');
     }
