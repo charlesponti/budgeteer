@@ -1,10 +1,14 @@
 'use strict';
 
 var _ = require('lodash');
+var util = require('util');
+var EventEmitter = require('events').EventEmitter;
 var express = require('express');
 var Task = require('../../models/task');
 
 var TaskRouter = express.Router();
+
+TaskRouter.events = new EventEmitter();
 
 /**
  * Retrieve current user's tasks and attach them to req.user.tasks
@@ -69,9 +73,7 @@ TaskRouter.onIndexFind = function(req, res) {
    */
   return function(err, tasks) {
     if (err) {
-      return res.status(500).json({
-        message: 'There was an issue fetching your tasks'
-      });
+      return TaskRouter.events.emit('error', err, res);
     }
     Cthulhu.socket.emit('tasks', { tasks: tasks });
     res.status(200).json({ tasks: tasks });
@@ -85,6 +87,9 @@ TaskRouter.onIndexFind = function(req, res) {
  * @param  {Function} next
  */
 TaskRouter.create = function(req, res, next) {
+  // Task.emit('new-task', {})
+  // TaskRouter.on('task-saved', function() {})
+
   var task = new Task({
     title: req.body.title,
     description: req.body.description,
@@ -105,7 +110,7 @@ TaskRouter.create = function(req, res, next) {
 TaskRouter.update = function(req, res, next) {
   req.user.task.exec(function(err, task) {
     if (err) {
-      return console.log(err);
+      return TaskRouter.events.emit('error', err, res);
     }
     
     if (task) {
@@ -129,10 +134,8 @@ TaskRouter.update = function(req, res, next) {
 TaskRouter.destroy = function(req, res, next) {
   req.user.task.exec(function(err, task) {
     if (err) {
-      return console.log(err);
+      return TaskRouter.events.emit('error', err, res);
     }
-    console.log(arguments);
-    console.log(req.body);
 
     if (task) {
       return task.remove(TaskRouter.onDelete(req, res));
@@ -154,11 +157,7 @@ TaskRouter.onSave = function(req, res) {
    */
   return function(err, task) {
     if (err) {
-      req.log('error', err);
-      return res.status(500).json({
-        message: 'Server error',
-        info: err.message
-      });
+      return TaskRouter.events.emit('error', err, res);
     }
     
     return res.status(201).json({ task: task });
@@ -174,7 +173,7 @@ TaskRouter.onSave = function(req, res) {
 TaskRouter.onDelete = function(req, res) {
   return function(err) {
     if (err) {
-      console.log(err);
+      return TaskRouter.events.emit('error', err, res);
     }
     res.status(200).json({ task: req.body._id });
   };
@@ -192,11 +191,17 @@ TaskRouter.afterUpdate = function(req, res) {
    */
   return function (err, task) {
     if (err) {
-      console.log(err);
+      return TaskRouter.events.emit('error', err, res);
     }
+
     res.status(200).json({ task: task });
   };
 };
+
+TaskRouter.events.on('error', function(err, req, res) {
+  req.log('error', err);
+  res.status(500).json({ message: err.message });
+});
 
 TaskRouter.get('/', Cthulhu.securePath, TaskRouter.getUserTasks, TaskRouter.index);
 TaskRouter.post('/', Cthulhu.securePath, TaskRouter.getUserTasks, TaskRouter.create);
