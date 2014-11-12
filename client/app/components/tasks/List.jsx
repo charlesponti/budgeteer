@@ -101,14 +101,11 @@ var TaskList = React.createClass({
 
   /**
    * Render component
-   * @return {ReactCompositeComponent}
+   * @return {ReactElement}
    */
   render: function() {
     var sorted = (this.state.tasks || []).sort(function(task) {
-      if (task.completed) {
-        return 1;
-      }
-      return -1;
+      return task.completed ? 1: -1;
     });
     return (
       <div>
