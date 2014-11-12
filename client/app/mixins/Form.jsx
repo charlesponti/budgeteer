@@ -10,15 +10,27 @@ var FormMixin = {
    * @param  {string} name Name of form input
    * @return {ReactElement}
    */
-  makeField: function(type, name) {
-    switch(type) {
+  makeField: function(type, name, changeFn) {
+    var el;
+
+    switch (type) {
       case 'hidden':
-        return <input type='hidden' name={name}>;
+        el = React.DOM.input({ type: 'hidden' });
+        break;
       case 'input':
-        return <input type='hidden' name={name} className="form-control">;
+        el = React.DOM.input({ type: 'text' });
+        break;
       case 'textarea':
-        return <textarea className="form-control" name={name}></textarea>;
+        el = React.DOM.textarea();
+        break;
     }
+    
+    el.props.value = this.state.record[name];
+    el.props.className = "form-control";
+    el.props.onChange = changeFn;
+    el.props.name = name;
+
+    return el;
   },
 
   /**
@@ -27,29 +39,31 @@ var FormMixin = {
    */
   makeFields: function() {
     this.fields.map(function(field) {
+      
       if (this.type instanceof String) {
-        return this.makeField(field.type, field.name)  
+        return this.makeField(field.type, field.name);
       }
+      
       if (this.type instanceof ReactComponent) {
         return field;
       }
-    }.bind(this))
+
+    }.bind(this));
   },
 
   /**
    * Make form-group
+   * @param {object} config Configuration for form group
+   * @param  {string} name  Name of input field
    * @param  {string} name  Name of input field
    * @param  {string} label Text for label element
    * @param  {function} changeFn Function to handle change event
    */
-  makeFormGroup: function(name, label, changeFn) {
+  makeFormGroup: function(config) {
     return (
       <div className="form-group">
-        <label htmlFor={name}>{label}</label>
-        <input className="form-control" 
-               name={name} 
-               onChange={changeFn}
-               value={this.state.record[name]}/>
+        <label htmlFor={config.name}>{config.label}</label>
+        {this.makeField(config.type, config.name, config.changeFn)}
       </div>
     )
   }
