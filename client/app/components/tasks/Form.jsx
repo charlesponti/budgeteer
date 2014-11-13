@@ -37,59 +37,48 @@ var TaskForm = React.createClass({
     };
   },
 
-  /**
-   * Handle change to form fields
-   * @param  {SyntheticEvent} e
-   * @param  {String} id
-   */
-  handleChange: function(e, id) {
-    var form = this.getDOMNode();
-    this.setState({
-      record: {
-        _id: form._id.value,
-        title: form.title.value,
-        description: form.description.value,
-        category: form.category.value
-      }
-    });
-  },
-
   onSubmit: function(e, id) {
+    var form = this.getDOMNode();
     e.preventDefault();
 
     // Determin if task should be created or updated based on presence of _id
     var fn = this.state.record._id.length ? 'updateTask' : 'createTask';
-    
+
     // Call updateTask or createTask
-    AppActions[fn](this.state.record);
+    AppActions[fn]({
+      _id: form._id.value,
+      title: form.title.value,
+      description: form.description.value,
+      category: form.category.value
+    });
   },
 
   /**
    * Render component
    */
   render: function() {
-    var task = this.state.record;
+    var record = this.state.record;
+    var category = record.category && record.category._id;
+
     return (
       <form onSubmit={this.onSubmit} role="form">
-        {this.makeField('hidden', '_id')}
-        {this.makeFormGroup({ 
-          type: 'input', 
-          name: 'title', 
-          label: 'Title', 
-          changeFn: this.handleChange})}
-        {this.makeFormGroup({ 
-          type: 'textarea', 
-          name: 'description', 
-          label: 'Description', 
-          changeFn: this.handleChange})}
+        <input type="hidden" value={record._id} name="_id"/>
         <div className="form-group">
-          <CategorySelect onChange={this.handleChange}/>
+          <label htmlFor="title"> Title </label>
+          <input name="title" className="form-control" value={record.title}/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="description"> Description </label>
+          <input name="description" className="form-control" value={record.description}/>
+        </div>
+        <div className="form-group">
+          <CategorySelect value={category || undefined}/>
         </div>
         <button className="pull-right btn btn-success">
           {this.state.buttonText}
         </button>
       </form>
-    )
+    );
   }
 
 });
