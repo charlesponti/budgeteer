@@ -15,16 +15,16 @@ var FormMixin = {
 
     switch (type) {
       case 'hidden':
-        el = React.DOM.input({ type: 'hidden' });
+        el = React.createElement('input', { type: 'hidden' });
         break;
       case 'input':
-        el = React.DOM.input({ type: 'text' });
+        el = React.createElement('input', { type: 'text' });
         break;
       case 'textarea':
-        el = React.DOM.textarea();
+        el = React.createElement('textarea');
         break;
     }
-    
+
     el.props.value = this.state.record[name];
     el.props.className = "form-control";
     el.props.onChange = changeFn;
@@ -39,13 +39,9 @@ var FormMixin = {
    */
   makeFields: function() {
     this.fields.map(function(field) {
-      
+
       if (this.type instanceof String) {
         return this.makeField(field.type, field.name);
-      }
-      
-      if (this.type instanceof ReactComponent) {
-        return field;
       }
 
     }.bind(this));
@@ -65,7 +61,7 @@ var FormMixin = {
         <label htmlFor={config.name}>{config.label}</label>
         {this.makeField(config.type, config.name, config.changeFn)}
       </div>
-    )
+    );
   }
 
 };
