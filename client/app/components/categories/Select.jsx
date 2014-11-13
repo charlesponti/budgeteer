@@ -16,7 +16,10 @@ var CategorySelect = React.createClass({
    * Get initial state of component
    */
   getInitialState: function() {
-    return { records: CategoryStore.getRecords() };
+    return {
+      value: this.props.value || '',
+      records: CategoryStore.getRecords()
+    };
   },
 
   /**
@@ -46,17 +49,27 @@ var CategorySelect = React.createClass({
   },
 
   /**
+   * Handle change of field
+   * @param {SyntheticEvent} e
+   * @param {string} id
+   */
+  onChange: function(e, id) {
+    this.setState({ value: e.target.value });
+  },
+
+  /**
    * Render component
    * @return {ReactElement}
    */
   render: function() {
     return (
-      <select name="category" className="form-control">
+      <select name="category" onChange={this.onChange} className="form-control" value={this.state.value}>
+        <option> Select Category... </option>
         {this.state.records.map(function(category) {
           return <option value={category._id}>{category.name}</option>
         })};
       </select>
-    )
+    );
   }
 
 });
