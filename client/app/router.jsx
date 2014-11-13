@@ -1,17 +1,21 @@
 'use strict';
 
+// Module dependencies
 var React = require('react');
+var Backbone = require('backbone');
 
+// Application dependencies
 var AppDispatcher = require('./dispatchers/App');
 
+// Components
 var Tasks = React.createFactory(require('./components/TaskApp.jsx'));
 var Account = React.createFactory(require('./components/account/Main.jsx'));
 
 var Router = Backbone.Router.extend({
 
   routes: {
-    'tasks': 'tasks',
-    'account': 'account'
+    'account': 'account',
+    '*default': 'tasks'
   },
 
   /**
