@@ -45,7 +45,7 @@ TaskRouter.getUserTask = function(req, res, next) {
  */
 TaskRouter.index = function(req, res, next) {
   var tasks;
-  
+
   // If `id` is passed in request query, search for a task with this id.
   // Otherwise, return all tasks.
   if (req.query.id) {
@@ -62,7 +62,7 @@ TaskRouter.index = function(req, res, next) {
 
 /**
  * Send Tasks
- * @param  {IncomingMessage} req 
+ * @param  {IncomingMessage} req
  * @param  {ServerResponse} res
  * @return {Function}
  */
@@ -82,7 +82,7 @@ TaskRouter.onIndexFind = function(req, res) {
 
 /**
  * Create new task
- * @param  {IncomingMessage}   req 
+ * @param  {IncomingMessage}   req
  * @param  {ServerResponse}   res
  * @param  {Function} next
  */
@@ -97,7 +97,7 @@ TaskRouter.create = function(req, res, next) {
     completed: req.body.completed || false,
     user_id: req.user.id
   });
-  
+
   return task.save(TaskRouter.onSave(req, res));
 };
 
@@ -112,7 +112,7 @@ TaskRouter.update = function(req, res, next) {
     if (err) {
       return TaskRouter.events.emit('error', err, res);
     }
-    
+
     if (task) {
       task.title = req.body.title || task.title;
       task.description = req.body.description || task.description;
@@ -140,7 +140,7 @@ TaskRouter.destroy = function(req, res, next) {
     if (task) {
       return task.remove(TaskRouter.onDelete(req, res));
     }
-    
+
     res.status(404).json({ message: 'Task not found' });
   });
 };
@@ -159,7 +159,7 @@ TaskRouter.onSave = function(req, res) {
     if (err) {
       return TaskRouter.events.emit('error', err, res);
     }
-    
+
     return res.status(201).json({ task: task });
   };
 };
