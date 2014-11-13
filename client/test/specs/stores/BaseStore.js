@@ -1,11 +1,10 @@
 'use strict';
 
-var BaseStore = require('../../../app/stores/BaseStore.js');
 var _ = require('lodash');
-var expect = window.chai.expect;
+var BaseStore = testRequire('stores/BaseStore');
 
 describe('BaseStore', function() {
-  
+
   var store;
 
   beforeEach(function() {

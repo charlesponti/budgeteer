@@ -1,8 +1,8 @@
 'use strict';
 
-var service = require('../../../app/service/api');
-var TaskStore = require('../../../app/stores/TaskStore');
-var AppConstants = require('../../../app/constants/App');
+var service = testRequire('service/api');
+var TaskStore = testRequire('stores/TaskStore');
+var AppConstants = testRequire('constants/App');
 var expect = window.chai.expect;
 
 describe('TaskStore', function() {
@@ -11,10 +11,10 @@ describe('TaskStore', function() {
 
   beforeEach(function() {
     promise = Promise;
-    task = { 
-      title: 'foo', 
-      description: 'bar', 
-      completed: false, 
+    task = {
+      title: 'foo',
+      description: 'bar',
+      completed: false,
       category: 'default'
     };
     promise.resolve = promise.resolve.bind(promise, { tasks: [{_id: 1, title: 'foo'}] });
