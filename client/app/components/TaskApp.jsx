@@ -9,9 +9,9 @@ var TaskMain = require('./tasks/Main.jsx');
 var CategoryMain = require('./categories/Main.jsx');
 
 var TaskApp = React.createClass({
-  
-  mixins: [TabPanel], 
-  
+
+  mixins: [TabPanel],
+
   getDefaultProps: function() {
     return {
       tabs: {
@@ -19,7 +19,7 @@ var TaskApp = React.createClass({
         'Categories': <CategoryMain />
       },
       default: 'Tasks',
-      className: 'col-xs-12 col-md-10 col-md-offset-1'
+      className: 'col-xs-12'
     };
   }
 
