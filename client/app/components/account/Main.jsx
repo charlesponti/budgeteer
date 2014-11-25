@@ -22,7 +22,7 @@ var Account = React.createClass({
    * Get initial state of component
    */
   getInitialState: function() {
-    return { user: undefined, accounts: [] };
+    return { user: {}, accounts: [] };
   },
 
   /**
@@ -31,7 +31,7 @@ var Account = React.createClass({
   onUserStoreChange: function(user) {
     this.setState({
       user: user,
-      accounts: UserStore.getUserAccounts() 
+      accounts: UserStore.getUserAccounts()
     });
   },
 
@@ -53,19 +53,23 @@ var Account = React.createClass({
    * @return {ReactCompositeComponent}
    */
   render: function() {
-    var accounts = [];
-    _.forIn(this.state.accounts, function(profile, provider) {
-      accounts.push(<ConnectedAccount provider={provider} profile={profile} />);
-    });
     return (
       <div className="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <h1 className="text-center"> Account </h1>
         <ul className="list-group">
           <li className="list-group-item">
-            <h4>Access Token</h4>
-            <p>{UserStore.getAccessToken()}</p>
+            <div className="account-details">
+              <p>
+                <b>Email:</b> {this.state.user.email}
+              </p>
+              <p>
+                <b>Access Token:</b> {this.state.user.accessToken}
+              </p>
+            </div>
           </li>
-          {accounts}
+          {_.map(this.state.accounts, function(profile, provider) {
+            return <ConnectedAccount provider={provider} profile={profile} />;
+          })}
         </ul>
       </div>
     );
