@@ -65,6 +65,7 @@ router.oauthUserFindCallback = function(req, res, err, user) {
   }
 
   user = user || new User();
+
   user.linkOAuth(req._oauth, router.onOauthLinked.bind(router, req, res));
 };
 
