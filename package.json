@@ -7,7 +7,7 @@
   "scripts": {
     "test": "NODE_ENV=test mocha --ui tdd --recursive server/test",
     "start-prod": "NODE_ENV=production forever bin/cthulhu",
-    "start-dev": "NODE_ENV=development forever bin/cthulhu",
+    "start-dev": "NODE_ENV=development forever -w bin/cthulhu",
     "build-test": "webpack client/test/spec/**/main.test.js client/test/bundle.test.js"
   },
   "dependencies": {
