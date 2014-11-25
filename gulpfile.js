@@ -49,7 +49,7 @@ gulp.task('clean-styles', function(done) {
 });
 
 var webpackCallback = function (done, err, stats) {
-    
+
   if (err) {
     throw new gutil.PluginError('[build-js]', err);
   }
@@ -63,10 +63,7 @@ var webpackCallback = function (done, err, stats) {
  * the bundled file into `public/scripts/bundle.js`.
  */
 gulp.task('build-scripts', ['clean-scripts', 'lint-client'], function(done) {
-  return webpack(
-    require('./webpack-development.config'), 
-    webpackCallback.bind(this, done)
-  );
+  webpack(require('./webpack.dev'), webpackCallback.bind(this, done));
 });
 
 /**
@@ -75,10 +72,7 @@ gulp.task('build-scripts', ['clean-scripts', 'lint-client'], function(done) {
  * the bundled file into `public/scripts/bundle.prod.js`.
  */
 gulp.task('build-client-prod', function(done) {
-  return webpack(
-    require('./webpack-production.config'), 
-    webpackCallback.bind(this, done)
-  );
+  webpack(require('./webpack.prod'), webpackCallback.bind(this, done));
 });
 
 /**
@@ -87,10 +81,7 @@ gulp.task('build-client-prod', function(done) {
  * the bundled file into `client/test/bundle.js`.
  */
 gulp.task('build-client-test', function(done) {
-  return webpack(
-    require('./webpack-test.config'), 
-    webpackCallback.bind(this, done)
-  );
+  webpack(require('./webpack.test'), webpackCallback.bind(this, done));
 });
 
 /**
@@ -98,9 +89,9 @@ gulp.task('build-client-test', function(done) {
  * Run JSHint over client-side Javascript files
  */
 gulp.task('lint-client', function() {
-  return gulp.src(sources.js.dir)
-      .pipe(jsHint())
-      .pipe(jsHint.reporter(stylish));
+  gulp.src(sources.js.dir)
+    .pipe(jsHint())
+    .pipe(jsHint.reporter(stylish));
 });
 
 /**
@@ -108,9 +99,9 @@ gulp.task('lint-client', function() {
  * Run JSHint against server-side .js files
  */
 gulp.task('lint-backend', function() {
-  return gulp.src(sources.backend)
-      .pipe(jsHint())
-      .pipe(jsHint.reporter(stylish));
+  gulp.src(sources.backend)
+    .pipe(jsHint())
+    .pipe(jsHint.reporter(stylish));
 });
 
 /**
@@ -118,10 +109,10 @@ gulp.task('lint-backend', function() {
  * Build CSS from .less files
  */
 gulp.task('build-styles', ['clean-styles'], function() {
-  return gulp.src(sources.styles.main)
-      .pipe(less())
-      .pipe(concatinate(sources.styles.build))
-      .pipe(gulp.dest(sources.styles.buildDirectory));
+  gulp.src(sources.styles.main)
+    .pipe(less())
+    .pipe(concatinate(sources.styles.build))
+    .pipe(gulp.dest(sources.styles.buildDirectory));
 });
 
 /**
