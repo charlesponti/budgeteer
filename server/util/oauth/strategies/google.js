@@ -14,7 +14,7 @@ var request = require('superagent');
  * @returns {Object}
  */
 module.exports = function GoogleStrategy(config) {
-  
+
   var strategy = _.extend({}, config);
 
   /**
@@ -78,9 +78,10 @@ module.exports = function GoogleStrategy(config) {
    * @param {object} response
    */
   strategy.getProfile = function(req, res, next, response) {
+    var token = JSON.parse(response.text).access_token;
     request
       .get(strategy.profile_url)
-      .query({ access_token: JSON.parse(response.text).access_token })
+      .query({ access_token: token })
       .end(strategy.onProfileResponse.bind(strategy, token, req, res, next));
   };
 
