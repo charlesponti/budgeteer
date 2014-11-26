@@ -17,7 +17,7 @@ var ListItem = React.createClass({
 
   render: function() {
     var record = this.props.record;
-    
+
     var style = {
       color: record.color,
       display: 'inline-block',
@@ -26,7 +26,7 @@ var ListItem = React.createClass({
     };
 
     return (
-      <li className="list-group-item task-list-item">
+      <li className="list-group-item">
           <i className="fa fa-tag fa-4" style={style}></i>
           <h4>{record.name}</h4>
       </li>
