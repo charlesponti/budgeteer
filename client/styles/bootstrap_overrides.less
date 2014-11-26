@@ -30,10 +30,6 @@ nav.navbar-fixed-top.navbar-default {
   border: none;
 }
 
-.list-group-item {
-  padding: 30px 10px;
-}
-
 .fa {
   margin: 0 5px;
 }
@@ -71,4 +67,12 @@ nav.navbar-fixed-top.navbar-default {
   }
 }
 
-
+// Display heading tags inline-block if within a list-group-item
+.list-group-item h1,
+.list-group-item h2,
+.list-group-item h3,
+.list-group-item h4,
+.list-group-item h5,
+.list-group-item h6 {
+  display: inline-block;
+}
