@@ -26,7 +26,10 @@ var TabPanel = {
    */
   onClick: function(e, id) {
     var tab = e.target.dataset.tab;
-    this.setState({ component: this.props.tabs[tab] });
+    this.setState({
+      component: this.props.tabs[tab],
+      activeTab: tab
+    });
   },
 
   /**
@@ -35,8 +38,9 @@ var TabPanel = {
    */
   constructTabs: function() {
     return Object.keys(this.props.tabs).map(function(title) {
+      var isActive = this.state.activeTab == title ? 'active' : '';
       return (
-        <li onClick={this.onClick} role="presentation">
+        <li onClick={this.onClick} className={isActive} role="presentation">
           <a data-tab={title}>{title}</a>
         </li>
       );
