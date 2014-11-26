@@ -35,7 +35,11 @@ router.get('/error', function(err, req, res) {
  * @param  {ServerResponse} res
  */
 router.get('/', function(req, res) {
-  res.render('home', { user: req.user });
+  if (!req.isAuthenticated()) {
+    res.render('home', { user: req.user });
+  } else {
+    res.render('layout');
+  }
 });
 
 /**
