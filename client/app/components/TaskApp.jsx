@@ -3,9 +3,8 @@
 // Module dependencies
 var React = require('react');
 
-var TabPanel = require('../mixins/TabPanel.jsx');
-
 var TaskMain = require('./tasks/Main.jsx');
+var TabPanel = require('../mixins/TabPanel.jsx');
 var CategoryMain = require('./categories/Main.jsx');
 
 var TaskApp = React.createClass({
