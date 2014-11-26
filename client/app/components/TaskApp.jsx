@@ -19,7 +19,7 @@ var TaskApp = React.createClass({
         'Categories': <CategoryMain />
       },
       default: 'Tasks',
-      className: 'col-xs-12'
+      className: 'container-fluid'
     };
   }
 
