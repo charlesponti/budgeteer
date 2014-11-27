@@ -5,6 +5,7 @@ var path = require('path');
 var winston = require('winston');
 var logFile = path.resolve(__dirname, '../logs/all-logs.log');
 
+// If log file does not exist, create one.
 if (!fs.existsSync(logFile)) {
   fs.writeFileSync(logFile);
 }
