@@ -1,8 +1,8 @@
 describe('User', function() {
   'use strict';
-  
+
   require('../spec_helper');
-  
+
   var user, oauth, sandbox;
 
   beforeEach(function() {
@@ -11,10 +11,10 @@ describe('User', function() {
     user.save = sandbox.spy();
     oauth = {
       token: 'foobar',
-      profile: { 
-        id: '1234', 
+      profile: {
+        id: '1234',
         email: 'foo@foo.com'
-      }  
+      }
     };
   });
 
@@ -125,7 +125,7 @@ describe('User', function() {
       });
     });
   });
-  
+
   describe('#getEmail', function() {
     it('should return Facebook email', function() {
       var profile = { email: 'foo@foo.com' };
@@ -154,24 +154,6 @@ describe('User', function() {
     });
   });
 
-  // getOAuthName: function(provider, profile) {
-  //   // TODO Store user screenname/email from provider
-  //   // {{ current_user.facebook.profile.email }}
-  //   // {{ current_user.twitter.profile.screen_name }}
-  //   // {{ current_user.google.profile.emails[0].value }}
-  //   // {{ current_user.foursquareName() }}
-  //   // {{ current_user.github.profile.login }}
-  //   switch(provider) {
-  //     case 'facebook':
-  //     case 'github':
-  //     case 'twitter':
-  //       return profile.name;
-  //     case 'google':
-  //       return profile.displayName;
-  //     case 'foursquare':
-  //       return profile.firstName + " " + profile.lastName;
-  //   }
-  // },
   describe('.getOAuthName()', function() {
     it('should return Facebook name', function() {
       var profile = {
@@ -232,7 +214,7 @@ describe('User', function() {
       expect(photo).to.equal('foo/original/bar');
     });
   });
-  
+
   describe('.confirmAccount()', function() {
     it('should set confirmAccountToken to undefined', function() {
       user.confirmAccountToken = 'meow';

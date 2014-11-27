@@ -1,14 +1,21 @@
 'use strict';
 
+var fs = require('fs');
 var path = require('path');
 var winston = require('winston');
+var logFile = path.resolve(__dirname, '../logs/all-logs.log');
+
+if (!fs.existsSync(logFile)) {
+  fs.writeFileSync(logFile);
+}
+
 winston.emitErrs = true;
 
 var logger = new winston.Logger({
   transports: [
     new winston.transports.File({
       level: 'info',
-      filename: path.resolve(__dirname, '../logs/all-logs.log'),
+      filename: logFile,
       handleExceptions: true,
       json: true,
       maxsize: 5242880, //5MB
