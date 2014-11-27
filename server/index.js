@@ -11,10 +11,11 @@ var env = process.env.NODE_ENV;
  * @private
  */
 var _ = require('lodash');
+var util = require('util');
 var http = require('http');
 var swig = require('swig');
 var path = require('path');
-var chalk = require('chalk');
+var amqp = require('amqp');
 var lusca = require('lusca');
 var io = require('socket.io');
 var morgan = require('morgan');
@@ -151,6 +152,78 @@ function cthulhu(config) {
     })
   }));
 
+  // Connect to RabbitMQ
+  app.rabbitConnection = amqp.createConnection({
+    host: 'localhost'
+  });
+
+  /**
+   * Application's RabbitMQ queues
+   * @type {object}
+   */
+  app.queues = {};
+
+  /**
+   * Make new RabbitMQ message queue
+   * @param {string} name Name of queue
+   */
+  app.addQueue = function(name) {
+    var msg;
+
+    if (app.queues[name]) {
+      msg = name+' queue already exists';
+      util.log(msg);
+    }
+
+    app.queues[name] = app.rabbitConnection.queue(name);
+    msg = name+' queue is ready for use';
+    util.log(msg);
+  };
+
+  /**
+   * Retrive RabbitMQ queue
+   * @param {string} name Name of queue
+   */
+  app.getQueue = function(name) {
+    return app.queues[name];
+  };
+
+  /**
+   * Application's RabbitMQ exchanges
+   * @type {object}
+   */
+  app.exchanges = {};
+
+  /**
+   * Make new RabbitMQ message exchange
+   * @param {string} name Name of exchange
+   */
+  app.addExchange = function(name) {
+    var msg;
+
+    if (app.exchanges[name]) {
+      msg = name+' exchange already exists';
+      util.log(msg);
+    }
+
+    app.exchanges[name] = app.rabbitConnection.exchange(name);
+    msg = name+' exchange is ready for use';
+    util.log(msg);
+  };
+
+  /**
+  * Retrive RabbitMQ queue
+  * @param {string} name Name of queue
+  */
+  app.getExchange = function(name) {
+    return app.exchanges[name];
+  };
+
+  // Log message when connected to RabbitMQ
+  app.rabbitConnection.on('ready', function() {
+    util.log('RabbitMQ connected.');
+  });
+
   /**
    * Deserialize user from session
    */
@@ -232,9 +305,9 @@ function cthulhu(config) {
       return console.log(err);
     }
     app.db = mongoose.connection;
-    console.log('Connected to '+chalk.red.bold(db)+' database.');
+    util.log('Connected to '+db+' database.');
   });
-  
+
   /**
    * Start Cthulhu.
    */
@@ -260,10 +333,7 @@ function cthulhu(config) {
      * Start application server.
      */
     server.listen(app.get('port'), function() {
-      console.log(chalk.blue.bold('Cthulhu'),
-        'has risen at port ' + chalk.blue.bold(app.get('port')) + ' in',
-        chalk.red.bold(app.get('env'))
-      );
+      util.log('Cthulhu has risen at port '+app.get('port')+' in '+app.get('env'));
     });
   };
 
