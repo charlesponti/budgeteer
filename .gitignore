@@ -12,9 +12,8 @@ public/vendor
 public/scripts
 public/styles
 
-npm-debug.log
+*.log
+*.map
 
 bundle.js
-bundle.js.map
 bundle.test.js
-bundle.test.js.map
