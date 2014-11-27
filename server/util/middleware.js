@@ -5,7 +5,6 @@
  */
 var _ = require('lodash');
 var util = require('util');
-var chalk = require('chalk');
 var lusca = require('lusca');
 var winston = require('winston');
 var User = require('../models/user');
@@ -87,8 +86,8 @@ middleware.remember = function(config) {
  * @return {String}
  */
 middleware.logObj = function(name, obj) {
-  var log = chalk.green(name) +": " +chalk.cyan(JSON.stringify(obj));
-  console.log(log);
+  var log = name+": " +JSON.stringify(obj);
+  util.log(log);
 };
 
 /**
@@ -101,7 +100,7 @@ middleware.logger = function(req, res, next) {
 
   req.log = winston.log;
   req.info = winston.info;
-  
+
   var startTime = new Date();
 
   // Log params if it isn't empty
@@ -141,7 +140,7 @@ middleware.locals = function(config) {
     // Set flash messages to response locals
     res.locals.success_message = {};
     res.locals.error_message = {};
-    
+
     // Attach NODE_ENV to response locals
     res.locals.env = process.env.NODE_ENV;
 
@@ -162,14 +161,14 @@ middleware.locals = function(config) {
  */
 middleware.csrf = function(req, res, next) {
   var access_token = req.query.access_token;
-  
+
   if (/api/.test(req.originalUrl) && access_token) {
     User
       .findOne({ accessToken: access_token })
       .exec(middleware.onApiUser(req, res, next));
     return;
-  } 
-  
+  }
+
   middleware._csrf(req, res, next);
 };
 
@@ -189,7 +188,7 @@ middleware.onApiUser = function(req, res, next) {
       req.user = user;
       return next();
     }
-    
+
     res.status(401).json({ message: 'You must supply access_token.' });
   };
 };
