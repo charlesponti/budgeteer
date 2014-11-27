@@ -1,8 +1,8 @@
 describe("Cthulhu middleware", function() {
   "use strict";
-  
+
   require('../spec_helper');
-  
+
   var req, res, next;
   var middleware = require("../../util/middleware");
 
@@ -53,14 +53,6 @@ describe("Cthulhu middleware", function() {
       expect(User.findOne.called).to.equal(true);
       expect(middleware.onApiUser.called).to.equal(true);
       expect(middleware._csrf.called).to.equal(false);
-    });
-  });
-
-  describe('.onApiUser()', function() {
-    it('should call next if error', function() {
-      // middleware.emitter.emit('api-user', 'foo', null, req, res, next);
-      // expect(next.called).to.equal(true);
-      // expect(next.args[0][0]).to.equal('foo');
     });
   });
 

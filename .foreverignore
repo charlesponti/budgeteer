@@ -2,6 +2,7 @@
 **/node_modules/**
 **/public/vendor/**
 
+all-logs.log
 .gitignore
 .editorconfig
 .jshintrc

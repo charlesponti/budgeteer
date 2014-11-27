@@ -38,6 +38,7 @@ var MongoStore = require('connect-mongo')(express_session);
 var auth = require('./util/auth');
 var oauth = require('./util/oauth');
 var mailer = require('./util/mailer');
+var logger = require('./util/logger');
 var middleware = require('./util/middleware');
 
 /**
@@ -80,8 +81,11 @@ function cthulhu(config) {
 
   app.use(favicon(__dirname + '/../public/favicon.ico'));
 
-  app.use(morgan('dev'));
+
   app.use(middleware.logger);
+
+  app.logger = logger;
+  app.use(morgan('dev', { stream: app.logger.stream }));
 
   /**
    * Set folder for static files (javascript and css)
@@ -221,7 +225,7 @@ function cthulhu(config) {
 
   // Log message when connected to RabbitMQ
   app.rabbitConnection.on('ready', function() {
-    util.log('RabbitMQ connected.');
+    app.logger.info('RabbitMQ connected.');
   });
 
   /**
@@ -305,7 +309,7 @@ function cthulhu(config) {
       return console.log(err);
     }
     app.db = mongoose.connection;
-    util.log('Connected to '+db+' database.');
+    app.logger.info('Connected to '+db+' database.');
   });
 
   /**
@@ -333,7 +337,7 @@ function cthulhu(config) {
      * Start application server.
      */
     server.listen(app.get('port'), function() {
-      util.log('Cthulhu has risen at port '+app.get('port')+' in '+app.get('env'));
+      app.logger.info('Cthulhu has risen at port '+app.get('port')+' in '+app.get('env'));
     });
   };
 
