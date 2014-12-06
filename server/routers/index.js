@@ -3,16 +3,17 @@
 /**
  * Routers
  */
+var cthulhu = require('cthulhu');
 var ApiRouter = require('./api');
 var AppRouter = require('./AppRouter');
 var AuthRouter = require('./AuthRouter');
 var UserRouter = require('./UserRouter');
 
 /**
- * Create new express router
+ * Create router
  * @type {express.Router}
  */
-var router = Cthulhu.Router();
+var router = cthulhu.Router();
 
 // Log Out
 router.post('/login', UserRouter.logIn);

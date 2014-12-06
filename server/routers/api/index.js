@@ -5,7 +5,8 @@ var _ = require("lodash");
 var TaskRouter = require('./TaskRouter');
 var CategoryRouter = require('./CategoryRouter');
 
-var router = Cthulhu.Router();
+var cthulhu = require('cthulhu');
+var router = cthulhu.Router();
 
 /**
  * Return user in json format

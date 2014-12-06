@@ -15,7 +15,8 @@ var User = require('../models/user');
 /**
  * Create router
  */
-var router = Cthulhu.Router();
+var cthulhu = require('cthulhu');
+var router = cthulhu.Router();
 
 /**
  * Sign up user through two-factor authentication

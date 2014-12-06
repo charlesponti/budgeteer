@@ -7,7 +7,8 @@ var _ = require("lodash");
 var Category = require('../../models/category');
 
 // Create router
-var router = Cthulhu.Router();
+var cthulhu = require('cthulhu');
+var router = cthulhu.Router();
 
 /**
  * Get Categories belonging to user

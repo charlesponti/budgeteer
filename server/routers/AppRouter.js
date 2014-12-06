@@ -1,6 +1,8 @@
 'use strict';
 
-var router = Cthulhu.Router();
+// Create router
+var cthulhu = require('cthulhu');
+var router = cthulhu.Router();
 
 /**
  * Render static/about.jade
@@ -18,8 +20,6 @@ router.get('/about', function(req, res) {
  * @param {Object} config
  *     @params {String} config.msg Message to display in flash message
  *     @params {String} config.url Url for redirect
- *
- * TODO Set up central error logging system
  */
 router.get('/error', function(err, req, res) {
   var message = 'There was an issue processing your request. Our unicorns will'+
@@ -29,25 +29,16 @@ router.get('/error', function(err, req, res) {
 });
 
 /**
- * Render home
- * @param  {IncomingMessage} req
- * @param  {ServerResponse} res
- */
-router.get('/', function(req, res) {
-  if (!req.isAuthenticated()) {
-    res.render('home', { user: req.user });
-  } else {
-    res.render('layout');
-  }
-});
-
-/**
  * Render layout for all other routes
  * @param  {IncomingMessage} req
  * @param  {ServerResponse} res
  */
 router.get('*', function(req, res) {
-  res.render('layout', { user: req.user });
+  if (req.isAuthenticated()) {
+    res.render('layout', { current_user: req.session.user });
+  } else {
+    res.render('home');
+  }
 });
 
 module.exports = router;

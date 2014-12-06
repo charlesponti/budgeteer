@@ -2,10 +2,12 @@
 
 var _ = require('lodash');
 var util = require('util');
+var cthulhu = require('cthulhu');
 var EventEmitter = require('events').EventEmitter;
 var Task = require('../../models/task');
 
-var TaskRouter = Cthulhu.Router();
+// Create router
+var TaskRouter = cthulhu.Router();
 
 TaskRouter.events = new EventEmitter();
 

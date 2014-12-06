@@ -1,16 +1,16 @@
 'use strict';
 
-/**
- * Application dependencies
- */
-var oauth = Cthulhu.oauth;
+var auth = require('cthulhu-auth');
 var User = require('../models/user');
 var UserRouter = require('./UserRouter');
 
+var auth = require('cthulhu-auth');
+
 /**
- * Create Express router
+ * Create router
  */
-var router = Cthulhu.Router();
+var cthulhu = require('cthulhu');
+var router = cthulhu.Router();
 
 /**
  * Link Facebook account
@@ -82,30 +82,30 @@ router.onOauthLinked = function(req, res, err, user) {
     req.login(user);
   }
 
-  res.render('pop');
+  res.redirect('/tasks');
 };
 
 // Unlink OAuth
 router.get('/unlink/:provider', UserRouter.unlinkOAuth);
 
 // Facebook
-router.get('/facebook', oauth.Facebook.authorize);
-router.get('/facebook/callback', oauth.Facebook.callback, router.linkOauth);
+router.get('/facebook', auth.Facebook.authorize);
+router.get('/facebook/callback', auth.Facebook.callback, router.linkOauth);
 
 // Google
-router.get('/google', oauth.Google.authorize);
-router.get('/google/callback', oauth.Google.callback, router.linkOauth);
+router.get('/google', auth.Google.authorize);
+router.get('/google/callback', auth.Google.callback, router.linkOauth);
 
 // Twitter
-router.get('/twitter', oauth.Twitter.authorize);
-router.get('/twitter/callback', oauth.Twitter.callback, router.linkOauth);
+router.get('/twitter', auth.Twitter.authorize);
+router.get('/twitter/callback', auth.Twitter.callback, router.linkOauth);
 
 // Foursquare
-router.get('/foursquare', oauth.Foursquare.authorize);
-router.get('/foursquare/callback', oauth.Foursquare.callback, router.linkOauth);
+router.get('/foursquare', auth.Foursquare.authorize);
+router.get('/foursquare/callback', auth.Foursquare.callback, router.linkOauth);
 
 // Github
-router.get('/github', oauth.Github.authorize);
-router.get('/github/callback', oauth.Github.callback, router.linkOauth);
+router.get('/github', auth.Github.authorize);
+router.get('/github/callback', auth.Github.callback, router.linkOauth);
 
 module.exports = router;
