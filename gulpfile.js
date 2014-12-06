@@ -1,16 +1,13 @@
 'use strict';
 
-var del = require('del');
 var gulp = require('gulp');
 var less = require('gulp-less');
 var gutil = require('gulp-util');
 var webpack = require('webpack');
 var watch = require('gulp-watch');
-var uglify = require('gulp-uglify');
 var jsHint = require('gulp-jshint');
-var rename = require('gulp-rename');
 var stylish = require('jshint-stylish');
-var concatinate = require('gulp-concat');
+var concat = require('gulp-concat');
 
 var sources = {
   js: {
@@ -30,24 +27,6 @@ var sources = {
   ]
 };
 
-/**
- * `clean-scripts` task
- * Remove files from public/scripts directory
- * @param  {Function} done
- */
-gulp.task('clean-scripts', function(done) {
-  del(['./public/scripts'], done);
-});
-
-/**
- * `clean-styles` task
- * Remove files from public/styles directory
- * @param  {Function} done
- */
-gulp.task('clean-styles', function(done) {
-  del(['./public/styles'], done);
-});
-
 var webpackCallback = function (done, err, stats) {
 
   if (err) {
@@ -62,7 +41,7 @@ var webpackCallback = function (done, err, stats) {
  * This task will bundle all of the client side scripts and place
  * the bundled file into `public/scripts/bundle.js`.
  */
-gulp.task('build-scripts', ['clean-scripts', 'lint-client'], function(done) {
+gulp.task('build-scripts', ['lint-client'], function(done) {
   webpack(require('./webpack.dev'), webpackCallback.bind(this, done));
 });
 
@@ -108,10 +87,10 @@ gulp.task('lint-backend', function() {
  * `build-styles` task
  * Build CSS from .less files
  */
-gulp.task('build-styles', ['clean-styles'], function() {
+gulp.task('build-styles', function() {
   gulp.src(sources.styles.main)
     .pipe(less())
-    .pipe(concatinate(sources.styles.build))
+    .pipe(concat(sources.styles.build))
     .pipe(gulp.dest(sources.styles.buildDirectory));
 });
 
