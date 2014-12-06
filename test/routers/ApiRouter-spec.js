@@ -2,7 +2,7 @@ describe('Routers: ApiRouter', function() {
   'use strict';
 
   var req, res;
-  var ApiRouter = require('../../routers/ApiRouter');
+  var ApiRouter = require('../../server/routers/api');
 
   beforeEach(function() {
     req = HttpFixtures.req();
@@ -16,27 +16,26 @@ describe('Routers: ApiRouter', function() {
 
   describe('#getMe', function() {
     it('should return 400 if req not authenticated', function() {
-      req.isAuthenticated.returns(false);
+      req.isAuthenticated.andReturn(false);
       ApiRouter.getMe(req, res);
-      expect(res.status.called).to.equal(true);
-      expect(res.status.args[0][0]).to.equal(401);
+      expect(res.status).toHaveBeenCalledWith(401);
     });
     it('should return send correct json if user not authenticated', function() {
-      req.isAuthenticated.returns(false);
+      req.isAuthenticated.andReturn(false);
       ApiRouter.getMe(req, res);
-      expect(res.json.called).to.equal(true);
-      expect(res.json.args[0][0].message).to.equal('No user signed in.');
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'No user signed in.'
+      });
     });
     it('should return 200 if req is authenticated', function() {
-      req.isAuthenticated.returns(true);
+      req.isAuthenticated.andReturn(true);
       ApiRouter.getMe(req, res);
-      expect(res.status.called).to.equal(true);
-      expect(res.status.args[0][0]).to.equal(200);
+      expect(res.status).toHaveBeenCalledWith(200);
     });
     it('should return send correct json if user not authenticated', function() {
-      req.isAuthenticated.returns(true);
+      req.isAuthenticated.andReturn(true);
       ApiRouter.getMe(req, res);
-      expect(res.json.called).to.equal(true);
+      expect(res.json).toHaveBeenCalled();
     });
   });
 

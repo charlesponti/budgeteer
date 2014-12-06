@@ -1,7 +1,5 @@
 "use strict";
 
-var sinon = require('sinon');
-
 module.exports = {
 
   /**
@@ -15,10 +13,10 @@ module.exports = {
       query: {},
       params: {},
       session: {},
-      flash: sinon.spy(),
-      logout: sinon.spy(),
-      login: sinon.spy(),
-      isAuthenticated: sinon.stub()
+      flash: jasmine.createSpy('flash'),
+      logout: jasmine.createSpy('logout'),
+      login: jasmine.createSpy('login'),
+      isAuthenticated: jasmine.createSpy('isAuthenticated')
     };
 
     // If noUser, return unauthenticated Request
@@ -37,11 +35,11 @@ module.exports = {
   res: function() {
     var res = {};
 
-    res.json = sinon.spy();
-    res.render = sinon.spy();
-    res.redirect = sinon.spy();
+    res.json = jasmine.createSpy('json');
+    res.render = jasmine.createSpy('render');
+    res.redirect = jasmine.createSpy('redirect');
 
-    res.status = sinon.stub().returns({
+    res.status = jasmine.createSpy('status').andReturn({
       json: res.json,
       redirect: res.redirect
     });
