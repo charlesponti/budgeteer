@@ -19,7 +19,7 @@ TaskRouter.events = new EventEmitter();
  */
 TaskRouter.getUserTasks = function(req, res, next) {
   if (req.isAuthenticated()) {
-    req.user.tasks = Task.find({ user_id: req.user.id });
+    req.user.tasks = Task.find({ user_id: req.user._id });
   }
   next();
 };
@@ -58,27 +58,22 @@ TaskRouter.index = function(req, res, next) {
   Task
     .find()
     .populate('category')
-    .exec(TaskRouter.onIndexFind(req, res));
+    .exec(TaskRouter.onIndexFind.bind(TaskRouter, req, res));
 };
 
 /**
  * Send Tasks
  * @param  {IncomingMessage} req
  * @param  {ServerResponse} res
+ * @param  {?error} err
+ * @param  {?array} tasks
  * @return {Function}
  */
-TaskRouter.onIndexFind = function(req, res) {
-  /**
-   * @param  {?error} err
-   * @param  {?array} tasks
-   */
-  return function(err, tasks) {
-    if (err) {
-      return TaskRouter.events.emit('error', err, res);
-    }
-    Cthulhu.socket.emit('tasks', { tasks: tasks });
-    res.status(200).json({ tasks: tasks });
-  };
+TaskRouter.onIndexFind = function(req, res, err, tasks) {
+  if (err) {
+    return TaskRouter.events.emit('error', err, res);
+  }
+  res.status(200).json({ tasks: tasks });
 };
 
 /**
@@ -88,9 +83,6 @@ TaskRouter.onIndexFind = function(req, res) {
  * @param  {Function} next
  */
 TaskRouter.create = function(req, res, next) {
-  // Task.emit('new-task', {})
-  // TaskRouter.on('task-saved', function() {})
-
   var task = new Task({
     title: req.body.title,
     description: req.body.description,
