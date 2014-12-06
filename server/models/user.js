@@ -6,6 +6,7 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var Schema = mongoose.Schema;
+var app = require('../index');
 
 /**
  * User Schema
@@ -64,7 +65,7 @@ UserSchema.pre('save', function(next) {
     this.accessToken = this.makeToken();
     if (!this.is_connected()) {
       this.confirmAccountToken = this.makeToken();
-      Cthulhu.mailer.emails.users.welcome(this);
+      app.mailer.emails.users.welcome(this);
     }
   }
   next();
@@ -82,7 +83,7 @@ UserSchema.methods = {
    */
   sendReset: function(callback) {
     this.resetToken = this.makeToken();
-    Cthulhu.mailer.emails.users.reset(this);
+    app.mailer.emails.users.reset(this);
     this.save(callback);
   },
 
@@ -144,7 +145,7 @@ UserSchema.methods = {
     if (!this.email) {
       this.email = this.getEmail(provider, profile);
     }
-    
+
     this[provider].id = profile.id;
     this[provider].profile = profile;
     this[provider].token = oauth.token;
