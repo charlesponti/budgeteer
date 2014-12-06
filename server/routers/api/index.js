@@ -1,12 +1,11 @@
 "use strict";
 
 var _ = require("lodash");
-var express = require('express');
 
 var TaskRouter = require('./TaskRouter');
 var CategoryRouter = require('./CategoryRouter');
 
-var router = express.Router();
+var router = Cthulhu.Router();
 
 /**
  * Return user in json format

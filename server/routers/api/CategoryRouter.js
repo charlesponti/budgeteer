@@ -2,13 +2,12 @@
 
 // Module dependencies
 var _ = require("lodash");
-var express = require('express');
 
 // Application dependencies
 var Category = require('../../models/category');
 
 // Create router
-var router = express.Router();
+var router = Cthulhu.Router();
 
 /**
  * Get Categories belonging to user
@@ -62,7 +61,7 @@ router.updateCategory = function(req, res, next) {
       if (err) {
         return res.status(500).json({ message: err.message });
       }
-      
+
       if (category) {
         category.name = req.body.name || category.name;
         category.color = req.body.color || category.color;
@@ -101,19 +100,17 @@ router.destroyCategory = function(req, res, next) {
           return res.status(500).json({ message: err.message });
         }
 
-        res.status(200).json({ 
+        res.status(200).json({
           message: 'Category '+category.name+' has been deleted'
         });
       });
     });
 };
 
-router.get('/', Cthulhu.securePath, router.readCategories);
-router.post('/', Cthulhu.securePath, router.createCategory);
-router.put('/', Cthulhu.securePath, router.updateCategory);
-router.delete('/', Cthulhu.securePath, router.destroyCategory);
+router.get('/', router.readCategories);
+router.post('/', router.createCategory);
+router.put('/', router.updateCategory);
+router.delete('/', router.destroyCategory);
 
 // Export router
 module.exports = router;
-
-

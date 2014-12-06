@@ -1,11 +1,6 @@
 'use strict';
 
 /**
- * Module dependencies
- */
-var express = require('express');
-
-/**
  * Application dependencies
  */
 var oauth = Cthulhu.oauth;
@@ -15,7 +10,7 @@ var UserRouter = require('./UserRouter');
 /**
  * Create Express router
  */
-var router = express.Router();
+var router = Cthulhu.Router();
 
 /**
  * Link Facebook account
@@ -43,7 +38,7 @@ router.getOauthUserQuery = function(provider, profile) {
  * @param  {Function} next
  */
 router.linkOauth = function(req, res, next) {
-  var oauth = req._oauth;
+  var oauth = req.oauth;
   var query = router.getOauthUserQuery(oauth.provider, oauth.profile);
 
   User
@@ -66,7 +61,7 @@ router.oauthUserFindCallback = function(req, res, err, user) {
 
   user = user || new User();
 
-  user.linkOAuth(req._oauth, router.onOauthLinked.bind(router, req, res));
+  user.linkOAuth(req.oauth, router.onOauthLinked.bind(router, req, res));
 };
 
 /**
@@ -91,7 +86,7 @@ router.onOauthLinked = function(req, res, err, user) {
 };
 
 // Unlink OAuth
-router.get('/unlink/:provider', Cthulhu.securePath, UserRouter.unlinkOAuth);
+router.get('/unlink/:provider', UserRouter.unlinkOAuth);
 
 // Facebook
 router.get('/facebook', oauth.Facebook.authorize);

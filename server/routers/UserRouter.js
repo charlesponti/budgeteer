@@ -5,7 +5,6 @@
  * @private
  */
 var _ = require('lodash');
-var express = require('express');
 
 /**
  * Application dependencies
@@ -16,7 +15,7 @@ var User = require('../models/user');
 /**
  * Create router
  */
-var router = express.Router();
+var router = Cthulhu.Router();
 
 /**
  * Sign up user through two-factor authentication

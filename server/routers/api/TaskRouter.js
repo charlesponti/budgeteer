@@ -3,10 +3,9 @@
 var _ = require('lodash');
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
-var express = require('express');
 var Task = require('../../models/task');
 
-var TaskRouter = express.Router();
+var TaskRouter = Cthulhu.Router();
 
 TaskRouter.events = new EventEmitter();
 
@@ -203,9 +202,9 @@ TaskRouter.events.on('error', function(err, req, res) {
   res.status(500).json({ message: err.message });
 });
 
-TaskRouter.get('/', Cthulhu.securePath, TaskRouter.getUserTasks, TaskRouter.index);
-TaskRouter.post('/', Cthulhu.securePath, TaskRouter.getUserTasks, TaskRouter.create);
-TaskRouter.put('/', Cthulhu.securePath, TaskRouter.getUserTask, TaskRouter.update);
-TaskRouter.delete('/', Cthulhu.securePath, TaskRouter.getUserTask, TaskRouter.destroy);
+TaskRouter.get('/', TaskRouter.getUserTasks, TaskRouter.index);
+TaskRouter.post('/', TaskRouter.getUserTasks, TaskRouter.create);
+TaskRouter.put('/', TaskRouter.getUserTask, TaskRouter.update);
+TaskRouter.delete('/', TaskRouter.getUserTask, TaskRouter.destroy);
 
 module.exports = TaskRouter;

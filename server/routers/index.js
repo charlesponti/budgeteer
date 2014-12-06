@@ -1,7 +1,5 @@
 'use strict';
 
-var express = require('express');
-
 /**
  * Routers
  */
@@ -14,7 +12,7 @@ var UserRouter = require('./UserRouter');
  * Create new express router
  * @type {express.Router}
  */
-var router = express.Router();
+var router = Cthulhu.Router();
 
 // Log Out
 router.post('/login', UserRouter.logIn);
@@ -30,4 +28,4 @@ router.use('/api', ApiRouter);
 // App Routes
 router.use('/', AppRouter);
 
-module.exports =  router;
+module.exports = router;
