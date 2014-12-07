@@ -1,15 +1,11 @@
 'use strict';
 
+var cthulhu = require('cthulhu');
 var auth = require('cthulhu-auth');
 var User = require('../models/user');
 var UserRouter = require('./UserRouter');
 
-var auth = require('cthulhu-auth');
-
-/**
- * Create router
- */
-var cthulhu = require('cthulhu');
+// Create router
 var router = cthulhu.Router();
 
 /**
