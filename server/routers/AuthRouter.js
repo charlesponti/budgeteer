@@ -82,7 +82,7 @@ router.onOauthLinked = function(req, res, err, user) {
     req.login(user);
   }
 
-  res.redirect('/tasks');
+  res.redirect('/');
 };
 
 // Unlink OAuth
