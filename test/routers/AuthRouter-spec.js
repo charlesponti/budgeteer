@@ -4,27 +4,25 @@ describe('Router: AuthRouter', function() {
 
   require('../../server');
 
-  var res, req, mockedreq;
-  var User = require('../fixtures/user').model;
+  var res, req;
+  var User = require('../../server/models/user');
   var HttpFixtures = require('../fixtures/http');
   var router = require('../../server/routers/AuthRouter');
 
   beforeEach(function() {
     res = HttpFixtures.res();
     req = HttpFixtures.req();
-    mockedreq = Object.create(req);
-    mockedreq.user = null;
+    req.user = require('../fixtures/user');
   });
 
   afterEach(function() {
     req = null;
     req = null;
-    mockedreq = null;
   });
 
   describe('.linkOauth()', function() {
 
-    var exec, sandbox;
+    var exec;
 
     beforeEach(function() {
       exec = jasmine.createSpy('exec');
@@ -37,6 +35,7 @@ describe('Router: AuthRouter', function() {
     });
 
     afterEach(function() {
+      exec = null;
       req.oauth = null;
     });
 
@@ -107,7 +106,8 @@ describe('Router: AuthRouter', function() {
       expect(res.redirect).toHaveBeenCalledWith('/');
     });
     it('should handle success without req.user', function() {
-      router.onOauthLinked(mockedreq, res, null, null);
+      req.user = undefined;
+      router.onOauthLinked(req, res, null, null);
       expect(req.login).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith('/');
     });
