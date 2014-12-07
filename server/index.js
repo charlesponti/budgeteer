@@ -47,7 +47,7 @@ app.use(auth.deserializeUser(function(user, done) {
 }));
 
 // Setup RabbitMQ
-queues.setup(app);
+// queues.setup(app);
 
 // Connect to database
 app.startDB = function() {
