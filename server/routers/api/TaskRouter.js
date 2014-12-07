@@ -7,9 +7,9 @@ var EventEmitter = require('events').EventEmitter;
 var Task = require('../../models/task');
 
 // Create router
-var TaskRouter = cthulhu.Router();
+var router = cthulhu.Router();
 
-TaskRouter.events = new EventEmitter();
+router.events = new EventEmitter();
 
 /**
  * Retrieve current user's tasks and attach them to req.user.tasks
@@ -17,7 +17,7 @@ TaskRouter.events = new EventEmitter();
  * @param  {ServerResonse}   res
  * @param  {Function} next
  */
-TaskRouter.getUserTasks = function(req, res, next) {
+router.getUserTasks = function(req, res, next) {
   if (req.isAuthenticated()) {
     req.user.tasks = Task.find({ user_id: req.user._id });
   }
@@ -30,7 +30,7 @@ TaskRouter.getUserTasks = function(req, res, next) {
  * @param  {ServerResonse}   res
  * @param  {Function} next
  */
-TaskRouter.getUserTask = function(req, res, next) {
+router.getUserTask = function(req, res, next) {
   if (req.isAuthenticated()) {
     req.user.task = Task.findOne({ user_id: req.user.id, _id: req.body._id });
   }
@@ -44,7 +44,7 @@ TaskRouter.getUserTask = function(req, res, next) {
  * @param  {ServerResponse}   res
  * @param  {Function} next
  */
-TaskRouter.index = function(req, res, next) {
+router.index = function(req, res, next) {
   var tasks;
 
   // If `id` is passed in request query, search for a task with this id.
@@ -58,7 +58,7 @@ TaskRouter.index = function(req, res, next) {
   Task
     .find()
     .populate('category')
-    .exec(TaskRouter.onIndexFind.bind(TaskRouter, req, res));
+    .exec(router.onIndexFind.bind(router, req, res));
 };
 
 /**
@@ -69,9 +69,9 @@ TaskRouter.index = function(req, res, next) {
  * @param  {?array} tasks
  * @return {Function}
  */
-TaskRouter.onIndexFind = function(req, res, err, tasks) {
+router.onIndexFind = function(req, res, err, tasks) {
   if (err) {
-    return TaskRouter.events.emit('error', err, res);
+    return router.events.emit('error', err, res);
   }
   res.status(200).json({ tasks: tasks });
 };
@@ -82,7 +82,7 @@ TaskRouter.onIndexFind = function(req, res, err, tasks) {
  * @param  {ServerResponse}   res
  * @param  {Function} next
  */
-TaskRouter.create = function(req, res, next) {
+router.create = function(req, res, next) {
   var task = new Task({
     title: req.body.title,
     description: req.body.description,
@@ -91,7 +91,7 @@ TaskRouter.create = function(req, res, next) {
     user_id: req.user.id
   });
 
-  return task.save(TaskRouter.onSave(req, res));
+  return task.save(router.onSave.bind(router, req, res));
 };
 
 /**
@@ -100,10 +100,10 @@ TaskRouter.create = function(req, res, next) {
  * @param  {ServerResponse}   res
  * @param  {Function} next
  */
-TaskRouter.update = function(req, res, next) {
+router.update = function(req, res, next) {
   req.user.task.exec(function(err, task) {
     if (err) {
-      return TaskRouter.events.emit('error', err, res);
+      return router.events.emit('error', err, res);
     }
 
     if (task) {
@@ -111,7 +111,7 @@ TaskRouter.update = function(req, res, next) {
       task.description = req.body.description || task.description;
       task.completed = req.body.completed || task.completed;
       task.category = req.body.category || 'default';
-      return task.save(TaskRouter.afterUpdate(req, res));
+      return task.save(router.afterUpdate.bind(router, req, res));
     }
 
     res.status(404).json({ message: 'Task not found' });
@@ -124,14 +124,14 @@ TaskRouter.update = function(req, res, next) {
  * @param  {ServerResponse}   res
  * @param  {Function} next
  */
-TaskRouter.destroy = function(req, res, next) {
+router.destroy = function(req, res, next) {
   req.user.task.exec(function(err, task) {
     if (err) {
-      return TaskRouter.events.emit('error', err, res);
+      return router.events.emit('error', err, res);
     }
 
     if (task) {
-      return task.remove(TaskRouter.onDelete(req, res));
+      return task.remove(router.onDelete.bind(router, req, res));
     }
 
     res.status(404).json({ message: 'Task not found' });
@@ -140,21 +140,17 @@ TaskRouter.destroy = function(req, res, next) {
 
 /**
  * Finish request after new task has been created
- * @param {object} req
- * @param {object} res
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ * @param {?Error} err
+ * @param {?Task} task
  */
-TaskRouter.onSave = function(req, res) {
-  /**
-   * @param {?error} err
-   * @param {?object} task
-   */
-  return function(err, task) {
-    if (err) {
-      return TaskRouter.events.emit('error', err, res);
-    }
+router.onSave = function(req, res, err, task) {
+  if (err) {
+    return router.events.emit('error', err, res);
+  }
 
-    return res.status(201).json({ task: task });
-  };
+  return res.status(201).json({ task: task });
 };
 
 /**
@@ -163,42 +159,41 @@ TaskRouter.onSave = function(req, res) {
  * @param  {IncomingMessage} req
  * @param  {ServerResponse} res
  */
-TaskRouter.onDelete = function(req, res) {
-  return function(err) {
-    if (err) {
-      return TaskRouter.events.emit('error', err, res);
-    }
-    res.status(200).json({ task: req.body._id });
-  };
+router.onDelete = function(req, res, err) {
+  if (err) {
+    return router.events.emit('error', err, res);
+  }
+
+  res.status(200).json({ task: req.body._id });
 };
 
 /**
  * Finish request after task has been updated
  * @param  {IncomingMessage} req
  * @param  {ServerResponse} res
+ * @param  {?error} err
+ * @param  {?Task} task
  */
-TaskRouter.afterUpdate = function(req, res) {
-  /**
-   * @param  {?error} err
-   * @param  {?Task} task
-   */
-  return function (err, task) {
-    if (err) {
-      return TaskRouter.events.emit('error', err, res);
-    }
+router.afterUpdate = function(req, res, err, task) {
+  if (err) {
+    return router.events.emit('error', err, req, res);
+  }
 
-    res.status(200).json({ task: task });
-  };
+  res.status(200).json({ task: task });
 };
 
-TaskRouter.events.on('error', function(err, req, res) {
+router.events.on('json', function(res, status, json) {
+  res.status(status).json(json);
+});
+
+router.events.on('error', function(err, req, res) {
   req.log('error', err);
   res.status(500).json({ message: err.message });
 });
 
-TaskRouter.get('/', TaskRouter.getUserTasks, TaskRouter.index);
-TaskRouter.post('/', TaskRouter.getUserTasks, TaskRouter.create);
-TaskRouter.put('/', TaskRouter.getUserTask, TaskRouter.update);
-TaskRouter.delete('/', TaskRouter.getUserTask, TaskRouter.destroy);
+router.get('/', router.getUserTasks, router.index);
+router.post('/', router.getUserTasks, router.create);
+router.put('/', router.getUserTask, router.update);
+router.delete('/', router.getUserTask, router.destroy);
 
-module.exports = TaskRouter;
+module.exports = router;
