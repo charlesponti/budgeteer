@@ -9,13 +9,17 @@ var auth = require('cthulhu-auth');
 var mongoose = require('mongoose');
 var favicon = require('serve-favicon');
 
+// Instantiate models
+require('./models/user');
+
 /**
 * Application dependencies.
 * @private
 */
 var config = require('./config');
 var queues = require('./queues');
-var User = require('./models/user');
+
+var User = mongoose.model('User');
 var oauth = config.OAuth;
 
 // Set oauth strategies

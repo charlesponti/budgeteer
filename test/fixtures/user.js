@@ -1,6 +1,6 @@
 'use strict';
 
-var User = require('../../server/models/user');
+var User = require('mongoose').model('User');
 
 module.exports = new User({
   email: 'foo@foo.com',

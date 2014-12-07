@@ -2,7 +2,8 @@
 
 var cthulhu = require('cthulhu');
 var auth = require('cthulhu-auth');
-var User = require('../models/user');
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
 var UserRouter = require('./UserRouter');
 
 // Create router

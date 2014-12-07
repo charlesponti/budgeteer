@@ -2,10 +2,12 @@
 
 describe('Router: UserRouter', function() {
 
+  require('../../server');
+  
   var req, res, exec, user;
   var HttpFixtures = require('../fixtures/http');
   var router = require('../../server/routers/UserRouter');
-  var User = require('../../server/models/user');
+  var User = require('mongoose').model('User');
 
   beforeEach(function() {
     req = HttpFixtures.req();

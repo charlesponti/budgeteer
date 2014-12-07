@@ -3,11 +3,11 @@
 describe('Router: AuthRouter', function() {
 
   require('../../server');
-
+  
   var res, req;
-  var User = require('../../server/models/user');
   var HttpFixtures = require('../fixtures/http');
   var router = require('../../server/routers/AuthRouter');
+  var User = require('mongoose').model('User');
 
   beforeEach(function() {
     res = HttpFixtures.res();

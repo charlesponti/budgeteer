@@ -83,7 +83,6 @@ UserSchema.methods = {
    */
   sendReset: function(callback) {
     this.resetToken = this.makeToken();
-    app.mailer.emails.users.reset(this);
     this.save(callback);
   },
 
@@ -267,6 +266,4 @@ UserSchema.methods = {
 
 };
 
-var User = mongoose.model('User', UserSchema);
-
-module.exports = User;
+mongoose.model('User', UserSchema);

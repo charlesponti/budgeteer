@@ -1,14 +1,14 @@
+'use strict';
+
 describe('User', function() {
-  'use strict';
 
-  require('../spec_helper');
+  require('../../server');
 
-  var user, oauth, sandbox;
+  var user, oauth;
 
   beforeEach(function() {
-    user = new User();
-    sandbox = sinon.sandbox.create();
-    user.save = sandbox.spy();
+    user = require('../fixtures/user');
+    spyOn(user, 'save');
     oauth = {
       token: 'foobar',
       profile: {
@@ -21,14 +21,13 @@ describe('User', function() {
   afterEach(function() {
     user = undefined;
     oauth = undefined;
-    sandbox.restore();
   });
 
   describe('#linkOAuth', function() {
 
     beforeEach(function() {
-      user.getOAuthPhoto = sinon.spy();
-      user.getOAuthName = sinon.spy();
+      spyOn(user,'getOAuthPhoto');
+      spyOn(user, 'getOAuthName');
     });
 
     describe('Link Facebook account', function() {
@@ -36,10 +35,10 @@ describe('User', function() {
         oauth.provider = 'facebook';
         oauth.profile.email = 'foo@foo.com';
         user.linkOAuth(oauth, function(){});
-        expect(user.facebook.id).to.equal('1234');
-        expect(user.email).to.equal('foo@foo.com');
-        expect(user.facebook.token).to.equal('foobar');
-        expect(user.facebook.profile).to.deep.equal(oauth.profile);
+        expect(user.facebook.id).toEqual('1234');
+        expect(user.email).toEqual('foo@foo.com');
+        expect(user.facebook.token).toEqual('foobar');
+        expect(user.facebook.profile).toEqual(oauth.profile);
       });
     });
 
@@ -48,10 +47,10 @@ describe('User', function() {
         oauth.provider = 'google';
         oauth.profile.emails = [{ value:'foo@foo.com' }];
         user.linkOAuth(oauth, function(){});
-        expect(user.google.id).to.equal('1234');
-        expect(user.email).to.equal('foo@foo.com');
-        expect(user.google.token).to.equal('foobar');
-        expect(user.google.profile).to.deep.equal(oauth.profile);
+        expect(user.google.id).toEqual('1234');
+        expect(user.email).toEqual('foo@foo.com');
+        expect(user.google.token).toEqual('foobar');
+        expect(user.google.profile).toEqual(oauth.profile);
       });
     });
 
@@ -60,10 +59,10 @@ describe('User', function() {
         oauth.provider = 'twitter';
         oauth.profile.email = 'foo@foo.com';
         user.linkOAuth(oauth, function(){});
-        expect(user.twitter.id).to.equal('1234');
-        expect(user.email).to.equal('foo@foo.com');
-        expect(user.twitter.token).to.equal('foobar');
-        expect(user.twitter.profile).to.deep.equal(oauth.profile);
+        expect(user.twitter.id).toEqual('1234');
+        expect(user.email).toEqual('foo@foo.com');
+        expect(user.twitter.token).toEqual('foobar');
+        expect(user.twitter.profile).toEqual(oauth.profile);
       });
     });
 
@@ -72,10 +71,10 @@ describe('User', function() {
         oauth.provider = 'foursquare';
         oauth.profile.email = 'foo@foo.com';
         user.linkOAuth(oauth, function(){});
-        expect(user.email).to.equal('foo@foo.com');
-        expect(user.foursquare.id).to.equal('1234');
-        expect(user.foursquare.token).to.equal('foobar');
-        expect(user.foursquare.profile).to.deep.equal(oauth.profile);
+        expect(user.email).toEqual('foo@foo.com');
+        expect(user.foursquare.id).toEqual('1234');
+        expect(user.foursquare.token).toEqual('foobar');
+        expect(user.foursquare.profile).toEqual(oauth.profile);
       });
     });
 
@@ -84,10 +83,10 @@ describe('User', function() {
         oauth.provider = 'github';
         oauth.profile.email = 'foo@foo.com';
         user.linkOAuth(oauth, function(){});
-        expect(user.github.id).to.equal('1234');
-        expect(user.email).to.equal('foo@foo.com');
-        expect(user.github.token).to.equal('foobar');
-        expect(user.github.profile).to.deep.equal(oauth.profile);
+        expect(user.github.id).toEqual('1234');
+        expect(user.email).toEqual('foo@foo.com');
+        expect(user.github.token).toEqual('foobar');
+        expect(user.github.profile).toEqual(oauth.profile);
       });
     });
 
@@ -97,31 +96,31 @@ describe('User', function() {
     describe('Unlink Facebook', function() {
       it('should unset facebook token and profile', function() {
         user.unlinkOAuth('facebook');
-        expect(user.facebook.token).to.equal(undefined);
+        expect(user.facebook.token).toEqual(undefined);
       });
     });
     describe('Unlink Google', function() {
       it('should unset Google token and profile', function() {
         user.unlinkOAuth('google');
-        expect(user.google.token).to.equal(undefined);
+        expect(user.google.token).toEqual(undefined);
       });
     });
     describe('Unlink Twitter', function() {
       it('should unset Twitter token and profile', function() {
         user.unlinkOAuth('twitter');
-        expect(user.twitter.token).to.equal(undefined);
+        expect(user.twitter.token).toEqual(undefined);
       });
     });
     describe('Unlink Foursquare', function() {
       it('should unset Foursquare', function() {
         user.unlinkOAuth('foursquare');
-        expect(user.foursquare.token).to.equal(undefined);
+        expect(user.foursquare.token).toEqual(undefined);
       });
     });
     describe('Unlink Github', function() {
       it('should unset Github token and profile', function() {
         user.unlinkOAuth('github');
-        expect(user.github.token).to.equal(undefined);
+        expect(user.github.token).toEqual(undefined);
       });
     });
   });
@@ -130,27 +129,27 @@ describe('User', function() {
     it('should return Facebook email', function() {
       var profile = { email: 'foo@foo.com' };
       var email = user.getEmail('facebook', profile);
-      expect(email).to.equal('foo@foo.com');
+      expect(email).toEqual('foo@foo.com');
     });
     it('should return Google email', function() {
       var profile = { emails: [{ value: 'foo@foo.com' }] };
       var email = user.getEmail('google', profile);
-      expect(email).to.equal('foo@foo.com');
+      expect(email).toEqual('foo@foo.com');
     });
     it('should return Twitter email', function() {
       var profile = { email: 'foo@foo.com' };
       var email = user.getEmail('twitter', profile);
-      expect(email).to.equal('foo@foo.com');
+      expect(email).toEqual('foo@foo.com');
     });
     it('should return Github email', function() {
       var profile = { email: 'foo@foo.com' };
       var email = user.getEmail('github', profile);
-      expect(email).to.equal('foo@foo.com');
+      expect(email).toEqual('foo@foo.com');
     });
     it('should return Foursquare email', function() {
       var profile = { email: 'foo@foo.com' };
       var email = user.getEmail('foursquare', profile);
-      expect(email).to.equal('foo@foo.com');
+      expect(email).toEqual('foo@foo.com');
     });
   });
 
@@ -160,28 +159,28 @@ describe('User', function() {
         name: 'Foo Bar',
       };
       var name = user.getOAuthName('facebook', profile);
-      expect(name).to.equal('Foo Bar');
+      expect(name).toEqual('Foo Bar');
     });
     it('should return Twitter name', function() {
       var profile = {
         name: 'Foo Bar',
       };
       var name = user.getOAuthName('twitter', profile);
-      expect(name).to.equal('Foo Bar');
+      expect(name).toEqual('Foo Bar');
     });
     it('should return Github name', function() {
       var profile = {
         name: 'Foo Bar',
       };
       var name = user.getOAuthName('github', profile);
-      expect(name).to.equal('Foo Bar');
+      expect(name).toEqual('Foo Bar');
     });
     it('should return Google name', function() {
       var profile = {
         displayName: 'Foo Bar',
       };
       var name = user.getOAuthName('google', profile);
-      expect(name).to.equal('Foo Bar');
+      expect(name).toEqual('Foo Bar');
     });
     it('should return Foursquare name', function() {
       var profile = {
@@ -189,7 +188,7 @@ describe('User', function() {
         lastName: 'Bar'
       };
       var name = user.getOAuthName('foursquare', profile);
-      expect(name).to.equal('Foo Bar');
+      expect(name).toEqual('Foo Bar');
     });
   });
 
@@ -201,7 +200,7 @@ describe('User', function() {
         }
       };
       var photo = user.getOAuthPhoto('google', profile);
-      expect(photo).to.equal('foo?sz=200');
+      expect(photo).toEqual('foo?sz=200');
     });
     it('should return Foursquare photo', function() {
       var profile = {
@@ -211,7 +210,7 @@ describe('User', function() {
         }
       };
       var photo = user.getOAuthPhoto('foursquare', profile);
-      expect(photo).to.equal('foo/original/bar');
+      expect(photo).toEqual('foo/original/bar');
     });
   });
 
@@ -219,16 +218,14 @@ describe('User', function() {
     it('should set confirmAccountToken to undefined', function() {
       user.confirmAccountToken = 'meow';
       user.confirmAccount();
-      expect(user.confirmAccountToken).to.equal(undefined);
+      expect(user.confirmAccountToken).toEqual(undefined);
     });
   });
 
   describe('.sendReset()', function() {
     it('should send user reset email', function() {
-      sinon.stub(Cthulhu.mailer.emails.users, 'reset');
       user.sendReset();
-      expect(Cthulhu.mailer.emails.users.reset.called).to.equal(true);
-      expect(user.save.called).to.equal(true);
+      expect(user.save).toHaveBeenCalled();
     });
   });
 
