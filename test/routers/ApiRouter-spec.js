@@ -1,5 +1,6 @@
+'use strict';
+
 describe('Routers: ApiRouter', function() {
-  'use strict';
 
   var req, res;
   var HttpFixtures = require('../fixtures/http');
@@ -8,6 +9,7 @@ describe('Routers: ApiRouter', function() {
   beforeEach(function() {
     req = HttpFixtures.req();
     res = HttpFixtures.res();
+    req.user = require('../fixtures/user');
   });
 
   afterEach(function() {
