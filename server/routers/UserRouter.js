@@ -1,21 +1,10 @@
 'use strict';
 
-/**
- * Module dependencies
- * @private
- */
 var _ = require('lodash');
-
-/**
- * Application dependencies
- * @private
- */
+var cthulhu = require('cthulhu');
 var User = require('../models/user');
 
-/**
- * Create router
- */
-var cthulhu = require('cthulhu');
+// Create router
 var router = cthulhu.Router();
 
 /**
@@ -25,28 +14,29 @@ var router = cthulhu.Router();
  * @param {Function} next
  */
 router.logIn = function(req, res, next) {
-  User.findOne({ email: req.body.email }).exec(function(err, user) {
+  User
+    .findOne({ email: req.body.email })
+    .exec(function(err, user) {
 
-    if (err) {
-      req.flash('error', 'There was an unexpected server error.');
-      return res.redirect('/login');
-    }
-
-    if (user) {
-      return user.sendReset(router.sendReset(req, res));
-    }
-
-    user = new User({ email: req.body.email });
-    user.save(function(err, user) {
       if (err) {
-        console.log(err);
         req.flash('error', 'There was an unexpected server error.');
         return res.redirect('/login');
       }
-      req.flash('success', 'You will recieve an email shortly to confirm your account');
-      res.redirect('/login');
+
+      if (user) {
+        return user.sendReset(router.sendReset(req, res));
+      }
+
+      user = new User({ email: req.body.email });
+      user.save(function(err, user) {
+        if (err) {
+          req.flash('error', 'There was an unexpected server error.');
+          return res.redirect('/login');
+        }
+        req.flash('success', 'You will recieve an email shortly to confirm your account');
+        res.redirect('/login');
+      });
     });
-  });
 };
 
 /**
@@ -60,7 +50,7 @@ router.serve = {
    * @param {ServerResponse} res
    * @param {Function} next
    */
-  login: function serveLogin(req, res) {
+  login: function(req, res) {
     if (req.isAuthenticated()) {
       return res.redirect('/account');
     }
@@ -72,7 +62,7 @@ router.serve = {
    * @param {ServerResponse} res
    * @param {Function} next
    */
-  account: function serveAccountPage(req, res, next) {
+  account: function(req, res, next) {
     if (req.isAuthenticated()) {
       return res.render('users/account');
     }
@@ -97,31 +87,27 @@ router.logOut = function(req, res, next) {
  * @param {ServerResponse} res
  * @param {Function} next
  */
-router.deleteAccount = function deleteAccount(req, res, next) {
+router.deleteAccount = function(req, res, next) {
   User
     .remove({ _id: req.user.id })
-    .exec(router.onAccountDelete(req, res));
+    .exec(router.onAccountDelete.bind(router, req, res));
 };
 
 /**
  * Finish request after account is deleted
  * @param  {IncomingMessage} req
  * @param  {ServerResponse} res
+ * @param {Error} err
+ * @param {?User} user
  */
-router.onAccountDelete = function(req, res) {
-  /**
-   * @param {Error} err
-   * @param {?User} user
-   */
-  return function(err, user) {
-    if (err) {
-      req.flash('error', 'There was an error deleting your account.');
-      return res.redirect('/account');
-    }
-    req.logout();
-    req.flash("success", "Your account has been deleted.");
-    return res.redirect('/');
-  };
+router.onAccountDelete = function(req, res, err, user) {
+  if (err) {
+    req.flash('error', 'There was an error deleting your account.');
+    return res.redirect('/account');
+  }
+  req.logout();
+  req.flash("success", "Your account has been deleted.");
+  return res.redirect('/');
 };
 
 /**
@@ -130,7 +116,7 @@ router.onAccountDelete = function(req, res) {
  * @param {ServerResponse} res
  * @param {Function} next
  */
-router.confirmAccount = function confirmAccount(req, res, next) {
+router.confirmAccount = function(req, res, next) {
   User
     .findOne({ confirmAccountToken: req.params.token })
     .exec(function(err, user) {
@@ -144,9 +130,7 @@ router.confirmAccount = function confirmAccount(req, res, next) {
         return res.redirect('/login');
       }
 
-      user.confirmAccount(function(err) {
-        router.emit('account-confirm', err, user, req, res);
-      });
+      user.confirmAccount(router.onAccountConfirm.bind(router, req, res));
     });
 };
 
@@ -156,7 +140,7 @@ router.confirmAccount = function confirmAccount(req, res, next) {
  * @param {ServerResponse} res
  * @param {Function} next
  */
-router.confirmReset = function confirmReset(req, res, next) {
+router.confirmReset = function(req, res, next) {
   User
     .findOne({ resetToken: req.params.token })
     .exec(function(err, user) {
@@ -170,9 +154,7 @@ router.confirmReset = function confirmReset(req, res, next) {
         return res.redirect('/login');
       }
 
-      user.confirmReset(function(err) {
-        router.emit('confirm-reset', err, user, req, res);
-      });
+      user.confirmReset(router.confirmReset.bind(router, req, res));
     });
 };
 
@@ -180,21 +162,17 @@ router.confirmReset = function confirmReset(req, res, next) {
  * Reset account with token
  * @param {IncomingMessage} req
  * @param {ServerResponse} res
+ * @param {Error} err
+ * @param {?User} user
  */
-router.confirmReset = function(req, res) {
-  /**
-   * @param {Error} err
-   * @param {?User} user
-   */
-  return function(err, user) {
-    if (err) {
-      req.flash('error', 'There was an error deleting your account.');
-      return res.redirect('/login');
-    }
-    req.login(user);
-    req.flash('success', 'Logged in.');
-    return res.redirect('/account');
-  };
+router.confirmReset = function(req, res, err, user) {
+  if (err) {
+    req.flash('error', 'There was an error deleting your account.');
+    return res.redirect('/login');
+  }
+  req.login(user);
+  req.flash('success', 'Logged in.');
+  return res.redirect('/account');
 };
 
 /**
@@ -221,22 +199,18 @@ router.sendReset = function(req, res) {
  * Confirm account with token
  * @param {IncomingMessage} req
  * @param {ServerResponse} res
+ * @param {Error} err
+ * @param {?User} user
  */
-router.onAccountConfirm = function(req, res) {
-  /**
-   * @param {Error} err
-   * @param {?User} user
-   */
-  return function(err, user) {
-    if (err) {
-      req.flash('error', 'There was an error confirming your account');
-      return res.redirect('/login');
-    }
+router.onAccountConfirm = function(req, res, err, user) {
+  if (err) {
+    req.flash('error', 'There was an error confirming your account');
+    return res.redirect('/login');
+  }
 
-    req.login(user);
-    req.flash('success', 'Account confirmed');
-    return res.redirect('/account');
-  };
+  req.login(user);
+  req.flash('success', 'Account confirmed.');
+  return res.redirect('/account');
 };
 
 /**
@@ -246,47 +220,37 @@ router.onAccountConfirm = function(req, res) {
  * @returns {Function}
  */
 router.unlinkOAuth = function(req, res) {
-  var provider = req.params.provider;
-
-  req.user.unlinkOAuth(provider, router.onUnlinkOauth(req, res));
+  req.user.unlinkOAuth(req.params.provider, router.onUnlinkOauth(req, res));
 };
 
 /**
  * Handle response after
  * @param {IncomingMessage} req
  * @param {ServerResponse} res
+ * @param {?Error} err
  * @returns {*}
  */
-router.onUnlinkOauth = function(req, res) {
-  /**
-   * @param {?Error} err
-   */
-  return function(err) {
-    if (err) {
-      return res.status(500).json({ message: 'Server error' });
-    }
-    return res.status(200).json({ message: 'Account unlinked' });
-  };
+router.onUnlinkOauth = function(req, res, err) {
+  if (err) {
+    return res.status(500).json({ message: 'Server error' });
+  }
+  return res.status(200).json({ message: 'Account unlinked' });
 };
 
 /**
  * Finish request after local authentication has finished
  * @param  {IncomingMessage} req
  * @param  {ServerResponse} res
+ * @param  {Error} err
+ * @param  {User} user
  */
-router.onAccountCreate = function(req, res) {
-  /**
-   * @param  {Error} err
-   * @param  {User} user
-   */
-  return function(err, user) {
-    if (err) {
-      return res.status(500).json({ message: 'Server error' });
-    }
+router.onAccountCreate = function(req, res, err, user) {
+  if (err) {
+    return res.status(500).json({ message: 'Server error' });
+  }
 
-    req.login(user);
-    return res.redirect("/account");
-  };
+  req.login(user);
+  return res.redirect("/account");
 };
 
 /**
