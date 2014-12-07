@@ -85,6 +85,7 @@
     "globals": {
       "_": true,
       "$": true,
-      "HttpFixtures": true
+      "HttpFixtures": true,
+      "User": true
     }
 }
