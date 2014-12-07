@@ -182,10 +182,6 @@ router.afterUpdate = function(req, res, err, task) {
   res.status(200).json({ task: task });
 };
 
-router.events.on('json', function(res, status, json) {
-  res.status(status).json(json);
-});
-
 router.events.on('error', function(err, req, res) {
   req.log('error', err);
   res.status(500).json({ message: err.message });
