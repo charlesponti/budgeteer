@@ -8,7 +8,7 @@ module.exports = {
    * @returns {object}
    */
   req: function(noUser) {
-    var req = {
+    return {
       body: {},
       query: {},
       params: {},
@@ -18,15 +18,6 @@ module.exports = {
       login: jasmine.createSpy('login'),
       isAuthenticated: jasmine.createSpy('isAuthenticated')
     };
-
-    // If noUser, return unauthenticated Request
-    if (noUser) {
-      req.user = undefined;
-      return req;
-    }
-
-    req.user = require("./user").instance;
-    return req;
   },
 
   /**
