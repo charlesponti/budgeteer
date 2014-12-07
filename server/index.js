@@ -14,6 +14,7 @@ var favicon = require('serve-favicon');
 * @private
 */
 var config = require('./config');
+var queues = require('./queues');
 var User = require('./models/user');
 var oauth = config.OAuth;
 
@@ -44,6 +45,9 @@ app.use(auth.initialize());
 app.use(auth.deserializeUser(function(user, done) {
   User.findOne(user._id).exec(done);
 }));
+
+// Setup RabbitMQ
+queues.setup(app);
 
 // Connect to database
 app.startDB = function() {
