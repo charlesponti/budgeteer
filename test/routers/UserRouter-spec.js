@@ -4,22 +4,28 @@ describe('Router: UserRouter', function() {
 
   var req, res, exec, user;
   var HttpFixtures = require('../fixtures/http');
-  var User = require('../../server/models/user');
   var router = require('../../server/routers/UserRouter');
+  var User = require('../../server/models/user');
 
   beforeEach(function() {
-    user = require('../fixtures/user');
-    spyOn(user, 'save');
     req = HttpFixtures.req();
     res = HttpFixtures.res();
-    req.user = user;
     exec = jasmine.createSpy('exec');
+    user = require('../fixtures/user');
+    req.user = user;
+    spyOn(user, 'save');
     spyOn(User, 'findOne').andReturn({
       exec: exec
     });
     spyOn(User, 'remove').andReturn({
       exec: exec
     });
+  });
+
+  afterEach(function() {
+    req = undefined;
+    res = undefined;
+    user = undefined;
   });
 
   describe('.serve', function() {
@@ -41,7 +47,7 @@ describe('Router: UserRouter', function() {
   describe('.deleteAccount()', function() {
     it('should call User.remove with req.user._id', function() {
       router.deleteAccount(req, res);
-      expect(User.remove.mostRecentCall.args._id).not.toEqual(undefined);
+      expect(User.remove.mostRecentCall.args[0]._id).not.toEqual(undefined);
       expect(exec).toHaveBeenCalled();
     });
   });

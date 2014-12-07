@@ -1,5 +1,6 @@
+'use strict';
+
 describe('Routers: AppRouter', function() {
-  'use strict';
 
   var req, res, router;
   var HttpFixtures = require('../fixtures/http');
