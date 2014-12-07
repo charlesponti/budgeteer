@@ -9,9 +9,9 @@ var router = cthulhu.Router();
  * @param  {IncomingMessage} req
  * @param  {ServerResponse} res
  */
-router.get('/about', function(req, res) {
+router.about = function(req, res) {
   res.render('static/about');
-});
+};
 
 /**
  * Handler for errors
@@ -21,24 +21,28 @@ router.get('/about', function(req, res) {
  *     @params {String} config.msg Message to display in flash message
  *     @params {String} config.url Url for redirect
  */
-router.get('/error', function(err, req, res) {
+router.error = function(err, req, res) {
   var message = 'There was an issue processing your request. Our unicorns will'+
-    ' look into the issue after their trip to Candy Mountain.';
+  ' look into the issue after their trip to Candy Mountain.';
   req.flash('error', err.message || message);
   res.redirect('/');
-});
+};
 
 /**
  * Render layout for all other routes
  * @param  {IncomingMessage} req
  * @param  {ServerResponse} res
  */
-router.get('*', function(req, res) {
+router.all = function(req, res) {
   if (req.isAuthenticated()) {
-    res.render('layout', { current_user: req.session.user });
+    res.render('layout', { current_user: req.user });
   } else {
     res.render('home');
   }
-});
+};
+
+router.get('/about', router.about);
+router.get('/error', router.error);
+router.get('*', router.all);
 
 module.exports = router;
