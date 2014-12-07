@@ -2,6 +2,7 @@ describe('Routers: ApiRouter', function() {
   'use strict';
 
   var req, res;
+  var HttpFixtures = require('../fixtures/http');
   var ApiRouter = require('../../server/routers/api');
 
   beforeEach(function() {

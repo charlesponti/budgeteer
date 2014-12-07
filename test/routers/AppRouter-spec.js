@@ -1,9 +1,8 @@
 describe('Routers: AppRouter', function() {
   'use strict';
 
-  require('../spec_helper');
-
   var req, res, router;
+  var HttpFixtures = require('../fixtures/http');
   var AppRouter = require('../../server/routers/AppRouter');
 
   beforeEach(function() {

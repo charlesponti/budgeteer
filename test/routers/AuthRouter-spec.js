@@ -2,9 +2,11 @@
 
 describe('Router: AuthRouter', function() {
 
-  require('../spec_helper');
+  require('../../server');
 
   var res, req, mockedreq;
+  var User = require('../fixtures/user').model;
+  var HttpFixtures = require('../fixtures/http');
   var router = require('../../server/routers/AuthRouter');
 
   beforeEach(function() {

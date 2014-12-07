@@ -1,33 +1,28 @@
+'use strict';
 
-describe('router', function() {
+describe('Router: UserRouter', function() {
 
-  'use strict';
-
-  var req, res, noUserReq, User, user, router;
-  var sinon = require('sinon');
-  var expect = require('chai').expect;
+  var req, res, noUserReq, User, user;
   var HttpFixtures = require('../fixtures/http');
   var UserFixture = require('../fixtures/user');
-  var UserRouter = require('../../routers/UserRouter');
+  var router = require('../../server/routers/UserRouter');
 
   beforeEach(function() {
     User = UserFixture.model;
     user = UserFixture.instance;
-    user.save = sinon.spy();
+    spyOn(user, 'save');
     req = HttpFixtures.req();
     noUserReq = HttpFixtures.req(true);
     res = HttpFixtures.res();
-    router = UserRouter;
   });
 
   afterEach(function() {
-    User = null;
-    user = null;
-    req = null;
-    res = null;
-    router = null;
+    req =
+    res =
+    User =
+    user = undefined;
   });
-  
+
   describe('.serve', function() {
     describe('.login()', function() {
       it('should call res.render with correct args', function() {
@@ -37,7 +32,7 @@ describe('router', function() {
     });
     describe('.account()', function() {
       it('should call res.render with correct args', function() {
-        req.isAuthenticated = sinon.stub().returns(true);
+        req.isAuthenticated.andReturns(true);
         router.serve.account(req, res);
         expect(res.render.calledWith('users/account')).to.equal(true);
       });
@@ -46,27 +41,25 @@ describe('router', function() {
 
   describe('.deleteAccount()', function() {
     it('should call User.remove with req.user._id', function() {
-      var sandbox = sinon.sandbox.create();
-      sandbox.spy(User, 'remove');
+      spyOn(User, 'remove');
       req.user._id = '1';
       router.deleteAccount(req, res);
-      expect(User.remove.calledWith({ _id: '1' })).to.equal(false);
-      User.remove.restore();
+      expect(User.remove).toHaveBeenCalledWith({ _id: '1' });
     });
   });
-  
+
   describe('.confirmAccount()', function() {
     it('should call User.find with correct args', function() {
-      var exec = sinon.spy();
-      var sandbox = sinon.sandbox.create();
-      sandbox.stub(User, 'findOne', function() {
+      var exec = jasmine.createSpy('exec');
+      spyOn(User, 'findOne').andCallFake(function() {
         return { exec: exec };
       });
       req.params.token = 'foobar';
       router.confirmAccount(req, res);
-      expect(User.findOne.calledWith({ confirmAccountToken: 'foobar'})).to.equal(true);
-      expect(exec.called).to.equal(true);
-      sandbox.restore();
+      expect(User.findOne).toHaveBeenCalledWith({
+        confirmAccountToken: 'foobar'
+      });
+      expect(exec).toHaveBeenCalled();
     });
   });
 

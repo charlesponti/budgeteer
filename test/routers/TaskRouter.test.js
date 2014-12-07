@@ -1,10 +1,10 @@
 describe('TaskRouter', function() {
-  
+
   'use strict';
 
   var req, res;
   var HttpFixtures = require('../fixtures/http');
-  var TaskRouter = require('../../routers/api/TaskRouter');
+  var TaskRouter = require('../../serverrouters/api/TaskRouter');
 
   beforeEach(function() {
     req = HttpFixtures.req();
