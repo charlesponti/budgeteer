@@ -265,7 +265,7 @@ router.onUnlinkOauth = function(req, res) {
     if (err) {
       return res.status(500).json({ message: 'Server error' });
     }
-    return res.status(200).json({ message: 'Account unlinked' })
+    return res.status(200).json({ message: 'Account unlinked' });
   };
 };
 
