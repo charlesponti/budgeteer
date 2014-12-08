@@ -1,3 +1,5 @@
+'use strict';
+
 describe('Mixins: tab-panel', function() {
 
   var tabPanel;

@@ -55,15 +55,6 @@ gulp.task('build-client-prod', function(done) {
 });
 
 /**
- * `build-client-test` task.
- * This task will bundle all of the client side test scripts and place
- * the bundled file into `client/test/bundle.js`.
- */
-gulp.task('build-client-test', function(done) {
-  webpack(require('./webpack.test'), webpackCallback.bind(this, done));
-});
-
-/**
  * `lint-client` task
  * Run JSHint over client-side Javascript files
  */
@@ -105,10 +96,6 @@ gulp.task('watch', function() {
   // Watch client-side .js files
   gulp.src(sources.js.dir)
     .pipe(watch('client/app/**/*', ['build-scripts']));
-
-  // Watch client-side tests
-  gulp.src(sources.js.tests)
-    .pipe(watch('client/test/specs/*', ['build-client-test']));
 
   // Watch server-side .js files
   gulp.src(sources.backend)
