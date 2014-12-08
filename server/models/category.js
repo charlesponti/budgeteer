@@ -35,6 +35,3 @@ Category.validateName = function(next) {
 };
 
 CategorySchema.pre('save', Category.validateName);
-
-// Export Category model
-module.exports = Category;

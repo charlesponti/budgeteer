@@ -1,8 +1,12 @@
+'use strict';
+
 describe('Task model', function() {
-  'use strict';
+
+  require('../../server');
 
   var task;
-  var Task = require('../../models/task');
+  var mongoose = require('mongoose');
+  var Task = mongoose.model('Task');
 
   beforeEach(function() {
     task = new Task();

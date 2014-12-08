@@ -10,27 +10,27 @@ var mongoose = require('mongoose');
  * @type {mongoose.Schema}
  */
 var TaskSchema = new mongoose.Schema({
-  title: { 
-    type: String, 
-    unique: true, 
+  title: {
+    type: String,
+    unique: true,
     required: true
   },
-  description: { 
-    type: String, 
-    unique: true, 
-    required: true 
+  description: {
+    type: String,
+    unique: true,
+    required: true
   },
-  completed: { 
-    type: Boolean, 
-    required: true 
+  completed: {
+    type: Boolean,
+    required: true
   },
-  category: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    required: true, 
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
     ref: 'Category'
   },
-  user_id: { 
-    type: mongoose.Schema.Types.ObjectId, 
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User'
   },
@@ -43,7 +43,7 @@ var TaskSchema = new mongoose.Schema({
  */
 TaskSchema.pre('save', function(next) {
   var date = new Date();
-  
+
   if (this.isNew) {
     // Update `created_at` attribute
     this.created_at = date;
@@ -60,5 +60,3 @@ var Task = mongoose.model('Task', TaskSchema);
 Task.on('foo', function(data) {
   console.log(data);
 });
-
-module.exports = Task;

@@ -1,13 +1,13 @@
 'use strict';
 
-// Module dependencies
-var _ = require("lodash");
+var _ = require('lodash');
+var cthulhu = require('cthulhu');
+var mongoose = require('mongoose');
 
-// Application dependencies
-var Category = require('../../models/category');
+// Retrieve Category model
+var Category = mongoose.model('Category');
 
 // Create router
-var cthulhu = require('cthulhu');
 var router = cthulhu.Router();
 
 /**

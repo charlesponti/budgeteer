@@ -11,6 +11,8 @@ var favicon = require('serve-favicon');
 
 // Instantiate models
 require('./models/user');
+require('./models/task');
+require('./models/category');
 
 /**
 * Application dependencies.
