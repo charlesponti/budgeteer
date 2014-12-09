@@ -25,7 +25,8 @@ TaskStore.url = 'tasks';
  * Load tasks fro API
  */
 TaskStore.load = function() {
-  service.get('tasks')
+  service
+    .get('tasks')
     .then(this.onLoadSuccess)
     .catch(this.onLoadFailure);
   return TaskStore;
