@@ -12,12 +12,13 @@ var favicon = require('serve-favicon');
 // Instantiate models
 require('./models/user');
 require('./models/task');
+require('./models/weight');
 require('./models/category');
 
 /**
-* Application dependencies.
-* @private
-*/
+ * Application dependencies.
+ * @private
+ */
 var config = require('./config');
 var queues = require('./queues');
 
