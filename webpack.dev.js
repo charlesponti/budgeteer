@@ -27,9 +27,18 @@ module.exports = {
 
   module: {
       loaders: [
-          { test: /\.css$/, loader: "style!css" },
-          { test: /\.js$/, loader: "script-loader" },
-          { test: /\.less$/, loader: "style-loader!css-loader!less-loader" }
+          {
+            test: /\.css$/,
+            loader: "style!css"
+          },
+          {
+            test: /\.jsx$/,
+            loader: "jsx-loader?harmony&insertPragma=React.DOM"
+          },
+          {
+            test: /\.less$/,
+            loader: "style-loader!css-loader!less-loader"
+          }
       ]
   },
 
