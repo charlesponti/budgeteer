@@ -29,8 +29,8 @@ describe('TaskStore', function() {
   });
 
   afterEach(function() {
-    task = undefined;
-    store = undefined;
+    task =
+    store =
     promise = undefined;
   });
 
