@@ -23,25 +23,25 @@ describe('Tasks: Form', function() {
   });
 
   describe('.onSubmit()', function() {
-    var task;
+    var task, event;
     beforeEach(function() {
-      task = {
-        title: { value: 'foo' },
-        description: { value: 'bar' },
-        category: { value: 'baz' }
+      event = {
+        preventDefault: function() {}
       };
       spyOn(AppActions, 'createTask');
       spyOn(AppActions, 'updateTask');
-      spyOn(form, 'getDOMNode');
     });
     afterEach(function() {
       task = undefined;
     });
     it('should call createTask if no _id', function() {
-
+      form.onSubmit(event);
+      expect(AppActions.createTask).toHaveBeenCalled();
     });
     it('should call updateTask if _id', function() {
-
+      form.state.record._id = '1234';
+      form.onSubmit(event);
+      expect(AppActions.updateTask).toHaveBeenCalled();
     });
   });
 
