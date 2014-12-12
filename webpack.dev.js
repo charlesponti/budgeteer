@@ -9,7 +9,7 @@ module.exports = {
 
   devtool: "source-map",
 
-  entry: "./client/app/main.js",
+  entry: "./client/app/main.jsx",
 
   output: {
       path: "./public/scripts",
