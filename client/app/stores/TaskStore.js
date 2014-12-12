@@ -65,6 +65,7 @@ TaskStore.create = function(data) {
 TaskStore.onCreateSuccess = function(response) {
   TaskStore.add(response.task);
   TaskStore.emitChange(TaskStore._records);
+  AppActions.closeModal();
 };
 
 /**
@@ -84,6 +85,7 @@ TaskStore.destroy = function(data) {
 TaskStore.onDestorySuccess = function(response) {
   TaskStore.remove(response.task);
   TaskStore.emitChange(TaskStore._records);
+  AppActions.closeModal();
 };
 
 /**
