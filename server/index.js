@@ -38,6 +38,9 @@ var app = cthulhu({
   public: './public',
   views: './server/views',
   logFile: './server/logs/all-logs.log',
+  locals: {
+    appName: 'Backpack'
+  },
   sessionSecret: config.sessionSecret,
   sessionStore: config.sessionStore
 });
@@ -46,7 +49,7 @@ var app = cthulhu({
 app.use(favicon(__dirname + '/../public/favicon.ico'));
 
 // Initialize cthulhu-auth
-app.use(auth.initialize());
+app.use(auth.setup);
 
 // Deserialize user from session
 app.use(auth.deserializeUser(function(user, done) {
