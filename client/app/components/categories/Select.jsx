@@ -63,7 +63,8 @@ var CategorySelect = React.createClass({
    */
   render: function() {
     return (
-      <select name="category" onChange={this.onChange} className="form-control" value={this.state.value}>
+      <select name="category" onChange={this.onChange}
+        className="form-control" value={this.state.value}>
         <option> Select Category... </option>
         {this.state.records.map(function(category) {
           return <option value={category._id}>{category.name}</option>
