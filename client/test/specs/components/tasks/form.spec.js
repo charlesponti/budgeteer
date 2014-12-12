@@ -45,4 +45,18 @@ describe('Tasks: Form', function() {
     });
   });
 
+  describe('.onChange()', function() {
+    it('should call setState with correct values', function() {
+      form.refs._id.getDOMNode().value = '1234';
+      form.refs.title.getDOMNode().value = 'foo';
+      form.refs.description.getDOMNode().value = 'bar';
+      spyOn(form, 'setState');
+      form.onChange();
+      var record = form.setState.calls.argsFor(0)[0].record;
+      expect(record._id).toEqual('1234');
+      expect(record.title).toEqual('foo');
+      expect(record.description).toEqual('bar');
+    });
+  });
+
 });
