@@ -53,6 +53,18 @@ var TaskForm = React.createClass({
     });
   },
 
+  onChange: function() {
+    var el = this.getDOMNode();
+    this.setState({
+      record: {
+        _id: el._id.value,
+        title: el.title.value,
+        description: el.description.value,
+        category: el.category.value
+      }
+    });
+  },
+
   /**
    * Render component
    */
@@ -61,18 +73,18 @@ var TaskForm = React.createClass({
     var category = record.category && record.category._id;
 
     return (
-      <form onSubmit={this.onSubmit} role="form">
+      <form onSubmit={this.onSubmit} role="form" onChange={this.onChange}>
         <input type="hidden" value={record._id} name="_id"/>
         <div className="form-group">
           <label htmlFor="title"> Title </label>
-          <input name="title" className="form-control" value={record.title}/>
+          <input name="title" className="form-control" value={record.title} />
         </div>
         <div className="form-group">
           <label htmlFor="description"> Description </label>
-          <input name="description" className="form-control" value={record.description}/>
+          <input name="description" className="form-control" value={record.description} />
         </div>
         <div className="form-group">
-          <CategorySelect value={category || undefined}/>
+          <CategorySelect value={category || undefined} />
         </div>
         <button className="pull-right btn btn-success">
           {this.state.buttonText}
