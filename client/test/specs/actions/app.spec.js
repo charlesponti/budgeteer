@@ -1,26 +1,36 @@
 describe('Actions: AppActions', function() {
   'use strict';
 
-  var sandbox, AppActions, AppDispatcher;
-  var expect = window.chai.expect;
+  var AppActions = require('../../../app/actions/App');
+  var AppDispatcher = require('../../../app/dispatchers/App');
 
   beforeEach(function() {
-    sandbox = sinon.sandbox.create();
-    AppActions = require('../../../app/actions/App');
-    AppDispatcher = require('../../../app/dispatchers/App');
-    sandbox.stub(AppDispatcher, 'dispatch');
+    spyOn(AppDispatcher, 'dispatch');
   });
 
-  afterEach(function() {
-    AppActions = undefined;
-    sandbox.restore();
+  describe('.loadModal()', function() {
+    it('should dispatch SHOW_MODAL event with data', function() {
+      AppActions.loadModal({ foo: 'foo' });
+      expect(AppDispatcher.dispatch).toHaveBeenCalledWith({
+        action: 'SHOW_MODAL',
+        data: { foo: 'foo' }
+      });
+    });
+  });
+
+  describe('.closeModal()', function() {
+    it('should dispatch CLOSE_MODAL event with data', function() {
+      AppActions.closeModal();
+      expect(AppDispatcher.dispatch).toHaveBeenCalledWith({
+        action: 'CLOSE_MODAL'
+      });
+    });
   });
 
   describe('.createTask()', function() {
     it('should dispatch correct event', function() {
       AppActions.createTask('foo');
-      expect(AppDispatcher.dispatch.called).to.equal(true);
-      expect(AppDispatcher.dispatch.getCall(0).args[0]).to.deep.equal({
+      expect(AppDispatcher.dispatch).toHaveBeenCalledWith({
         action: 'TASK_CREATE',
         data: 'foo'
       });
@@ -30,8 +40,7 @@ describe('Actions: AppActions', function() {
   describe('.updateTask()', function() {
     it('should dispatch correct event', function() {
       AppActions.updateTask('foo');
-      expect(AppDispatcher.dispatch.called).to.equal(true);
-      expect(AppDispatcher.dispatch.getCall(0).args[0]).to.deep.equal({
+      expect(AppDispatcher.dispatch).toHaveBeenCalledWith({
         action: 'TASK_UPDATE',
         data: 'foo'
       });
@@ -41,8 +50,7 @@ describe('Actions: AppActions', function() {
   describe('.deleteTask()', function() {
     it('should dispatch correct event', function() {
       AppActions.deleteTask('foo');
-      expect(AppDispatcher.dispatch.called).to.equal(true);
-      expect(AppDispatcher.dispatch.getCall(0).args[0]).to.deep.equal({
+      expect(AppDispatcher.dispatch).toHaveBeenCalledWith({
         action: 'TASK_DESTROY',
         data: 'foo'
       });
@@ -52,8 +60,7 @@ describe('Actions: AppActions', function() {
   describe('.createCategory()', function() {
     it('should dispatch correct event', function() {
       AppActions.createCategory('foo');
-      expect(AppDispatcher.dispatch.called).to.equal(true);
-      expect(AppDispatcher.dispatch.getCall(0).args[0]).to.deep.equal({
+      expect(AppDispatcher.dispatch).toHaveBeenCalledWith({
         action: 'CATEGORY_CREATE',
         data: 'foo'
       });
@@ -63,8 +70,7 @@ describe('Actions: AppActions', function() {
   describe('.updateCategory()', function() {
     it('should dispatch correct event', function() {
       AppActions.updateCategory('foo');
-      expect(AppDispatcher.dispatch.called).to.equal(true);
-      expect(AppDispatcher.dispatch.getCall(0).args[0]).to.deep.equal({
+      expect(AppDispatcher.dispatch).toHaveBeenCalledWith({
         action: 'CATEGORY_UPDATE',
         data: 'foo'
       });
@@ -74,8 +80,7 @@ describe('Actions: AppActions', function() {
   describe('.deleteCategory()', function() {
     it('should dispatch correct event', function() {
       AppActions.deleteCategory('foo');
-      expect(AppDispatcher.dispatch.called).to.equal(true);
-      expect(AppDispatcher.dispatch.getCall(0).args[0]).to.deep.equal({
+      expect(AppDispatcher.dispatch).toHaveBeenCalledWith({
         action: 'CATEGORY_DESTROY',
         data: 'foo'
       });
