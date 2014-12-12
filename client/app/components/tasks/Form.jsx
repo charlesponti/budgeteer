@@ -33,7 +33,7 @@ var TaskForm = React.createClass({
   getInitialState: function() {
     return {
       record: this.props.task || { _id: '', title: '', description: '' },
-      buttonText: this.props.record ? 'Edit Task' : 'Create Task'
+      buttonText: this.props.task._id ? 'Edit Task' : 'Create Task'
     };
   },
 
