@@ -29,7 +29,7 @@ var TaskMain = React.createClass({
   onAddClick: function() {
     AppActions.loadModal({
       title: 'Create Task',
-      component: <TaskForm />
+      component: TaskForm({task: {}})
     });
   },
 
@@ -39,17 +39,14 @@ var TaskMain = React.createClass({
   render: function() {
     return (
       <div className="row">
-
-        <h1> 
+        <h1>
           Tasks
-          <button onClick={this.onAddClick} 
+          <button onClick={this.onAddClick}
             className="btn btn-default pull-right">
             Add Task
           </button>
         </h1>
-        
         <TaskList className="task-list" id='task-list' />
-
       </div>
     );
   }
