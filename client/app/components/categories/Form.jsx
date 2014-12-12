@@ -4,7 +4,7 @@
 var React = require('react');
 
 var FormMixin = require('../../mixins/Form.jsx');
-var AppActions = require('../../actions/App');
+var AppActions = require('../../actions/app');
 
 var CategoryForm = React.createClass({
 

@@ -6,7 +6,7 @@ var _ = require('lodash');
 // Application dependencies
 var BaseStore = require('./BaseStore');
 var service = require('../service/api');
-var AppActions = require('../actions/App');
+var AppActions = require('../actions/app');
 var AppConstants = require('../constants/App');
 var AppDispatcher = require('../dispatchers/App');
 

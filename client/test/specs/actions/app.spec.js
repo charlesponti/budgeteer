@@ -1,7 +1,7 @@
 describe('Actions: AppActions', function() {
   'use strict';
 
-  var AppActions = require('../../../app/actions/App');
+  var AppActions = require('../../../app/actions/app');
   var AppDispatcher = require('../../../app/dispatchers/App');
 
   beforeEach(function() {

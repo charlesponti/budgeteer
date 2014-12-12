@@ -4,10 +4,10 @@
 var React = require('react');
 
 // Application dependencies
-var AppActions = require('../../actions/App');
+var AppActions = require('../../actions/app');
 var FormMixin = require('../../mixins/Form.jsx');
 var TaskStore = require('../../stores/TaskStore');
-var CategorySelect = React.createFactory(require('../categories/Select.jsx'));
+var CategorySelect = require('../categories/Select.jsx');
 
 /**
  * TaskForm Component
@@ -15,24 +15,18 @@ var CategorySelect = React.createFactory(require('../categories/Select.jsx'));
  */
 var TaskForm = React.createClass({
 
-  mixins: [FormMixin],
-
-  recordName: 'Task',
-
-  fields: [
-    { type: 'hidden', name: '_id' },
-    { type: 'input',  name: 'title' },
-    { type: 'textarea', name: 'description' },
-    { type: CategorySelect }
-  ],
-
   /**
    * Get initial state of component
    * @return {object}
    */
   getInitialState: function() {
+    var task = this.props.task;
     return {
-      record: this.props.task || { _id: '', title: '', description: '' },
+      record: {
+        _id: task._id || '',
+        title: task.title || '',
+        description: task.description || ''
+      },
       buttonText: this.props.task._id ? 'Edit Task' : 'Create Task'
     };
   },
@@ -81,7 +75,9 @@ var TaskForm = React.createClass({
         </div>
         <div className="form-group">
           <label htmlFor="description"> Description </label>
-          <textarea name="description" className="form-control task-description">{record.description}</textarea>
+          <textarea name="description"
+            className="form-control task-description"
+            defaultValue={record.description}></textarea>
         </div>
         <div className="form-group">
           <CategorySelect value={category || undefined} />

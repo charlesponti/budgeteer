@@ -4,7 +4,7 @@
 var React = require('react');
 
 // Application dependencies
-var AppActions = require('../../actions/App');
+var AppActions = require('../../actions/app');
 var TaskStore = require('../../stores/TaskStore');
 
 // Components
