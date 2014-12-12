@@ -8,6 +8,7 @@ module.exports = function(config) {
     ],
 
     frameworks: [
+      'browserify',
       'jasmine'
     ],
 
@@ -16,23 +17,19 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      'client/test/**/*spec.js': ['webpack']
+      'client/test/**/*spec.js': ['browserify']
     },
 
-    webpack: {
-      resolve: {
-        modulesDirectories: ['bower_components', 'node_modules']
-      }
-    },
-
-    webpackServer: {
-      noInfo: true
+    browserify: {
+      debug: true,
+      transform: ['reactify'],
+      extensions: ['.js','.jsx']
     },
 
     plugins: [
       'karma-jasmine',
-      'karma-chrome-launcher',
-      require('karma-webpack')
+      'karma-browserify',
+      'karma-chrome-launcher'
     ]
 
   });
