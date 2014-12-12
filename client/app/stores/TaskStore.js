@@ -45,7 +45,7 @@ TaskStore.onLoadSuccess = function(response) {
  * Handle load failure
  */
 TaskStore.onLoadFailure = function() {
-  console.log(arguments);
+
 };
 
 /**

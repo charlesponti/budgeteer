@@ -44,7 +44,7 @@ UserStore.onLoadSuccess = function(response) {
  * @param  {object} response
  */
 UserStore.onLoadFailure = function(response) {
-  console.log(response);
+
 };
 
 /**

@@ -29,7 +29,7 @@ CategoryStore.load = function() {
   service.get('categories')
     .then(this.onLoadSuccess)
     .catch(function() {
-      console.log(arguments);
+      
     });
   return CategoryStore;
 };

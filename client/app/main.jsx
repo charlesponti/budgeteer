@@ -4,14 +4,6 @@
 var io = window.io;
 var socket = io.connect('http://localhost:4000');
 
-socket.on('born', function (data) {
-  console.log(data);
-});
-
-socket.on('tasks', function (data) {
-  console.log(data);
-});
-
 // Module dependencies
 var React = require('react');
 
@@ -22,7 +14,7 @@ var Modal = React.createFactory(require('./components/Modal.jsx'));
 window._ = require('lodash');
 
 // Attach jQuery to window
-window.$ = 
+window.$ =
 window.jQuery =
 require('jquery');
 

@@ -56,7 +56,3 @@ TaskSchema.pre('save', function(next) {
 });
 
 var Task = mongoose.model('Task', TaskSchema);
-
-Task.on('foo', function(data) {
-  console.log(data);
-});
