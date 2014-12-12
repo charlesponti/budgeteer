@@ -20,7 +20,6 @@ module.exports = function(config) {
     },
 
     webpack: {
-      debug: true,
       resolve: {
         modulesDirectories: ['bower_components', 'node_modules']
       }
@@ -33,7 +32,7 @@ module.exports = function(config) {
     plugins: [
       'karma-jasmine',
       'karma-chrome-launcher',
-      require("karma-webpack")
+      require('karma-webpack')
     ]
 
   });
