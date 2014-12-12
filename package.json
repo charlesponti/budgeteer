@@ -6,12 +6,13 @@
   "repository": "http://github.com/theponti/backpack",
   "scripts": {
     "console": "node bin/console",
-    "refresh": "rm -rf node_modules | npm install",
-    "test": "jasmine-node test --color --verbose --forceexit",
     "debug": "NODE_ENV=development node-debug index.js",
+    "refresh": "rm -rf node_modules | npm install",
     "start-prod": "NODE_ENV=production forever index.js",
     "start-dev": "NODE_ENV=development forever -w index.js",
-    "build-test": "webpack client/test/spec/**/main.test.js client/test/bundle.test.js"
+    "test": "jasmine-node test --color --verbose --forceexit",
+    "test-client": "karma start karma.conf.js",
+    "test-client-single": "karma start karma.conf.js --single-run"
   },
   "dependencies": {
     "amqp": "^0.2.0",
@@ -24,6 +25,7 @@
     "marked": "^0.3.2",
     "mongoose": "^3.9.6",
     "react": "0.x",
+    "reactify": "^0.17.1",
     "serve-favicon": "^2.1.6",
     "superagent": "^0.20.0",
     "underscore": "^1.7.0"
@@ -40,6 +42,7 @@
     "jshint-stylish": "^0.4.0",
     "jsx-loader": "^0.11.2",
     "karma": "^0.12.28",
+    "karma-browserify": "^1.0.1",
     "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.2",
     "karma-webpack": "^1.3.1",
