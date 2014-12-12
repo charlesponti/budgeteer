@@ -31,23 +31,23 @@ describe('BaseStore', function() {
     });
     it('should throw error if you try to add string', function() {
       expect(store.add.bind(store, 'foo'))
-        .toThrow('BaseStore#add only takes an object or an array of objects');
+        .toThrow(new Error('BaseStore#add only takes an object or an array of objects'));
     });
     it('should throw error if you try to add array of strings', function() {
       expect(store.add.bind(store, ['foo', 'bar']))
-        .toThrow('BaseStore#add only takes an object or an array of objects');
+        .toThrow(new Error('BaseStore#add only takes an object or an array of objects'));
     });
     it('should throw error if you try to add number', function() {
       expect(store.add.bind(store, 5))
-        .toThrow('BaseStore#add only takes an object or an array of objects');
+        .toThrow(new Error('BaseStore#add only takes an object or an array of objects'));
     });
     it('should throw error if you try to add array of numbers', function() {
       expect(store.add.bind(store, [5, 6]))
-        .toThrow('BaseStore#add only takes an object or an array of objects');
+        .toThrow(new Error('BaseStore#add only takes an object or an array of objects'));
     });
     it('should throw error if you try to add array of unaccepted values', function() {
       expect(store.add.bind(store, [5, 'foo', true]))
-        .toThrow('BaseStore#add only takes an object or an array of objects');
+        .toThrow(new Error('BaseStore#add only takes an object or an array of objects'));
     });
   });
 
