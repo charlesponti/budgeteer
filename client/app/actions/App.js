@@ -19,6 +19,12 @@ AppActions.loadModal = function(data) {
   });
 };
 
+AppActions.closeModal = function() {
+  AppDispatcher.dispatch({
+    action: AppConstants.CLOSE_MODAL
+  });
+};
+
 AppActions.updateCategory = function(category) {
   AppDispatcher.dispatch({
     action: AppConstants.CATEGORY_UPDATE,
