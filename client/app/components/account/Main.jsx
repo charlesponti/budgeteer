@@ -58,12 +58,9 @@ var Account = React.createClass({
         <h1 className="text-center"> Account </h1>
         <ul className="list-group">
           <li className="list-group-item">
-            <div className="account-details">
+            <div className="account-details text-center">
               <p>
                 <b>Email:</b> {this.state.user.email}
-              </p>
-              <p>
-                <b>Access Token:</b> {this.state.user.accessToken}
               </p>
             </div>
           </li>

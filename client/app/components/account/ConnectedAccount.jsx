@@ -46,13 +46,16 @@ var ConnectedAccount = React.createClass({
    * @return {object}
    */
   render: function() {
+    var profile = this.props.profile;
     var provider = this.props.provider;
-
     return (
-      <li className="list-group-item">
+      <li className="list-group-item text-center">
         <h4> {this.getProviderName()} </h4>
+        <br/>
+        <img className="account-provider-img" src={profile.photo} />
+        <br/>
         <div className="account-details">
-          <b> Name: </b> {this.props.profile.name}
+          <b> Name: </b> {profile.name}
         </div>
         <UnlinkButton provider={provider}/>
       </li>
