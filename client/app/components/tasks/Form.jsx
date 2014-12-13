@@ -7,7 +7,7 @@ var React = require('react');
 var AppActions = require('../../actions/app');
 var FormMixin = require('../../mixins/Form.jsx');
 var TaskStore = require('../../stores/TaskStore');
-var CategorySelect = require('../categories/Select.jsx');
+var CategorySelect = require('../category/Select.jsx');
 
 /**
  * TaskForm Component

@@ -5,7 +5,7 @@ var React = require('react');
 
 var TaskMain = require('./tasks/Main.jsx');
 var TabPanel = require('../mixins/TabPanel.jsx');
-var CategoryMain = require('./categories/Main.jsx');
+var CategoryMain = require('./category/Main.jsx');
 
 var TaskApp = React.createClass({
 
