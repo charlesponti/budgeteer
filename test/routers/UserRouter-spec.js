@@ -3,7 +3,7 @@
 describe('Router: UserRouter', function() {
 
   require('../../server');
-  
+
   var req, res, exec, user;
   var HttpFixtures = require('../fixtures/http');
   var router = require('../../server/routers/UserRouter');
@@ -31,12 +31,6 @@ describe('Router: UserRouter', function() {
   });
 
   describe('.serve', function() {
-    describe('.login()', function() {
-      it('should call res.render with correct args', function() {
-        router.serve.login(req, res);
-        expect(res.render).toHaveBeenCalledWith('users/login');
-      });
-    });
     describe('.account()', function() {
       it('should call res.render with correct args', function() {
         req.isAuthenticated.andReturn(true);
@@ -131,20 +125,10 @@ describe('Router: UserRouter', function() {
         message: 'Server error'
       });
     });
-
     it('should return success response', function() {
       router.onAccountCreate(req, res, undefined);
       expect(req.login).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith('/account');
-    });
-  });
-
-  describe('.onLogIn()', function() {
-    it('should login user', function() {
-      router.onLogIn('foo', req, res);
-      expect(req.login).toHaveBeenCalledWith('foo');
-      expect(req.flash).toHaveBeenCalledWith('success', 'Logged In.');
       expect(res.redirect).toHaveBeenCalledWith('/account');
     });
   });
