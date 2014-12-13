@@ -8,28 +8,35 @@ var Backbone = require('backbone');
 var AppDispatcher = require('./dispatchers/App');
 
 // Components
-var Tasks = React.createFactory(require('./components/TaskApp.jsx'));
-var Account = React.createFactory(require('./components/account/Main.jsx'));
+var Tasks = require('./components/TaskApp.jsx');
+var Weight = require('./components/weight/main.jsx');
+var Account = require('./components/account/Main.jsx');
+
+// #app element
+var appEl = document.getElementById('app');
 
 var Router = Backbone.Router.extend({
 
   routes: {
     'account': 'account',
+    'weight': 'weight',
+    'tasks': 'tasks',
     '*default': 'tasks'
   },
 
-  /**
-   * Render Tasks application
-   */
+  // Render Tasks application
   tasks: function() {
-    React.render(<Tasks/>, document.getElementById('app'));
+    React.render(<Tasks/>, appEl);
   },
 
-  /**
-   * Render Account application
-   */
+  // Render Weight application
+  weight: function() {
+    React.render(<Weight/>, appEl);
+  },
+
+  // Render Account application
   account: function() {
-    React.render(<Account/>, document.getElementById('app'));
+    React.render(<Account/>, appEl);
   },
 
   dispatcherIndex: function(payload) {
