@@ -1,8 +1,6 @@
 'use strict';
 
-/**
- * Routers
- */
+// Routers
 var cthulhu = require('cthulhu');
 var ApiRouter = require('./api');
 var AppRouter = require('./AppRouter');
@@ -16,8 +14,6 @@ var UserRouter = require('./UserRouter');
 var router = cthulhu.Router();
 
 // Log Out
-router.post('/login', UserRouter.logIn);
-router.get('/login', UserRouter.serve.login);
 router.get('/logout', UserRouter.logOut);
 
 // Authentication

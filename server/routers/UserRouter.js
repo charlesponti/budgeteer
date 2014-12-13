@@ -9,54 +9,10 @@ var User = mongoose.model('User');
 var router = cthulhu.Router();
 
 /**
- * Sign up user through two-factor authentication
- * @param {IncomingMessage} req
- * @param {ServerResponse} res
- * @param {Function} next
- */
-router.logIn = function(req, res, next) {
-  User
-    .findOne({ email: req.body.email })
-    .exec(function(err, user) {
-
-      if (err) {
-        req.flash('error', 'There was an unexpected server error.');
-        return res.redirect('/login');
-      }
-
-      if (user) {
-        return user.sendReset(router.sendReset(req, res));
-      }
-
-      user = new User({ email: req.body.email });
-      user.save(function(err, user) {
-        if (err) {
-          req.flash('error', 'There was an unexpected server error.');
-          return res.redirect('/login');
-        }
-        req.flash('success', 'You will recieve an email shortly to confirm your account');
-        res.redirect('/login');
-      });
-    });
-};
-
-/**
  * Serve templates
  * @type {Object}
  */
 router.serve = {
-  /**
-   * Serve sign up page
-   * @param {IncomingMessage} req
-   * @param {ServerResponse} res
-   * @param {Function} next
-   */
-  login: function(req, res) {
-    if (req.isAuthenticated()) {
-      return res.redirect('/account');
-    }
-    return res.render('users/login');
-  },
   /**
    * Serve account page
    * @param {IncomingMessage} req
@@ -252,18 +208,6 @@ router.onAccountCreate = function(req, res, err, user) {
 
   req.login(user);
   return res.redirect("/account");
-};
-
-/**
- * Log in user
- * @param  {User} user
- * @param  {IncomingMessage} req
- * @param  {ServerResponse} res
- */
-router.onLogIn = function(user, req, res) {
-  req.login(user);
-  req.flash("success", "Logged In.");
-  res.redirect("/account");
 };
 
 /**
