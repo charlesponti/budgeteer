@@ -3,12 +3,9 @@
 // Module dependencies
 var React = require('react');
 
-var FormMixin = require('../../mixins/Form.jsx');
 var AppActions = require('../../actions/app');
 
 var CategoryForm = React.createClass({
-
-  mixins: [FormMixin],
 
   displayName: 'CategoryForm',
 
@@ -32,13 +29,13 @@ var CategoryForm = React.createClass({
       AppActions.createCategory(this.state.record);
     }
   },
-  
+
   /**
-   * Handle change event
+   * Set state of component when form inputs are changed
    * @param  {SyntheticEvent} e
    * @param  {string} id
    */
-  handleChange: function(e, id) {
+  onChange: function(e, id) {
     var form = this.getDOMNode();
     this.setState({
       record: {
@@ -48,17 +45,29 @@ var CategoryForm = React.createClass({
     });
   },
 
+  /**
+   * Render component
+   * @return {ReactElement}
+   */
   render: function() {
     var category = this.state.record;
-    
     return (
-      <form role="form" onSubmit={this.onSubmit}>
+      <form role="form" onSubmit={this.onSubmit} onChange={this.onChange}>
         <input type="hidden" name="_id" value={category._id}/>
-        {this.makeFormGroup('name', 'Name', this.handleChange)}
-        {this.makeFormGroup('color', 'Color', this.handleChange)}
-        <button className="btn btn-success">{this.state.buttonText}</button>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input className="form-control" name="name" defaultValue={category.name} />
+          </div>
+          <div class="form-group">
+            <label for="color">Color</label>
+            <input className="form-control" name="color" />
+          </div>
+          <br/>
+          <button className="btn btn-success">
+            {this.state.buttonText}
+          </button>
       </form>
-    )
+    );
   }
 
 });
