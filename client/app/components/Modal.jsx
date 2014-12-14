@@ -26,7 +26,7 @@ var Modal = React.createClass({
    * @return {object}
    */
   getInitialState: function() {
-    return { 
+    return {
       title: undefined
     };
   },
@@ -37,7 +37,7 @@ var Modal = React.createClass({
    */
   renderIntoModalBody: function(component) {
     var node = this.refs.modalBody.getDOMNode();
-    
+
     // Empty modal body if modal body isn't empty
     if (node.lastChild) {
       node.removeChild(node.lastChild);
@@ -63,7 +63,7 @@ var Modal = React.createClass({
         this.hide();
         break;
     }
-    
+
     // Return true for promise
     return true;
   },
@@ -77,7 +77,7 @@ var Modal = React.createClass({
   show: function() {
     $(this.getDOMNode()).modal('show');
   },
-  
+
   // Hide modal
   hide: function() {
     $(this.getDOMNode()).modal('hide');
@@ -96,7 +96,7 @@ var Modal = React.createClass({
           </div>
         </div>
       </div>
-    )
+    );
   }
 
 });
