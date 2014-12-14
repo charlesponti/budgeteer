@@ -5,7 +5,6 @@ var React = require('react');
 
 // Application dependencies
 var AppActions = require('../../actions/app');
-var FormMixin = require('../../mixins/Form.jsx');
 var TaskStore = require('../../stores/TaskStore');
 var CategorySelect = require('../category/Select.jsx');
 

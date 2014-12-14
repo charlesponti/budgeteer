@@ -52,17 +52,16 @@ var TaskListItem = React.createClass({
     };
 
     return (
-      <li className="list-group-item task-list-item">
-        <div>
+      <li className="list-group-item task-list-item" key={task._id}>
           <input type="checkbox" className="task-checkbox"
             onClick={this.onCheckboxClick} defaultChecked={task.completed}/>
+
           <h4 onClick={this.onTitleClick}>{task.title}</h4>
 
           <div className="task-listitem-category">
             <i className="fa fa-tag fa-4" style={categoryStyle}></i>
             {task.category.name}
           </div>
-        </div>
       </li>
     );
   }

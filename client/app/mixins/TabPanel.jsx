@@ -40,7 +40,7 @@ var TabPanel = {
     return Object.keys(this.props.tabs).map(function(tab) {
       var isActive = this.state.activeTab == tab ? 'active' : '';
       return (
-        <li onClick={this.onClick} className={isActive} role="presentation">
+        <li onClick={this.onClick} className={isActive} role="presentation" key={tab}>
           <a data-tab={tab}>{tab}</a>
         </li>
       );

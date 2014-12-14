@@ -74,7 +74,7 @@ var TaskList = React.createClass({
         <TaskSearch className="task-search" callback={this.onSearchChange}/>
         <ul className="list-group">
           {_.map(sorted, function(task) {
-            return (<TaskListItem task={task} />);
+            return (<TaskListItem task={task} key={task._id} />);
           })}
         </ul>
       </div>
