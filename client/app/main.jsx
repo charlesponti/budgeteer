@@ -7,9 +7,6 @@ var socket = io.connect('http://localhost:4000');
 // Module dependencies
 var React = require('react');
 
-// Create factory for Modal
-var Modal = React.createFactory(require('./components/Modal.jsx'));
-
 // Attach lodash to window
 window._ = require('lodash');
 
@@ -26,4 +23,5 @@ Backbone.$ = $;
 require('./router.jsx');
 
 // Render modal
+var Modal = require('./components/Modal.jsx');
 React.render(<Modal/>, document.getElementById('modal'));
