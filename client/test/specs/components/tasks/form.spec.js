@@ -2,11 +2,13 @@ describe('Tasks: Form', function() {
   'use strict';
 
   var form;
+  var $ = require('jquery');
   var TestUtils = require('react/addons').addons.TestUtils;
   var AppActions = require('../../../../app/actions/app');
   var Form = require('../../../../app/components/tasks/Form.jsx');
 
   beforeEach(function() {
+    spyOn($, 'ajax');
     form = TestUtils.renderIntoDocument(Form({task: {}}));
   });
 
