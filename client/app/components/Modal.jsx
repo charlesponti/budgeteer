@@ -22,7 +22,7 @@ var Modal = React.createClass({
   /**
    * Get initial state of component. The modal element is rendered on
    * initial page load and remain hidden until the AppDispatcher fires
-   * the SHOW_MODAL action.
+   * the OPEN_MODAL action.
    * @return {object}
    */
   getInitialState: function() {
@@ -54,7 +54,7 @@ var Modal = React.createClass({
    */
   dispatcherIndex: function(payload) {
     switch(payload.action) {
-      case AppConstants.SHOW_MODAL:
+      case AppConstants.OPEN_MODAL:
         this.setState(payload.data);
         this.renderIntoModalBody(payload.data.component);
         this.show();

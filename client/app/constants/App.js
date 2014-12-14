@@ -17,12 +17,12 @@ module.exports = keyMirror({
   CATEGORY_UPDATE: null,
   CATEGORY_DESTROY: null,
   CATEGORY_SUBMIT_FORM: null,
-  
+
   // User actions
   USER_LOADED: null,
 
   // Modal actions
-  SHOW_MODAL: null,
+  OPEN_MODAL: null,
   CLOSE_MODAL: null
 
 });

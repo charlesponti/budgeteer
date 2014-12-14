@@ -9,10 +9,10 @@ describe('Actions: AppActions', function() {
   });
 
   describe('.loadModal()', function() {
-    it('should dispatch SHOW_MODAL event with data', function() {
+    it('should dispatch OPEN_MODAL event with data', function() {
       AppActions.loadModal({ foo: 'foo' });
       expect(AppDispatcher.dispatch).toHaveBeenCalledWith({
-        action: 'SHOW_MODAL',
+        action: 'OPEN_MODAL',
         data: { foo: 'foo' }
       });
     });
