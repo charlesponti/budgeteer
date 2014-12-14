@@ -6,7 +6,7 @@ var marked = require('marked');
 
 // Application dependencies
 var AppActions = require('../../actions/app');
-var TaskForm = React.createFactory(require('./Form.jsx'));
+var TaskForm = require('./Form.jsx');
 
 /**
  * Preview component
@@ -48,11 +48,11 @@ var Preview = React.createClass({
       <div>
         <div className="preview" dangerouslySetInnerHTML={{__html: rawMarkup}}/>
         <div className="pull-right">
-          <button onClick={this.onEditClick} className="btn btn-default"> 
-            Edit Task 
+          <button onClick={this.onEditClick} className="btn btn-default">
+            Edit Task
           </button>
-          <button onClick={this.onDeleteClick} className="btn btn-danger"> 
-            Delete Task 
+          <button onClick={this.onDeleteClick} className="btn btn-danger">
+            Delete Task
           </button>
         </div>
       </div>
