@@ -10,7 +10,7 @@ var AppDispatcher = require('../../dispatchers/App');
 var CategoryStore = require('../../stores/CategoryStore');
 
 // Components
-var ListItem = React.createFactory(require('./ListItem.jsx'));
+var ListItem = require('./ListItem.jsx');
 
 /**
  * TaskList component
@@ -54,7 +54,7 @@ var CategoryList = React.createClass({
 
   /**
    * Filter tasks by search term
-   * @param  {SyntheticEvent} e 
+   * @param  {SyntheticEvent} e
    * @param  {string} id
    */
   onSearchFieldChange: function(e, id) {
@@ -64,7 +64,7 @@ var CategoryList = React.createClass({
     if (searchTerm.length) {
       searchTerm = searchTerm.replace(' ', '');
       var regExp = new RegExp(searchTerm, 'i');
-      records = records.filter(function(record) { 
+      records = records.filter(function(record) {
         return regExp.test(record.name);
       });
     }
