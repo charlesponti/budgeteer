@@ -3,11 +3,15 @@
 var gulp = require('gulp');
 var less = require('gulp-less');
 var gutil = require('gulp-util');
-var webpack = require('webpack');
 var watch = require('gulp-watch');
 var jsHint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
 var concat = require('gulp-concat');
+var notify = require('gulp-notify');
+var browserify = require('browserify');
+var watchify = require('watchify');
+var reactify = require('reactify');
+var stylish = require('jshint-stylish');
+var source = require('vinyl-source-stream');
 
 var sources = {
   js: {
@@ -28,11 +32,9 @@ var sources = {
 };
 
 var webpackCallback = function (done, err, stats) {
-
   if (err) {
     throw new gutil.PluginError('[build-js]', err);
   }
-
   done();
 };
 
@@ -41,17 +43,18 @@ var webpackCallback = function (done, err, stats) {
  * This task will bundle all of the client side scripts and place
  * the bundled file into `public/scripts/bundle.js`.
  */
-gulp.task('build-scripts', ['lint-client'], function(done) {
-  webpack(require('./webpack.dev'), webpackCallback.bind(this, done));
-});
-
-/**
- * `build-client-prod` task.
- * This task will bundle all of the client side scripts and place
- * the bundled file into `public/scripts/bundle.prod.js`.
- */
-gulp.task('build-client-prod', function(done) {
-  webpack(require('./webpack.prod'), webpackCallback.bind(this, done));
+gulp.task('build-client', ['lint-client'], function(done) {
+  var bundler = browserify({
+    entries: [sources.js.main],
+    debug: true,
+    cache: {},
+    packageCache: {}
+  });
+  bundler.transform(reactify);
+  return bundler
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('./public/scripts/'));
 });
 
 /**
@@ -95,12 +98,12 @@ gulp.task('watch', function() {
 
   // Watch client-side .js files
   gulp.src(sources.js.dir)
-    .pipe(watch('client/app/**/*', ['build-scripts']));
+    .pipe(watch('client/app/**/*', ['build-client']));
 
   // Watch server-side .js files
   gulp.src(sources.backend)
     .pipe(watch(sources.backend, ['lint-backend']));
 });
 
-gulp.task('build', [ 'build-styles',  'build-scripts' ]);
+gulp.task('build', [ 'build-styles',  'build-client' ]);
 gulp.task('default', [ 'watch' ]);
