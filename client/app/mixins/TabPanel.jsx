@@ -37,11 +37,11 @@ var TabPanel = {
    * @return {ReactElement[]}
    */
   constructTabs: function() {
-    return Object.keys(this.props.tabs).map(function(title) {
-      var isActive = this.state.activeTab == title ? 'active' : '';
+    return Object.keys(this.props.tabs).map(function(tab) {
+      var isActive = this.state.activeTab == tab ? 'active' : '';
       return (
         <li onClick={this.onClick} className={isActive} role="presentation">
-          <a data-tab={title}>{title}</a>
+          <a data-tab={tab}>{tab}</a>
         </li>
       );
     }.bind(this));
@@ -61,7 +61,7 @@ var TabPanel = {
           {this.state.component}
         </div>
       </div>
-    )
+    );
   }
 
 };
