@@ -7,7 +7,7 @@ var React = require('react');
 var AppActions = require('../../actions/app');
 
 // Factories
-var Preview = React.createFactory(require('./Preview.jsx'));
+var Preview = require('./Preview.jsx');
 
 /**
  * Task Component
@@ -27,7 +27,7 @@ var TaskListItem = React.createClass({
   onCheckboxClick: function() {
     // Negate 'completed' attribute of task
     this.props.task.completed = !this.props.task.completed;
-    
+
     // Dispatch event
     AppActions.updateTask(this.props.update);
   },
@@ -58,7 +58,7 @@ var TaskListItem = React.createClass({
             onClick={this.onCheckboxClick} defaultChecked={task.completed}/>
           <h4 onClick={this.onTitleClick}>{task.title}</h4>
 
-          <div className="pull-right">
+          <div className="task-listitem-category">
             <i className="fa fa-tag fa-4" style={categoryStyle}></i>
             {task.category.name}
           </div>
