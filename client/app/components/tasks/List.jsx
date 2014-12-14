@@ -10,7 +10,8 @@ var AppConstants = require('../../constants/App');
 var AppDispatcher = require('../../dispatchers/App');
 
 // Components
-var TaskListItem = React.createFactory(require('./ListItem.jsx'));
+var TaskListItem = require('./ListItem.jsx');
+var TaskSearch = require('./search.jsx');
 
 /**
  * TaskList component
@@ -53,50 +54,11 @@ var TaskList = React.createClass({
   },
 
   /**
-   * Filter tasks by search term
-   * @param  {SyntheticEvent} e 
-   * @param  {string} id
+   * Set state to filtered tasks from TaskSearch
+   * @param {array} tasks
    */
-  onSearchFieldChange: function(e, id) {
-    var isTerm, completedTerm, categoryTerm, category;
-    var searchTerm = e.target.value;
-    var completedRegex = /is:\w+\s/;
-    var categoryRegex = /category:\w+\s/;
-    // Clone tasks
-    var records = TaskStore.getRecords().slice(0);
-
-    if (completedRegex.test(searchTerm)) {
-      isTerm = completedRegex.exec(searchTerm)[0];
-      completedTerm = isTerm.trim().replace('is:','');
-      records = records.filter(function(task) { 
-        switch(completedTerm) {
-          case 'done':
-            return task.completed === true;
-          case 'notdone':
-            return task.completed === false;
-        }
-      });
-      searchTerm = searchTerm.replace(isTerm, '');
-    }
-
-    if (categoryRegex.test(searchTerm)) {
-      category = categoryRegex.exec(searchTerm)[0];
-      categoryTerm = category.trim().replace('category:','');
-      records = records.filter(function(task) { 
-        return (new RegExp(categoryTerm, 'i')).test(task.category.name);
-      });
-      searchTerm = searchTerm.replace(category, '');
-    }
-
-    if (searchTerm.length) {
-      searchTerm = searchTerm.replace(' ', '');
-      var regExp = new RegExp(searchTerm, 'i');
-      records = records.filter(function(task) { 
-        return regExp.test(task.title);
-      });
-    }
-
-    this.setState({ tasks: records });
+  onSearchChange: function(tasks) {
+    this.setState({ tasks: tasks });
   },
 
   /**
@@ -109,10 +71,7 @@ var TaskList = React.createClass({
     });
     return (
       <div>
-        <form role="form" className="task-search">
-          <input className="form-control task-search"
-            onChange={this.onSearchFieldChange} placeholder="Search" />
-        </form>
+        <TaskSearch className="task-search" callback={this.onSearchChange}/>
         <ul className="list-group">
           {_.map(sorted, function(task) {
             return (<TaskListItem task={task} />);
