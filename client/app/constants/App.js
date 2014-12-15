@@ -18,6 +18,9 @@ module.exports = keyMirror({
   CATEGORY_DESTROY: null,
   CATEGORY_SUBMIT_FORM: null,
 
+  // Weight actions
+  WEIGHT_CREATE: null,
+
   // User actions
   USER_LOADED: null,
 
