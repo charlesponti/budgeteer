@@ -85,6 +85,6 @@
     "globals": {
       "_": true,
       "$": true,
-      "User": true
+      "Chart": true
     }
 }
