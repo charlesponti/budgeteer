@@ -1,11 +1,12 @@
 "use strict";
 
 var _ = require("lodash");
+var cthulhu = require('cthulhu');
 
+var WeightRouter = require('./weight');
 var TaskRouter = require('./TaskRouter');
 var CategoryRouter = require('./CategoryRouter');
 
-var cthulhu = require('cthulhu');
 var router = cthulhu.Router();
 
 /**
@@ -25,5 +26,6 @@ router.getMe = function(req, res) {
 router.get('/me', router.getMe);
 router.use('/tasks', TaskRouter);
 router.use('/categories', CategoryRouter);
+router.use('/weight', WeightRouter);
 
 module.exports = router;
