@@ -7,15 +7,15 @@ var _ = require('lodash');
 var BaseStore = require('./BaseStore');
 var service = require('../service/api');
 var AppActions = require('../actions/app');
-var AppConstants = require('../constants/App');
-var AppDispatcher = require('../dispatchers/App');
+var AppConstants = require('../constants/app');
+var AppDispatcher = require('../dispatchers/app');
 
 /**
  * Store which will hold tasks
  * @requires module: lodash
  * @requires module: ./BaseStore
  * @requires module: ../service/api
- * @requires module: ../constants/AppConstants
+ * @requires module: ../constants/appConstants
  */
 var TaskStore = BaseStore.extend();
 

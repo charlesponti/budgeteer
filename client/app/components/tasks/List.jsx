@@ -6,8 +6,8 @@ var React = require('react');
 
 // Application dependencies
 var TaskStore = require('../../stores/TaskStore');
-var AppConstants = require('../../constants/App');
-var AppDispatcher = require('../../dispatchers/App');
+var AppConstants = require('../../constants/app');
+var AppDispatcher = require('../../dispatchers/app');
 
 // Components
 var TaskListItem = require('./ListItem.jsx');

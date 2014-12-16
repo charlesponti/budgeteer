@@ -5,7 +5,7 @@ describe('TaskStore', function() {
   var $ = require('jquery');
   var service = require('../../../app/service/api');
   var TaskStore = require('../../../app/stores/TaskStore');
-  var AppConstants = require('../../../app/constants/App');
+  var AppConstants = require('../../../app/constants/app');
 
   beforeEach(function() {
     promise = new Promise(function() {});

@@ -5,7 +5,7 @@ var React = require('react');
 var Backbone = require('backbone');
 
 // Application dependencies
-var AppDispatcher = require('./dispatchers/App');
+var AppDispatcher = require('./dispatchers/app');
 
 // Components
 var Tasks = require('./components/TaskApp.jsx');
