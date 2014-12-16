@@ -12,15 +12,28 @@ window._ = require('lodash');
 
 // Attach jQuery to window
 window.$ =
-window.jQuery =
-require('jquery');
+window.jQuery = require('jquery');
 
 // Attach Backbone to window
+var Backbone =
 window.Backbone = require('backbone');
 Backbone.$ = $;
 
 // Requery application router and start it
 require('./router.jsx');
+
+// Add CSRF token to $.ajax calls
+$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+  var token = $('meta[name="csrf"]').attr('content');
+
+  options.xhrFields = {
+    withCredentials: true
+  };
+
+  if (token) {
+    return jqXHR.setRequestHeader('X-CSRF-Token', token);
+  }
+});
 
 // Render modal
 var Modal = require('./components/Modal.jsx');
