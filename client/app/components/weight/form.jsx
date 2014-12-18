@@ -31,7 +31,7 @@ var WeightForm = React.createClass({
       <form role="form" onSubmit={this.onSubmit}>
         <div className="form-group">
           <label for="weight"> Weight </label>
-          <input className="form-control" type="number" name="weight" />
+          <input className="form-control" name="weight" placeholder=' Weight in kilograms'/>
         </div>
         <div className="form-group">
           <label for="date"> Date </label>
