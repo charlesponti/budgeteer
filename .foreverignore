@@ -1,6 +1,7 @@
 **/.git/**
 **/node_modules/**
 **/public/vendor/**
+**/client/**
 
 *.log
 
@@ -8,3 +9,5 @@
 .editorconfig
 .jshintrc
 .bowerrc
+
+bundle.js
