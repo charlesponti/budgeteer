@@ -1,12 +1,12 @@
 'use strict';
 
 var _ = require('lodash');
-var cthulhu = require('cthulhu');
+var express = require('express');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
 // Create router
-var router = cthulhu.Router();
+var router = express.Router();
 
 /**
  * Serve templates
