@@ -3,13 +3,16 @@
 var mongoose = require('mongoose');
 
 var WeightSchema = new mongoose.Schema({
-  kilograms: {
+  kgs: {
     type: Number,
-    unique: true,
+    required: true
+  },
+  lbs: {
+    type: Number,
     required: true
   },
   date: {
-    type: Date,
+    type: Number,
     unique: true,
     required: true
   },
