@@ -2,6 +2,7 @@
 
 describe('Router: UserRouter', function() {
 
+  process.env.NODE_ENV = 'test';
   require('../../server');
 
   var req, res, exec, user;

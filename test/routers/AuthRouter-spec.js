@@ -2,8 +2,9 @@
 
 describe('Router: AuthRouter', function() {
 
+  process.env.NODE_ENV = 'test';
   require('../../server');
-  
+
   var res, req;
   var HttpFixtures = require('../fixtures/http');
   var router = require('../../server/routers/AuthRouter');

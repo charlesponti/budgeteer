@@ -2,6 +2,7 @@
 
 describe('User', function() {
 
+  process.env.NODE_ENV = 'test';
   require('../../server');
 
   var user, oauth;

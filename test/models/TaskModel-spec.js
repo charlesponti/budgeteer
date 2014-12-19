@@ -1,7 +1,8 @@
 'use strict';
 
 describe('Task model', function() {
-
+  
+  process.env.NODE_ENV = 'test';
   require('../../server');
 
   var task;

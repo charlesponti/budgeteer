@@ -56,10 +56,10 @@ app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 
 // Set views folder
-app.set('views', path.resolve(__dirname, config.views));
+app.set('views', path.resolve(__dirname, config.views  || './views'));
 
 // Set public folder
-app.use(express.static(path.resolve(__dirname, config.public)));
+app.use(express.static(path.resolve(__dirname, config.public || '../public')));
 
 // Set up logging system
 switch (app.get('env')) {
