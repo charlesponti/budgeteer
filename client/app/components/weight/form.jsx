@@ -8,16 +8,32 @@ var AppDispatcher = require('../../dispatchers/app');
 var WeightForm = React.createClass({
 
   onSubmit: function(e) {
+    var kgs, lbs;
     var el = this.getDOMNode();
+    var diff = 2.2046;
+    var weight = el.weight.value;
+    var date = (new Date(el.date.value)).getTime();
 
     // Prevent default action
     e.preventDefault();
 
+    switch(el.measurement.value) {
+      case 'lbs':
+        kgs = weight / diff;
+        lbs = weight;
+        break;
+      default:
+        kgs = weight;
+        lbs = weight * diff;
+        break;
+    }
+
     AppDispatcher.dispatch({
       action: AppConstants.WEIGHT_CREATE,
       data: {
-        weight: el.weight.value,
-        date: el.date.value
+        kgs: kgs,
+        lbs: lbs,
+        date: date
       }
     });
   },
@@ -31,11 +47,18 @@ var WeightForm = React.createClass({
       <form role="form" onSubmit={this.onSubmit}>
         <div className="form-group">
           <label for="weight"> Weight </label>
-          <input className="form-control" name="weight" placeholder=' Weight in kilograms'/>
+          <input className="form-control" name="weight" placeholder='Weight' required/>
+        </div>
+        <div className="form-group">
+          <label for="measurement"> Measurement </label>
+          <select className="form-control" name="measurement" required>
+            <option value="kgs"> Kilograms </option>
+            <option value="lbs"> Pounds </option>
+          </select>
         </div>
         <div className="form-group">
           <label for="date"> Date </label>
-          <input className="form-control" type="date" name="date" />
+          <input className="form-control" type="date" name="date" required/>
         </div>
         <br/>
         <button className="btn btn-default pull-right"> Add Weight </button>
