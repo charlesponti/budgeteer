@@ -2,11 +2,14 @@
 
 var Backbone = require('backbone');
 
+var AppActions = require('../actions/app');
 var AppConstants = require('../constants/app');
 var AppDispatcher = require('../dispatchers/app');
 
 var WeightModel = Backbone.Model.extend({
+
   url: '/api/weight'
+
 });
 
 var WeightStore = Backbone.Collection.extend({
@@ -25,9 +28,20 @@ var WeightStore = Backbone.Collection.extend({
   },
 
   save: function() {
+    var promises = [];
     this.each(function(weight) {
-      weight.save();
+      if (!weight.get('_id')) {
+        promises.push(weight.save());
+      }
     });
+  },
+
+  create: function(weight) {
+    weight = new this.model(weight);
+    weight.save().then(function(res) {
+      this.add(res.weight);
+      AppActions.closeModal();
+    }.bind(this));
   },
 
   /**
@@ -41,14 +55,15 @@ var WeightStore = Backbone.Collection.extend({
   },
 
   /**
-   * Get kilograms of weights
+   * Get `kgs` or `lbs` of weights
+   * @param {string} measurement Measurement to retrieve
    * @return {Number[]}
    */
-  getWeights: function() {
-    return this.models.map(function(weight) {
-      return weight.get('kilograms');
-    });
-  }
+   getWeights: function(measurement) {
+     return this.models.map(function(weight) {
+       return weight.get(measurement || 'kgs');
+     });
+   }
 
 });
 
@@ -57,8 +72,7 @@ WeightStore = new WeightStore();
 WeightStore.dispatcherIndex = function(payload) {
   switch(payload.action) {
     case AppConstants.WEIGHT_CREATE:
-      WeightStore.add(payload.data);
-      WeightStore.save();
+      WeightStore.create(payload.data);
   }
 };
 
