@@ -16,7 +16,7 @@ var WeightGraph = React.createClass({
   onWeightStoreUpdate: function() {
     return this.setState({
       labels: WeightStore.getDates(),
-      series: [WeightStore.getWeights()]
+      series: [WeightStore.getWeights('kgs')]
     });
   },
 
