@@ -10,7 +10,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   return Weight
     .find({ user: req.user._id })
-    .sort('-date')
+    .sort({ date: 'asc' })
     .exec(function(err, weights) {
       if (err) {
         return next(err);
@@ -21,13 +21,12 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   var weight = new Weight({
-    kilograms: req.body.weight,
+    kgs: req.body.kgs,
+    lbs: req.body.lbs,
     date: req.body.date,
     user: req.user._id
   });
 
-  console.log(weight);
-  
   return weight.save(function(err, weight) {
     if (err) {
       return next(err);
