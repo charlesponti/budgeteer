@@ -1,7 +1,7 @@
 'use strict';
 
+var google = window.google;
 var React = require('react');
-var Chartist = require('react-chartist');
 var WeightStore = require('../../stores/weight');
 
 var WeightGraph = React.createClass({
@@ -13,18 +13,27 @@ var WeightGraph = React.createClass({
     };
   },
 
-  onWeightStoreUpdate: function() {
-    return this.setState({
-      labels: WeightStore.getDates(),
-      series: [WeightStore.getWeights('kgs')]
+  drawChart: function() {
+    var i = 0;
+    var weights = this.props.weights;
+    var data = new google.visualization.DataTable();
+    data.addColumn('date', 'Date');
+    data.addColumn('number', 'Weight');
+    data.addRows(weights.length);
+    weights.forEach(function(weight) {
+      data.setCell(i, 0, new Date(weight.get('date')));
+      data.setCell(i, 1, weight.get('kgs'));
+      return i++;
     });
+    return this.chart.draw(data);
   },
 
-  /**
-   * Listen for changes on WeightStore and update chart
-   */
-  componentWillMount: function() {
-    return WeightStore.on('add', this.onWeightStoreUpdate);
+  componentDidMount: function() {
+    this.chart = new google.visualization.LineChart(this.getDOMNode());
+  },
+
+  componentDidUpdate: function() {
+    return this.drawChart(this.props.weights);
   },
 
   /**
@@ -33,9 +42,7 @@ var WeightGraph = React.createClass({
    */
   render: function() {
     return (
-      <div>
-        <Chartist data={this.state} type={'Line'} />
-      </div>
+      <div id="weight-chart"></div>
     );
   }
 
