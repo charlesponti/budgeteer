@@ -8,7 +8,11 @@ var AppDispatcher = require('../dispatchers/app');
 
 var WeightModel = Backbone.Model.extend({
 
-  url: '/api/weight'
+  url: '/api/weight',
+
+  getDate: function() {
+    return new Date(this.get('date'));
+  }
 
 });
 
