@@ -10,8 +10,7 @@ var WeightGraph = React.createClass({
     var weights = this.props.weights;
     new Highcharts.Chart({
       title: {
-        text: 'Weight',
-        align: 'left',
+        text: '',
         x: 90,
         y: 30,
         floating: true
