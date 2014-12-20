@@ -8,14 +8,14 @@ var AppDispatcher = require('../../dispatchers/app');
 var WeightForm = React.createClass({
 
   onSubmit: function(e) {
+    // Prevent default action
+    e.preventDefault();
+
     var kgs, lbs;
     var el = this.getDOMNode();
     var diff = 2.2046;
     var weight = el.weight.value;
     var date = (new Date(el.date.value)).getTime();
-
-    // Prevent default action
-    e.preventDefault();
 
     switch(el.measurement.value) {
       case 'lbs':
@@ -28,6 +28,7 @@ var WeightForm = React.createClass({
         break;
     }
 
+    // Dispatch event to create weight
     AppDispatcher.dispatch({
       action: AppConstants.WEIGHT_CREATE,
       data: {
