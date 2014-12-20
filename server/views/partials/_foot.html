@@ -1,10 +1,15 @@
 
 {% if current_user %}
 	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="/vendor/highcharts/highcharts-all.js"></script>
+
+	<!-- Google Charts
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript">
 		google.load("visualization", "1", {packages: ["corechart"]});
 	</script>
+	-->
+
 	{% if env === 'production' %}
 		<script src='/scripts/bundle.prod.js'></script>
 	{% else %}
