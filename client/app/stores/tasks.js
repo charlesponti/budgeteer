@@ -2,15 +2,14 @@
 
 // Module dependencies
 var _ = require('lodash');
+var Backbone = require('backbone');
 
 // Application dependencies
-var BaseStore = require('./BaseStore');
 var service = require('../service/api');
+var TaskModel = require('../models/task');
 var AppActions = require('../actions/app');
 var AppConstants = require('../constants/app');
 var AppDispatcher = require('../dispatchers/app');
-
-var TaskModel = require('../models/task');
 
 /**
  * Store which will hold tasks
@@ -19,17 +18,19 @@ var TaskModel = require('../models/task');
  * @requires module: ../service/api
  * @requires module: ../constants/appConstants
  */
-var TaskStore = BaseStore.extend({
+var TaskStore = Backbone.Collection.extend({
 
   url: '/api/tasks',
 
   model: TaskModel,
 
   parse: function(response) {
-    return response.tasks;
+    return response.data;
   }
 
 });
+
+TaskStore = new TaskStore();
 
 /**
  * Handle events dispatched and received
@@ -55,7 +56,5 @@ TaskStore.dispatcherIndex = function(payload) {
 
 // Register event handler
 TaskStore.dispatchToken = AppDispatcher.register(TaskStore.dispatcherIndex);
-
-TaskStore = new TaskStore();
 
 module.exports = TaskStore;
