@@ -28,7 +28,7 @@ var TaskForm = React.createClass({
     }
 
     return {
-      task: new TaskModel({ _id: '', title: '', description: '' }),
+      task: new TaskModel({ _id: undefined, title: '', description: '' }),
       buttonText: 'Create Task'
     };
   },
@@ -47,7 +47,7 @@ var TaskForm = React.createClass({
   onChange: function() {
     var el = this.getDOMNode();
     var task = this.state.task;
-    task.set('_id', el._id.value);
+    task.set('_id', el._id.value || undefined);
     task.set('title', el.title.value);
     task.set('description', el.description.value);
     task.set('category', el.category.value);
