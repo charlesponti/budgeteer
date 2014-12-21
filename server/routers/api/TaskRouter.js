@@ -59,20 +59,21 @@ router.index = function(req, res, next) {
   Task
     .find()
     .populate('category')
-    .exec(router.onIndexFind.bind(router, req, res));
+    .exec(router.onIndexFind.bind(router, req, res, next));
 };
 
 /**
  * Send Tasks
  * @param  {IncomingMessage} req
  * @param  {ServerResponse} res
+ * @param  {Function} next
  * @param  {?error} err
  * @param  {?array} tasks
  * @return {Function}
  */
-router.onIndexFind = function(req, res, err, tasks) {
+router.onIndexFind = function(req, res, next, err, tasks) {
   if (err) {
-    return router.events.emit('error', err, res);
+    return next(err);
   }
   res.status(200).json({ data: tasks });
 };
@@ -84,6 +85,9 @@ router.onIndexFind = function(req, res, err, tasks) {
  * @param  {Function} next
  */
 router.create = function(req, res, next) {
+
+  console.log(req.body);
+
   var task = new Task({
     title: req.body.title,
     description: req.body.description,
@@ -92,7 +96,7 @@ router.create = function(req, res, next) {
     user_id: req.user.id
   });
 
-  return task.save(router.onSave.bind(router, req, res));
+  return task.save(router.onSave.bind(router, req, res, next));
 };
 
 /**
@@ -112,10 +116,10 @@ router.update = function(req, res, next) {
       task.description = req.body.description || task.description;
       task.completed = req.body.completed || task.completed;
       task.category = req.body.category || 'default';
-      return task.save(router.afterUpdate.bind(router, req, res));
+      return task.save(router.afterUpdate.bind(router, req, res, next));
     }
 
-    res.status(404).json({ message: 'Task not found' });
+    return res.status(404).json({ message: 'Task not found' });
   });
 };
 
@@ -132,7 +136,7 @@ router.destroy = function(req, res, next) {
     }
 
     if (task) {
-      return task.remove(router.onDelete.bind(router, req, res));
+      return task.remove(router.onDelete.bind(router, req, res, next));
     }
 
     res.status(404).json({ message: 'Task not found' });
@@ -146,9 +150,9 @@ router.destroy = function(req, res, next) {
  * @param {?Error} err
  * @param {?Task} task
  */
-router.onSave = function(req, res, err, task) {
+router.onSave = function(req, res, next, err, task) {
   if (err) {
-    return router.events.emit('error', err, res);
+    return next(err);
   }
 
   return res.status(201).json({ data: task });
@@ -156,11 +160,12 @@ router.onSave = function(req, res, err, task) {
 
 /**
  * Finish request after task has been deleted
- * @param  {?error} err
+ * @param  {Function} next
  * @param  {IncomingMessage} req
  * @param  {ServerResponse} res
+ * @param  {?error} err
  */
-router.onDelete = function(req, res, err) {
+router.onDelete = function(req, res, next, err) {
   if (err) {
     return router.events.emit('error', err, res);
   }
@@ -175,18 +180,13 @@ router.onDelete = function(req, res, err) {
  * @param  {?error} err
  * @param  {?Task} task
  */
-router.afterUpdate = function(req, res, err, task) {
+router.afterUpdate = function(req, res, next, err, task) {
   if (err) {
-    return router.events.emit('error', err, req, res);
+    return next(err);
   }
 
-  res.status(200).json({ data: task });
+  return res.status(200).json({ data: task });
 };
-
-router.events.on('error', function(err, req, res) {
-  req.log('error', err);
-  res.status(500).json({ message: err.message });
-});
 
 router.get('/', router.getUserTasks, router.index);
 router.post('/', router.getUserTasks, router.create);
