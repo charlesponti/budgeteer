@@ -23,7 +23,7 @@ router.readCategories = function(req, res, next) {
       if (err) {
         throw err;
       }
-      res.status(200).json({ categories: categories });
+      res.status(200).json({ data: categories });
     });
 };
 
