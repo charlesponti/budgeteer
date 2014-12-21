@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var TaskStore = require('../../stores/TaskStore');
+var TaskStore = require('../../stores/tasks');
 
 var TaskSearch = React.createClass({
 

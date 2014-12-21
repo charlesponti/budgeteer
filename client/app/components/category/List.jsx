@@ -7,7 +7,7 @@ var React = require('react');
 // Application dependencies
 var AppConstants = require('../../constants/app');
 var AppDispatcher = require('../../dispatchers/app');
-var CategoryStore = require('../../stores/CategoryStore');
+var CategoryStore = require('../../stores/categories');
 
 // Components
 var ListItem = require('./ListItem.jsx');
@@ -20,36 +20,26 @@ var CategoryList = React.createClass({
 
   displayName: 'CategoryList',
 
-  /**
-   * Get initial state of component
-   * @return {object}
-   */
-  getInitialState: function() {
-    return { records: [] };
-  },
-
-  /**
-   * Handle change of store
-   * @param {array} records Array of records
-   */
-  onCategoryStoreChange: function(records) {
-    if (this.isMounted()) {
-      this.setState({ records: records });
-    }
+  propTyps: {
+    categories: React.PropTypes.array.isRequired
   },
 
   /**
    * Handle logic when component will be mounted to the DOM
    */
   componentWillMount: function() {
-    CategoryStore.addChangeListener(this.onCategoryStoreChange);
+    return this.setState({
+      categories: this.props.categories
+    });
   },
 
   /**
    * Handle logic when component will be unmounted from the DOM
    */
-  componentWillUnmount: function() {
-    CategoryStore.removeChangeListener(this.onCategoryStoreChange);
+  componentWillUpdate: function() {
+    return this.setState({
+      categories: this.props.categories
+    });
   },
 
   /**
@@ -59,17 +49,17 @@ var CategoryList = React.createClass({
    */
   onSearchFieldChange: function(e, id) {
     var searchTerm = e.target.value;
-    var records = CategoryStore.getRecords();
+    var categories = CategoryStore.models;
 
     if (searchTerm.length) {
       searchTerm = searchTerm.replace(' ', '');
       var regExp = new RegExp(searchTerm, 'i');
-      records = records.filter(function(record) {
+      categories = categories.filter(function(record) {
         return regExp.test(record.name);
       });
     }
 
-    this.setState({ records: records });
+    this.setState({ categories: categories });
   },
 
   /**
@@ -80,12 +70,12 @@ var CategoryList = React.createClass({
     return (
       <div>
         <form role="form" className="task-search">
-          <input className="form-control task-search"
+          <input className="form-control"
             onChange={this.onSearchFieldChange} placeholder="Search" />
         </form>
         <ul className="list-group">
-          {this.state.records.map(function(record) {
-            return (<ListItem record={record} />);
+          {this.state.categories.map(function(category) {
+            return <ListItem record={category} />;
           })}
         </ul>
       </div>

@@ -1,7 +1,6 @@
 'use strict';
 
 // Module dependencies
-var _ = require('lodash');
 var React = require('react');
 
 // Application dependencies
@@ -38,7 +37,7 @@ var TaskList = React.createClass({
    * Handle update of component
    * @param {array} tasks Array of tasks
    */
-  componentWillUpdate: function() {
+  componentWillReceiveProps: function() {
     return this.setState({
       tasks: this.props.tasks
     });
@@ -65,7 +64,7 @@ var TaskList = React.createClass({
       <div>
         <TaskSearch className="task-search" callback={this.onSearchChange}/>
         <ul className="list-group">
-          {_.map(sorted, function(task) {
+          {sorted.map(function(task) {
             return (<TaskListItem task={task} key={task.get('_id')} />);
           })}
         </ul>

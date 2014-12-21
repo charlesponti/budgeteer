@@ -7,3 +7,5 @@ var TaskModel = Backbone.Model.extend({
   url: '/api/task'
 
 });
+
+module.exports = TaskModel;

@@ -5,7 +5,7 @@ var React = require('react');
 
 // Application dependencies
 var AppActions = require('../../actions/app');
-var CategoryStore = require('../../stores/CategoryStore');
+var CategoryStore = require('../../stores/categories');
 
 // Components
 var CategoryForm = require('./Form.jsx');
@@ -19,15 +19,30 @@ var CategoryMain = React.createClass({
 
   displayName: 'CategoryMain',
 
+  getInitialState: function() {
+    return {
+      categories: CategoryStore.models
+    };
+  },
+
+  onCategoryStoreChange: function() {
+    if (this.isMounted()) {
+      return this.setState({
+        categories: CategoryStore.models
+      });
+    }
+  },
+
   /**
    * Perform actions when component will get mounted to the DOM
    */
   componentWillMount: function() {
-    CategoryStore.load();
+    CategoryStore.on('add remove reset sort', this.onCategoryStoreChange);
+    return CategoryStore.fetch();
   },
 
   onAddClick: function() {
-    AppActions.loadModal({
+    return AppActions.loadModal({
       title: 'Create Category',
       component: <CategoryForm />
     });
@@ -48,7 +63,7 @@ var CategoryMain = React.createClass({
           </button>
         </h1>
 
-        <CategoryList className="task-list" id='task-list' />
+        <CategoryList categories={this.state.categories} />
 
       </div>
     );

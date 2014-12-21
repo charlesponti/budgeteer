@@ -19,13 +19,13 @@ var ListItem = React.createClass({
     var record = this.props.record;
 
     var iconColor = {
-      color: record.color
+      color: record.get('color')
     };
 
     return (
       <li className="list-group-item">
           <i className="fa fa-tag fa-4 category-icon" style={iconColor}></i>
-          <h4>{record.name}</h4>
+          <h4>{record.get('name')}</h4>
       </li>
     );
   }

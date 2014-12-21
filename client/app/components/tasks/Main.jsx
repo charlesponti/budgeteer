@@ -4,8 +4,9 @@
 var React = require('react');
 
 // Application dependencies
+var BackboneMixin = require('../../mixins/backbone');
 var AppActions = require('../../actions/app');
-var TaskStore = require('../../stores/TaskStore');
+var TaskStore = require('../../stores/tasks');
 
 // Components
 var TaskList = require('./List.jsx');
@@ -19,9 +20,12 @@ var TaskMain = React.createClass({
 
   displayName: 'TaskMain',
 
+  /**
+   * Set state to current state of TaskStore.models
+   */
   getInitialState: function() {
     return {
-      tasks: []
+      tasks: TaskStore.models
     };
   },
 
@@ -29,10 +33,13 @@ var TaskMain = React.createClass({
    * Load TaskStore
    */
   componentWillMount: function() {
-    TaskStore.on('sync', this.onTaskStoreChange);
+    TaskStore.on('set reset sync', this.onTaskStoreChange);
     return TaskStore.fetch();
   },
 
+  /**
+   * Set state to current state of TaskStore.models
+   */
   onTaskStoreChange: function() {
     return this.setState({
       tasks: TaskStore.models

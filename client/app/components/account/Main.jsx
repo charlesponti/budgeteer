@@ -4,7 +4,7 @@
 var React = require('react');
 
 // Application dependencies
-var UserStore = require('../../stores/UserStore');
+var UserStore = require('../../stores/users');
 var AppConstants = require('../../constants/app');
 var AppDispatcher = require('../../dispatchers/app');
 
@@ -29,7 +29,7 @@ var Account = React.createClass({
    * Set state of component when UserStore is loaded
    */
   onUserStoreChange: function(user) {
-    this.setState({
+    return this.setState({
       user: user,
       accounts: UserStore.getUserAccounts()
     });
@@ -41,11 +41,11 @@ var Account = React.createClass({
    */
   componentWillMount: function() {
     if (UserStore._user) {
-      this.onUserStoreChange(UserStore._user);
-    } else {
-      UserStore.on('change', this.onUserStoreChange);
-      UserStore.load();
+      return this.onUserStoreChange(UserStore._user);
     }
+
+    UserStore.on('change', this.onUserStoreChange);
+    return UserStore.fetch();
   },
 
   /**

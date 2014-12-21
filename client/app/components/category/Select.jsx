@@ -4,7 +4,7 @@
 var React = require('react');
 
 // Application dependencies
-var CategoryStore = require('../../stores/CategoryStore');
+var CategoryStore = require('../../stores/categories');
 
 /**
  * Category select form element
@@ -18,7 +18,7 @@ var CategorySelect = React.createClass({
   getInitialState: function() {
     return {
       value: this.props.value || '',
-      records: CategoryStore.getRecords()
+      records: CategoryStore.models
     };
   },
 
@@ -26,26 +26,17 @@ var CategorySelect = React.createClass({
    * Handle change event of select box
    */
   onCategoryStoreChange: function() {
-    this.setState({ records: CategoryStore.getRecords() });
+    return this.setState({
+      records: CategoryStore.models
+    });
   },
 
   /**
    * Perform logic when component will be mounted
    */
   componentWillMount: function() {
-    CategoryStore.addChangeListener(this.onCategoryStoreChange);
-
-    // If componenet has no records, load store
-    if (!this.state.records.length) {
-      CategoryStore.load();
-    }
-  },
-
-  /**
-   * Perform logic when component will be unmounted
-   */
-  componentWillUnmount: function() {
-    CategoryStore.removeChangeListener(this.onCategoryStoreChange);
+    CategoryStore.on('set reset', this.onCategoryStoreChange);
+    return CategoryStore.fetch();
   },
 
   /**
@@ -54,7 +45,9 @@ var CategorySelect = React.createClass({
    * @param {string} id
    */
   onChange: function(e, id) {
-    this.setState({ value: e.target.value });
+    return this.setState({
+      value: e.target.value
+    });
   },
 
   /**

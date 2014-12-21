@@ -5,7 +5,8 @@ var React = require('react');
 
 // Application dependencies
 var AppActions = require('../../actions/app');
-var TaskStore = require('../../stores/TaskStore');
+var TaskStore = require('../../stores/tasks');
+var TaskModel = require('../../models/task');
 var CategorySelect = require('../category/Select.jsx');
 
 /**
@@ -19,9 +20,7 @@ var TaskForm = React.createClass({
    * @return {object}
    */
   getInitialState: function() {
-    var task = this.props.task;
-
-    if (task) {
+    if (this.props.task) {
       return {
         task: this.props.task,
         buttonText: 'Edit Task'
@@ -29,7 +28,7 @@ var TaskForm = React.createClass({
     }
 
     return {
-      task: {},
+      task: new TaskModel(),
       buttonText: 'Create Task'
     };
   },
@@ -38,10 +37,7 @@ var TaskForm = React.createClass({
     var form = this.getDOMNode();
     e.preventDefault();
 
-    // Determine if task should be created or updated based on presence of _id
-    var fn = this.state.record._id.length ? 'updateTask' : 'createTask';
-
-    if (this.state._id) {
+    if (this.state.task.isNew) {
       return AppActions.updateTask(this.state.task);
     }
 
@@ -60,21 +56,21 @@ var TaskForm = React.createClass({
    * Render component
    */
   render: function() {
-    var record = this.state.record;
-    var category = record.category && record.category._id;
+    var task = this.state.task;
+    var category = task.get('category') && task.get('category')._id;
 
     return (
       <form onSubmit={this.onSubmit} role="form" onChange={this.onChange}>
-        <input ref='_id' type="hidden" defaultValue={record._id} name="_id"/>
+        <input ref='_id' type="hidden" defaultValue={task.get('_id')} name="_id"/>
         <div className="form-group">
           <label htmlFor="title"> Title </label>
-          <input ref='title' name="title" className="form-control" defaultValue={record.title} />
+          <input ref='title' name="title" className="form-control" defaultValue={task.get('title')} />
         </div>
         <div className="form-group">
           <label htmlFor="description"> Description </label>
           <textarea ref='description' name="description"
             className="form-control task-description"
-            defaultValue={record.description}></textarea>
+            defaultValue={task.get('description')}></textarea>
         </div>
         <div className="form-group">
           <CategorySelect value={category || undefined} ref='category' />
