@@ -1,15 +1,19 @@
 describe('Tasks: Form', function() {
   'use strict';
 
+  // Require spec helper
+  require('../../../spec_helper');
+
   var form;
   var $ = require('jquery');
   var TestUtils = require('react/addons').addons.TestUtils;
+  var TaskModel = require('../../../../app/models/task');
   var AppActions = require('../../../../app/actions/app');
   var Form = require('../../../../app/components/tasks/Form.jsx');
 
   beforeEach(function() {
     spyOn($, 'ajax');
-    form = TestUtils.renderIntoDocument(Form({task: {}}));
+    form = TestUtils.renderIntoDocument(Form());
   });
 
   afterEach(function() {
@@ -17,10 +21,18 @@ describe('Tasks: Form', function() {
   });
 
   describe('.getInitialState()', function() {
-    it('should return valid state', function() {
-      expect(form.state.record._id).toEqual('');
-      expect(form.state.record.title).toEqual('');
-      expect(form.state.record.description).toEqual('');
+    it('should load with empty task', function() {
+      var task = form.state.task;
+      expect(task.get('_id')).toEqual('');
+      expect(task.get('title')).toEqual('');
+      expect(task.get('description')).toEqual('');
+    });
+    it('should return task in props', function() {
+      form.props.task = new TaskModel({ _id: 1, title: 'foo', description: 'bar' });
+      var task = form.getInitialState().task;
+      expect(task.get('_id')).toEqual(1);
+      expect(task.get('title')).toEqual('foo');
+      expect(task.get('description')).toEqual('bar');
     });
   });
 
@@ -36,12 +48,12 @@ describe('Tasks: Form', function() {
     afterEach(function() {
       task = undefined;
     });
-    it('should call createTask if no _id', function() {
+    it('should call createTask if is new', function() {
       form.onSubmit(event);
       expect(AppActions.createTask).toHaveBeenCalled();
     });
     it('should call updateTask if _id', function() {
-      form.state.record._id = '1234';
+      form.state.task.isNew = false;
       form.onSubmit(event);
       expect(AppActions.updateTask).toHaveBeenCalled();
     });
@@ -52,12 +64,11 @@ describe('Tasks: Form', function() {
       form.refs._id.getDOMNode().value = '1234';
       form.refs.title.getDOMNode().value = 'foo';
       form.refs.description.getDOMNode().value = 'bar';
-      spyOn(form, 'setState');
       form.onChange();
-      var record = form.setState.calls.argsFor(0)[0].record;
-      expect(record._id).toEqual('1234');
-      expect(record.title).toEqual('foo');
-      expect(record.description).toEqual('bar');
+      var task = form.state.task;
+      expect(task.get('_id')).toEqual('1234');
+      expect(task.get('title')).toEqual('foo');
+      expect(task.get('description')).toEqual('bar');
     });
   });
 

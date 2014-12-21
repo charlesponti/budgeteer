@@ -28,7 +28,7 @@ var TaskForm = React.createClass({
     }
 
     return {
-      task: new TaskModel(),
+      task: new TaskModel({ _id: '', title: '', description: '' }),
       buttonText: 'Create Task'
     };
   },
@@ -38,17 +38,18 @@ var TaskForm = React.createClass({
     e.preventDefault();
 
     if (this.state.task.isNew) {
-      return AppActions.updateTask(this.state.task);
+      return AppActions.createTask(this.state.task);
     }
 
-    return AppActions.createTask(this.state.task);
+    return AppActions.updateTask(this.state.task);
   },
 
   onChange: function() {
     var el = this.getDOMNode();
     var task = this.state.task;
+    task.set('_id', el._id.value);
     task.set('title', el.title.value);
-    task.set('description', el.title.value);
+    task.set('description', el.description.value);
     task.set('category', el.category.value);
   },
 

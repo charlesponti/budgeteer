@@ -4,7 +4,9 @@ var Backbone = require('backbone');
 
 var TaskModel = Backbone.Model.extend({
 
-  url: '/api/task'
+  url: '/api/task',
+
+  idAttribute: '_id'
 
 });
 

@@ -26,6 +26,14 @@ var TaskStore = Backbone.Collection.extend({
 
   parse: function(response) {
     return response.data;
+  },
+
+  update: function(task) {
+    return;
+  },
+
+  destroy: function(task) {
+    return;
   }
 
 });
