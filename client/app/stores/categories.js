@@ -21,6 +21,10 @@ var CategoryStore = Backbone.Collection.extend({
 
   url: '/api/categories',
 
+  parse: function(response) {
+    return response.data;
+  }
+
 });
 
 CategoryStore = new CategoryStore();
