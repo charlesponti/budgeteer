@@ -20,13 +20,17 @@ var TaskForm = React.createClass({
    */
   getInitialState: function() {
     var task = this.props.task;
+
+    if (task) {
+      return {
+        task: this.props.task,
+        buttonText: 'Edit Task'
+      };
+    }
+
     return {
-      record: {
-        _id: task._id || '',
-        title: task.title || '',
-        description: task.description || ''
-      },
-      buttonText: this.props.task._id ? 'Edit Task' : 'Create Task'
+      task: {},
+      buttonText: 'Create Task'
     };
   },
 
@@ -34,28 +38,22 @@ var TaskForm = React.createClass({
     var form = this.getDOMNode();
     e.preventDefault();
 
-    // Determin if task should be created or updated based on presence of _id
+    // Determine if task should be created or updated based on presence of _id
     var fn = this.state.record._id.length ? 'updateTask' : 'createTask';
 
-    // Call updateTask or createTask
-    AppActions[fn]({
-      _id: form._id.value,
-      title: form.title.value,
-      description: form.description.value,
-      category: form.category.value
-    });
+    if (this.state._id) {
+      return AppActions.updateTask(this.state.task);
+    }
+
+    return AppActions.createTask(this.state.task);
   },
 
   onChange: function() {
     var el = this.getDOMNode();
-    this.setState({
-      record: {
-        _id: el._id.value,
-        title: el.title.value,
-        description: el.description.value,
-        category: el.category.value
-      }
-    });
+    var task = this.state.task;
+    task.set('title', el.title.value);
+    task.set('description', el.title.value);
+    task.set('category', el.category.value);
   },
 
   /**

@@ -19,11 +19,24 @@ var TaskMain = React.createClass({
 
   displayName: 'TaskMain',
 
+  getInitialState: function() {
+    return {
+      tasks: []
+    };
+  },
+
   /**
    * Load TaskStore
    */
   componentWillMount: function() {
-    TaskStore.load();
+    TaskStore.on('sync', this.onTaskStoreChange);
+    return TaskStore.fetch();
+  },
+
+  onTaskStoreChange: function() {
+    return this.setState({
+      tasks: TaskStore.models
+    });
   },
 
   /**
@@ -34,7 +47,7 @@ var TaskMain = React.createClass({
     return (
       <div className="row tasks">
         <br/>
-        <TaskList className="task-list" id='task-list' />
+        <TaskList className="task-list" id='task-list' tasks={this.state.tasks}/>
         <TaskAddButton/>
       </div>
     );

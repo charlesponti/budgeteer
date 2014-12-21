@@ -74,7 +74,7 @@ router.onIndexFind = function(req, res, err, tasks) {
   if (err) {
     return router.events.emit('error', err, res);
   }
-  res.status(200).json({ tasks: tasks });
+  res.status(200).json({ data: tasks });
 };
 
 /**
@@ -151,7 +151,7 @@ router.onSave = function(req, res, err, task) {
     return router.events.emit('error', err, res);
   }
 
-  return res.status(201).json({ task: task });
+  return res.status(201).json({ data: task });
 };
 
 /**
@@ -165,7 +165,7 @@ router.onDelete = function(req, res, err) {
     return router.events.emit('error', err, res);
   }
 
-  res.status(200).json({ task: req.body._id });
+  res.status(200).json({ data: req.body._id });
 };
 
 /**
@@ -180,7 +180,7 @@ router.afterUpdate = function(req, res, err, task) {
     return router.events.emit('error', err, req, res);
   }
 
-  res.status(200).json({ task: task });
+  res.status(200).json({ data: task });
 };
 
 router.events.on('error', function(err, req, res) {

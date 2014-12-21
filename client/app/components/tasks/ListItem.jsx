@@ -25,8 +25,9 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onCheckboxClick: function() {
-    // Negate 'completed' attribute of task
-    this.props.task.completed = !this.props.task.completed;
+    var task = this.props.task;
+
+    task.set('completed', !task.get('completed'));
 
     // Dispatch event
     AppActions.updateTask(this.props.update);
@@ -38,29 +39,32 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onTitleClick: function(e, id) {
+    var task = this.props.task;
+
     AppActions.loadModal({
-      title: this.props.task.title,
-      component: <Preview task={this.props.task}/>
+      title: task.get('title'),
+      component: <Preview task={task}/>
     });
   },
 
   render: function() {
     var task = this.props.task;
+    var category = task.get('category');
 
     var categoryStyle = {
-      color: task.category.color
+      color: category.color
     };
 
     return (
-      <li className="list-group-item task-list-item" key={task._id}>
+      <li className="list-group-item task-list-item" key={task.get('_id')}>
           <input type="checkbox" className="task-checkbox"
             onClick={this.onCheckboxClick} defaultChecked={task.completed}/>
 
-          <h4 onClick={this.onTitleClick}>{task.title}</h4>
+          <h4 onClick={this.onTitleClick}>{task.get('title')}</h4>
 
           <div className="task-listitem-category">
             <i className="fa fa-tag fa-4" style={categoryStyle}></i>
-            {task.category.name}
+            {category.name}
           </div>
       </li>
     );
