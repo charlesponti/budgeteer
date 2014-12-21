@@ -9,7 +9,7 @@ var TaskAddButton = React.createClass({
   onClick: function() {
     AppActions.loadModal({
       title: 'Create Task',
-      component: <TaskForm task={{}} />
+      component: <TaskForm />
     });
   },
 
