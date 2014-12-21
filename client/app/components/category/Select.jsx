@@ -35,7 +35,7 @@ var CategorySelect = React.createClass({
    * Perform logic when component will be mounted
    */
   componentWillMount: function() {
-    CategoryStore.on('set reset', this.onCategoryStoreChange);
+    CategoryStore.on('add remove sync', this.onCategoryStoreChange);
     return CategoryStore.fetch();
   },
 
@@ -60,7 +60,11 @@ var CategorySelect = React.createClass({
         className="form-control" value={this.state.value}>
         <option> Select Category... </option>
         {this.state.records.map(function(category) {
-          return <option value={category._id}>{category.name}</option>
+          return (
+            <option value={category.get('_id')}>
+              {category.get('name')}
+            </option>
+          );
         })};
       </select>
     );
