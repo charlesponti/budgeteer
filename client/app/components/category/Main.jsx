@@ -37,7 +37,7 @@ var CategoryMain = React.createClass({
    * Perform actions when component will get mounted to the DOM
    */
   componentWillMount: function() {
-    CategoryStore.on('add remove reset sort', this.onCategoryStoreChange);
+    CategoryStore.on('set reset sync', this.onCategoryStoreChange);
     return CategoryStore.fetch();
   },
 
