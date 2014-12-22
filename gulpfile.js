@@ -31,13 +31,6 @@ var sources = {
   ]
 };
 
-var webpackCallback = function (done, err, stats) {
-  if (err) {
-    throw new gutil.PluginError('[build-js]', err);
-  }
-  done();
-};
-
 /**
  * `build-scripts` task.
  * This task will bundle all of the client side scripts and place
