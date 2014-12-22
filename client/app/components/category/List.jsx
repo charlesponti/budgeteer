@@ -36,7 +36,7 @@ var CategoryList = React.createClass({
   /**
    * Handle logic when component will be unmounted from the DOM
    */
-  componentWillUpdate: function() {
+  componentWillReceiveProps: function() {
     return this.setState({
       categories: this.props.categories
     });
@@ -75,7 +75,7 @@ var CategoryList = React.createClass({
         </form>
         <ul className="list-group">
           {this.state.categories.map(function(category) {
-            return <ListItem record={category} />;
+            return <ListItem category={category} />;
           })}
         </ul>
       </div>
