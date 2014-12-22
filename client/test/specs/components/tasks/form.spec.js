@@ -23,7 +23,7 @@ describe('Tasks: Form', function() {
   describe('.getInitialState()', function() {
     it('should load with empty task', function() {
       var task = form.state.task;
-      expect(task.get('_id')).toEqual('');
+      expect(task.get('_id')).toEqual(undefined);
       expect(task.get('title')).toEqual('');
       expect(task.get('description')).toEqual('');
     });
