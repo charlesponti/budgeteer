@@ -41,9 +41,11 @@ var TaskMain = React.createClass({
    * Set state to current state of TaskStore.models
    */
   onTaskStoreChange: function() {
-    return this.setState({
-      tasks: TaskStore.models
-    });
+    if (this.isMounted()) {
+      return this.setState({
+        tasks: TaskStore.models
+      });
+    }
   },
 
   /**
