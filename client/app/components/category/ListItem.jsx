@@ -12,20 +12,20 @@ var ListItem = React.createClass({
   displayName: 'CategoryListItem',
 
   propTypes: {
-    record: React.PropTypes.object.isRequired
+    category: React.PropTypes.object.isRequired
   },
 
   render: function() {
-    var record = this.props.record;
+    var category = this.props.category;
 
     var iconColor = {
-      color: record.get('color')
+      color: category.get('color')
     };
 
     return (
       <li className="list-group-item">
           <i className="fa fa-tag fa-4 category-icon" style={iconColor}></i>
-          <h4>{record.get('name')}</h4>
+          <h4>{category.get('name')}</h4>
       </li>
     );
   }
