@@ -6,7 +6,7 @@ var marked = require('marked');
 
 // Application dependencies
 var AppActions = require('../../actions/app');
-var TaskForm = require('./Form.jsx');
+var TaskForm = require('./form.jsx');
 
 /**
  * Preview component

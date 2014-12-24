@@ -3,12 +3,12 @@
 // Module dependencies
 var React = require('react');
 
-var TaskStore = require('../stores/tasks');
+var TaskStore = require('../../stores/tasks');
 
 // Components
-var TaskList = require('./tasks/list.jsx');
-var TaskAddButton = require('./tasks/add-button.jsx');
-var CategoryMain = require('./category/Main.jsx');
+var TaskList = require('./list.jsx');
+var TaskAddButton = require('./add-button.jsx');
+var CategoryMain = require('../category/Main.jsx');
 
 var TaskApp = React.createClass({
 

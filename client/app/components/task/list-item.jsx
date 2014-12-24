@@ -7,7 +7,7 @@ var React = require('react');
 var AppActions = require('../../actions/app');
 
 // Factories
-var Preview = require('./Preview.jsx');
+var Preview = require('./preview.jsx');
 
 /**
  * Task Component

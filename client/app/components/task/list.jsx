@@ -8,7 +8,7 @@ var AppConstants = require('../../constants/app');
 var AppDispatcher = require('../../dispatchers/app');
 
 // Components
-var TaskListItem = require('./ListItem.jsx');
+var TaskListItem = require('./list-item.jsx');
 var TaskSearch = require('./search.jsx');
 
 /**

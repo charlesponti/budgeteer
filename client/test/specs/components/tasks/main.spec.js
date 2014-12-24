@@ -1,10 +1,10 @@
 describe('Components: TasksMain', function() {
   'use strict';
 
-  var component,
-    TestUtils = require('react/addons').addons.TestUtils,
-    TaskStore = require('../../../../app/stores/tasks'),
-    TaskMain = require('../../../../app/components/tasks/Main.jsx');
+  var component;
+  var TestUtils = require('react/addons').addons.TestUtils;
+  var TaskStore = require('../../../../app/stores/tasks');
+  var TaskMain = require('../../../../app/components/task/main.jsx');
 
   beforeEach(function() {
     spyOn(TaskStore, 'fetch');

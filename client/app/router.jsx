@@ -8,7 +8,7 @@ var Backbone = require('backbone');
 var AppDispatcher = require('./dispatchers/app');
 
 // Components
-var Tasks = require('./components/TaskApp.jsx');
+var Tasks = require('./components/task/main.jsx');
 var Weight = require('./components/weight/main.jsx');
 var Account = require('./components/account/Main.jsx');
 
