@@ -43,7 +43,7 @@ var Preview = React.createClass({
    * @returns {ReactCompositeComponent}
    */
   render: function() {
-    var rawMarkup = marked(this.props.task.description);
+    var rawMarkup = marked(this.props.task.get('description'));
     return (
       <div>
         <div className="preview" dangerouslySetInnerHTML={{__html: rawMarkup}}/>
