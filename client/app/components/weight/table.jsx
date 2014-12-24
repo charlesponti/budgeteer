@@ -20,7 +20,7 @@ var WeightTable = React.createClass({
         <tbody>
           {this.props.weights.map(function(weight) {
             return (
-              <tr>
+              <tr key={weight.get('_id')}>
                 <td>{weight.getDate().toLocaleDateString()}</td>
                 <td>{weight.get('kgs')+' kgs'}</td>
               </tr>
