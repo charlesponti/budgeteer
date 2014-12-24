@@ -1,5 +1,7 @@
 'use strict';
 
+require('node-jsx').install({extension: '.jsx'});
+
 // Modules dependencies
 var util = require('util');
 var http = require('http');
@@ -50,6 +52,10 @@ var app = express();
 
 // Set application port
 app.set('port', config.port || 3000);
+
+swig.setDefaults({
+  autoescape: false
+});
 
 app.engine('html', swig.renderFile);
 
