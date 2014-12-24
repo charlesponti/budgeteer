@@ -39,4 +39,12 @@ WeightSchema.pre('save', function(next) {
   next();
 });
 
+WeightSchema.methods = {
+
+  getDate: function() {
+    return new Date(this.get('date'));
+  }
+
+};
+
 mongoose.model('Weight', WeightSchema);
