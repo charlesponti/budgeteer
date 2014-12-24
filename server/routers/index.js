@@ -23,6 +23,7 @@ router.use('/auth', AuthRouter);
 router.use('/api', ApiRouter);
 
 router.use('/tasks', require('./tasks'));
+router.use('/weight', require('./weight'));
 
 // App Routes
 router.use('/', AppRouter);
