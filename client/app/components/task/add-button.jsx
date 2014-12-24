@@ -2,7 +2,7 @@
 
 var React = require('react');
 var AppActions = require('../../actions/app');
-var TaskForm = require('./Form.jsx');
+var TaskForm = require('./form.jsx');
 
 var TaskAddButton = React.createClass({
 
