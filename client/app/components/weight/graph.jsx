@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react');
-var Highcharts = window.Highcharts;
 var WeightStore = require('../../stores/weight');
 
 var WeightGraph = React.createClass({
