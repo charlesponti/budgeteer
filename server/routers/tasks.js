@@ -8,6 +8,7 @@ var TaskView = require('../../client/app/components/task/main');
 router.get('/', function(req, res, next) {
   return Task
     .find({ user_id: req.user._id })
+    .populate('category')
     .exec(function(err, tasks) {
       if (err) {
         return next(err);
