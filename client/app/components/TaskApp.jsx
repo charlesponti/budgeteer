@@ -4,7 +4,10 @@
 var React = require('react');
 
 var TaskStore = require('../stores/tasks');
-var TaskMain = require('./tasks/Main.jsx');
+
+// Components
+var TaskList = require('./tasks/list.jsx');
+var TaskAddButton = require('./tasks/add-button.jsx');
 var CategoryMain = require('./category/Main.jsx');
 
 var TaskApp = React.createClass({
@@ -54,7 +57,8 @@ var TaskApp = React.createClass({
         </ul>
         <div className="tab-content">
           <div role="tabpanel" className="tab-pane active" id="tasks">
-            <TaskMain tasks={this.state.tasks}/>
+            <TaskList className="task-list" id='task-list' tasks={this.state.tasks}/>
+            <TaskAddButton/>
           </div>
           <div role="tabpanel" className="tab-pane" id="categories">
             <h1>Cats</h1>
