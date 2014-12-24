@@ -21,7 +21,7 @@ var CategoryMain = React.createClass({
 
   getInitialState: function() {
     return {
-      categories: CategoryStore.models
+      categories: this.props.initialData || CategoryStore.models
     };
   },
 
@@ -38,7 +38,9 @@ var CategoryMain = React.createClass({
    */
   componentWillMount: function() {
     CategoryStore.on('set reset sync', this.onCategoryStoreChange);
-    return CategoryStore.fetch();
+    if (!this.state.categories.length) {
+      return CategoryStore.fetch();
+    }
   },
 
   onAddClick: function() {
