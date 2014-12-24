@@ -6,21 +6,11 @@ var AppActions = require('../actions/app');
 var AppConstants = require('../constants/app');
 var AppDispatcher = require('../dispatchers/app');
 
-var WeightModel = Backbone.Model.extend({
-
-  url: '/api/weight',
-
-  getDate: function() {
-    return new Date(this.get('date'));
-  }
-
-});
-
 var WeightStore = Backbone.Collection.extend({
 
   url: '/api/weight',
 
-  model: WeightModel,
+  model: require('../models/weight'),
 
   /**
    * Parse response from server
