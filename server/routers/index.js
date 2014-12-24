@@ -22,6 +22,8 @@ router.use('/auth', AuthRouter);
 // API
 router.use('/api', ApiRouter);
 
+router.use('/tasks', require('./tasks'));
+
 // App Routes
 router.use('/', AppRouter);
 
