@@ -3,11 +3,6 @@
 // Module dependencies
 var React = require('react');
 
-// Application dependencies
-var BackboneMixin = require('../../mixins/backbone');
-var AppActions = require('../../actions/app');
-var TaskStore = require('../../stores/tasks');
-
 // Components
 var TaskList = require('./List.jsx');
 var TaskAddButton = require('./add-button.jsx');
@@ -23,29 +18,10 @@ var TaskMain = React.createClass({
   /**
    * Set state to current state of TaskStore.models
    */
-  getInitialState: function() {
+  getDefaultProps: function() {
     return {
-      tasks: TaskStore.models
+      tasks: []
     };
-  },
-
-  /**
-   * Load TaskStore
-   */
-  componentWillMount: function() {
-    TaskStore.on('set reset sync', this.onTaskStoreChange);
-    return TaskStore.fetch();
-  },
-
-  /**
-   * Set state to current state of TaskStore.models
-   */
-  onTaskStoreChange: function() {
-    if (this.isMounted()) {
-      return this.setState({
-        tasks: TaskStore.models
-      });
-    }
   },
 
   /**
@@ -56,7 +32,7 @@ var TaskMain = React.createClass({
     return (
       <div className="row tasks">
         <br/>
-        <TaskList className="task-list" id='task-list' tasks={this.state.tasks}/>
+        <TaskList className="task-list" id='task-list' tasks={this.props.tasks}/>
         <TaskAddButton/>
       </div>
     );
