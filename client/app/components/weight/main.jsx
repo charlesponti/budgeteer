@@ -12,19 +12,22 @@ var WeightMain = React.createClass({
 
   getInitialState: function() {
     return {
-      weights: []
+      weights: this.props.weights || []
     };
   },
 
   onWeightStoreChange: function() {
-    this.setState({
+    return this.setState({
       weights: WeightStore.models
     });
   },
 
   componentWillMount: function() {
-    WeightStore.fetch();
     WeightStore.on('change reset add', this.onWeightStoreChange);
+    if (!this.state.weights.length) {
+      return WeightStore.fetch();
+    }
+    return this;
   },
 
   /**
