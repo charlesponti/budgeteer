@@ -21,7 +21,7 @@ var CategoryMain = React.createClass({
 
   getInitialState: function() {
     return {
-      categories: this.props.initialData || CategoryStore.models
+      categories: this.props.categories || []
     };
   },
 

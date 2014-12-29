@@ -34,11 +34,12 @@ var CategoryList = React.createClass({
   },
 
   /**
-   * Handle logic when component will be unmounted from the DOM
+   * Handle change in props
+   * @param {Object} newProps New set of props
    */
-  componentWillReceiveProps: function() {
+  componentWillReceiveProps: function(newProps) {
     return this.setState({
-      categories: this.props.categories
+      categories: newProps.categories
     });
   },
 

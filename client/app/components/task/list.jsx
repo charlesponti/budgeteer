@@ -35,11 +35,11 @@ var TaskList = React.createClass({
 
   /**
    * Handle update of component
-   * @param {array} tasks Array of tasks
+   * @param {object} newProps New props
    */
-  componentWillReceiveProps: function() {
+  componentWillReceiveProps: function(newProps) {
     return this.setState({
-      tasks: this.props.tasks
+      tasks: newProps.tasks
     });
   },
 

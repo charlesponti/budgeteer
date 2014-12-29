@@ -10,9 +10,10 @@
     "refresh": "rm -rf node_modules | npm install",
     "start-prod": "NODE_ENV=production forever index.js",
     "start-dev": "NODE_ENV=development forever -w index.js",
-    "test": "jasmine-node test --color --verbose --forceexit",
+    "test-server": "jasmine-node test --color --verbose --forceexit",
     "test-client": "karma start karma.conf.js",
-    "test-client-single": "karma start karma.conf.js --single-run"
+    "test-client-single": "karma start karma.conf.js --single-run",
+    "test": "npm run test-server; npm run test-client-single"
   },
   "dependencies": {
     "amqp": "^0.2.0",

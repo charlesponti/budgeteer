@@ -28,12 +28,12 @@ describe('Components: TasksMain', function() {
     });
     it('should not call .setState() if not mounted', function() {
       component.isMounted.and.returnValue(false);
-      component.onTaskStoreChange();
+      component.onTaskStoreChange({});
       expect(component.setState).not.toHaveBeenCalled();
     });
     it('should call .setState() if mounted', function() {
       component.isMounted.and.returnValue(true);
-      component.onTaskStoreChange();
+      component.onTaskStoreChange({});
       expect(component.setState).toHaveBeenCalled();
     });
   });

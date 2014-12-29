@@ -18,17 +18,20 @@ var TaskApp = React.createClass({
    */
   getInitialState: function() {
     return {
-      tasks: this.props.initialData || TaskStore.models
+      tasks: this.props.tasks || [],
+      categories: this.props.categories || []
     };
   },
 
   /**
   * Set state to current state of TaskStore.models
+  * @param {Backbone.Collection} store
+  * @param {Object} response Response from API
   */
-  onTaskStoreChange: function() {
+  onTaskStoreChange: function(store, response) {
     if (this.isMounted()) {
       return this.setState({
-        tasks: TaskStore.models
+        tasks: store.models
       });
     }
   },
@@ -61,7 +64,7 @@ var TaskApp = React.createClass({
             <TaskAddButton/>
           </div>
           <div role="tabpanel" className="tab-pane" id="categories">
-            <h1>Cats</h1>
+            <CategoryMain categories={this.state.categories}/>
           </div>
         </div>
       </div>
