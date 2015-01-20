@@ -29,11 +29,11 @@ require('./models/weight');
 require('./models/category');
 
 /**
-* Application dependencies.
-* @private
-*/
+ * Application dependencies.
+ * @private
+ */
 var config = require('./config');
-var queues = require('./queues');
+var queues = require('./lib/queues');
 
 var User = mongoose.model('User');
 var oauth = config.OAuth;
