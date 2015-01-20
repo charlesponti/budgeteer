@@ -70,9 +70,9 @@
     "token": "foobar"
   },
 
-  "DB": "mongodb://localhost/backpack-test",
+  "db": "mongodb://localhost/backpack-test",
 
-  "Mailer": {
+  "mailer": {
     "service": "foobar",
     "from_email": "foo@foo.com",
     "service_username": "foo@foo.com",
