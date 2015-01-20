@@ -1,3 +1,0 @@
-undefined{"level":"info","message":"Cthulhu has risen at port 4000 in development","timestamp":"2014-11-27T01:08:35.194Z"}
-{"level":"info","message":"Connected to mongodb://localhost/backpack-dev database.","timestamp":"2014-11-27T01:08:35.218Z"}
-{"level":"info","message":"RabbitMQ connected.","timestamp":"2014-11-27T01:08:38.324Z"}
