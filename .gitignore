@@ -7,13 +7,9 @@ production.json
 staging.json
 
 node_modules
+bower_components
 
-public/vendor
-public/scripts
-public/styles
+public/**
 
 *.log
 *.map
-
-bundle.js
-bundle.test.js
