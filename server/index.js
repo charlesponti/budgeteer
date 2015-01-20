@@ -1,5 +1,6 @@
 'use strict';
 
+// Require node-jsx for ReactJS server-side rendering
 require('node-jsx').install({extension: '.jsx'});
 
 // Modules dependencies
@@ -12,7 +13,7 @@ var io = require('socket.io');
 var morgan = require('morgan');
 var express = require('express');
 var favicon = require('serve-favicon');
-var body_parser = require('body-parser');
+var bodyParser = require('body-parser');
 var compression = require('compression');
 var cookieParser = require('cookie-parser');
 var connectMongo = require('connect-mongo');
@@ -40,9 +41,6 @@ var oauth = config.OAuth;
 
 // Store
 var MongoStore = connectMongo(expressSession);
-
-// Initialize models
-require('./models/user');
 
 // Application configuration
 var config = require('./config');
@@ -96,11 +94,11 @@ xssProtection: true
 
 app.use(methodOverride());
 
-app.use(body_parser.urlencoded({
+app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use(body_parser.json());
+app.use(bodyParser.json());
 
 app.use(compression());
 
@@ -137,6 +135,7 @@ auth.use('Twitter', config.twitter);
 auth.use('Foursquare', config.foursquare);
 auth.use('Github', config.github);
 
+// Add `locals` to response object
 app.use(function(req, res, next) {
   res.locals.appName = 'Backpack';
   return next();
