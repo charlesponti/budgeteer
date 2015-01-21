@@ -75,12 +75,12 @@ var Modal = React.createClass({
 
   // Show modal
   show: function() {
-    $(this.getDOMNode()).modal('show');
+    this.getDOMNode().classList.add('open');
   },
 
   // Hide modal
   hide: function() {
-    $(this.getDOMNode()).modal('hide');
+    this.getDOMNode().classList.remove('open');
   },
 
   render: function() {
