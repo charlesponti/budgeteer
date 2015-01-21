@@ -1,102 +1,119 @@
 'use strict';
 
-var gulp = require('gulp');
-var less = require('gulp-less');
-var gutil = require('gulp-util');
-var watch = require('gulp-watch');
-var jsHint = require('gulp-jshint');
-var concat = require('gulp-concat');
-var notify = require('gulp-notify');
+global.isProd = false;
+
 var browserify = require('browserify');
-var watchify = require('watchify');
-var reactify = require('reactify');
+var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
 var stylish = require('jshint-stylish');
+var reactify = require('reactify');
+var runSequence = require('run-sequence');
 var source = require('vinyl-source-stream');
 
-var sources = {
+var files = {
   js: {
-    dir: './client/app/**/*.js',
-    tests: './client/test/specs/**/*.js',
+    source: 'client/app/**',
+    tests: 'client/test/specs/**/*.js',
     main: './client/app/main.jsx'
   },
-  styles: {
-    main: './client/styles/main.less',
-    all: './client/styles/**/*.less',
-    build: 'main.css',
-    minified: 'main.min.css',
-    buildDirectory: 'public/styles'
+  css: {
+    main: 'client/scss/main.scss',
+    source: 'client/scss/**/*.scss'
   },
-  backend: [
-    './server/**/*.js'
-  ]
+  backend: 'server/**/*.js'
 };
 
 /**
- * `build-scripts` task.
+ * `build:js` task.
  * This task will bundle all of the client side scripts and place
  * the bundled file into `public/scripts/bundle.js`.
  */
-gulp.task('build-client', ['lint-client'], function(done) {
-  var bundler = browserify({
-    entries: [sources.js.main],
-    debug: true,
-    cache: {},
-    packageCache: {}
-  });
-  bundler.transform(reactify);
-  return bundler
+gulp.task('build:js', function(done) {
+  return browserify({
+      entries: [files.js.main],
+      debug: true,
+      cache: {},
+      packageCache: {},
+      transform: [reactify]
+    })
     .bundle()
     .pipe(source('bundle.js'))
-    .pipe(gulp.dest('./public/scripts/'));
+    .pipe($.if(global.isProd, $.streamify($.uglify())))
+    .pipe(gulp.dest('public/js/'));
 });
 
 /**
- * `lint-client` task
+ * `lint:client` task
  * Run JSHint over client-side Javascript files
  */
-gulp.task('lint-client', function() {
-  gulp.src(sources.js.dir)
-    .pipe(jsHint())
-    .pipe(jsHint.reporter(stylish));
+gulp.task('lint:client', function() {
+  gulp.src('public/js')
+    .pipe($.jshint())
+    .pipe($.jshint.reporter(stylish));
 });
 
 /**
- * `lint-backend`
+ * `lint:backend`
  * Run JSHint against server-side .js files
  */
-gulp.task('lint-backend', function() {
-  gulp.src(sources.backend)
-    .pipe(jsHint())
-    .pipe(jsHint.reporter(stylish));
+gulp.task('lint:backend', function() {
+  gulp.src(files.backend)
+    .pipe($.jshint())
+    .pipe($.jshint.reporter(stylish));
+});
+
+gulp.task('vendor', function() {
+  // TODO Move needed bower_component files to public/vendor
+});
+
+gulp.task('images', function() {
+  // TODO Process images and move them to public/images
 });
 
 /**
- * `build-styles` task
+ * `build:css` task
  * Build CSS from .less files
  */
-gulp.task('build-styles', function() {
-  gulp.src(sources.styles.main)
-    .pipe(less())
-    .pipe(concat(sources.styles.build))
-    .pipe(gulp.dest(sources.styles.buildDirectory));
+gulp.task('build:css', function() {
+  gulp.src(files.css.main)
+    .pipe($.sass())
+    .pipe($.if(global.isProd, $.csso()))
+    .pipe($.if(global.isProd, $.rename('main.min.css')))
+    .pipe(gulp.dest('public/css'));
 });
 
-/**
- * Watch for file changes
- */
+gulp.task('build', function() {
+  return runSequence('build:css', 'build:js');
+});
+
+gulp.task('build:prod', function() {
+  global.isProd = true;
+  return runSequence('build');
+});
+
+gulp.task('serve', function() {
+  process.env.NODE_ENV = 'development';
+  var server = require('./server');
+  server.start();
+});
+
+gulp.task('serve:prod', function() {
+  process.env.NODE_ENV = 'production';
+  var server = require('./server');
+  server.start();
+});
+
 gulp.task('watch', function() {
   // Watch .less files
-  gulp.src(sources.styles.all)
-    .pipe(watch('client/styles/**/*.less', ['build-styles']));
+  gulp.watch(files.css.source, ['build:css']);
 
   // Watch client-side .js files
-  gulp.src(sources.js.dir)
-    .pipe(watch('client/app/**/*', ['build-client']));
+  gulp.watch(files.js.source, ['build:js']);
 
   // Watch server-side .js files
-  gulp.src(sources.backend)
-    .pipe(watch(sources.backend, ['lint-backend']));
+  gulp.src(files.backend, ['lint-backend']);
 });
 
-gulp.task('build', [ 'build-styles',  'build-client' ]);
-gulp.task('default', [ 'watch' ]);
+gulp.task('default', function() {
+  return runSequence('build', 'watch', 'serve');
+});
