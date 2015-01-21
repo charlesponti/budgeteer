@@ -65,7 +65,7 @@
     "refresh": "rm -rf node_modules && npm install && bower install",
     "start": "NODE_ENV=production forever index.js",
     "start:dev": "NODE_ENV=development forever -w index.js",
-    "test": "npm run test-server; npm run test-client-single",
+    "test": "npm run test:server; npm run test:client-single",
     "test:client": "./node_modules/karma/bin/karma start client/test/karma.conf.js",
     "test:client-single": "./node_modules/karma/bin/karma start client/test/karma.conf.js --single-run",
     "test:server": "jasmine-node test --color --verbose --forceexit"
