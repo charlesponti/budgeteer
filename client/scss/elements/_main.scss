@@ -1,19 +1,15 @@
 /**
- * @main
  * @group elements
  **/
 main {
-    padding-top: 50px;
-    display: block;
     transition: $navdrawer-transition;
-    max-width: 720px;
+    max-width: 800px;
 
     &.open {
         transform: translate(-250px, 0);
     }
 
     @include media-query(medium) {
-        padding-top: 100px;
         margin: 0 auto;
     }
 }
