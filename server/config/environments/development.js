@@ -1,22 +1,23 @@
-{
 
-  "port": 4000,
+module.exports = {
 
-  "appName": "foobar",
+  "port": 3000,
 
-  "appKey": "foobar",
+  "appName": "Backpack",
+
+  "appKey": "cthulhurules",
 
   "session_ttl": 360000,
 
-  "sessionSecret": "foobar",
+  "sessionSecret": "cthulhurules",
 
-  "sessionStore": "foobar",
+  "sessionStore": "cthulhu-session",
 
-  "static": "../public",
+  "public": "../public",
 
   "views": "./views",
 
-  "baseUrl": "foobar",
+  "baseUrl": "http://localhost:4000",
 
   "facebook": {
     "app_id": "foobar",
@@ -33,10 +34,10 @@
   },
 
   "google": {
-    "realm": "foobar",
-    "client_id": "foobar",
-    "client_secret": "foobar",
-    "redirect_uri": "foobar"
+    "realm": "http://127.0.0.1:3000",
+    "client_id": process.env.GOOGLE_ID,
+    "client_secret": process.env.GOOGLE_SECRET,
+    "redirect_uri": "http://127.0.0.1:3000/auth/google/callback"
   },
 
   "foursquare": {
@@ -70,7 +71,7 @@
     "token": "foobar"
   },
 
-  "db": "mongodb://localhost/backpack-test",
+  "db": "mongodb://localhost/backpack-dev",
 
   "mailer": {
     "service": "foobar",
