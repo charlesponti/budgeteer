@@ -3,7 +3,6 @@ describe('TaskStore', function() {
 
   var store, task, promise;
   var $ = require('jquery');
-  var service = require('../../../app/service/api');
   var TaskStore = require('../../../app/stores/tasks');
   var AppConstants = require('../../../app/constants/app');
 
