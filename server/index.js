@@ -124,12 +124,8 @@ app.use(auth.deserializeUser(function(user, done) {
   User.findOne(user._id).exec(done);
 }));
 
-// Set oauth strategies
-auth.use('Facebook', config.facebook);
+// Configure Google OAuth strategy
 auth.use('Google', config.google);
-auth.use('Twitter', config.twitter);
-auth.use('Foursquare', config.foursquare);
-auth.use('Github', config.github);
 
 // Add `locals` to response object
 app.use(function(req, res, next) {

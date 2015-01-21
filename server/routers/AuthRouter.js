@@ -82,32 +82,11 @@ router.onOauthLinked = function(req, res, err, user) {
   res.redirect('/');
 };
 
-// router.get('/dropbox', passport.authenticate('dropbox'));
-// router.get('/dropbox/callback', passport.authenticate('dropbox', {
-//   failureRedirect: '/login'
-// }));
-
 // Unlink OAuth
 router.get('/unlink/:provider', UserRouter.unlinkOAuth);
-
-// Facebook
-router.get('/facebook', auth.Facebook.authorize);
-router.get('/facebook/callback', auth.Facebook.callback, router.linkOauth);
 
 // Google
 router.get('/google', auth.Google.authorize);
 router.get('/google/callback', auth.Google.callback, router.linkOauth);
-
-// Twitter
-router.get('/twitter', auth.Twitter.authorize);
-router.get('/twitter/callback', auth.Twitter.callback, router.linkOauth);
-
-// Foursquare
-router.get('/foursquare', auth.Foursquare.authorize);
-router.get('/foursquare/callback', auth.Foursquare.callback, router.linkOauth);
-
-// Github
-router.get('/github', auth.Github.authorize);
-router.get('/github/callback', auth.Github.callback, router.linkOauth);
 
 module.exports = router;
