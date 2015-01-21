@@ -10,7 +10,7 @@ var AppDispatcher = require('../../dispatchers/app');
 var CategoryStore = require('../../stores/categories');
 
 // Components
-var ListItem = require('./ListItem.jsx');
+var ListItem = require('./list-item.jsx');
 
 /**
  * TaskList component
