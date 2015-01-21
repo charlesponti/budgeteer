@@ -49,9 +49,9 @@ var TaskApp = React.createClass({
 
   render: function() {
     return (
-      <div className='container-fluid'>
-        <ul className="nav nav-pills" role="tablist" ref="tabpanelNav">
-          <li className='active' role="presentation" key='tasks'>
+      <div className="tab-panel">
+        <ul className="tab-list">
+          <li className="active" role="presentation" key='tasks'>
             <a role="tab" data-toggle="tab" href="#tasks">Tasks</a>
           </li>
           <li role="presentation" key='categories'>
@@ -59,11 +59,13 @@ var TaskApp = React.createClass({
           </li>
         </ul>
         <div className="tab-content">
-          <div role="tabpanel" className="tab-pane active" id="tasks">
-            <TaskList className="task-list" id='task-list' tasks={this.state.tasks}/>
+          <div className="tab-pane" id="tasks">
+            <h2> Tasks </h2>
             <TaskAddButton/>
+            <TaskList className="task-list" id='task-list' tasks={this.state.tasks}/>
           </div>
-          <div role="tabpanel" className="tab-pane" id="categories">
+          <div className="tab-pane" id="categories">
+            <h2> Categories </h2>
             <CategoryMain categories={this.state.categories}/>
           </div>
         </div>
