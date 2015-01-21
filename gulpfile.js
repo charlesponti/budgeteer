@@ -76,7 +76,13 @@ gulp.task('images', function() {
  */
 gulp.task('build:css', function() {
   gulp.src(files.css.main)
-    .pipe($.sass())
+    .pipe($.sass({
+      sourceComments: global.isProd ? 'none' : 'map',
+      sourceMap: 'sass',
+      outputStyle: global.isProd ? 'compressed' : 'nested',
+      precision: 10,
+      onError: console.error.bind(console, 'Sass error:')
+    }))
     .pipe($.if(global.isProd, $.csso()))
     .pipe($.if(global.isProd, $.rename('main.min.css')))
     .pipe(gulp.dest('public/css'));
