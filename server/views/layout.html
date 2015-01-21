@@ -11,10 +11,12 @@
 
     {% include 'partials/_nav.html' %}
 
-    <div id="app" class="container">
-        {{ view }}
-        {% block content %}{% endblock %}
-    </div>
+    <main>
+        <div id="app" class="container">
+            {{ view }}
+            {% block content %}{% endblock %}
+        </div>
+    </main>
 
     <!-- Modal -->
     <div id="modal"></div>
