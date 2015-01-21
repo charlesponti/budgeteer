@@ -26,11 +26,13 @@
 @import 'layout/positioning';
 
 // Import modules
+@import 'modules/hero';
+@import 'modules/list-group';
 @import 'modules/site-nav';
 @import 'modules/site-header';
-@import 'modules/hero';
+@import 'modules/tab-panel';
 
-/* Import Themes */
+// Import Themes
 @import "themes/backgrounds";
 
 // Import FontAwesome
