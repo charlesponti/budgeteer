@@ -59,6 +59,8 @@
   "repository": "http://github.com/theponti/backpack",
   "scripts": {
     "console": "node bin/console",
+    "build": "gulp build",
+    "build:prod": "gulp build:prod",
     "debug": "NODE_ENV=development node-debug index.js",
     "refresh": "rm -rf node_modules && npm install && bower install",
     "start": "NODE_ENV=production forever index.js",
