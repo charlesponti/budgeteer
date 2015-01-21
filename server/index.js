@@ -116,9 +116,6 @@ app.db = require('./db');
 
 // app.mailer = require('./config/mailer')(config.mailer);
 
-// Use favicon
-app.use(favicon(__dirname + '/../public/favicon.ico'));
-
 // Initialize cthulhu-auth
 app.use(auth.setup);
 
