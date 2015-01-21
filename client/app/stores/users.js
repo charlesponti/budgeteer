@@ -2,7 +2,6 @@
 
 var _ = require('lodash');
 var Backbone = require('backbone');
-var service = require('../service/api');
 var AppConstants = require('../constants/app');
 var AppDispatcher = require('../dispatchers/app');
 
@@ -10,7 +9,6 @@ var AppDispatcher = require('../dispatchers/app');
  * Store to hold current user
  * @requires module: lodash
  * @requires module: ./BaseStore
- * @requires module: ../service/api
  */
 var UserStore = Backbone.Collection.extend({
 
