@@ -5,7 +5,6 @@ var _ = require('lodash');
 var Backbone = require('backbone');
 
 // Application dependencies
-var service = require('../service/api');
 var TaskModel = require('../models/task');
 var AppActions = require('../actions/app');
 var AppConstants = require('../constants/app');
@@ -15,7 +14,6 @@ var AppDispatcher = require('../dispatchers/app');
  * Store which will hold tasks
  * @requires module: lodash
  * @requires module: ./BaseStore
- * @requires module: ../service/api
  * @requires module: ../constants/appConstants
  */
 var TaskStore = Backbone.Collection.extend({
