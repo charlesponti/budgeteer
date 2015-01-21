@@ -56,17 +56,11 @@ var CategoryMain = React.createClass({
   render: function() {
     return (
       <div className="row">
-
-        <h1>
-          Categories
-          <button onClick={this.onAddClick}
-            className="btn btn-default pull-right">
-            Add Category
-          </button>
-        </h1>
-
         <CategoryList categories={this.state.categories} />
-
+        <button onClick={this.onAddClick}
+          className="btn btn-default pull-right">
+          Add Category
+        </button>
       </div>
     );
   }
