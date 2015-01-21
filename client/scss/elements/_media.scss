@@ -1,0 +1,16 @@
+// Embedded content
+//==========================================================================
+
+img {
+    // Remove border when inside `a` element in IE 8/9/1.
+    border: 0;
+    // Remove the gap between images and the bottom of their containers: h5bp.com/i/440
+    vertical-align: middle;
+    // Prevent images from overflowing their containers
+    max-width: 100%;
+}
+
+// Correct overflow not hidden in IE 9/10/11.
+svg:not(:root) {
+  overflow: hidden;
+}

@@ -1,0 +1,78 @@
+
+
+// HTML5 display definitions
+//==========================================================================
+
+// Correct `block` display not defined for any HTML5 element in IE 8/9.
+// Correct `block` display not defined for `details` or `summary` in IE 10/11 and Firefox.
+// Correct `block` display not defined for `main` in IE 11.
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+
+// 1. Correct `inline-block` display not defined in IE 8/9.
+// 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; // 1
+  vertical-align: baseline; // 2
+}
+
+// Prevent modern browsers from displaying `audio` without controls.
+// Remove excess height in iOS 5 devices.
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+// Address `[hidden]` styling not present in IE 8/9/1.
+// Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.
+[hidden],
+template {
+  display: none;
+}
+
+// Grouping content
+//==========================================================================
+
+// Address margin not present in IE 8/9 and Safari.
+figure {
+  margin: 1em 40px;
+}
+
+// Address differences between Firefox and other browsers.
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+pre {
+  // Add padding to pre
+  padding: 13px;
+  // Contain overflow in all browsers.
+  overflow: auto;
+}
+
+// Address odd `em`-unit font size rendering in all browsers.
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: $font-size;
+}

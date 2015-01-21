@@ -1,0 +1,13 @@
+/**
+ * This file contains the background themes.
+ * @group Themes
+ **/
+.bg-black {
+    background-color: $color-black-light;
+    color: $color-white-dark;
+}
+
+.bg-asphalt {
+    background-color: $color-asphalt;
+    color: $color-concrete;
+}

@@ -1,0 +1,13 @@
+/**
+ * @group Elements
+ */
+ul {
+    padding: $font-size;
+}
+
+li {
+    margin-bottom: $font-size;
+    &:last-child {
+        margin-bottom: 0px;
+    }
+}

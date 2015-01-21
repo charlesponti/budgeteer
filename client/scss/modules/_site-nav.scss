@@ -1,0 +1,87 @@
+/**
+ * This the .site-nav class.
+ * @group modules
+ **/
+.site-nav {
+  bottom: 0;
+  height: 100%;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transform: translate(250px, 0);
+  transition: $navdrawer-transition;
+  width: 250px;
+  z-index: 1;
+
+  &.open {
+    transform: translate(0, 0);
+  }
+
+  h4,
+  li a {
+    height: 60px;
+    line-height: 1.4;
+    padding: 17px 20px;
+  }
+
+  h4 {
+    background-color: #fff;
+    color: #3367d6;
+  }
+
+  ul {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    border-bottom: 1px solid #fff;
+    padding: 0px;
+    margin-bottom: 0px;
+
+    &::before {
+      content: none;
+    }
+
+    a {
+      color: inherit;
+      display: block;
+      text-decoration: none;
+      transition: $navdrawer-link-transition;
+      white-space: nowrap;
+    }
+
+    a:hover {
+      background-color: rgba(255, 255, 255, .2);
+    }
+
+    a:focus {
+      background-color: rgba(255, 255, 255, .3);
+      outline: 0;
+    }
+
+    a:active {
+      background-color: rgba(255, 255, 255, .4);
+    }
+
+    @include media-query(large) {
+      border-bottom: 0;
+      display: inline-block;
+
+      &:nth-child(1) {
+        border-left: 0;
+      }
+    }
+  }
+
+  // At any sizes above medium breakpoint, nav drawer should
+  // flow to be below header
+  @include media-query(large) {
+    height: 50px;
+    overflow-y: auto;
+    position: relative;
+    transform: none;
+    width: 100%;
+  }
+}
