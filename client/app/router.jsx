@@ -21,22 +21,26 @@ var Router = Backbone.Router.extend({
     'account': 'account',
     'weight': 'weight',
     'tasks': 'tasks',
-    '*default': 'tasks'
+    '*default': 'home'
+  },
+
+  home: function() {
+    return;
   },
 
   // Render Tasks application
   tasks: function() {
-    React.render(<Tasks/>, appEl);
+    return React.render(<Tasks/>, appEl);
   },
 
   // Render Weight application
   weight: function() {
-    React.render(<Weight/>, appEl);
+    return React.render(<Weight/>, appEl);
   },
 
   // Render Account application
   account: function() {
-    React.render(<Account/>, appEl);
+    return React.render(<Account/>, appEl);
   },
 
   dispatcherIndex: function(payload) {
