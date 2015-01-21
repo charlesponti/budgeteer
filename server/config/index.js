@@ -13,23 +13,11 @@ var path = require('path');
 var env = process.env.NODE_ENV;
 
 /**
- * Get path configuraiton file. Configuration file must be named after Node 
+ * Get path configuraiton file. Configuration file must be named after Node
  * environment
  * @type {String}
  */
-var configPath = path.resolve(__dirname, './environments/'+env+'.json');
-
-/**
- * Synchronously get contents of configuration file.
- * @type {Buffer}
- */
-var configFile = fs.readFileSync(configPath);
-
-/**
- * JSON.parse contents of configuration file
- * @type {Object}
- */
-var config = JSON.parse(configFile);
+var config = require('./environments/'+env);
 
 /**
  * Attach key-values in configuration file to process.env
