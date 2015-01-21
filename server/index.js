@@ -78,17 +78,17 @@ switch (app.get('env')) {
 // Add lusca
 app.use(lusca({
   csp: {
-  default_src: "'self'",
-  script_src: "'self'",
-  image_src: "'self'"
-},
-xframe: 'SAMEORIGIN',
-p3p: 'ABCDEF',
-hsts: {
-  maxAge: 31536000,
-  includeSubDomains: true
-},
-xssProtection: true
+    default_src: "'self'",
+    script_src: "'self'",
+    image_src: "'self'"
+  },
+  xframe: 'SAMEORIGIN',
+  p3p: 'ABCDEF',
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true
+  },
+  xssProtection: true
 }));
 
 app.use(methodOverride());
