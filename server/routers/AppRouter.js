@@ -22,8 +22,7 @@ router.about = function(req, res) {
  *     @params {String} config.url Url for redirect
  */
 router.error = function(err, req, res) {
-  var message = 'There was an issue processing your request. Our unicorns will'+
-  ' look into the issue after their trip to Candy Mountain.';
+  var message = 'There was an issue processing your request.';
   req.flash('error', err.message || message);
   res.redirect('/');
 };
