@@ -2,11 +2,7 @@
 
 // Module dependencies
 var React = require('react');
-
-// Application dependencies
 var AppActions = require('../../actions/app');
-
-// Factories
 var Preview = require('./preview.jsx');
 
 /**
@@ -43,7 +39,7 @@ var TaskListItem = React.createClass({
 
     AppActions.loadModal({
       title: task.get('title'),
-      component: <Preview task={task}/>
+      component: <Preview task={task}></Preview>
     });
   },
 
@@ -56,15 +52,16 @@ var TaskListItem = React.createClass({
     };
 
     return (
-      <li className="list-group-item task-list-item" key={task.get('_id')}>
-        <div>
+      <li className="list-item" key={task.get('_id')}>
+        <h4 onClick={this.onTitleClick}>
           <input type="checkbox" className="task-checkbox"
             onClick={this.onCheckboxClick} defaultChecked={task.get('completed')}/>
-
-          <h4 onClick={this.onTitleClick}>{task.get('title')}</h4>
-        </div>
+            {task.get('title')}
+        </h4>
+        <span className="icon-tag">
           <i className="fa fa-tag fa-4" style={categoryStyle}></i>
           {category.name}
+        </span>
       </li>
     );
   }
