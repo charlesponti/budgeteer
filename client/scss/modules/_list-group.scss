@@ -1,0 +1,21 @@
+
+.list-group {
+    list-style-type: none;
+    margin: 0px auto;
+    padding: 0px;
+}
+
+.list-item {
+
+}
+
+.icon-tag {
+    margin-left: $font-size * 2;
+    background-color: #ccc;
+    border-radius: 4px;
+    display: inline-block;
+    padding: 3px 5px;
+    i {
+        margin-right: $font-size;
+    }
+}
