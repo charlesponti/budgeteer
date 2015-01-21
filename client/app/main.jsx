@@ -1,25 +1,15 @@
 'use strict';
 
-// Connect to WebSocket
-var io = window.io;
-var socket = io.connect('http://localhost:4000');
+// Require nav component
+require('./components/nav');
 
-// Module dependencies
+var $ = require('jquery');
 var React = require('react');
 
-// Attach lodash to window
-window._ = require('lodash');
+// Attach jQuery to Backbone
+require('backbone').$ = $;
 
-// Attach jQuery to window
-window.$ =
-window.jQuery = require('jquery');
-
-// Attach Backbone to window
-var Backbone =
-window.Backbone = require('backbone');
-Backbone.$ = $;
-
-// Requery application router and start it
+// Instantiate application router
 require('./router.jsx');
 
 // Add CSRF token to $.ajax calls
