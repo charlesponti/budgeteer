@@ -12,7 +12,6 @@ var lusca = require('lusca');
 var io = require('socket.io');
 var morgan = require('morgan');
 var express = require('express');
-var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var compression = require('compression');
 var cookieParser = require('cookie-parser');
