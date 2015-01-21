@@ -9,22 +9,8 @@
  * @group layout
  **/
 .container {
-    // Should take up 100% of its parent container
     width: 100%;
-    padding: 0px 15px;
     max-width: 100%;
-
-    @include media-query(small) {
-        padding: 0px 30px;
-    }
-
-    @include media-query(medium) {
-        padding: 0px 50px;
-    }
-
-    @include media-query(large) {
-      padding: 0px 100px;
-    }
 }
 
 .container:before,
