@@ -1,25 +1,27 @@
 'use strict';
 
-// Module dependencies
+var CategoryMain = require('../category/main.jsx');
+var CategoryStore = require('../../stores/categories');
 var React = require('react');
-
-var TaskStore = require('../../stores/tasks');
-
-// Components
 var TaskList = require('./list.jsx');
+var TaskStore = require('../../stores/tasks');
 var TaskAddButton = require('./add-button.jsx');
-var CategoryMain = require('../category/Main.jsx');
 
 var TaskApp = React.createClass({
+
+  propTypes: {
+    initialData: React.PropTypes.object
+  },
 
   /**
    * Get initial state of tab panel
    * @return {object}
    */
   getInitialState: function() {
+    var data = this.props.initialData;
     return {
-      tasks: this.props.tasks || [],
-      categories: this.props.categories || []
+      tasks: (data && data.tasks) || [],
+      categories: (data && data.categories) || []
     };
   },
 
@@ -52,10 +54,10 @@ var TaskApp = React.createClass({
       <div className="tab-panel">
         <ul className="tab-list">
           <li className="active" role="presentation" key='tasks'>
-            <a role="tab" data-toggle="tab" href="#tasks">Tasks</a>
+            <a href="#tasks">Tasks</a>
           </li>
           <li role="presentation" key='categories'>
-            <a role="tab" data-toggle="tab" href="#categories">Categories</a>
+            <a href="#categories">Categories</a>
           </li>
         </ul>
         <div className="tab-content">
@@ -66,7 +68,7 @@ var TaskApp = React.createClass({
           </div>
           <div className="tab-pane" id="categories">
             <h2> Categories </h2>
-            <CategoryMain categories={this.state.categories}/>
+            <CategoryMain categories={this.state.categories} />
           </div>
         </div>
       </div>
