@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * @desc Determine if application is running in development. Used for configs
+ * @type {Boolean}
+ */
+var isDevelopment = process.env.NODE_ENV === 'developement';
+
 // Require node-jsx for ReactJS server-side rendering
 require('node-jsx').install({extension: '.jsx'});
 
