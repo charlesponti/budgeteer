@@ -1,15 +1,10 @@
 'use strict';
 
-// Module dependencies
-var React = require('react');
-
-// Application dependencies
 var AppActions = require('../../actions/app');
-var CategoryStore = require('../../stores/categories');
-
-// Components
 var CategoryForm = require('./Form.jsx');
 var CategoryList = require('./List.jsx');
+var CategoryStore = require('../../stores/categories');
+var React = require('react');
 
 /**
  * Main view for the Tasks application
