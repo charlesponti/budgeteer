@@ -16,12 +16,17 @@
 <body>
 
     <!--[if lt IE 8]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="http://browsehappy.com/">upgrade your browser</a>
+        to improve your experience.
+    </p>
     <![endif]-->
 
     <header class="site-header bg-black">
-        <h1 class="logo"> Backpack</h1>
-        <button class="menu"> Menu</button>
+        <h1 class="logo">
+            <i class="fa fa-bars menu" alt="Menu"></i> Backpack
+        </h1>
     </header>
 
     <nav class="site-nav bg-black">
@@ -33,19 +38,18 @@
                 <li>
                     <a href="/weight"> Weight </a>
                 </li>
-                <hr>
                 <li>
-                  <a id="user" href="/account"> Account</a>
+                    <a href="/account"> Account</a>
                 </li>
                 <li>
-                  <a href="/logout">Logout</a>
+                    <a href="/logout">Logout</a>
                 </li>
             {% else %}
                 <li>
                     <a href="/about">About</a>
                 </li>
                 <li>
-                  <a href="/login"> Log In </a>
+                    <a href="/login"> Log In </a>
                 </li>
             {% endif %}
         </ul>
