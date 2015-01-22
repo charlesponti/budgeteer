@@ -10,6 +10,7 @@ main {
     }
 
     @include media-query(medium) {
-        margin: 0 auto;
+        margin: 50px auto 0px;
+        padding: 0px 15px;
     }
 }
