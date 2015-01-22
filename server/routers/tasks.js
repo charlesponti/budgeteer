@@ -22,12 +22,15 @@ router.get('/', function(req, res, next) {
             return next(err);
           }
 
+          var data = {
+            tasks: tasks,
+            categories: categories
+          };
+
           return res.render('layout', {
             current_user: req.user,
-            view: React.renderToString(TaskView({
-              tasks: tasks,
-              categories: categories
-            }))
+            initialData: JSON.stringify(data),
+            view: React.renderToString(TaskView({ initialData: data }))
           });
         });
     });
