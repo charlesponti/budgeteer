@@ -12,10 +12,10 @@ var WeightMain = React.createClass({
   propTypes: {
     initialData: React.PropTypes.array
   },
-  
+
   getInitialState: function() {
     return {
-      weights: this.props.initialData
+      weights: this.props.initialData || []
     };
   },
 
