@@ -174,19 +174,21 @@ app.start = function() {
   var port = app.get('port');
   var server = http.createServer(app);
 
+  server.listen(port, function() {
+    return util.log(
+      'Server run in ' + (app.get('env')) + ' mode on port ' + (port)
+    );
+  });
+
   // Add socket to app and begin listening.
-  app.socket = io.listen(server).sockets;
+  app.socket = io(server);
 
   // Emit initial message
   app.socket.on('connection', function(socket) {
     socket.emit('message', { message: 'Cthulhu has you in its grips.' });
   });
 
-  return server.listen(port, function() {
-    return util.log(
-      "Server run in " + (app.get('env')) + " mode on port " + (port)
-    );
-  });
+  return;
 };
 
 // start the server if `$ node server.js`
