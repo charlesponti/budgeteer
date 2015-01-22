@@ -1,11 +1,11 @@
 'use strict';
 
+var _ = require('lodash');
 var AppConstants = require('../../app-constants');
 var AppDispatcher = require('../../app-dispatcher');
-var ConnectedAccount = require('./ConnectedAccount.jsx');
+var ConnectedAccount = require('./connected-account.jsx');
 var React = require('react');
 var UserStore = require('../../stores/users');
-
 
 var Account = React.createClass({
 
