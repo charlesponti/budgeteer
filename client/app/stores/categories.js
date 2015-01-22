@@ -1,13 +1,10 @@
 'use strict';
 
-// Module dependencies
 var _ = require('lodash');
-
-// Application dependencies
-var Backbone = require('backbone');
 var AppActions = require('../actions/app');
 var AppConstants = require('../constants/app');
 var AppDispatcher = require('../dispatchers/app');
+var Backbone = require('backbone');
 
 /**
  * Store which will hold tasks
