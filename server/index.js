@@ -4,23 +4,25 @@
 require('node-jsx').install({extension: '.jsx'});
 
 // Modules dependencies
-var util = require('util');
-var http = require('http');
-var path = require('path');
-var swig = require('swig');
-var lusca = require('lusca');
-var io = require('socket.io');
-var morgan = require('morgan');
-var express = require('express');
+var auth = require('cthulhu-auth');
 var bodyParser = require('body-parser');
 var compression = require('compression');
-var cookieParser = require('cookie-parser');
+var config = require('_/config');
 var connectMongo = require('connect-mongo');
+var cookieParser = require('cookie-parser');
+var express = require('express');
 var expressLogger = require('express-logger');
 var expressSession = require('express-session');
+var http = require('http');
+var io = require('socket.io');
+var lusca = require('lusca');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
-var auth = require('cthulhu-auth');
+var morgan = require('morgan');
+var path = require('path');
+var swig = require('swig');
+var queues = require('./lib/queues');
+var util = require('util');
 
 // Instantiate models
 require('./models/user');
@@ -28,21 +30,11 @@ require('./models/task');
 require('./models/weight');
 require('./models/category');
 
-/**
- * Application dependencies.
- * @private
- */
-var config = require('./config');
-var queues = require('./lib/queues');
-
+// Get User model
 var User = mongoose.model('User');
-var oauth = config.OAuth;
 
-// Store
+// Session Store
 var MongoStore = connectMongo(expressSession);
-
-// Application configuration
-var config = require('./config');
 
 // Create new Express application
 var app = express();
@@ -59,10 +51,10 @@ app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 
 // Set views folder
-app.set('views', path.resolve(__dirname, config.views  || './views'));
+app.set('views', path.resolve(__dirname, config.views));
 
 // Set public folder
-app.use(express.static(path.resolve(__dirname, config.public || '../public')));
+app.use(express.static(path.resolve(__dirname, config.static)));
 
 // Set up logging system
 switch (app.get('env')) {
@@ -171,9 +163,16 @@ app.start = function() {
   });
 
   return server.listen(port, function() {
-    return util.log("Server run in " + (app.get('env')) + " mode on port " + (port));
+    return util.log(
+      "Server run in " + (app.get('env')) + " mode on port " + (port)
+    );
   });
 };
+
+// start the server if `$ node server.js`
+if (require.main === module) {
+  app.start();
+}
 
 // Export app
 module.exports = app;
