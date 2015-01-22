@@ -4,8 +4,8 @@
  * Module dependencies
  */
 var React = require('react');
-var LinkButton = require('./LinkButton.jsx');
-var UnlinkButton = require('./UnlinkButton.jsx');
+var LinkButton = require('./link-button.jsx');
+var UnlinkButton = require('./unlink-button.jsx');
 
 /**
  * Component containing all of a user's connected accounts
