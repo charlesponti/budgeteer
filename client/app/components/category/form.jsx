@@ -1,9 +1,7 @@
 'use strict';
 
-// Module dependencies
+var AppActions = require('../../app-actions');
 var React = require('react');
-
-var AppActions = require('../../actions/app');
 
 var CategoryForm = React.createClass({
 
