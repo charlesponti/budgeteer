@@ -83,16 +83,16 @@ switch (app.get('env')) {
     break;
   case 'production':
     app.use(expressLogger({
-      path: "" + __dirname + "/log/requests.log"
+      path: '' + __dirname + '/log/requests.log'
     }));
 }
 
 // Add lusca
 app.use(lusca({
   csp: {
-    default_src: "'self'",
-    script_src: "'self'",
-    image_src: "'self'"
+    default_src: '"self"',
+    script_src: '"self"',
+    image_src: '"self"'
   },
   xframe: 'SAMEORIGIN',
   p3p: 'ABCDEF',
