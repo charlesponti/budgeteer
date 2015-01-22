@@ -1,16 +1,12 @@
 'use strict';
 
-// Module dependencies
-var React = require('react');
-var Backbone = require('backbone');
-
-// Application dependencies
-var AppDispatcher = require('./dispatchers/app');
-
-// Components
-var Tasks = require('./components/task/main.jsx');
-var Weight = require('./components/weight/main.jsx');
 var Account = require('./components/account/Main.jsx');
+var AppDispatcher = require('./dispatchers/app');
+var Backbone = require('backbone');
+var initialData = require('./initial-data');
+var React = require('react');
+var TaskApp = require('./components/task/main.jsx');
+var Weight = require('./components/weight/main.jsx');
 
 // #app element
 var appEl = document.getElementById('app');
@@ -30,17 +26,21 @@ var Router = Backbone.Router.extend({
 
   // Render Tasks application
   tasks: function() {
-    return React.render(<Tasks/>, appEl);
+    var data = {
+      tasks: initialData.tasks,
+      categories: initialData.categories
+    }
+    return React.render(<TaskApp initialData={data}/>, appEl);
   },
 
   // Render Weight application
   weight: function() {
-    return React.render(<Weight/>, appEl);
+    return React.render(<Weight initialData={initialData.weights} />, appEl);
   },
 
   // Render Account application
   account: function() {
-    return React.render(<Account/>, appEl);
+    return React.render(<Account initialData={initialData.users} />, appEl);
   },
 
   dispatcherIndex: function(payload) {
