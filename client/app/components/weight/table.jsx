@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
 
 var WeightTable = React.createClass({
 
@@ -9,8 +9,16 @@ var WeightTable = React.createClass({
   },
 
   render: function() {
+    var cx = React.addons.classSet;
+    var classes = cx({
+      'table': true,
+      'hover': true,
+      // Hide table if no weights
+      'hide': this.props.weights.length === 0
+    });
+
     return (
-      <table className="table table-hover">
+      <table className={classes}>
         <thead>
           <tr>
             <th>Date</th>
