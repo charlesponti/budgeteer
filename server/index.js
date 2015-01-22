@@ -48,9 +48,23 @@ var app = express();
 // Set application port
 app.set('port', config.port || 3000);
 
-swig.setDefaults({
-  autoescape: false
-});
+
+if (isDevelopment) {
+  app.set('view cache', true);
+  swig.setDefaults({
+    cache: true,
+    autoescape: false
+  });
+} else {
+  app.set('view cache', false);
+  swig.setDefaults({
+    cache: false,
+    autoescape: false
+  });
+}
+
+// NOTE: You should always cache templates in a production environment.
+// Don't leave both of these to `false` in production!
 
 app.engine('html', swig.renderFile);
 
