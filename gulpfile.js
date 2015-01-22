@@ -3,12 +3,13 @@
 global.isProd = false;
 
 var browserify = require('browserify');
+var forever = require('forever-monitor');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var stylish = require('jshint-stylish');
 var reactify = require('reactify');
 var runSequence = require('run-sequence');
 var source = require('vinyl-source-stream');
+var stylish = require('jshint-stylish');
 
 var files = {
   js: {
@@ -97,17 +98,31 @@ gulp.task('build:prod', function() {
   return runSequence('build');
 });
 
-gulp.task('serve', function() {
-  process.env.NODE_ENV = 'development';
-  var server = require('./server');
-  server.start();
-});
+/**
+ * @desc Start Forever
+ * @param  {String} env  NODE_ENV
+ * @param  {Array} args Arguments to pass to Forever CLI
+ */
+function server(env, args) {
+  var child = new (forever.Monitor)('./index.js', {
+    max: 3,
+    silent: false,
+    args: args,
+    env: {
+      'NODE_ENV': env
+    }
+  });
 
-gulp.task('serve:prod', function() {
-  process.env.NODE_ENV = 'production';
-  var server = require('./server');
-  server.start();
-});
+  child.on('exit', function () {
+    console.log('Backpack has exited after 3 restarts');
+  });
+
+  child.start();
+}
+
+gulp.task('serve', server.bind(null, 'development', ['-w']));
+
+gulp.task('serve:prod', server.bind(null, 'production', []));
 
 gulp.task('watch', function() {
   // Watch .less files
