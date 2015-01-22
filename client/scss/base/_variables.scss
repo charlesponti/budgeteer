@@ -32,6 +32,7 @@ $animation-easing: cubic-bezier(.455, .030, .515, .955) !default;
 // Nav Drawer
 $navdrawer-link-transition: background-color 0.2s ease-out;
 $navdrawer-transition: transform 250ms ease-out;
+$navdrawer-transform: translate(250px, 0px);
 $navdrawer-width: 280px !default;
 
 // Header & Nav
