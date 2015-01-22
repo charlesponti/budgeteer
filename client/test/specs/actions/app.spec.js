@@ -1,8 +1,8 @@
 describe('Actions: AppActions', function() {
   'use strict';
 
-  var AppActions = require('../../../app/actions/app');
-  var AppDispatcher = require('../../../app/dispatchers/app');
+  var AppActions = require('../../../app/app-actions');
+  var AppDispatcher = require('../../../app/app-dispatcher');
 
   beforeEach(function() {
     spyOn(AppDispatcher, 'dispatch');

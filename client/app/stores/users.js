@@ -2,13 +2,16 @@
 
 var _ = require('lodash');
 var Backbone = require('backbone');
-var AppConstants = require('../constants/app');
-var AppDispatcher = require('../dispatchers/app');
+var AppConstants = require('../app-constants');
+var AppDispatcher = require('../app-dispatcher');
 
 /**
  * Store to hold current user
  * @requires module: lodash
- * @requires module: ./BaseStore
+ * @requires module: backbone
+ * @requires module: ../app-constants
+ * @requires module: ../app-dispatcher
+ *
  */
 var UserStore = Backbone.Collection.extend({
 

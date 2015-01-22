@@ -8,7 +8,7 @@ describe('Tasks: Form', function() {
   var $ = require('jquery');
   var TestUtils = require('react/addons').addons.TestUtils;
   var TaskModel = require('../../../../app/models/task');
-  var AppActions = require('../../../../app/actions/app');
+  var AppActions = require('../../../../app/app-actions');
   var Form = require('../../../../app/components/task/form.jsx');
 
   beforeEach(function() {

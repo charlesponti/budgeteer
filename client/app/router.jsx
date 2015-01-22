@@ -1,7 +1,7 @@
 'use strict';
 
 var Account = require('./components/account/Main.jsx');
-var AppDispatcher = require('./dispatchers/app');
+var AppDispatcher = require('./app-dispatcher');
 var Backbone = require('backbone');
 var initialData = require('./initial-data');
 var React = require('react');

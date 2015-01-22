@@ -2,9 +2,9 @@
 
 var Backbone = require('backbone');
 
-var AppActions = require('../actions/app');
-var AppConstants = require('../constants/app');
-var AppDispatcher = require('../dispatchers/app');
+var AppActions = require('../app-actions');
+var AppConstants = require('../app-constants');
+var AppDispatcher = require('../app-dispatcher');
 
 var WeightStore = Backbone.Collection.extend({
 
