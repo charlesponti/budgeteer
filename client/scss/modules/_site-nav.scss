@@ -6,15 +6,15 @@
   bottom: 0;
   height: 100%;
   position: fixed;
-  right: 0;
-  top: 0;
-  transform: translate(250px, 0);
+  left: -250px;
+  top: 0px;
   transition: $navdrawer-transition;
   width: 250px;
   z-index: 1;
+  will-change: translate;
 
   &.open {
-    transform: translate(0, 0);
+    transform: $navdrawer-transform;
   }
 
   h4,
