@@ -1,15 +1,11 @@
 'use strict';
 
-// Module dependencies
-var React = require('react');
-
-// Application dependencies
-var UserStore = require('../../stores/users');
-var AppConstants = require('../../constants/app');
-var AppDispatcher = require('../../dispatchers/app');
-
-// Components
+var AppConstants = require('../../app-constants');
+var AppDispatcher = require('../../app-dispatcher');
 var ConnectedAccount = require('./ConnectedAccount.jsx');
+var React = require('react');
+var UserStore = require('../../stores/users');
+
 
 var Account = React.createClass({
 
