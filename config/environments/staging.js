@@ -16,9 +16,9 @@ module.exports = {
 
   "sessionStore": "cthulhu-session",
 
-  "public": "../public",
+  "static": "../static",
 
-  "views": "./views",
+  "views": "../views",
 
   "baseUrl": "http://127.0.0.1:3000",
 
