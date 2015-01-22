@@ -12,12 +12,11 @@ router.get('/', function(req, res, next) {
       if (err) {
         return next(err);
       }
-      var data = { weights: weights };
 
       return res.render('layout', {
-        initialData: JSON.stringify(data),
+        initialData: JSON.stringify({ weights: weights }),
         current_user: req.user,
-        view: React.renderToString(WeightMain(data))
+        view: React.renderToString(WeightMain({ initialData: weights }))
       });
     });
 });
