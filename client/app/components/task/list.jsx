@@ -1,13 +1,8 @@
 'use strict';
 
-// Module dependencies
+var AppConstants = require('../../app-constants');
+var AppDispatcher = require('../../app-dispatcher');
 var React = require('react');
-
-// Application dependencies
-var AppConstants = require('../../constants/app');
-var AppDispatcher = require('../../dispatchers/app');
-
-// Components
 var TaskListItem = require('./list-item.jsx');
 var TaskSearch = require('./search.jsx');
 

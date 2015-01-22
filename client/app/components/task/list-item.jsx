@@ -2,7 +2,7 @@
 
 // Module dependencies
 var React = require('react');
-var AppActions = require('../../actions/app');
+var AppActions = require('../../app-actions');
 var Preview = require('./preview.jsx');
 
 /**

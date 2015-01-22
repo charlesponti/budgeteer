@@ -4,7 +4,7 @@
 var React = require('react');
 
 // Application dependencies
-var AppActions = require('../../actions/app');
+var AppActions = require('../../app-actions');
 var TaskStore = require('../../stores/tasks');
 var TaskModel = require('../../models/task');
 var CategorySelect = require('../category/Select.jsx');

@@ -1,6 +1,6 @@
 'use strict';
 
-var AppActions = require('../../actions/app');
+var AppActions = require('../../app-actions');
 var CategoryForm = require('./Form.jsx');
 var CategoryList = require('./List.jsx');
 var CategoryStore = require('../../stores/categories');

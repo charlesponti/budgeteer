@@ -1,9 +1,8 @@
 'use strict';
 
+var AppConstants = require('../../app-constants');
+var AppDispatcher = require('../../app-dispatcher');
 var React = require('react');
-
-var AppConstants = require('../../constants/app');
-var AppDispatcher = require('../../dispatchers/app');
 
 var WeightForm = React.createClass({
 

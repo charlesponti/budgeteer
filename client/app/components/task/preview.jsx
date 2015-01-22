@@ -5,7 +5,7 @@ var React = require('react');
 var marked = require('marked');
 
 // Application dependencies
-var AppActions = require('../../actions/app');
+var AppActions = require('../../app-actions');
 var TaskForm = require('./form.jsx');
 
 /**

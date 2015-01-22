@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var AppActions = require('../../actions/app');
+var AppActions = require('../../app-actions');
 var TaskForm = require('./form.jsx');
 
 var TaskAddButton = React.createClass({

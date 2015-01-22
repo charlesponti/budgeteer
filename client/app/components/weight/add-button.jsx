@@ -2,7 +2,7 @@
 
 var React = require('react');
 
-var AppActions = require('../../actions/app');
+var AppActions = require('../../app-actions');
 var WeightForm = require('./form.jsx');
 
 var WeightAddButton = React.createClass({

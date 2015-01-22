@@ -5,8 +5,8 @@ var _ = require('lodash');
 var React = require('react');
 
 // Application dependencies
-var AppConstants = require('../../constants/app');
-var AppDispatcher = require('../../dispatchers/app');
+var AppConstants = require('../../app-constants');
+var AppDispatcher = require('../../app-dispatcher');
 var CategoryStore = require('../../stores/categories');
 
 // Components
