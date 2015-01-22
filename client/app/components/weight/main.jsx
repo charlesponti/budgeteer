@@ -2,17 +2,20 @@
 
 var React = require('react');
 
-var WeightStore = require('../../stores/weight');
-
-var WeightTable = require('./table.jsx');
 var WeightGraph = require('./graph.jsx');
+var WeightStore = require('../../stores/weight');
+var WeightTable = require('./table.jsx');
 var WeightAddButton = require('./add-button.jsx');
 
 var WeightMain = React.createClass({
 
+  propTypes: {
+    initialData: React.PropTypes.array
+  },
+  
   getInitialState: function() {
     return {
-      weights: this.props.weights || []
+      weights: this.props.initialData
     };
   },
 
