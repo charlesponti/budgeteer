@@ -27,7 +27,7 @@ var files = {
 /**
  * `build:js` task.
  * This task will bundle all of the client side scripts and place
- * the bundled file into `public/scripts/bundle.js`.
+ * the bundled file into `static/scripts/bundle.js`.
  */
 gulp.task('build:js', function(done) {
   return browserify({
@@ -40,7 +40,7 @@ gulp.task('build:js', function(done) {
     .bundle()
     .pipe(source('bundle.js'))
     .pipe($.if(global.isProd, $.streamify($.uglify())))
-    .pipe(gulp.dest('public/js/'));
+    .pipe(gulp.dest('static/js/'));
 });
 
 /**
@@ -48,7 +48,7 @@ gulp.task('build:js', function(done) {
  * Run JSHint over client-side Javascript files
  */
 gulp.task('lint:client', function() {
-  gulp.src('public/js')
+  gulp.src('static/js')
     .pipe($.jshint())
     .pipe($.jshint.reporter(stylish));
 });
@@ -64,11 +64,15 @@ gulp.task('lint:backend', function() {
 });
 
 gulp.task('vendor', function() {
-  // TODO Move needed bower_component files to public/vendor
+  gulp.src([
+      'bower_components/es5-shim/es5-shim.min.js',
+      'bower_components/highcharts/highcharts-all.js'
+    ])
+    .pipe(gulp.dest('static/vendor'));
 });
 
 gulp.task('images', function() {
-  // TODO Process images and move them to public/images
+  // TODO Process images and move them to static/images
 });
 
 /**
@@ -86,43 +90,35 @@ gulp.task('build:css', function() {
     }))
     .pipe($.if(global.isProd, $.csso()))
     .pipe($.if(global.isProd, $.rename('main.min.css')))
-    .pipe(gulp.dest('public/css'));
-});
-
-gulp.task('build', function() {
-  return runSequence('build:css', 'build:js');
-});
-
-gulp.task('build:prod', function() {
-  global.isProd = true;
-  return runSequence('build');
+    .pipe(gulp.dest('static/css'));
 });
 
 /**
  * @desc Start Forever
  * @param  {String} env  NODE_ENV
- * @param  {Array} args Arguments to pass to Forever CLI
+ * @param  {Boolean} watch Whether or not Forever should watch for file changes
  */
-function server(env, args) {
-  var child = new (forever.Monitor)('./index.js', {
+function server(env, watch) {
+  var child = new (forever.Monitor)('./server/index.js', {
     max: 3,
     silent: false,
-    args: args,
+    // watch: watch,
+    args: [],
     env: {
       'NODE_ENV': env
     }
   });
 
-  child.on('exit', function () {
+  child.on('exit', function() {
     console.log('Backpack has exited after 3 restarts');
   });
 
   child.start();
 }
 
-gulp.task('serve', server.bind(null, 'development', ['-w']));
+gulp.task('serve', server.bind(null, 'development', true));
 
-gulp.task('serve:prod', server.bind(null, 'production', []));
+gulp.task('serve:prod', server.bind(null, 'production', false));
 
 gulp.task('watch', function() {
   // Watch .less files
@@ -133,6 +129,19 @@ gulp.task('watch', function() {
 
   // Watch server-side .js files
   gulp.src(files.backend, ['lint-backend']);
+});
+
+gulp.task('build', function() {
+  return runSequence(
+    'vendor',
+    'build:css',
+    'build:js'
+  );
+});
+
+gulp.task('build:prod', function() {
+  global.isProd = true;
+  return runSequence('build');
 });
 
 gulp.task('default', function() {
