@@ -17,11 +17,7 @@ var Router = Backbone.Router.extend({
     'account': 'account',
     'weight': 'weight',
     'tasks': 'tasks',
-    '*default': 'home'
-  },
-
-  home: function() {
-    return;
+    '*default': 'tasks'
   },
 
   // Render Tasks application
