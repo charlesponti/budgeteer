@@ -3,7 +3,7 @@ describe('WeightMain', function() {
 
   var weight;
   var TestUtils = require('react/addons').addons.TestUtils;
-  var WeightMain = require('_/common/components/weight/main.jsx');
+  var WeightMain = require('components/weight/main.jsx');
 
   beforeEach(function() {
     weight = TestUtils.renderIntoDocument(WeightMain);

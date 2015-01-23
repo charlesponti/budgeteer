@@ -1,7 +1,20 @@
 {
   "name": "backpack",
   "version": "1.0.0",
+  "aliasify": {
+      "aliases": {
+          "client/app": "./client/app/index.js",
+          "underscore": "lodash"
+      }
+  },
+  "browserify": {
+    "transform": [
+      "aliasify",
+      "reactify"
+    ]
+  },
   "dependencies": {
+    "aliasify": "^1.5.1",
     "amqp": "^0.2.0",
     "backbone": "^1.1.2",
     "body-parser": "^1.9.2",

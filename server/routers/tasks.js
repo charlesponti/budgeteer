@@ -4,7 +4,7 @@ var React = require('react/addons');
 var router = require('express').Router();
 var Task = require('mongoose').model('Task');
 var Category = require('mongoose').model('Category');
-var TaskView = require('_/common/components/task/main');
+var TaskView = require('../../components/task/main');
 
 router.get('/', function(req, res, next) {
   return Task

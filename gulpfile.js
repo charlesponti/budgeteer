@@ -2,6 +2,7 @@
 
 global.isProd = false;
 
+var aliasify = require('aliasify');
 var browserify = require('browserify');
 var forever = require('forever-monitor');
 var gulp = require('gulp');
@@ -13,13 +14,12 @@ var stylish = require('jshint-stylish');
 
 var files = {
   js: {
-    source: 'client/js/**',
-    tests: 'client/test/specs/**/*.js',
-    main: './client/js/main.jsx'
+    source: 'client/**',
+    main: './client/main.jsx'
   },
   css: {
-    main: 'client/scss/main.scss',
-    source: 'client/scss/**/*.scss'
+    main: 'scss/main.scss',
+    source: 'scss/**/*.scss'
   },
   backend: 'server/**/*.js'
 };
@@ -35,7 +35,7 @@ gulp.task('build:js', function(done) {
       debug: true,
       cache: {},
       packageCache: {},
-      transform: [reactify]
+      transform: [reactify, aliasify]
     })
     .bundle()
     .pipe(source('bundle.js'))

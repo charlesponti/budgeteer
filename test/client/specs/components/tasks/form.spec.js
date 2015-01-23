@@ -9,7 +9,7 @@ describe('Tasks: Form', function() {
   var TestUtils = require('react/addons').addons.TestUtils;
   var TaskModel = require('_client/js/models/task');
   var AppActions = require('_/client/js/app').actions;
-  var Form = require('_/common/components/task/form.jsx');
+  var Form = require('components/task/form.jsx');
 
   beforeEach(function() {
     spyOn($, 'ajax');

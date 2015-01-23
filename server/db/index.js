@@ -4,7 +4,7 @@ var fs = require('fs');
 var path = require('path');
 var util = require('util');
 var mongoose = require('mongoose');
-var config = require('_/config');
+var config = require('../../config');
 
 mongoose.connect(config.db);
 

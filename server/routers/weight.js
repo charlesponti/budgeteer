@@ -3,7 +3,7 @@
 var React = require('react');
 var router = require('express').Router();
 var Weight = require('mongoose').model('Weight');
-var WeightMain = require('_/common/components/weight/main');
+var WeightMain = require('../../components/weight/main');
 
 router.get('/', function(req, res, next) {
   return Weight

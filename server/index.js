@@ -13,7 +13,7 @@ require('node-jsx').install({extension: '.jsx'});
 var auth = require('cthulhu-auth');
 var bodyParser = require('body-parser');
 var compression = require('compression');
-var config = require('_/config');
+var config = require('../config');
 var connectMongo = require('connect-mongo');
 var cookieParser = require('cookie-parser');
 var express = require('express');

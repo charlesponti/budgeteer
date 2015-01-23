@@ -68,8 +68,8 @@
     initially requested. The React components that will render will check this
     element. If initialData is present, it will not make an API request.
     -->
-    <div id="initial-data">{{ initialData }}</div>
-    <div id="user">{{ JSON.stringify(current_user) }}</div>
+    <div class="hide" id="initial-data">{{ initialData }}</div>
+    <div class="hide" id="initial-user">{{ JSON.stringify(current_user) }}</div>
 
     <section class="messages">
       {% if messages.success %}
