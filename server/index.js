@@ -83,7 +83,7 @@ switch (app.get('env')) {
     break;
   case 'production':
     app.use(expressLogger({
-      path: '' + __dirname + '/log/requests.log'
+      path: config.logFile
     }));
 }
 
