@@ -68,8 +68,8 @@
     "start": "NODE_ENV=production forever index.js",
     "start:dev": "gulp",
     "test": "npm run test:server; npm run test:client-single",
-    "test:client": "./node_modules/karma/bin/karma start client/test/karma.conf.js",
-    "test:client-single": "./node_modules/karma/bin/karma start client/test/karma.conf.js --single-run",
-    "test:server": "jasmine-node test --color --verbose --forceexit"
+    "test:client": "./node_modules/karma/bin/karma start test/client/karma.conf.js",
+    "test:client-single": "./node_modules/karma/bin/karma start test/client/karma.conf.js --single-run",
+    "test:server": "jasmine-node test/server --color --verbose --forceexit"
   }
 }
