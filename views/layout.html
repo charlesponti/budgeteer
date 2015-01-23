@@ -64,13 +64,16 @@
     <div id="modal"></div>
 
     <!--
-    This element will contain any initialData depending on the url that is initially requested. The React components that will render will check this element. If initialData is present, it will not make an API request.
+    This element will contain any initialData depending on the url that is
+    initially requested. The React components that will render will check this
+    element. If initialData is present, it will not make an API request.
     -->
     <div id="initial-data">{{ initialData }}</div>
+    <div id="user">{{ JSON.stringify(current_user) }}</div>
 
     <section class="messages">
       {% if messages.success %}
-        <div class="alert alert-success alert-dismissible" id="notification" role="alert">
+        <div class="alert success dismissible" id="notification" role="alert">
           <button class="close" type="button" data-dismiss="alert">
             <span aria-hidden="true"> &times </span>
             <span class="sr-only"> Close </span>
@@ -80,7 +83,7 @@
       {% endif %}
 
       {% if messages.error %}
-        <div class="alert alert-danger alert-dismissible" id="notification" role="alert">
+        <div class="alert danger dismissible" id="notification" role="alert">
           <button class="close" type="button" data-dismiss="alert">
             <span aria-hidden="true"> &times </span>
             <span class="sr-only"> Close </span>
@@ -90,7 +93,7 @@
       {% endif %}
     </section>
 
-    <script src="http://fb.me/react-0.12.2.min.js"></script>
+    <!-- <script src="http://fb.me/react-0.12.2.min.js"></script> -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="/vendor/highcharts-all.js"></script>
     <script src='/js/bundle.js'></script>

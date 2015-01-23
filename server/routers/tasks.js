@@ -4,11 +4,11 @@ var React = require('react/addons');
 var router = require('express').Router();
 var Task = require('mongoose').model('Task');
 var Category = require('mongoose').model('Category');
-var TaskView = require('../../client/app/components/task/main');
+var TaskView = require('_/common/components/task/main');
 
 router.get('/', function(req, res, next) {
   return Task
-    .find({ user_id: req.user._id })
+    .find({user_id: req.user._id})
     .populate('category')
     .exec(function(err, tasks) {
       if (err) {
@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
       }
 
       return Category
-        .find({ user: req.user._id })
+        .find({user: req.user._id})
         .exec(function(err, categories) {
           if (err) {
             return next(err);
