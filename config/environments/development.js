@@ -22,6 +22,8 @@ module.exports = {
 
   'baseUrl': 'http://127.0.0.1:3000',
 
+  logFile: '../logs/requests.log',
+
   'google': {
     'realm': 'http://127.0.0.1:3000',
     'client_id': process.env.GOOGLE_ID,
