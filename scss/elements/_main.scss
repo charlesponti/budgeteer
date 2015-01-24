@@ -2,11 +2,11 @@
  * @group elements
  **/
 main {
-    transition: $navdrawer-transition;
+    transition: $site-nav-transition;
     max-width: 800px;
 
     &.open {
-        transform: $navdrawer-transform;
+        transform: $site-nav-transform;
     }
 
     @include media-query(medium) {
