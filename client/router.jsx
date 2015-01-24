@@ -28,11 +28,7 @@ var Router = Backbone.Router.extend({
   // Render Tasks application
   tasks: function() {
     if (App.user) {
-      var data = {
-        tasks: App.initialData.tasks,
-        categories: App.initialData.categories
-      }
-      return React.render(<TaskApp initialData={data}/>, App.el);
+      return React.render(<TaskApp />, App.el);
     }
     this.navigate('/')
   },
@@ -40,8 +36,7 @@ var Router = Backbone.Router.extend({
   // Render Weight application
   weight: function() {
     if (App.user) {
-      var data = App.initialData.weights;
-      return React.render(<Weight initialData={data} />, App.el);
+      return React.render(<Weight />, App.el);
     }
     this.navigate('/');
   },
@@ -49,8 +44,7 @@ var Router = Backbone.Router.extend({
   // Render Account application
   account: function() {
     if (App.user) {
-      var data = App.initialData.user;
-      return React.render(<Account initialData={data} />, App.el);
+      return React.render(<Account />, App.el);
     }
     this.navigate('/');
   },
