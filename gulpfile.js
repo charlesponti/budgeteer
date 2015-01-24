@@ -14,7 +14,7 @@ var stylish = require('jshint-stylish');
 
 var files = {
   js: {
-    source: 'client/**',
+    source: ['client/**', 'components/**'],
     main: './client/main.jsx'
   },
   css: {
