@@ -2,11 +2,11 @@
  * @group Elements
  */
 ul {
-    padding: $font-size;
+    padding: 0px;
 }
 
 li {
-    margin-bottom: $font-size;
+    padding: $font-size;
     &:last-child {
         margin-bottom: 0px;
     }
