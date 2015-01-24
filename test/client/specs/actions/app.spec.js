@@ -1,7 +1,7 @@
 describe('Actions: AppActions', function() {
   'use strict';
 
-  var App = require('_/client/js/app/');
+  var App = require('../../../../client/app/');
   var AppActions = App.actions;
   var AppDispatcher = App.dispatcher;
 

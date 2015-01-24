@@ -2,14 +2,14 @@ describe('Tasks: Form', function() {
   'use strict';
 
   // Require spec helper
-  require('_/test/client/spec_helper');
+  require('../../../spec_helper');
 
   var form;
   var $ = require('jquery');
   var TestUtils = require('react/addons').addons.TestUtils;
-  var TaskModel = require('_client/js/models/task');
-  var AppActions = require('_/client/js/app').actions;
-  var Form = require('components/task/form.jsx');
+  var TaskModel = require('../../../../../client/models/task');
+  var AppActions = require('../../../../../client/app').actions;
+  var Form = require('../../../../../components/task/form.jsx');
 
   beforeEach(function() {
     spyOn($, 'ajax');
