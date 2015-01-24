@@ -19,13 +19,23 @@ var UserStore = Backbone.Collection.extend({
 
   url: '/api/user',
 
+  initialize: function() {
+    this.add(App.initialData.user);
+  },
+
   /**
    * Return array of users connected accounts
    * @return {array}
    */
   getAccounts: function() {
     return _.pick(UserStore._user || {}, function(value, key) {
-      return _.contains(['facebook', 'google', 'foursquare', 'twitter', 'github'], key);
+      return _.contains([
+        'facebook',
+        'google',
+        'foursquare',
+        'twitter',
+        'github'
+      ], key);
     });
   },
 
