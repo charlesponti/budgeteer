@@ -2,6 +2,8 @@
 
 var App = {
 
+  initialData: {},
+
   getEl: function() {
     this.el = document.getElementById('app');
     return this;
