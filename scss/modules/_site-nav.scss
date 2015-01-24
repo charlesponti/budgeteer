@@ -3,18 +3,22 @@
  * @group modules
  **/
 .site-nav {
-  bottom: 0;
-  height: 100%;
-  position: fixed;
-  left: -250px;
-  top: 0px;
-  transition: $navdrawer-transition;
-  width: 250px;
-  z-index: 1;
-  will-change: translate;
+    bottom: 0;
+    height: calc(100%-50px);
+    position: fixed;
+    left: -250px;
+    top: 50px;
+    transition: $site-nav-transition;
+    width: 250px;
+    z-index: 1;
+    will-change: translate;
+    border-right: 1px solid $color-gray;
 
+    hr {
+        border: 1px solid $color-gray;
+    }
   &.open {
-    transform: $navdrawer-transform;
+    transform: $site-nav-transform;
   }
 
   h4,
@@ -48,12 +52,12 @@
       color: inherit;
       display: block;
       text-decoration: none;
-      transition: $navdrawer-link-transition;
+      transition: background 150ms ease-in-out;
       white-space: nowrap;
     }
 
     a:hover {
-      background-color: rgba(255, 255, 255, .2);
+      background-color: $color-gray;
     }
 
     a:focus {
