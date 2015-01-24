@@ -13,11 +13,7 @@ $line-height: 26px !default;
 
 // Font family
 $font-default: Helvetica Neue, Helvetica, Arial, sans-serif !default;
-$font-icon: 'icons' !default;
 $font-monospace: Menlo, Monaco, Consolas, "Courier New", monospace;
-
-// Shadows
-$card-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
 
 // Breakpoints
 $bp-small: 480px !default;
@@ -26,15 +22,15 @@ $bp-large: 800px !default;
 $bp-xlarge: 1600px !default;
 $retina-resolution: 192dpi;
 
+// Shadows
+$shadow-left: -1px 0 0 1px rgba(0, 0, 0, 0.12);
+$shadow-right: 1px 0 0 1px rgba(0, 0, 0, 0.12);
+$shadow-top: 0px -1px 0 1px rgba(0, 0, 0, 0.12);
+$shadow-bottom: 0px 1px 0 1px rgba(0, 0, 0, 0.12);
+
 // Animation easings
 $animation-easing: cubic-bezier(.455, .030, .515, .955) !default;
 
 // Nav Drawer
-$navdrawer-link-transition: background-color 0.2s ease-out;
-$navdrawer-transition: transform 250ms ease-out;
-$navdrawer-transform: translate(250px, 0px);
-$navdrawer-width: 280px !default;
-
-// Header & Nav
-$header-nav-max-width: 865px;
-$header-nav-padding: 3%;
+$site-nav-transition: transform 250ms ease-out;
+$site-nav-transform: translate(250px, 0px);
