@@ -23,9 +23,9 @@ var ListItem = React.createClass({
     };
 
     return (
-      <li className="list-group-item">
+      <li className="list-item">
           <i className="fa fa-tag fa-4 category-icon" style={iconColor}></i>
-          <h4>{category.get('name')}</h4>
+          <span>{category.get('name')}</span>
       </li>
     );
   }
