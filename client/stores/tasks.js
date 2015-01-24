@@ -26,6 +26,10 @@ var TaskStore = Backbone.Collection.extend({
 
   model: TaskModel,
 
+  initialize: function() {
+    this.add(App.initialData.tasks);
+  },
+
   parse: function(response) {
     return response.data;
   },
