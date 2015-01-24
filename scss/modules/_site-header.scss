@@ -3,24 +3,19 @@
  * @group modules
  **/
 .site-header {
-  height: 50px;
-  left: 0;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  transition: $navdrawer-transition;
-  width: 100%;
-  z-index: 1;
+    height: 50px;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    border-bottom: 1px solid $color-gray;
 
-  &.open {
-    transform: $navdrawer-transform;
-  }
-
-  // Large screen header styles
-  @media all and (min-width: $bp-large) {
-    position: relative;
-  }
-
+    // Large screen header styles
+    @media all and (min-width: $bp-large) {
+        position: relative;
+    }
 
     .logo {
         i {
