@@ -144,6 +144,8 @@ gulp.task('build:prod', function() {
   return runSequence('build');
 });
 
-gulp.task('default', function() {
+gulp.task('start:dev', function() {
   return runSequence('build', 'watch', 'serve');
 });
+
+gulp.task('default', ['start:dev']);
