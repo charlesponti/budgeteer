@@ -2,10 +2,10 @@
   "name": "backpack",
   "version": "1.0.0",
   "aliasify": {
-      "aliases": {
-          "client/app": "./client/app/index.js",
-          "underscore": "lodash"
-      }
+    "aliases": {
+      "client/app": "./client/app/index.js",
+      "underscore": "lodash"
+    }
   },
   "browserify": {
     "transform": [
@@ -37,6 +37,7 @@
     "morgan": "^1.5.0",
     "node-jsx": "^0.12.4",
     "nodemailer": "^1.3.0",
+    "pm2": "^0.12.3",
     "react": "^0.12.1",
     "socket.io": "^1.3.2",
     "superagent": "^0.20.0",
@@ -77,12 +78,11 @@
     "build": "gulp build",
     "build:prod": "gulp build:prod",
     "debug": "NODE_ENV=development node-debug index.js",
-    "refresh": "rm -rf node_modules && npm install && bower install",
     "start": "NODE_ENV=production forever index.js",
-    "start:dev": "gulp",
+    "start:dev": "gulp start:dev",
     "test": "npm run test:server; npm run test:client-single",
-    "test:client": "./node_modules/karma/bin/karma start test/client/karma.conf.js",
-    "test:client-single": "./node_modules/karma/bin/karma start test/client/karma.conf.js --single-run",
+    "test:client": "karma start test/client/karma.conf.js",
+    "test:client-single": "karma start test/client/karma.conf.js --single-run",
     "test:server": "jasmine-node test/server --color --verbose --forceexit"
   }
 }
