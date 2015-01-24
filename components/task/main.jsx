@@ -18,10 +18,11 @@ var TaskApp = React.createClass({
    * @return {object}
    */
   getInitialState: function() {
-    var data = this.props.initialData;
+    var initialData = this.props.initialData || {};
+
     return {
-      tasks: (data && data.tasks) || [],
-      categories: (data && data.categories) || []
+      tasks: initialData.tasks || TaskStore.models,
+      categories: initialData.categories || CategoryStore.models
     };
   },
 
