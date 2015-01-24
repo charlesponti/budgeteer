@@ -15,12 +15,12 @@ module.exports = function(config) {
     ],
 
     files: [
-      'client/js/main.jsx',
+      'client/main.jsx',
       'test/client/**/*spec.js'
     ],
 
     preprocessors: {
-      'client/js/main.jsx': ['browserify'],
+      'client/main.jsx': ['browserify'],
       'test/client/**/*spec.js': ['browserify']
     },
 
