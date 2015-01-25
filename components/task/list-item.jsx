@@ -26,7 +26,7 @@ var TaskListItem = React.createClass({
     task.set('completed', !task.get('completed'));
 
     // Dispatch event
-    AppActions.updateTask(this.props.update);
+    AppActions.updateTask(this.props.task);
   },
 
   /**
@@ -35,12 +35,14 @@ var TaskListItem = React.createClass({
    * @param  {string} id HTMLElement id
    */
   onTitleClick: function(e, id) {
-    var task = this.props.task;
+    if (e.target.nodeName != 'INPUT') {
+      var task = this.props.task;
 
-    AppActions.loadModal({
-      title: task.get('title'),
-      component: <Preview task={task}></Preview>
-    });
+      AppActions.loadModal({
+        title: task.get('title'),
+        component: <Preview task={task}></Preview>
+      });
+    }
   },
 
   render: function() {
@@ -53,15 +55,16 @@ var TaskListItem = React.createClass({
 
     return (
       <li className="list-item" key={task.get('_id')}>
-        <span onClick={this.onTitleClick}>
-          <input type="checkbox" className="task-checkbox"
-            onClick={this.onCheckboxClick} defaultChecked={task.get('completed')}/>
+        <div className="task-title" onClick={this.onTitleClick}>
+          <input type="checkbox"
+            className="task-checkbox"
+            onClick={this.onCheckboxClick}
+            defaultChecked={task.get('completed')}/>
             {task.get('title')}
-        </span>
-        <span className="tag">
-          <i className="fa fa-tag fa-4" style={categoryStyle}></i>
+        </div>
+        <div className="tag" style={categoryStyle}>
           {category.name}
-        </span>
+        </div>
       </li>
     );
   }
