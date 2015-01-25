@@ -33,4 +33,4 @@ $animation-easing: cubic-bezier(.455, .030, .515, .955) !default;
 
 // Nav Drawer
 $site-nav-transition: transform 250ms ease-out;
-$site-nav-transform: translate(250px, 0px);
+$site-nav-transform: translate3d(250px, 0px, 0);
