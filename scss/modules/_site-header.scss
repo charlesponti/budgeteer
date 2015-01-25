@@ -3,19 +3,15 @@
  * @group modules
  **/
 .site-header {
-    height: 50px;
+    height: 56px;
     left: 0;
+    line-height: 56px;
     overflow: hidden;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1;
     border-bottom: 1px solid $color-gray;
-
-    // Large screen header styles
-    @media all and (min-width: $bp-large) {
-        position: relative;
-    }
 
     .logo {
         i {
@@ -26,7 +22,6 @@
         color: inherit;
         float: none;
         font-size: 30px;
-        line-height: 50px;
         font-weight: 300;
         margin: 0 16px;
         max-width: none;
