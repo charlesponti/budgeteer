@@ -85,16 +85,13 @@ var Modal = React.createClass({
 
   render: function() {
     return (
-      <div className="modal fade">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h3 className="text-center">{this.state.title}</h3>
-            </div>
-            <div className="modal-body" ref="modalBody"></div>
-            <div className="modal-footer"></div>
-          </div>
+      <div className="modal ui-white">
+        <div className="modal-header">
+          <i className="fa fa-times fa-2x" onClick={this.hide}></i>
+          <h4>{this.state.title}</h4>
         </div>
+        <div className="modal-body" ref="modalBody"></div>
+        <div className="modal-footer"></div>
       </div>
     );
   }
