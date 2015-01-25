@@ -66,7 +66,8 @@ input::-moz-focus-inner {
 // Address Firefox 4+ setting `line-height` on `input` using `!important` in
 // the UA stylesheet.
 input {
-  line-height: normal;
+  line-height: $font-size * 2;
+  padding-left: $font-size / 2;
 }
 
 // It's recommended that you don't attempt to style these elements.
@@ -105,9 +106,21 @@ input[type="search"]::-webkit-search-decoration {
 
 // Define consistent border, margin, and padding.
 fieldset {
-  border: 1px solid #c0c0c0;
+  border: 0px;
   margin: 0 2px;
   padding: .35em .625em .75em;
+
+  label {
+      display: block;
+      font-weight: 500;
+      margin: ($font-size / 2) 0
+  }
+
+  input,
+  textarea {
+      display: block;
+      width: 100%;
+  }
 }
 
 // 1. Correct `color` not being inherited in IE 8/9/10/11.
@@ -118,10 +131,14 @@ legend {
 }
 
 textarea {
-  // Remove default vertical scrollbar in IE 8/9/10/11.
-  overflow: auto;
-  // Allow only vertical resizing of textareas.
-  resize: vertical;
+    // Remove default vertical scrollbar in IE 8/9/10/11.
+    overflow: auto;
+    // Allow only vertical resizing of textareas.
+    resize: vertical;
+    // Override user-agent border
+    border: 1px solid #ccc;
+    // Stretch width of textarea to width of container
+    width: 100%;
 }
 
 // Don't inherit the `font-weight` (applied by a rule above).
