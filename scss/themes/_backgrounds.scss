@@ -1,13 +1,14 @@
 /**
- * This file contains the background themes.
+ * This file contains the interface themes that govern the background
+ * and text color of an element.
  * @group Themes
  **/
-.bg-black {
+.ui-black {
     background-color: $color-black;
     color: $color-white-dark;
 }
 
-.bg-asphalt {
+.ui-asphalt {
     background-color: $color-asphalt;
     color: $color-concrete;
 }
