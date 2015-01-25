@@ -22,6 +22,8 @@ var AppDispatcher = App.dispatcher;
  */
 var TaskStore = Backbone.Collection.extend({
 
+  idAttribute: '_id',
+
   url: '/api/tasks',
 
   model: TaskModel,
@@ -35,11 +37,11 @@ var TaskStore = Backbone.Collection.extend({
   },
 
   update: function(task) {
-    return;
+    return task.save();
   },
 
   destroy: function(task) {
-    return;
+    return task.destroy();
   }
 
 });
