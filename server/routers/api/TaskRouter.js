@@ -85,9 +85,6 @@ router.onIndexFind = function(req, res, next, err, tasks) {
  * @param  {Function} next
  */
 router.create = function(req, res, next) {
-
-  console.log(req.body);
-
   var task = new Task({
     title: req.body.title,
     description: req.body.description,
