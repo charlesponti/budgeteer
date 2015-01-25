@@ -52,11 +52,11 @@ var TaskList = React.createClass({
    */
   render: function() {
     var sorted = this.state.tasks.sort(function(task) {
-      return task.completed ? 1: -1;
+      return task.get('completed') ? 1: -1;
     });
 
     return (
-      <div>
+      <div className="tasks-list" id="tasks-list">
         <TaskSearch className="task-search" callback={this.onSearchChange}/>
         <ul className="list-group">
           {sorted.map(function(task) {
