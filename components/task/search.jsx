@@ -16,7 +16,7 @@ var TaskSearch = React.createClass({
     var completedRegex = /is:\w+\s/;
     var categoryRegex = /category:\w+\s/;
     // Clone tasks
-    var records = TaskStore.getRecords().slice(0);
+    var records = TaskStore.models.slice(0);
 
     if (completedRegex.test(searchTerm)) {
       isTerm = completedRegex.exec(searchTerm)[0];
@@ -35,8 +35,9 @@ var TaskSearch = React.createClass({
     if (categoryRegex.test(searchTerm)) {
       category = categoryRegex.exec(searchTerm)[0];
       categoryTerm = category.trim().replace('category:','');
+      var categoryTermRegex = new RegExp(categoryTerm, 'i');
       records = records.filter(function(task) {
-        return (new RegExp(categoryTerm, 'i')).test(task.category.name);
+        return categoryTermRegex.test(task.get('category').name);
       });
       searchTerm = searchTerm.replace(category, '');
     }
@@ -45,7 +46,7 @@ var TaskSearch = React.createClass({
       searchTerm = searchTerm.replace(' ', '');
       var regExp = new RegExp(searchTerm, 'i');
       records = records.filter(function(task) {
-        return regExp.test(task.title);
+        return regExp.test(task.get('title'));
       });
     }
 
@@ -55,8 +56,10 @@ var TaskSearch = React.createClass({
   render: function() {
     return (
       <form role="form" className={this.props.className || ""}>
-        <input className="form-control"
-          onChange={this.onChange} placeholder="Search" />
+        <input type="text" 
+               className="form-control"
+               onChange={this.onChange}
+               placeholder="Search" />
       </form>
     );
   }
