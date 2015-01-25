@@ -28,13 +28,13 @@ var TaskApp = React.createClass({
 
   /**
   * Set state to current state of TaskStore.models
-  * @param {Backbone.Collection} store
+  * @param {Backbone.Model} model
   * @param {Object} response Response from API
   */
-  onTaskStoreChange: function(store, response) {
+  onTaskStoreChange: function(model, response) {
     if (this.isMounted()) {
       return this.setState({
-        tasks: store.models
+        tasks: TaskStore.models
       });
     }
   },
