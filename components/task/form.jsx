@@ -63,19 +63,19 @@ var TaskForm = React.createClass({
     return (
       <form onSubmit={this.onSubmit} role="form" onChange={this.onChange}>
         <input ref='_id' type="hidden" defaultValue={task.get('_id')} name="_id"/>
-        <div className="form-group">
+        <fieldset>
           <label htmlFor="title"> Title </label>
-          <input ref='title' name="title" className="form-control" defaultValue={task.get('title')} />
-        </div>
-        <div className="form-group">
+          <input ref='title' name="title" defaultValue={task.get('title')} />
+        </fieldset>
+        <fieldset>
           <label htmlFor="description"> Description </label>
-          <textarea ref='description' name="description"
-            className="form-control task-description"
-            defaultValue={task.get('description')}></textarea>
-        </div>
-        <div className="form-group">
+          <textarea ref='description'
+                    name="description"
+                    defaultValue={task.get('description')}></textarea>
+        </fieldset>
+        <fieldset>
           <CategorySelect value={category || undefined} ref='category' />
-        </div>
+        </fieldset>
         <button className="pull-right btn btn-success">
           {this.state.buttonText}
         </button>
