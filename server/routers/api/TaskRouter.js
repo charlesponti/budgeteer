@@ -152,7 +152,16 @@ router.onSave = function(req, res, next, err, task) {
     return next(err);
   }
 
-  return res.status(201).json({ data: task });
+  Tasks
+    .findOne({ _id: task._id })
+    .populate('category')
+    .exec(function(err, task) {
+      if (err) {
+        return next(err);
+      }
+
+      return res.status(201).json({ data: task });
+    })
 };
 
 /**
