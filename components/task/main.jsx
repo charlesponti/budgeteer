@@ -52,26 +52,10 @@ var TaskApp = React.createClass({
 
   render: function() {
     return (
-      <div className="tab-panel">
-        <ul className="tab-list">
-          <li className="active" role="presentation" key='tasks'>
-            <a href="#tasks">Tasks</a>
-          </li>
-          <li role="presentation" key='categories'>
-            <a href="#categories">Categories</a>
-          </li>
-        </ul>
-        <div className="tab-content">
-          <div className="tab-pane" id="tasks">
-            <h2> Tasks </h2>
-            <TaskAddButton/>
-            <TaskList className="task-list" id='task-list' tasks={this.state.tasks}/>
-          </div>
-          <div className="tab-pane" id="categories">
-            <h2> Categories </h2>
-            <CategoryMain categories={this.state.categories} />
-          </div>
-        </div>
+      <div className="tasks" id="tasks">
+        <h2> Tasks </h2>
+        <TaskList tasks={this.state.tasks}/>
+        <TaskAddButton/>
       </div>
     );
   }
