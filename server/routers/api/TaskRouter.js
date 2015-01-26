@@ -56,7 +56,7 @@ router.index = function(req, res, next) {
     tasks = req.user.tasks;
   }
 
-  Task
+  return Task
     .find()
     .populate('category')
     .exec(router.onIndexFind.bind(router, req, res, next));
