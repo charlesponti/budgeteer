@@ -2,10 +2,10 @@
  * @group elements
  **/
 main {
-    background-color: $color-white-floral;
     height: 100%;
     position: fixed;
     top: 56px;
+    overflow: auto;
     padding-top: $font-size;
     transition: $site-nav-transition;
     width: 100%;
