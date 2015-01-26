@@ -112,7 +112,7 @@ router.update = function(req, res, next) {
       task.title = req.body.title || task.title;
       task.description = req.body.description || task.description;
       task.completed = req.body.completed;
-      task.category = req.body.category._id;
+      task.category = req.body.category;
       return task.save(router.afterUpdate.bind(router, req, res, next));
     }
 
