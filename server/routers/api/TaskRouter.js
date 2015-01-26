@@ -113,7 +113,7 @@ router.update = function(req, res, next) {
       task.description = req.body.description || task.description;
       task.completed = req.body.completed;
       task.category = req.body.category;
-      return task.save(router.afterUpdate.bind(router, req, res, next));
+      return task.save(router.onSave.bind(router, req, res, next));
     }
 
     return res.status(404).json({ message: 'Task not found' });
@@ -127,7 +127,7 @@ router.update = function(req, res, next) {
  * @param  {Function} next
  */
 router.destroy = function(req, res, next) {
-  req.user.task.exec(function(err, task) {
+  return req.user.task.exec(function(err, task) {
     if (err) {
       return router.events.emit('error', err, res);
     }
@@ -136,7 +136,7 @@ router.destroy = function(req, res, next) {
       return task.remove(router.onDelete.bind(router, req, res, next));
     }
 
-    res.status(404).json({ message: 'Task not found' });
+    return res.status(404).json({ message: 'Task not found' });
   });
 };
 
