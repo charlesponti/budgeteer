@@ -2,12 +2,12 @@
 
 describe('User', function() {
 
-  require('_/server');
+  require('../../../server');
 
   var user, oauth;
 
   beforeEach(function() {
-    user = require('_/test/server/fixtures/user');
+    user = require('../fixtures/user');
     spyOn(user, 'save');
     oauth = {
       token: 'foobar',

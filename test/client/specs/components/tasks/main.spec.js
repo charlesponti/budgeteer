@@ -1,6 +1,8 @@
 describe('Components: TasksMain', function() {
   'use strict';
 
+  require('../../../spec_helper');
+
   var component;
   var TestUtils = require('react/addons').addons.TestUtils;
   var TaskStore = require('../../../../../client/stores/tasks');

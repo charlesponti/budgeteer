@@ -2,18 +2,18 @@
 
 describe('Router: UserRouter', function() {
 
-  require('_/server');
+  require('../../../server');
 
   var req, res, exec, user;
-  var HttpFixtures = require('_/test/server/fixtures/http');
-  var router = require('_/server/routers/UserRouter');
+  var HttpFixtures = require('../fixtures/http');
+  var router = require('../../../server/routers/UserRouter');
   var User = require('mongoose').model('User');
 
   beforeEach(function() {
     req = HttpFixtures.req();
     res = HttpFixtures.res();
     exec = jasmine.createSpy('exec');
-    user = require('_/fixtures/user');
+    user = require('../fixtures/user');
     req.user = user;
     spyOn(user, 'save');
     spyOn(User, 'findOne').andReturn({

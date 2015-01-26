@@ -3,13 +3,13 @@
 describe('Routers: ApiRouter', function() {
 
   var req, res;
-  var HttpFixtures = require('_/test/server/fixtures/http');
-  var ApiRouter = require('_/server/routers/api');
+  var HttpFixtures = require('../fixtures/http');
+  var ApiRouter = require('../../../server/routers/api');
 
   beforeEach(function() {
     req = HttpFixtures.req();
     res = HttpFixtures.res();
-    req.user = require('_/test/server/fixtures/user');
+    req.user = require('../fixtures/user');
   });
 
   afterEach(function() {

@@ -3,8 +3,8 @@
 describe('Routers: AppRouter', function() {
 
   var req, res, router;
-  var HttpFixtures = require('_/test/server/fixtures/http');
-  var AppRouter = require('_/server/routers/AppRouter');
+  var HttpFixtures = require('../fixtures/http');
+  var AppRouter = require('../../../server/routers/AppRouter');
 
   beforeEach(function() {
     router = AppRouter;

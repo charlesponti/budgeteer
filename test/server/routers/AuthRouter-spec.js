@@ -2,17 +2,17 @@
 
 describe('Router: AuthRouter', function() {
 
-  require('_/server');
+  require('../../../server');
 
   var res, req;
-  var HttpFixtures = require('_/test/server/fixtures/http');
-  var router = require('_/server/routers/AuthRouter');
+  var HttpFixtures = require('../fixtures/http');
+  var router = require('../../../server/routers/AuthRouter');
   var User = require('mongoose').model('User');
 
   beforeEach(function() {
     res = HttpFixtures.res();
     req = HttpFixtures.req();
-    req.user = require('_/fixtures/user');
+    req.user = require('../fixtures/user');
   });
 
   afterEach(function() {

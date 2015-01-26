@@ -1,6 +1,8 @@
 describe('TaskStore', function() {
   'use strict';
 
+  require('../../spec_helper');
+  
   var store, task, promise;
   var $ = require('jquery');
   var TaskStore = require('../../../../client/stores/tasks');

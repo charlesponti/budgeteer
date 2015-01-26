@@ -2,7 +2,7 @@
 
 describe('Task model', function() {
 
-  require('_/server');
+  require('../../../server');
 
   var task;
   var mongoose = require('mongoose');
