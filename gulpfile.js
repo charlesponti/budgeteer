@@ -33,10 +33,10 @@ gulp.task('build:js', function(done) {
       entries: [files.js.main],
       debug: true,
       cache: {},
-      packageCache: {},
-      transform: [reactify, aliasify]
+      packageCache: {}
     })
     .bundle()
+    .on('error', $.util.log)
     .pipe(source('main.js'))
     .pipe(buffer())
     .pipe($.if(global.isProd, $.uglify()))
