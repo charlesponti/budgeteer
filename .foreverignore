@@ -2,6 +2,7 @@
 **/node_modules/**
 **/public/vendor/**
 **/client/**
+**/test/**
 
 *.log
 
@@ -9,3 +10,4 @@
 .editorconfig
 .jshintrc
 .bowerrc
+gulpfile.js
