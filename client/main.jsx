@@ -1,5 +1,11 @@
 'use strict';
 
+var $ = require('jquery');
+var React = require('react');
+
+// Attach jQuery to Backbone
+require('backbone').$ = $;
+
 if (window.io) {
   // Initialise Socket.io
   var socket = io.connect('http://localhost:3000');
@@ -9,20 +15,15 @@ if (window.io) {
   });
 }
 
-// Get initial data
-require('./app').getInitialData();
+// Initialise App
+window.App = require('./app');
+
+App.init();
+
+App.router = require('./app/router.jsx')(App);
 
 // Require nav component
 require('./nav');
-
-var $ = require('jquery');
-var React = require('react');
-
-// Attach jQuery to Backbone
-require('backbone').$ = $;
-
-// Instantiate application router
-require('./router.jsx');
 
 // Add CSRF token to $.ajax calls
 $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
