@@ -39,9 +39,12 @@ gulp.task('build:js', function(done) {
       transform: [reactify, aliasify]
     })
     .bundle()
-    .pipe(source('bundle.js'))
-    .pipe($.if(global.isProd, $.streamify($.uglify())))
-    .pipe(gulp.dest('static/js/'));
+    .pipe(source('main.js'))
+    .pipe(buffer())
+    .pipe($.if(global.isProd, $.uglify()))
+    .pipe($.if(global.isProd, $.rename('main.min.js')))
+    .pipe($.size({ title: 'JS' }))
+    .pipe(gulp.dest('static/js'));
 });
 
 /**
