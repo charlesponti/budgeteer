@@ -14,7 +14,7 @@ var WeightStore = Backbone.Collection.extend({
   model: require('../models/weight'),
 
   initialize: function() {
-    this.add(App.initialData.weights);
+    return this.add(App.initialData.weights);
   },
 
   /**
