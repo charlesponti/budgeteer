@@ -4,6 +4,7 @@ global.isProd = false;
 
 var aliasify = require('aliasify');
 var browserify = require('browserify');
+var buffer = require('vinyl-buffer');
 var forever = require('forever-monitor');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
