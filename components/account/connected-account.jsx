@@ -37,10 +37,6 @@ var ConnectedAccount = React.createClass({
     }
   },
 
-  getProfileName: function() {
-
-  },
-
   /**
    * Create and return React DOM
    * @return {object}
