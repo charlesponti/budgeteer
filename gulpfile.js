@@ -5,7 +5,6 @@ global.isProd = false;
 var aliasify = require('aliasify');
 var browserify = require('browserify');
 var buffer = require('vinyl-buffer');
-var forever = require('forever-monitor');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var reactify = require('reactify');
@@ -103,27 +102,24 @@ gulp.task('build:css', function() {
  * @param  {String} env  NODE_ENV
  * @param  {Boolean} watch Whether or not Forever should watch for file changes
  */
-function server(env, watch) {
-  var child = new (forever.Monitor)('./server/index.js', {
-    max: 3,
-    silent: false,
-    watch: watch,
-    watchDirectory: '.',
-    env: {
-      'NODE_ENV': env
-    }
+function server(env) {
+  return $.nodemon({
+    script: 'server/index.js',
+    verbose: true,
+  	watch: [
+  		"server/**",
+  		"components/**",
+  	],
+  	env: {
+  		NODE_ENV: env
+  	},
+  	ext: "js jsx json",
   });
-
-  child.on('exit', function() {
-    console.log('Backpack has exited after 3 restarts');
-  });
-
-  child.start();
 }
 
-gulp.task('serve', server.bind(null, 'development', true));
+gulp.task('serve', server.bind(null, 'development'));
 
-gulp.task('serve:prod', server.bind(null, 'production', false));
+gulp.task('serve:prod', server.bind(null, 'production'));
 
 gulp.task('watch', function() {
   // Watch .less files
