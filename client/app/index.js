@@ -1,34 +1,30 @@
 'use strict';
 
+var User = require('../models/user');
+
 var App = {
+
+  authenticated: false,
 
   initialData: {},
 
-  getEl: function() {
+  init: function() {
+    var dataNode = document.getElementById('initial-data');
+    var userNode = document.getElementById('initial-user');
+
+    var userData = userNode.textContent && JSON.parse(userNode.textContent);
+    this.initialData = dataNode.textContent && JSON.parse(dataNode.textContent);
+
+    if (userData) {
+      this.user = new User(userData);
+      this.authenticated = true;
+    }
+
     this.el = document.getElementById('app');
-    return this;
-  },
 
-  getUser: function() {
-    var node = document.getElementById('initial-user');
-
-    // Parse node content
-    this.user = node.textContent && JSON.parse(node.textContent);
-
-    // Remove node
-    node.remove();
-
-    return this;
-  },
-
-  getInitialData: function getInitialData() {
-    var node = document.getElementById('initial-data');
-
-    // Parse node content
-    this.initialData = node.textContent && JSON.parse(node.textContent);
-
-    // Empty #initial-data
-    node.remove();
+    // Remove data nodes
+    userNode.remove();
+    dataNode.remove();
 
     return this;
   },
