@@ -4,7 +4,7 @@
  * @desc Determine if application is running in development. Used for configs
  * @type {Boolean}
  */
-var isDevelopment = process.env.NODE_ENV === 'developement';
+var isDevelopment = process.env.NODE_ENV === 'development';
 
 // Require node-jsx for ReactJS server-side rendering
 require('node-jsx').install({extension: '.jsx'});
@@ -50,15 +50,13 @@ app.set('port', config.port || 3000);
 
 
 if (isDevelopment) {
-  app.set('view cache', true);
-  swig.setDefaults({
-    cache: true,
-    autoescape: false
-  });
-} else {
   app.set('view cache', false);
   swig.setDefaults({
     cache: false,
+    autoescape: false
+  });
+} else {
+  swig.setDefaults({
     autoescape: false
   });
 }
@@ -142,6 +140,7 @@ auth.use('Google', config.google);
 // Add `locals` to response object
 app.use(function(req, res, next) {
   res.locals.appName = 'Backpack';
+  res.locals.bundle = isDevelopment ? 'main' : 'main.min';
   return next();
 });
 
