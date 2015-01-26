@@ -179,21 +179,6 @@ router.onDelete = function(req, res, next, err) {
   res.status(200).json({ data: req.body._id });
 };
 
-/**
- * Finish request after task has been updated
- * @param  {IncomingMessage} req
- * @param  {ServerResponse} res
- * @param  {?error} err
- * @param  {?Task} task
- */
-router.afterUpdate = function(req, res, next, err, task) {
-  if (err) {
-    return next(err);
-  }
-
-  return res.status(200).json({ data: task });
-};
-
 router.get('/', router.getUserTasks, router.index);
 router.post('/', router.getUserTasks, router.create);
 router.put('/', router.getUserTask, router.update);
