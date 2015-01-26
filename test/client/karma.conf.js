@@ -11,15 +11,18 @@ module.exports = function(config) {
 
     frameworks: [
       'browserify',
-      'jasmine'
+      'jasmine',
+      'fixture'
     ],
 
     files: [
+      { pattern: 'test/client/fixtures/**' },
       'client/main.jsx',
       'test/client/**/*spec.js'
     ],
 
     preprocessors: {
+      '**/*.html': ['html2js'],
       'client/main.jsx': ['browserify'],
       'test/client/**/*spec.js': ['browserify']
     },
@@ -27,13 +30,15 @@ module.exports = function(config) {
     browserify: {
       debug: true,
       transform: ['reactify'],
-      extensions: ['.js','.jsx']
+      extensions: ['.jsx']
     },
 
     plugins: [
+      'karma-fixture',
       'karma-jasmine',
       'karma-browserify',
-      'karma-chrome-launcher'
+      'karma-chrome-launcher',
+      'karma-html2js-preprocessor'
     ]
 
   });
