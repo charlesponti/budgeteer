@@ -2,7 +2,6 @@
 
 global.isProd = false;
 
-var aliasify = require('aliasify');
 var browserify = require('browserify');
 var buffer = require('vinyl-buffer');
 var gulp = require('gulp');
