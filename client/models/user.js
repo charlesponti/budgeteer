@@ -7,6 +7,12 @@ var Backbone = require('Backbone');
 var User = Backbone.Model.extend({
 
   /**
+   * @desc API url for model
+   * @type {String}
+   */
+  url: '/api/me',
+
+  /**
    * @desc Identifier of model
    * @type {String}
    */

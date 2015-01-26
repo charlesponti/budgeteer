@@ -2,12 +2,31 @@
 
 var Backbone = require('backbone');
 
-var TaskModel = Backbone.Model.extend({
+var Task = Backbone.Model.extend({
 
+  /**
+   * @desc API url for model
+   * @type {String}
+   */
   url: '/api/tasks',
 
-  idAttribute: '_id'
+  /**
+   * @desc Identifier of model
+   * @type {String}
+   */
+  idAttribute: '_id',
+
+  /**
+   * @desc Parse response from server
+   * @param  {Object} response Response from API
+   * @param  {Object} options Options of request
+   * @return {Object}
+   */
+  parse: function(response, options) {
+    if (options.collection) return response;
+    return response.data;
+  }
 
 });
 
-module.exports = TaskModel;
+module.exports = Task;
