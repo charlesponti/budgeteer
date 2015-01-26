@@ -94,6 +94,7 @@ gulp.task('build:css', function() {
     }))
     .pipe($.if(global.isProd, $.csso()))
     .pipe($.if(global.isProd, $.rename('main.min.css')))
+    .pipe($.size({ title: 'CSS' }))
     .pipe(gulp.dest('static/css'));
 });
 
@@ -106,8 +107,8 @@ function server(env, watch) {
   var child = new (forever.Monitor)('./server/index.js', {
     max: 3,
     silent: false,
-    // watch: watch,
-    args: [],
+    watch: watch,
+    watchDirectory: '.',
     env: {
       'NODE_ENV': env
     }
