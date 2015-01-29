@@ -6,7 +6,6 @@
 (function() {
   var querySelector = document.querySelector.bind(document);
 
-  var body = document.body;
   var main = querySelector('main');
   var navBtn = querySelector('.site-header .menu');
   var siteNav = querySelector('.site-nav');
