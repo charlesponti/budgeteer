@@ -1,16 +1,12 @@
 .git
-.idea
 .DS_Store
 .vagrant
-
-development.json
-production.json
-staging.json
-
 node_modules
 bower_components
-
 *.log
-*.map
-
 static/**
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
