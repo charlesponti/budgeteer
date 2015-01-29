@@ -1,14 +1,14 @@
 'use strict';
 
 var _ = require('lodash');
-var express = require('express');
+var cthulhu = require('cthulhu');
 var mongoose = require('mongoose');
 
 // Retrieve Category model
 var Category = mongoose.model('Category');
 
 // Create router
-var router = express.Router();
+var router = cthulhu.Router();
 
 /**
  * Get Categories belonging to user

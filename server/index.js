@@ -10,24 +10,10 @@ var isDevelopment = process.env.NODE_ENV === 'development';
 require('node-jsx').install({extension: '.jsx'});
 
 // Modules dependencies
+var app = require('cthulhu');
 var auth = require('cthulhu-auth');
-var bodyParser = require('body-parser');
-var compression = require('compression');
 var config = require('../config');
-var connectMongo = require('connect-mongo');
-var cookieParser = require('cookie-parser');
-var express = require('express');
-var expressLogger = require('express-logger');
-var expressSession = require('express-session');
-var http = require('http');
-var io = require('socket.io');
-var lusca = require('lusca');
-var methodOverride = require('method-override');
-var mongoose = require('mongoose');
-var morgan = require('morgan');
-var path = require('path');
-var swig = require('swig');
-var queues = require('./lib/queues');
+var mongoose = require('mongoose')
 var util = require('util');
 
 // Instantiate models
@@ -39,92 +25,19 @@ require('./models/category');
 // Get User model
 var User = mongoose.model('User');
 
-// Session Store
-var MongoStore = connectMongo(expressSession);
-
-// Create new Express application
-var app = express();
-
-// Set application port
-app.set('port', config.port || 3000);
-
-
-if (isDevelopment) {
-  app.set('view cache', false);
-  swig.setDefaults({
-    cache: false,
-    autoescape: false
-  });
-} else {
-  swig.setDefaults({
-    autoescape: false
-  });
-}
-
-// NOTE: You should always cache templates in a production environment.
-// Don't leave both of these to `false` in production!
-
-app.engine('html', swig.renderFile);
-
-app.set('view engine', 'html');
-
-// Set views folder
-app.set('views', path.resolve(__dirname, config.views));
-
-// Set public folder
-app.use(express.static(path.resolve(__dirname, config.static)));
-
-// Set up logging system
-switch (app.get('env')) {
-  case 'development':
-    app.use(morgan('dev'));
-    break;
-  case 'production':
-    app.use(expressLogger({
-      path: config.logFile
-    }));
-}
-
-// Add lusca
-app.use(lusca({
-  csp: {
-    default_src: '"self"',
-    script_src: '"self"',
-    image_src: '"self"'
-  },
-  xframe: 'SAMEORIGIN',
-  p3p: 'ABCDEF',
-  hsts: {
-    maxAge: 31536000,
-    includeSubDomains: true
-  },
-  xssProtection: true
-}));
-
-app.use(methodOverride());
-
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-
-app.use(bodyParser.json());
-
-app.use(compression());
-
-app.use(cookieParser(config.cookieSecret));
-
-app.use(expressSession({
-  resave: true,
-  saveUninitialized: false,
-  secret: config.sessionSecret,
-  store: new MongoStore({
-    db: config.sessionStore
-  })
-}));
+app.configure({
+  port: 3000,
+  public: '../static',
+  views: '../views',
+  sessionSecret: 'meerkatmanorrox',
+  sessionStore: 'myapp-sessions',
+  appName: 'My Super Awesome App Name',
+  passRoutes: ['api', 'auth']
+});
 
 app.db = require('./db');
 
-// app.mailer = require('./config/mailer')(config.mailer);
+app.meow = 'Cats';
 
 // Initialize cthulhu-auth
 app.use(auth.setup);
@@ -148,7 +61,7 @@ app.use(function(req, res, next) {
 app.use(require('./routers'));
 
 // Add error handler to application stack
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // Log erorr message
   util.log(err.stack);
 
@@ -165,30 +78,6 @@ app.use(function(err, req, res, next) {
 
 // Setup RabbitMQ
 // queues.setup(app);
-
-/**
- * Start application
- */
-app.start = function() {
-  var port = app.get('port');
-  var server = http.createServer(app);
-
-  server.listen(port, function() {
-    return util.log(
-      'Server run in ' + (app.get('env')) + ' mode on port ' + (port)
-    );
-  });
-
-  // Add socket to app and begin listening.
-  app.socket = io(server);
-
-  // Emit initial message
-  app.socket.on('connection', function(socket) {
-    socket.emit('message', { message: 'Cthulhu has you in its grips.' });
-  });
-
-  return;
-};
 
 // start the server if `$ node server.js`
 if (require.main === module) {

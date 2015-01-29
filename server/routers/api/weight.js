@@ -1,11 +1,11 @@
 'use strict';
 
-var express = require('express');
+var cthulhu = require('cthulhu');
 var mongoose = require('mongoose');
 var Weight = mongoose.model('Weight');
 
 // Create router
-var router = express.Router();
+var router = cthulhu.Router();
 
 router.get('/', function(req, res, next) {
   return Weight

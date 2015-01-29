@@ -1,8 +1,8 @@
 'use strict';
 
 // Create router
-var express = require('express');
-var router = express.Router();
+var cthulhu = require('cthulhu');
+var router = cthulhu.Router();
 
 /**
  * Render static/about.jade

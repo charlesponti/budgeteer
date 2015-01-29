@@ -1,12 +1,11 @@
 'use strict';
 
-var _ = require('lodash');
-var express = require('express');
+var cthulhu = require('cthulhu');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
 // Create router
-var router = express.Router();
+var router = cthulhu.Router();
 
 /**
  * Serve templates
@@ -19,7 +18,7 @@ router.serve = {
    * @param {ServerResponse} res
    * @param {Function} next
    */
-  account: function(req, res, next) {
+  account: function(req, res) {
     if (req.isAuthenticated()) {
       return res.render('users/account');
     }
@@ -33,8 +32,9 @@ router.serve = {
  * @param {ServerResponse} res
  * @param {Function} next
  */
-router.logOut = function(req, res, next) {
+router.logOut = function(req, res) {
   req.logout();
+  req.flash("success", "Your account has been deleted.");
   res.redirect("/");
 };
 
@@ -44,7 +44,7 @@ router.logOut = function(req, res, next) {
  * @param {ServerResponse} res
  * @param {Function} next
  */
-router.deleteAccount = function(req, res, next) {
+router.deleteAccount = function(req, res) {
   User
     .remove({ _id: req.user.id })
     .exec(router.onAccountDelete.bind(router, req, res));
@@ -57,7 +57,7 @@ router.deleteAccount = function(req, res, next) {
  * @param {Error} err
  * @param {?User} user
  */
-router.onAccountDelete = function(req, res, err, user) {
+router.onAccountDelete = function(req, res, err) {
   if (err) {
     req.flash('error', 'There was an error deleting your account.');
     return res.redirect('/account');
@@ -73,7 +73,7 @@ router.onAccountDelete = function(req, res, err, user) {
  * @param {ServerResponse} res
  * @param {Function} next
  */
-router.confirmAccount = function(req, res, next) {
+router.confirmAccount = function(req, res) {
   User
     .findOne({ confirmAccountToken: req.params.token })
     .exec(function(err, user) {
@@ -97,7 +97,7 @@ router.confirmAccount = function(req, res, next) {
  * @param {ServerResponse} res
  * @param {Function} next
  */
-router.confirmReset = function(req, res, next) {
+router.confirmReset = function(req, res) {
   User
     .findOne({ resetToken: req.params.token })
     .exec(function(err, user) {
