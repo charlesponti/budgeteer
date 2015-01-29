@@ -22,9 +22,6 @@ App.init();
 
 App.router = require('./app/router.jsx')(App);
 
-// Require nav component
-require('./nav');
-
 // Add CSRF token to $.ajax calls
 $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
   var token = $('meta[name="csrf"]').attr('content');
