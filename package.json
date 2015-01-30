@@ -2,7 +2,7 @@
   "name": "backpack",
   "version": "1.0.0",
   "browser": {
-    "react": "./node_modules/react/dist/react-with-addons.min.js",
+    "react": "./node_modules/react/dist/react-with-addons.js",
     "lodash": "./node_modules/lodash/dist/lodash.min.js",
     "backbone": "./node_modules/backbone/backbone-min.js",
     "jquery": "./node_modules/jquery/dist/jquery.min.js"
@@ -17,7 +17,7 @@
   "dependencies": {
     "amqp": "^0.2.0",
     "backbone": "^1.1.2",
-    "cthulhu": "^1.7.3",
+    "cthulhu": "^1.8.0",
     "cthulhu-auth": "^1.3.10",
     "flux": "^2.0.1",
     "jquery": "^2.1.1",
