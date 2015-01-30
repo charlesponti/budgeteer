@@ -29,8 +29,11 @@ app.configure({
   port: 3000,
   public: '../static',
   views: '../views',
-  sessionSecret: 'meerkatmanorrox',
-  sessionStore: 'myapp-sessions',
+  session: {
+    redisHost: 'localhost',
+    redisPort: 6348,
+    secret: 'meerkatmanorrox'
+  },
   appName: 'My Super Awesome App Name',
   passRoutes: ['api', 'auth']
 });
