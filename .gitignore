@@ -5,8 +5,3 @@ node_modules
 bower_components
 *.log
 static/**
-
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
