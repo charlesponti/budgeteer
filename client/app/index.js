@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-var User = require('../models/user');
+var User = require('../models/user')
 
 var App = {
 
@@ -9,24 +9,26 @@ var App = {
   initialData: {},
 
   init: function() {
-    var dataNode = document.getElementById('initial-data');
-    var userNode = document.getElementById('initial-user');
+    var userData;
+    var dataNode = document.getElementById('initial-data')
+    var userNode = document.getElementById('initial-user')
 
-    var userData = userNode.textContent && JSON.parse(userNode.textContent);
-    this.initialData = dataNode.textContent && JSON.parse(dataNode.textContent);
-
-    if (userData) {
-      this.user = new User(userData);
-      this.authenticated = true;
+    if (dataNode) {
+      this.initialData =
+        dataNode.textContent && JSON.parse(dataNode.textContent)
+      dataNode.remove()
     }
 
-    this.el = document.getElementById('app');
+    if (userNode) {
+      userData = userNode.textContent && JSON.parse(userNode.textContent)
+      this.user = new User(userData)
+      this.authenticated = true
+      userNode.remove()
+    }
 
-    // Remove data nodes
-    userNode.remove();
-    dataNode.remove();
+    this.el = document.getElementById('app')
 
-    return this;
+    return this
   },
 
   actions: require('./actions'),
@@ -35,6 +37,6 @@ var App = {
 
   dispatcher: require('./dispatcher')
 
-};
+}
 
-module.exports = App;
+module.exports = App
