@@ -1,12 +1,12 @@
 {
-	"script": "server/index.js",
-	"watch": [
-		"server/**",
-		"components/**"
-	],
-	"env": {
-		"NODE_ENV": "development"
-	},
-	"ext": "js jsx json",
-	"verbose": true
+  "script": "server/index.js",
+  "watch": [
+    "server/**",
+    "components/**"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js jsx json",
+  "verbose": true
 }

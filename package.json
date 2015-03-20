@@ -1,19 +1,12 @@
 {
   "name": "backpack",
   "version": "1.0.0",
-  "browser": {
-    "react": "./node_modules/react/dist/react-with-addons.js",
-    "lodash": "./node_modules/lodash/dist/lodash.min.js",
-    "backbone": "./node_modules/backbone/backbone-min.js",
-    "jquery": "./node_modules/jquery/dist/jquery.min.js"
-  },
   "browserify": {
     "transform": [
       "browserify-shim",
       "reactify"
     ]
   },
-  "browserify-shim": {},
   "dependencies": {
     "amqp": "^0.2.0",
     "backbone": "^1.1.2",
