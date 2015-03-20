@@ -56,6 +56,8 @@
     "console": "node bin/console",
     "build": "gulp build",
     "build:prod": "gulp build:prod",
+    "preinstall": "rm -rf node_modules && rm -rf bower_components",
+    "postinstall": "bower install",
     "start": "NODE_ENV=production nodemon server/index.js",
     "start:debug": "NODE_ENV=development node-debug server/index.js",
     "start:dev": "gulp start:dev",
