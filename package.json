@@ -1,12 +1,6 @@
 {
   "name": "backpack",
   "version": "1.0.0",
-  "browserify": {
-    "transform": [
-      "browserify-shim",
-      "reactify"
-    ]
-  },
   "dependencies": {
     "amqp": "^0.2.0",
     "backbone": "^1.1.2",
