@@ -13,7 +13,7 @@ require('node-jsx').install({extension: '.jsx'});
 var app = require('cthulhu');
 var auth = require('cthulhu-auth');
 var config = require('../config');
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
 var util = require('util');
 
 // Instantiate models
