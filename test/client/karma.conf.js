@@ -2,7 +2,6 @@
 
 module.exports = function(config) {
   config.set({
-
     basePath: '../../',
 
     browsers: [
@@ -29,7 +28,7 @@ module.exports = function(config) {
 
     browserify: {
       debug: true,
-      transform: ['reactify'],
+      transform: ['babelify'],
       extensions: ['.jsx']
     },
 
@@ -40,6 +39,5 @@ module.exports = function(config) {
       'karma-chrome-launcher',
       'karma-html2js-preprocessor'
     ]
-
   });
 };
