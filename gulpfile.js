@@ -2,15 +2,14 @@
 
 global.isProd = false
 
-var browserify = require('browserify')
-var buffer = require('vinyl-buffer')
-var del = require('del')
-var gulp = require('gulp')
-var $ = require('gulp-load-plugins')()
-var reactify = require('reactify')
-var runSequence = require('run-sequence')
-var source = require('vinyl-source-stream')
-var stylish = require('jshint-stylish')
+var babelify = require('babelify');
+var browserify = require('browserify');
+var buffer = require('vinyl-buffer');
+var del = require('del');
+var gulp = require('gulp');
+var runSequence = require('run-sequence');
+var source = require('vinyl-source-stream');
+var $ = require('gulp-load-plugins')();
 
 var files = {
   js: {
@@ -22,7 +21,7 @@ var files = {
     source: 'scss/**/*.scss'
   },
   backend: 'server/**/*.js'
-}
+};
 
 /**
  * `build:js` task.
@@ -33,14 +32,11 @@ gulp.task('build:js', function() {
   gulp.src('client/nav.js')
     .pipe($.uglify())
     .pipe($.rename('nav.min.js'))
-    .pipe(gulp.dest('static/js'))
+    .pipe(gulp.dest('static/js'));
 
-  return browserify({
-      entries: [files.js.main],
-      debug: true,
-      cache: {},
-      packageCache: {}
-    })
+  return browserify({ debug: true })
+    .transform(babelify)
+    .require(files.js.main, { entry: true })
     .bundle()
     .on('error', $.util.log)
     .pipe(source('main.js'))
@@ -48,46 +44,26 @@ gulp.task('build:js', function() {
     .pipe($.if(global.isProd, $.uglify()))
     .pipe($.if(global.isProd, $.rename('main.min.js')))
     .pipe($.size({ title: 'JS' }))
-    .pipe(gulp.dest('static/js'))
-})
-
-/**
- * `lint:client` task
- * Run JSHint over client-side Javascript files
- */
-gulp.task('lint:client', function() {
-  gulp.src('static/js')
-    .pipe($.jshint())
-    .pipe($.jshint.reporter(stylish))
-})
-
-/**
- * `lint:backend`
- * Run JSHint against server-side .js files
- */
-gulp.task('lint:backend', function() {
-  gulp.src(files.backend)
-    .pipe($.jshint())
-    .pipe($.jshint.reporter(stylish))
-})
+    .pipe(gulp.dest('static/js'));
+});
 
 gulp.task('vendor', function() {
   gulp.src([
-      'bower_components/fontawesome/css/font-awesome.min.css',
-      'bower_components/es5-shim/es5-shim.min.js',
-      'bower_components/highcharts/highcharts-all.js'
-    ])
-    .pipe(gulp.dest('static/vendor'))
-})
+    'bower_components/fontawesome/css/font-awesome.min.css',
+    'bower_components/es5-shim/es5-shim.min.js',
+    'bower_components/highcharts/highcharts-all.js'
+  ])
+    .pipe(gulp.dest('static/vendor'));
+});
 
 gulp.task('fonts', function() {
   gulp.src([
-      'bower_components/fontawesome/fonts/fontawesome-webfont.eot',
-      'bower_components/fontawesome/fonts/fontawesome-webfont.ttf',
-      'bower_components/fontawesome/fonts/fontawesome-webfont.woff',
-    ])
-    .pipe(gulp.dest('static/fonts'))
-})
+    'bower_components/fontawesome/fonts/fontawesome-webfont.eot',
+    'bower_components/fontawesome/fonts/fontawesome-webfont.ttf',
+    'bower_components/fontawesome/fonts/fontawesome-webfont.woff'
+  ])
+    .pipe(gulp.dest('static/fonts'));
+});
 
 gulp.task('images', function() {
   // TODO Process images and move them to static/images
@@ -109,8 +85,8 @@ gulp.task('build:css', function() {
     .pipe($.if(global.isProd, $.csso()))
     .pipe($.if(global.isProd, $.rename('main.min.css')))
     .pipe($.size({ title: 'CSS' }))
-    .pipe(gulp.dest('static/css'))
-})
+    .pipe(gulp.dest('static/css'));
+});
 
 /**
  * @desc Start Forever
@@ -121,53 +97,52 @@ function server(env) {
   return $.nodemon({
     script: 'server/index.js',
     verbose: true,
-  	watch: [
-  		"server/**",
-  		"components/**",
-  	],
-  	env: {
-  		NODE_ENV: env
-  	},
-  	ext: "js jsx json",
-  })
+    watch: [
+      "server/**",
+      "components/**"
+    ],
+    env: {
+      NODE_ENV: env
+    },
+    ext: "js jsx json"
+  });
 }
 
-gulp.task('serve', server.bind(null, 'development'))
+gulp.task('serve', server.bind(null, 'development'));
 
-gulp.task('serve:prod', server.bind(null, 'production'))
+gulp.task('serve:prod', server.bind(null, 'production'));
 
 gulp.task('watch', function() {
   // Watch .less files
-  gulp.watch(files.css.source, ['build:css'])
+  gulp.watch(files.css.source, ['build:css']);
 
   // Watch client-side .js files
-  gulp.watch(files.js.source, ['build:js'])
+  gulp.watch(files.js.source, ['build:js']);
 
   // Watch server-side .js files
-  gulp.src(files.backend, ['lint-backend'])
-})
+  gulp.src(files.backend, ['lint-backend']);
+});
 
 gulp.task('clean', function(done) {
-  return del('static/**', done)
-})
+  return del('static/**', done);
+});
 
 gulp.task('build', function() {
   return runSequence(
-    'clean',
-    'vendor',
-    'fonts',
-    'build:css',
-    'build:js'
-  )
-})
+    ['clean'],
+    ['vendor'],
+    ['fonts'],
+    ['build:css', 'build:js']
+  );
+});
 
 gulp.task('build:prod', function() {
-  global.isProd = true
-  return runSequence('build')
-})
+  global.isProd = true;
+  return runSequence('build');
+});
 
 gulp.task('start:dev', function() {
-  return runSequence('build', 'watch', 'serve')
-})
+  return runSequence(['build'], ['watch'], 'serve');
+});
 
-gulp.task('default', ['start:dev'])
+gulp.task('default', ['start:dev']);
