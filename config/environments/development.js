@@ -1,5 +1,5 @@
 /**
- * @desc Configuration for applicatio
+ * @desc Configuration for application
  * @type {Object}
  */
 module.exports = {
@@ -22,12 +22,12 @@ module.exports = {
 
   'baseUrl': 'http://127.0.0.1:3000',
 
-  logFile: '../logs/requests.log',
+  'logFile': '../logs/requests.log',
 
   'google': {
     'realm': 'http://127.0.0.1:3000',
-    'client_id': process.env.GOOGLE_ID,
-    'client_secret': process.env.GOOGLE_SECRET,
+    'client_id': process.env.GOOGLE_ID || '1234',
+    'client_secret': process.env.GOOGLE_SECRET || '1234',
     'redirect_uri': 'http://127.0.0.1:3000/auth/google/callback'
   },
 
