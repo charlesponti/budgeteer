@@ -6,6 +6,9 @@
  */
 var isDevelopment = process.env.NODE_ENV === 'development';
 
+// Initialize appRequire
+require('../app-require');
+
 // Require node-jsx for ReactJS server-side rendering
 require('node-jsx').install({extension: '.jsx'});
 
