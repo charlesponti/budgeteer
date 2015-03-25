@@ -6,3 +6,4 @@ bower_components
 *.log
 static/**
 .idea
+data/
