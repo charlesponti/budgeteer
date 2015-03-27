@@ -33,7 +33,7 @@ router.error = function(err, req, res) {
  * @param  {ServerResponse} res
  */
 router.all = function(req, res) {
-  if (req.isAuthenticated()) {
+  if (req.user) {
     res.render('layout', { current_user: req.user });
   } else {
     res.render('home');
