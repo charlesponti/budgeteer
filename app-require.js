@@ -1,6 +1,4 @@
-/**
- * Created by charlesponti on 21/03/2015.
- */
+'use strict';
 
 var path = require('path');
 
