@@ -6,7 +6,7 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var Schema = mongoose.Schema;
-var app = require('../index');
+var app = appRequire('server');
 
 /**
  * User Schema
