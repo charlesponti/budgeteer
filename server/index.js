@@ -1,5 +1,7 @@
 'use strict';
 
+require("babel/register");
+
 /**
  * @desc Determine if application is running in development. Used for configs
  * @type {Boolean}
@@ -28,18 +30,8 @@ require('./models/category');
 // Get User model
 var User = mongoose.model('User');
 
-app.configure({
-  port: 3000,
-  public: '../static',
-  views: '../views',
-  session: {
-    redisHost: 'localhost',
-    redisPort: 6348,
-    secret: 'meerkatmanorrox'
-  },
-  appName: 'My Super Awesome App Name',
-  passRoutes: ['api', 'auth']
-});
+// Configure cthulhu
+app.configure(config.cthulhu);
 
 app.db = require('./db');
 

@@ -4,21 +4,27 @@
  */
 module.exports = {
 
-  'port': 3000,
+  cthulhu: {
+    port: 3000,
 
-  'appName': 'Backpack',
+    public: 'static',
+
+    views: 'views',
+
+    session: {
+      redisHost: 'localhost',
+      redisPort: 6348,
+      secret: 'meerkatmanorrox'
+    },
+
+    appName: 'My Super Awesome App Name',
+
+    passRoutes: ['api', 'auth']
+  },
 
   'appKey': 'cthulhurules',
 
   'session_ttl': 360000,
-
-  'sessionSecret': 'cthulhurules',
-
-  'sessionStore': 'cthulhu-session',
-
-  'static': '../static',
-
-  'views': '../views',
 
   'baseUrl': 'http://127.0.0.1:3000',
 
