@@ -1,11 +1,5 @@
 
 const localStorage = window.localStorage;
-
-/**
- * @property {function} getLoginStatus
- * @property {function} login
- */
-const FB = window.FB;
 const $ = window.$;
 
 export default {
