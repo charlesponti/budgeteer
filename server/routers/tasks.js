@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
-var router = require('cthulhu').Router();
+var router = require('express').Router();
 var Task = require('mongoose').model('Task');
 var Category = require('mongoose').model('Category');
 var TaskView = require('../../components/task/main');

@@ -1,29 +1,20 @@
 'use strict';
 
-var cthulhu = require('cthulhu');
+var router = require('express').Router();
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
-// Create router
-var router = cthulhu.Router();
-
 /**
- * Serve templates
- * @type {Object}
+ * Serve account page
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ * @param {Function} next
  */
-router.serve = {
-  /**
-   * Serve account page
-   * @param {IncomingMessage} req
-   * @param {ServerResponse} res
-   * @param {Function} next
-   */
-  account: function(req, res) {
-    if (req.isAuthenticated()) {
-      return res.render('users/account');
-    }
-    return res.redirect('users/login');
+router.account = function(req, res) {
+  if (req.isAuthenticated()) {
+    return res.render('users/account');
   }
+  return res.redirect('users/login');
 };
 
 /**

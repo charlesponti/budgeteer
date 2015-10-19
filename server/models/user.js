@@ -6,7 +6,6 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var Schema = mongoose.Schema;
-var app = appRequire('server');
 
 /**
  * User Schema
@@ -266,4 +265,6 @@ UserSchema.methods = {
 
 };
 
-mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+
+module.exports = User;

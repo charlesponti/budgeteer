@@ -1,13 +1,13 @@
 'use strict';
 
-var cthulhu = require('cthulhu');
+var express = require('express');
 var auth = require('cthulhu-auth');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var UserRouter = require('./UserRouter');
 
 // Create router
-var router = cthulhu.Router();
+var router = express.Router();
 
 /**
  * Link Facebook account

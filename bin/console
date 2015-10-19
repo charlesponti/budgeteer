@@ -7,11 +7,8 @@ var repl = require('repl');
 var cthulhu = require('../server')();
 
 var replServer = repl.start({
-
   prompt: 'Backpack >',
-
-  useColors: true,
-
+  useColors: true
 });
 
 replServer.context.User = require('../server/models/user');

@@ -55,4 +55,4 @@ TaskSchema.pre('save', function(next) {
   next();
 });
 
-var Task = mongoose.model('Task', TaskSchema);
+module.exports = mongoose.model('Task', TaskSchema);

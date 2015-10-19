@@ -35,3 +35,5 @@ Category.validateName = function(next) {
 };
 
 CategorySchema.pre('save', Category.validateName);
+
+module.exports = Category;

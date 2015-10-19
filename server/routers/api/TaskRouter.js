@@ -2,13 +2,10 @@
 
 var _ = require('lodash');
 var util = require('util');
-var cthulhu = require('cthulhu');
+var router = require('express').Router();
 var mongoose = require('mongoose');
 var EventEmitter = require('events').EventEmitter;
 var Task = mongoose.model('Task');
-
-// Create router
-var router = cthulhu.Router();
 
 router.events = new EventEmitter();
 

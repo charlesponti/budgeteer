@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var router = require('cthulhu').Router();
+var router = require('express').Router();
 var Weight = require('mongoose').model('Weight');
 var WeightMain = require('../../components/weight/main');
 

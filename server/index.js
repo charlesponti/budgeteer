@@ -1,6 +1,14 @@
 'use strict';
 
-require("babel/register");
+// Require node-jsx for ReactJS server-side rendering
+require('node-jsx').install({extension: '.jsx'});
+
+/**
+ * Current Node environment
+ * @type {String}
+ * @private
+ */
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 /**
  * @desc Determine if application is running in development. Used for configs
@@ -8,18 +16,24 @@ require("babel/register");
  */
 var isDevelopment = process.env.NODE_ENV === 'development';
 
-// Initialize appRequire
-require('../app-require');
+/**
+ * Module dependencies.
+ * @type {exports}
+ */
+const bodyParser = require('body-parser');
+const compress = require('compression');
+const cookieParser = require('cookie-parser');
+const express = require('express');
+const expressValidator = require('express-validator');
+const http = require('http');
+const io = require('socket.io');
+const methodOverride = require('method-override');
+const morgan = require('morgan');
+const path = require('path');
+const mongoose = require('mongoose');
+const util = require('util');
 
-// Require node-jsx for ReactJS server-side rendering
-require('node-jsx').install({extension: '.jsx'});
-
-// Modules dependencies
-var app = require('cthulhu');
-var auth = require('cthulhu-auth');
-var config = require('../config');
-var mongoose = require('mongoose');
-var util = require('util');
+const config = require('../config');
 
 // Instantiate models
 require('./models/user');
@@ -30,23 +44,156 @@ require('./models/category');
 // Get User model
 var User = mongoose.model('User');
 
-// Configure cthulhu
-app.configure(config.cthulhu);
+/**
+ * Application dependencies
+ * @type {exports}
+ */
+const mailer = require('./mailer');
+const logger = require('./logger');
 
-app.db = require('./db');
+const hour = 3600000;
+const day = hour * 24;
+const week = day * 7;
 
-app.meow = 'Cats';
+// Set cthulhu to base express application
+const app = express();
 
-// Initialize cthulhu-auth
-app.use(auth.setup);
+/**
+ * Current working directory from which cthulhu is being used.
+ * @type {String}
+ * @private
+ */
+process.env.INIT_DIR = process.cwd();
 
-// Deserialize user from session
-app.use(auth.deserializeUser(function(user, done) {
-  User.findOne(user._id).exec(done);
+/**
+ * @desc Required configuration settings
+ * @type {Array}
+ */
+var requiredConfigs = [
+  'port'
+];
+
+/**
+ * Check for required configuration options. Throw error if any required
+ * fields are missing.
+ */
+requiredConfigs.forEach(function(requiredConfig) {
+  if (!config[requiredConfig]) {
+    throw new Error('Must supply '+ requiredConfig);
+  }
+});
+
+// Set port
+app.set('port', 3000);
+
+/**
+ * Allow for the use of HTTP verbs such as PUT or DELETE in places
+ * where the client doesn't support it.
+ */
+app.use(methodOverride());
+
+// Add nodemailer
+app.mailer = mailer(config.mailer);
+
+/**
+ * Add function for creating new winston logs
+ * @param {string} loggerName Name of logger
+ * @param {string} logFile Path to log file
+ * @param {object} config Logger configuration
+ * @type {Function}
+ */
+app.addLogger = function(options) {
+  cthulhu.loggers = cthulhu.loggers || {};
+
+  cthulhu.loggers[options.name] = logger({
+    dir: options.dir,
+    file: options.file
+  }, config);
+
+  return app;
+};
+
+// Set folder for static files.
+if (config.public) {
+  cthulhu.use(
+    express.static(
+      path.resolve(process.env.INIT_DIR, config.public),
+      { maxAge: week } // TTL (Time To Live) for static files
+    )
+  )
+}
+
+// Configure views
+require('./views')(app, config.views);
+
+// Disable view caching
+app.set('view cache', false);
+
+// Add `compression` for compressing responses.
+app.use(compress());
+
+// Add `morgan` for logging HTTP requests.
+var morganConfig = config.morgan || 'dev';
+
+app.logger = logger({
+  dir: 'logs'
+});
+
+app.use(morgan(morganConfig, {
+  stream: {
+    write: function(message) {
+      return cthulhu.logger.info(message)
+    }
+  }
 }));
 
-// Configure Google OAuth strategy
-auth.use('Google', config.google);
+// Add `body-parser` for parsing request body
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
+/**
+ * Add `express-validator`
+ * This module allows values in req.body to be validated with the use of
+ * helper methods.
+ */
+app.use(expressValidator());
+
+// Add cookie-parser
+app.use(cookieParser());
+
+//if (config.sessionSecret) {
+//  // Enable session middleware
+//  app.use(require('./session')(app, config.session));
+//  // Enable security middleware
+//  app.use(require('./security')(app, config.lusca));
+//}
+
+app.server = http.Server(app);
+
+// Start Cthulhu.
+app.start = function() {
+  var env = app.get('env');
+  var port = app.get('port');
+
+  // Add socket to app and begin listening.
+  app.socket = io(app.server);
+
+  // Start application server.
+  app.server.listen(port, function() {
+    return util.log('Cthulhu has risen at port '+port+' in '+env+' mode')
+  });
+
+  // Emit initial message
+  app.socket.on('connection', function(socket) {
+    return socket.emit('message', {
+      message: 'Cthulhu has you in her grips.'
+    });
+  });
+
+  return app;
+};
+
+app.db = require('./db');
 
 // Add `locals` to response object
 app.use(function(req, res, next) {
