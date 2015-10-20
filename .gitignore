@@ -9,3 +9,4 @@ static/**
 data/
 
 config/environments/development.js
+logs
