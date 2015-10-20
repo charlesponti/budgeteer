@@ -2,15 +2,15 @@
 
 var lusca = require('lusca');
 
-module.exports = function(cthulhu, luscaConfig) {
+module.exports = function(app, luscaConfig) {
 
   // Enable Lusca security
-  cthulhu.use(lusca(luscaConfig || {
+  app.use(lusca(luscaConfig || {
     csrf: true,
     csp: {
       default_src: "'self'",
       script_src:  "'self'",
-      image_src: "'self'",
+      image_src: "'self'"
     },
     xframe: 'SAMEORIGIN',
     p3p: 'ABCDEF',

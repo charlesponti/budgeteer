@@ -1,8 +1,5 @@
 'use strict';
 
-// Require node-jsx for ReactJS server-side rendering
-require('node-jsx').install({extension: '.jsx'});
-
 /**
  * Current Node environment
  * @type {String}
@@ -32,7 +29,7 @@ const morgan = require('morgan');
 const path = require('path');
 const mongoose = require('mongoose');
 const util = require('util');
-
+const swig = require('swig');
 const config = require('../config');
 
 // Instantiate models
@@ -55,7 +52,6 @@ const hour = 3600000;
 const day = hour * 24;
 const week = day * 7;
 
-// Set cthulhu to base express application
 const app = express();
 
 /**
@@ -64,6 +60,28 @@ const app = express();
  * @private
  */
 process.env.INIT_DIR = process.cwd();
+
+// Set views path
+app.set('views', path.resolve('../views'));
+
+// Disable view caching
+app.set('view cache', false);
+
+// Set view engine
+app.engine('html', swig.renderFile);
+app.set('view engine', 'html');
+
+// Disable view caching if in development
+if (global._env === 'development') {
+  app.set('view cache', false);
+  swig.setDefaults({
+    cache: false,
+    autoescape: false
+  });
+}
+else {
+  swig.setDefaults({autoescape: false});
+}
 
 /**
  * @desc Required configuration settings
@@ -103,9 +121,9 @@ app.mailer = mailer(config.mailer);
  * @type {Function}
  */
 app.addLogger = function(options) {
-  cthulhu.loggers = cthulhu.loggers || {};
+  app.loggers = app.loggers || {};
 
-  cthulhu.loggers[options.name] = logger({
+  app.loggers[options.name] = logger({
     dir: options.dir,
     file: options.file
   }, config);
@@ -115,19 +133,13 @@ app.addLogger = function(options) {
 
 // Set folder for static files.
 if (config.public) {
-  cthulhu.use(
+  app.use(
     express.static(
-      path.resolve(process.env.INIT_DIR, config.public),
+      path.resolve(process.env.INIT_DIR, config.app),
       { maxAge: week } // TTL (Time To Live) for static files
     )
   )
 }
-
-// Configure views
-require('./views')(app, config.views);
-
-// Disable view caching
-app.set('view cache', false);
 
 // Add `compression` for compressing responses.
 app.use(compress());
@@ -142,7 +154,7 @@ app.logger = logger({
 app.use(morgan(morganConfig, {
   stream: {
     write: function(message) {
-      return cthulhu.logger.info(message)
+      return app.logger.info(message)
     }
   }
 }));
@@ -170,7 +182,6 @@ app.use(cookieParser());
 
 app.server = http.Server(app);
 
-// Start Cthulhu.
 app.start = function() {
   var env = app.get('env');
   var port = app.get('port');

@@ -6,22 +6,6 @@
 var util = require('util');
 var nodemailer = require('nodemailer');
 
-/**
- * Factory function for constructing a mailer
- * @return {object}
- * @public
- *
- * **EXAMPLE:**
- *
- * ```js
- *   var cthulhu = require('cthulhu');
- *   var mailer = cthulhu.Mailer({
- *     service: 'gmail',
- *     username: 'foo@gmail.com',
- *     password: 'foobarbazqux'
- *   });
- * ```
- */
 module.exports = function Mailer(config) {
 
   var mailer = {};

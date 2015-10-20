@@ -2,9 +2,9 @@
 
 var router = require('express').Router();
 
-//router.get('/user', require('./UserRouter'));
-//router.use('/auth', require('./AuthRouter'));
 router.use('/', require('./AppRouter'));
+router.get('/user', require('./UserRouter'));
+router.use('/auth', require('./AuthRouter'));
 router.use('/api', require('./api'));
 router.use('/tasks', require('./tasks'));
 router.use('/weight', require('./weight'));
