@@ -3,7 +3,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-var UserRouter = require('./UserRouter');
 
 // Create router
 var router = express.Router();
@@ -82,10 +81,10 @@ router.onOauthLinked = function(req, res, err, user) {
 };
 
 // Unlink OAuth
-router.get('/unlink/:provider', UserRouter.unlinkOAuth);
+//router.get('/unlink/:provider', UserRouter.unlinkOAuth);
 
 // Google
-router.get('/google', auth.Google.authorize);
-router.get('/google/callback', auth.Google.callback, router.linkOauth);
+//router.get('/google', auth.Google.authorize);
+//router.get('/google/callback', auth.Google.callback, router.linkOauth);
 
 module.exports = router;

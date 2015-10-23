@@ -3,19 +3,19 @@
 var fs = require('fs');
 var path = require('path');
 var winston = require('winston');
-var mkdirp = require('mkdirp')
+var mkdirp = require('mkdirp');
 
 /**
  * Configure logger
- * @param  {string} logfile Path to logfile
- * @param  {object} config Configuration for transports
+ * @param  {string} logConfig - Path to logfile
+ * @param  {object} config - Configuration for transports
  * @return {winston.Logger}
  */
 module.exports = function(logConfig, config) {
   var logDirPath = logConfig.dir;
   var logFilePath = logConfig.file;
   var cwd = process.env.INIT_DIR;
-  var logFile = path.resolve(cwd, logDirPath+'/'+logFilePath)
+  var logFile = path.resolve(cwd, logDirPath+'/'+logFilePath);
 
   config = config || {};
   config.file = config.file || {};
