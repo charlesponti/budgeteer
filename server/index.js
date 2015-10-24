@@ -31,22 +31,17 @@ const mongoose = require('mongoose');
 const util = require('util');
 const swig = require('swig');
 const config = require('../config');
-
-// Instantiate models
-require('./models/user');
-require('./models/task');
-require('./models/weight');
-require('./models/category');
-
-// Get User model
-var User = mongoose.model('User');
+const lusca = require('lusca');
+const enrouten = require('express-enrouten');
+const redis = require('redis');
+const expressSession = require('express-session');
+const RedisStore = require('connect-redis')(expressSession);
 
 /**
  * Application dependencies
  * @type {exports}
  */
 const mailer = require('./mailer');
-const logger = require('./logger');
 
 const hour = 3600000;
 const day = hour * 24;
@@ -113,24 +108,6 @@ app.use(methodOverride());
 // Add nodemailer
 app.mailer = mailer(config.mailer);
 
-/**
- * Add function for creating new winston logs
- * @param {string} loggerName Name of logger
- * @param {string} logFile Path to log file
- * @param {object} config Logger configuration
- * @type {Function}
- */
-app.addLogger = function(options) {
-  app.loggers = app.loggers || {};
-
-  app.loggers[options.name] = logger({
-    dir: options.dir,
-    file: options.file
-  }, config);
-
-  return app;
-};
-
 // Set folder for static files.
 if (config.public) {
   app.use(
@@ -144,20 +121,33 @@ if (config.public) {
 // Add `compression` for compressing responses.
 app.use(compress());
 
-// Add `morgan` for logging HTTP requests.
-var morganConfig = config.morgan || 'dev';
-
-app.logger = logger({
-  dir: 'logs'
-});
-
-app.use(morgan(morganConfig, {
-  stream: {
-    write: function(message) {
-      return app.logger.info(message)
-    }
-  }
+app.use(expressSession({
+  // Do not save session if nothing has been modified
+  resave: false,
+  // Do not create session unless something is to be stored
+  saveUninitialized: false,
+  secret: 'foobar'
 }));
+
+// Enable Lusca security
+app.use(lusca({
+    csrf: true,
+    csp: {
+      default_src: "'self'",
+      script_src:  "'self'",
+      image_src: "'self'"
+    },
+    xframe: 'SAMEORIGIN',
+    p3p: 'ABCDEF',
+    hsts: {
+      maxAge: 31536000,
+      includeSubDomains: true
+    },
+    xssProtection: true
+  }));
+
+// Add `morgan` for logging HTTP requests.
+app.use(morgan('dev'));
 
 // Add `body-parser` for parsing request body
 app.use(bodyParser.json());
@@ -173,48 +163,16 @@ app.use(expressValidator());
 // Add cookie-parser
 app.use(cookieParser());
 
-//if (config.sessionSecret) {
-//  // Enable session middleware
-//  app.use(require('./session')(app, config.session));
-//  // Enable security middleware
-//  app.use(require('./security')(app, config.lusca));
-//}
-
-app.server = http.Server(app);
-
-app.start = function() {
-  var env = app.get('env');
-  var port = app.get('port');
-
-  // Add socket to app and begin listening.
-  app.socket = io(app.server);
-
-  // Start application server.
-  app.server.listen(port, function() {
-    return util.log('Cthulhu has risen at port '+port+' in '+env+' mode')
-  });
-
-  // Emit initial message
-  app.socket.on('connection', function(socket) {
-    return socket.emit('message', {
-      message: 'Cthulhu has you in her grips.'
-    });
-  });
-
-  return app;
-};
-
 app.db = require('./db');
 
 // Add `locals` to response object
 app.use(function(req, res, next) {
-  res.locals.appName = 'Backpack';
   res.locals.bundle = isDevelopment ? 'main' : 'main.min';
   return next();
 });
 
-// Add router to application stack
-app.use(require('./routers'));
+// Add routes to application stack
+app.use(enrouten({directory: 'controllers'}));
 
 // Add error handler to application stack
 app.use(function(err, req, res) {
@@ -235,10 +193,22 @@ app.use(function(err, req, res) {
 // Setup RabbitMQ
 // queues.setup(app);
 
-// start the server if `$ node server.js`
-if (require.main === module) {
-  app.start();
-}
+var port = app.get('port');
+var env = app.get('env');
+var server = http.Server(app);
 
-// Export app
-module.exports = app;
+// Add socket to app and begin listening.
+app.socket = io(server);
+
+// Start application server.
+server.listen(port, function() {
+  return util.log('Cthulhu has risen at port '+port+' in '+env+' mode')
+});
+
+// Emit initial message
+app.socket.on('connection', function(socket) {
+  return socket.emit('message', {
+    message: 'Cthulhu has you in her grips.'
+  });
+});
+

@@ -7,7 +7,6 @@ var util = require('util');
 var nodemailer = require('nodemailer');
 
 module.exports = function Mailer(config) {
-
   var mailer = {};
 
   var requiredFields = [
@@ -73,5 +72,4 @@ module.exports = function Mailer(config) {
   };
 
   return mailer;
-
 };
