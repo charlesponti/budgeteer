@@ -78,24 +78,6 @@ else {
   swig.setDefaults({autoescape: false});
 }
 
-/**
- * @desc Required configuration settings
- * @type {Array}
- */
-var requiredConfigs = [
-  'port'
-];
-
-/**
- * Check for required configuration options. Throw error if any required
- * fields are missing.
- */
-requiredConfigs.forEach(function(requiredConfig) {
-  if (!config[requiredConfig]) {
-    throw new Error('Must supply '+ requiredConfig);
-  }
-});
-
 // Set port
 app.set('port', 3000);
 
