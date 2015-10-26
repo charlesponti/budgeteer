@@ -67,8 +67,9 @@ app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 
 // Disable view caching if in development
-if (global._env === 'development') {
+if (process.env.NODE_ENV === 'development') {
   app.set('view cache', false);
+
   swig.setDefaults({
     cache: false,
     autoescape: false
