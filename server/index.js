@@ -57,7 +57,7 @@ const app = express();
 process.env.INIT_DIR = process.cwd();
 
 // Set views path
-app.set('views', path.resolve('../views'));
+app.set('views', path.resolve('views'));
 
 // Disable view caching
 app.set('view cache', false);
