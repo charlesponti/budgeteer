@@ -23,53 +23,12 @@
     </p>
     <![endif]-->
 
-    <header class="site-header ui-white">
-        <h1 class="logo">
-            <i class="fa fa-bars menu" alt="Menu"></i> Backpack
-        </h1>
-    </header>
-
-    <nav class="site-nav ui-white">
-        <ul>
-            {% if current_user %}
-                <li>
-                    <a href="/tasks"> Tasks </a>
-                </li>
-                <li>
-                    <a href="/weight"> Weight </a>
-                </li>
-                <li>
-                    <a href="/account"> Account</a>
-                </li>
-                <li>
-                    <a href="/logout">Logout</a>
-                </li>
-            {% else %}
-                <li>
-                    <a href="/about">About</a>
-                </li>
-                <li>
-                    <a href="/login"> Log In </a>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
-
     <main id="app">
-        {{ view }}
         {% block content %}{% endblock %}
     </main>
 
     <!-- Modal -->
     <div id="modal"></div>
-
-    <!--
-    This element will contain any initialData depending on the url that is
-    initially requested. The React components that will render will check this
-    element. If initialData is present, it will not make an API request.
-    -->
-    <div class="hide" id="initial-data">{{ initialData }}</div>
-    <div class="hide" id="initial-user">{{ JSON.stringify(current_user) }}</div>
 
     <section class="messages">
       {% if messages.success %}
@@ -93,10 +52,6 @@
       {% endif %}
     </section>
 
-
-    <script src="/js/nav.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/vendor/highcharts-all.js"></script>
     <script src="/js/{{ bundle }}.js"></script>
 </body>
 </html>
