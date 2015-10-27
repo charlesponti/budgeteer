@@ -32,7 +32,6 @@
     "console": "node bin/console",
     "build": "gulp build",
     "build:prod": "gulp build:prod",
-    "postinstall": "bower install",
     "start": "NODE_ENV=production node server",
     "start:debug": "NODE_ENV=development node-debug server/index.js",
     "start:dev": "gulp start:dev"
