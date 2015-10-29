@@ -43,7 +43,8 @@ const RedisStore = require('connect-redis')(expressSession);
 const mailer = require('./mailer');
 
 // Set Application GLOBALs
-GLOBAL.Parse = require('parse').Parse;
+GLOBAL.Parse = require('parse/node').Parse;
+Parse.initialize(process.env.PARSE_APP_ID, process.env.PARSE_KEY);
 
 const hour = 3600000;
 const day = hour * 24;
