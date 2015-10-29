@@ -31,7 +31,6 @@ const mongoose = require('mongoose');
 const util = require('util');
 const swig = require('swig');
 const config = require('../config');
-const lusca = require('lusca');
 const enrouten = require('express-enrouten');
 const redis = require('redis');
 const expressSession = require('express-session');
@@ -114,23 +113,6 @@ app.use(expressSession({
   saveUninitialized: false,
   secret: 'foobar'
 }));
-
-// Enable Lusca security
-app.use(lusca({
-    csrf: true,
-    csp: {
-      default_src: "'self'",
-      script_src:  "'self'",
-      image_src: "'self'"
-    },
-    xframe: 'SAMEORIGIN',
-    p3p: 'ABCDEF',
-    hsts: {
-      maxAge: 31536000,
-      includeSubDomains: true
-    },
-    xssProtection: true
-  }));
 
 // Add `morgan` for logging HTTP requests.
 app.use(morgan('dev'));
