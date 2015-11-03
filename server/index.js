@@ -144,7 +144,7 @@ app.use(function(req, res, next) {
 app.use(enrouten({directory: 'controllers'}));
 
 // Add error handler to application stack
-app.use(function(err, req, res) {
+app.use(function(req, res) {
   // Log erorr message
   util.log(err.stack);
 
@@ -153,10 +153,10 @@ app.use(function(err, req, res) {
     return res.status(500).json({ message: err.message });
   }
 
+  console.log(res);
+
   // Render 500.html with error message
-  return res.status(500).render('500', {
-    error: err.message
-  });
+  return res.json(500, {error: err.message});
 });
 
 // Setup RabbitMQ
@@ -176,8 +176,6 @@ server.listen(port, function() {
 
 // Emit initial message
 app.socket.on('connection', function(socket) {
-  return socket.emit('message', {
-    message: 'Cthulhu has you in her grips.'
-  });
+  return socket.emit('message', {message: 'Cthulhu has you in her grips.'});
 });
 
