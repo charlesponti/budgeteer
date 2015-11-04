@@ -7,6 +7,4 @@ bower_components
 static/**
 .idea
 data/
-
-config/environments/development.js
 logs
