@@ -146,17 +146,10 @@ app.use(enrouten({directory: 'controllers'}));
 // Add error handler to application stack
 app.use(function(req, res) {
   // Log erorr message
-  util.log(err.stack);
-
-  // Return JSON response if request is to /api
-  if (req.xhr) {
-    return res.status(500).json({ message: err.message });
-  }
-
-  console.log(res);
+  //util.log(err.stack);
 
   // Render 500.html with error message
-  return res.json(500, {error: err.message});
+  return res.status(500).json({error: 'Error'});
 });
 
 // Setup RabbitMQ
