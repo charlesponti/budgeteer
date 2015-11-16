@@ -8,3 +8,4 @@ static/**
 .idea
 data/
 logs
+.env
