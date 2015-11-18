@@ -1,5 +1,8 @@
 'use strict';
 
+// Load environment variables
+require('dotenv').load();
+
 /**
  * Current Node environment
  * @type {String}
@@ -41,10 +44,6 @@ const RedisStore = require('connect-redis')(expressSession);
  * @type {exports}
  */
 const mailer = require('./mailer');
-
-// Set Application GLOBALs
-GLOBAL.Parse = require('parse/node').Parse;
-Parse.initialize(process.env.PARSE_APP_ID, process.env.PARSE_KEY);
 
 const hour = 3600000;
 const day = hour * 24;
@@ -145,9 +144,6 @@ app.use(enrouten({directory: 'controllers'}));
 
 // Add error handler to application stack
 app.use(function(req, res) {
-  // Log erorr message
-  //util.log(err.stack);
-
   // Render 500.html with error message
   return res.status(500).json({error: 'Error'});
 });
