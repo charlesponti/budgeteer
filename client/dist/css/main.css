@@ -1,0 +1,14 @@
+.glyphicon.glyphicon-edit {
+  cursor: pointer;
+  margin: 0 5px;
+}
+.glyphicon.glyphicon-remove {
+  cursor: pointer;
+  margin: 0 5px;
+}
+.panel {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1haW4ubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxVQUFVO0VBQ1IsZUFBQTtFQUNBLGFBQUE7O0FBR0YsVUFBVTtFQUNSLGVBQUE7RUFDQSxhQUFBOztBQUdGO0VBQ0UsZ0JBQUE7RUFDQSxjQUFBIiwiZmlsZSI6Im1haW4uY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmdseXBoaWNvbi5nbHlwaGljb24tZWRpdCB7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgbWFyZ2luOiAwIDVweDtcbn1cblxuLmdseXBoaWNvbi5nbHlwaGljb24tcmVtb3ZlIHtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBtYXJnaW46IDAgNXB4O1xufVxuXG4ucGFuZWwge1xuICBtYXgtd2lkdGg6IDYwMHB4O1xuICBtYXJnaW46IDAgYXV0bztcbn1cbiJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ== */
