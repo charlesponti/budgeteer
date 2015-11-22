@@ -1,11 +1,7 @@
 .git
-.DS_Store
-.vagrant
-node_modules
-bower_components
-*.log
-static/**
 .idea
-data/
-logs
+.DS_Store
+node_modules
+*.log
+dist
 .env
