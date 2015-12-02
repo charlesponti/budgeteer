@@ -2,6 +2,6 @@
 
 module.exports = function(router) {
   return router.get('/', function(req, res) {
-    return res.send('ok');
+    return res.render('index');
   });
 };
