@@ -1,53 +1,28 @@
 
 const localStorage = window.localStorage;
 const $ = window.$;
+let loggedIn;
 
 export default {
 
-  login() {
-    return new Promise(function loginPromise(resolve, reject) {
+  getAccessToken() {
+    return this._accessToken;
+  },
 
-      function resolver(token) {
-        localStorage.setItem('token', token);
-        resolve(token);
-      }
-
-      FB.getLoginStatus(function fbGetLoginStatus(response) {
-        if (response.status === 'connected') {
-          resolver(response.authResponse.accessToken);
-        } else {
-          FB.login(function onFBLogin(response) {
-            if (response.stats === 'connected') {
-              $.post('http://localhost:3000/user', {
-                userID: response.authResponse.userID
-              }, function onSuccessUserPost() {
-                resolver(response.authResponse.accessToken);
-              });
-            } else if (response.status === 'not_authorized') {
-              // The person is logged into Facebook, but not your app.
-              reject({error: 'not authorized'});
-            } else {
-              reject({error: 'not logged in'});
-            }
-          });
+  authenticate() {
+    return new Promise((resolve, reject) => {
+      $.get('/user/loggedin', (response) => {
+        if (response.accessToken) {
+          this._accessToken = response.accessToken;
+          localStorage.setItem('session.token', response.accessToken);
+          resolve(response.accessToken);
         }
+        reject();
       });
     });
   },
 
-  getToken() {
-    return localStorage.token;
-  },
-
-  logout(cb) {
-    delete localStorage.token
-    if (cb) cb()
-    this.onChange(false)
-  },
-
   loggedIn() {
-    return !!localStorage.token
-  },
-
-  onChange() {}
+    return localStorage.getItem('session.token');
+  }
 };
