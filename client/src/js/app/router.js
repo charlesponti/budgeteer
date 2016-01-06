@@ -17,7 +17,7 @@ import LogIn from '../components/LogIn.js';
 
 function requireAuth(nextState, replaceState) {
   if (!auth.loggedIn()) {
-    replaceState({ nextPathname: nextState.location.pathname }, '/login');
+    replaceState({nextPathname: nextState.location.pathname}, '/login');
   }
 }
 
