@@ -38,6 +38,7 @@ const enrouten = require('express-enrouten');
 const redis = require('redis');
 const expressSession = require('express-session');
 const RedisStore = require('connect-redis')(expressSession);
+const favicon = require('serve-favicon');
 
 /**
  * Application dependencies
@@ -133,6 +134,8 @@ app.use(function(req, res, next) {
   return next();
 });
 
+// Serve favicon
+app.use(favicon(path.resolve(__dirname, '../client/favicon.ico')));
 // Add routes to application stack
 app.use(enrouten({directory: 'controllers'}));
 
