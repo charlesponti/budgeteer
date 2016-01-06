@@ -143,10 +143,9 @@ require('./lib/passport');
 // Add routes to application stack
 app.use(enrouten({directory: 'controllers'}));
 
-// Add error handler to application stack
+// Serve index for any unresolved route
 app.use(function(req, res) {
-  // Render 500.html with error message
-  return res.status(500).json({error: 'Error'});
+  return res.render('index', {user: JSON.stringify(req.user)});
 });
 
 // Setup RabbitMQ
