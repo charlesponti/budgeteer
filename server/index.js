@@ -4,13 +4,6 @@
 require('dotenv').load();
 
 /**
- * Current Node environment
- * @type {String}
- * @private
- */
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
-/**
  * @desc Determine if application is running in development. Used for configs
  * @type {Boolean}
  */
