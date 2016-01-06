@@ -49,7 +49,7 @@ const app = express();
 
 
 // Set views path
-app.set('views', path.resolve('views'));
+app.set('views', path.resolve('client'));
 
 // Disable view caching
 app.set('view cache', false);
