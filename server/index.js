@@ -33,6 +33,7 @@ const expressSession = require('express-session');
 const RedisStore = require('connect-redis')(expressSession);
 const favicon = require('serve-favicon');
 const serveStatic = require('serve-static');
+const passport = require('passport');
 
 /**
  * Application dependencies
@@ -125,6 +126,20 @@ app.use(function(req, res, next) {
 
 // Serve favicon
 app.use(favicon(path.resolve(__dirname, '../client/favicon.ico')));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+require('./lib/passport');
+
 // Add routes to application stack
 app.use(enrouten({directory: 'controllers'}));
 
