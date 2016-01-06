@@ -32,6 +32,7 @@ const redis = require('redis');
 const expressSession = require('express-session');
 const RedisStore = require('connect-redis')(expressSession);
 const favicon = require('serve-favicon');
+const serveStatic = require('serve-static');
 
 /**
  * Application dependencies
@@ -82,14 +83,9 @@ app.use(methodOverride());
 app.mailer = mailer(config.mailer);
 
 // Set folder for static files.
-if (config.public) {
-  app.use(
-    express.static(
-      path.resolve(process.env.INIT_DIR, config.app),
-      { maxAge: week } // TTL (Time To Live) for static files
-    )
-  )
-}
+app.use(serveStatic(path.resolve(__dirname, '../client/dist'),
+  { maxAge: '1d' } // TTL (Time To Live) for static files
+));
 
 // Add `compression` for compressing responses.
 app.use(compress());
