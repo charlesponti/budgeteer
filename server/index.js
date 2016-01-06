@@ -47,6 +47,8 @@ const week = day * 7;
 
 const app = express();
 
+// Add db to app object
+GLOBAL.DB = require('./db');
 
 // Set views path
 app.set('views', path.resolve('client'));
@@ -115,8 +117,6 @@ app.use(expressValidator());
 
 // Add cookie-parser
 app.use(cookieParser());
-
-app.db = require('./db');
 
 // Add `locals` to response object
 app.use(function(req, res, next) {
