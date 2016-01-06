@@ -51,12 +51,6 @@ const week = day * 7;
 
 const app = express();
 
-/**
- * Current working directory from which cthulhu is being used.
- * @type {String}
- * @private
- */
-process.env.INIT_DIR = process.cwd();
 
 // Set views path
 app.set('views', path.resolve('views'));
