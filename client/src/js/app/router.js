@@ -24,7 +24,7 @@ function requireAuth(nextState, replaceState) {
 ReactDOM.render(
   <Router history={createBrowserHistory()}>
     <Route path="/" component={App}>
-      <IndexRoute component={Transactions} onEnter={requireAuth}/>
+      <IndexRoute component={LogIn} onEnter={requireAuth}/>
       <Route path="login" component={LogIn}/>
       <Route path="transactions" onEnter={requireAuth}>
         <IndexRoute component={Transactions}/>
