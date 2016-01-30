@@ -1,14 +1,11 @@
-'use strict';
-
-var util = require('util');
-var mongoose = require('mongoose');
-var config = require('../../config');
+const util = require('util');
+const mongoose = require('mongoose');
 
 // Require models
 require('./models/user');
 require('./models/weight');
 
-mongoose.connect(config.db);
+mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/backpack-dev");
 
 var db = mongoose.connection;
 

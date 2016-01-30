@@ -1,5 +1,3 @@
-'use strict';
-
 // Load environment variables
 require('dotenv').load();
 
@@ -30,7 +28,6 @@ const config = require('../config');
 const enrouten = require('express-enrouten');
 const redis = require('redis');
 const expressSession = require('express-session');
-const RedisStore = require('connect-redis')(expressSession);
 const favicon = require('serve-favicon');
 const serveStatic = require('serve-static');
 const passport = require('passport');
@@ -83,7 +80,7 @@ app.set('port', 3000);
 app.use(methodOverride());
 
 // Add nodemailer
-app.mailer = mailer(config.mailer);
+app.mailer = mailer();
 
 // Set folder for static files.
 app.use(serveStatic(path.resolve(__dirname, '../client/dist'),
@@ -98,7 +95,7 @@ app.use(expressSession({
   resave: false,
   // Do not create session unless something is to be stored
   saveUninitialized: false,
-  secret: 'foobar'
+  secret: process.env.SESSION_SECRET
 }));
 
 // Add `morgan` for logging HTTP requests.
