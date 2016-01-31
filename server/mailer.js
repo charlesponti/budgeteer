@@ -1,51 +1,30 @@
 const util = require('util');
-const nodemailer = require('nodemailer');
-const sendgridTransport = require('nodemailer-sendgrid-transport');
+const sendgrid = require('sendgrid')(
+  process.env.SENDGRID_USERNAME,
+  process.env.SENDGRID_PASSWORD
+);
 
-module.exports = function Mailer() {
-  var mailer = {};
+exports.sendMail = function sendMail(options, callback) {
+  var email = new sendgrid.Email();
 
-  // Set transporter to mailer used for sending mail
-  mailer.transporter = nodemailer.createTransport(sendgridTransport({
-    auth: {
-      api_user: process.env.SENDGRID_USERNAME,
-      api_key: process.env.SENDGRID_PASSWORD
-    }
-  }));
+  email.addTo(options.to);
+  email.setFrom(options.from || process.env.SENDGRID_DEFAULT_EMAIL);
+  email.setSubject(options.subject);
+  email.setHtml(options.body);
 
-  /**
-   * Callback to be executed if error occurs
-   * @param {function} callback Callback to be executed after mail is sent
-   * @param {Error} error
-   * @param {Object} info
-   * @returns {*}
-   */
-   mailer.sendMailCallback = function(callback, error, info) {
+  return sendgrid.send(email, {
+    from: options.from,
+    to: options.to,
+    subject: options.subject,
+    text: options.text,
+    html: options.html
+  }, function(error, info) {
     if (error) {
       return util.log(error);
     }
+
     util.log('Message sent: ' + info.response);
+
     return callback();
-  };
-
-  /**
-   * Send mail with defined transport object
-   * @param {object} options Configuration of email
-   *     @param {Array}  options.to List of receivers
-   *     @param {String} options.subject Subject line
-   *     @param {String} options.text Plain text body
-   *     @param {String} options.html HTML body
-   * @param {function} callback Callback to be executed after mail is sent
-   */
-   mailer.sendMail = function sendMail(options, callback) {
-    return mailer.transporter.sendMail({
-      from: options.from,
-      to: options.to,
-      subject: options.subject,
-      text: options.text,
-      html: options.html
-    }, mailer.sendMailCallback.bind(mailer, callback));
-  };
-
-  return mailer;
+  });
 };

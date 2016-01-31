@@ -32,12 +32,6 @@ const favicon = require('serve-favicon');
 const serveStatic = require('serve-static');
 const passport = require('passport');
 
-/**
- * Application dependencies
- * @type {exports}
- */
-const mailer = require('./mailer');
-
 const hour = 3600000;
 const day = hour * 24;
 const week = day * 7;
@@ -78,9 +72,6 @@ app.set('port', 3000);
  * where the client doesn't support it.
  */
 app.use(methodOverride());
-
-// Add nodemailer
-app.mailer = mailer();
 
 // Set folder for static files.
 app.use(serveStatic(path.resolve(__dirname, '../client/dist'),
