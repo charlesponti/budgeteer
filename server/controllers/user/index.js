@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = function(router) {
   return router.post('/', function(req, res, next) {
     const accessToken = req.body.accessToken;

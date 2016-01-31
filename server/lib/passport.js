@@ -1,8 +1,6 @@
-'use strict';
-
-var passport = require('passport');
-var FacebookStrategy = require('passport-facebook').Strategy;
-var User = require('mongoose').model('User');
+const passport = require('passport');
+const FacebookStrategy = require('passport-facebook').Strategy;
+const User = require('mongoose').model('User');
 
 /** @namespace process.env.FACEBOOK_APP_ID */
 /** @namespace process.env.FACEBOOK_APP_SECRET */
