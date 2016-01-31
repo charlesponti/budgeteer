@@ -5,7 +5,7 @@ require('dotenv').load();
  * @desc Determine if application is running in development. Used for configs
  * @type {Boolean}
  */
-var isDevelopment = process.env.NODE_ENV === 'development';
+var isDevelopment = process.env.NODE_ENV !== 'production';
 
 /**
  * Module dependencies.
@@ -23,11 +23,14 @@ const morgan = require('morgan');
 const path = require('path');
 const mongoose = require('mongoose');
 const util = require('util');
-const swig = require('swig');
 const enrouten = require('express-enrouten');
 const favicon = require('serve-favicon');
 const serveStatic = require('serve-static');
 const passport = require('passport');
+const webpack = require('webpack');
+const webpackConfig = require('../webpack.config');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const hour = 3600000;
 const day = hour * 24;
@@ -35,12 +38,11 @@ const week = day * 7;
 
 const app = express();
 
-
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
 app.use(session({
-  secret: 'foo',
+  secret: process.env.SESSION_SECRET,
   store: new MongoStore({
     url: process.env.MONGODB_URL || 'mongodb://localhost/backpack-dev',
     ttl: 14 * 24 * 60 * 60 // = 14 days. Default
@@ -49,29 +51,6 @@ app.use(session({
 
 // Add db to app object
 GLOBAL.DB = require('./db');
-
-// Set views path
-app.set('views', path.resolve('client'));
-
-// Disable view caching
-app.set('view cache', false);
-
-// Set view engine
-app.engine('html', swig.renderFile);
-app.set('view engine', 'html');
-
-// Disable view caching if in development
-if (process.env.NODE_ENV === 'development') {
-  app.set('view cache', false);
-
-  swig.setDefaults({
-    cache: false,
-    autoescape: false
-  });
-}
-else {
-  swig.setDefaults({autoescape: false});
-}
 
 // Set port
 app.set('port', 3000);
@@ -82,21 +61,8 @@ app.set('port', 3000);
  */
 app.use(methodOverride());
 
-// Set folder for static files.
-app.use(serveStatic(path.resolve(__dirname, '../client/dist'),
-  { maxAge: '1d' } // TTL (Time To Live) for static files
-));
-
 // Add `compression` for compressing responses.
 app.use(compress());
-
-app.use(expressSession({
-  // Do not save session if nothing has been modified
-  resave: false,
-  // Do not create session unless something is to be stored
-  saveUninitialized: false,
-  secret: process.env.SESSION_SECRET
-}));
 
 // Add `morgan` for logging HTTP requests.
 app.use(morgan('dev'));
@@ -140,17 +106,43 @@ require('./lib/passport');
 // Add routes to application stack
 app.use(enrouten({directory: 'controllers'}));
 
-// Serve index for any unresolved route
-app.use(function(req, res) {
-  return res.render('index', {user: JSON.stringify(req.user)});
-});
 
-// Setup RabbitMQ
-// queues.setup(app);
+if (isDevelopment) {
+  const compiler = webpack(webpackConfig);
+  const middleware = webpackDevMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    contentBase: 'src',
+    stats: {
+      colors: true,
+      hash: false,
+      timings: true,
+      chunks: false,
+      chunkModules: false,
+      modules: false
+    }
+  });
 
-var port = app.get('port');
-var env = app.get('env');
-var server = http.Server(app);
+  app.use(middleware);
+  app.use(webpackHotMiddleware(compiler));
+  app.get('*', function response(req, res) {
+    res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
+    res.end();
+  });
+}
+else {
+  // Set folder for static files.
+  app.use(serveStatic(path.resolve(__dirname, '../client/dist'),
+    { maxAge: '1d' } // TTL (Time To Live) for static files
+  ));
+
+  app.get('*', function response(req, res) {
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
+  });
+}
+
+const port = app.get('port');
+const env = app.get('env');
+const server = http.Server(app);
 
 // Add socket to app and begin listening.
 app.socket = io(server);
