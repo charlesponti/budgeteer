@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import Store from '../../Store.js';
-import {constants, dispatcher} from '../../app';
+import constants from '../../app/constants';
+import dispatcher from '../../app/dispatcher';
 
 function CostPerDayItem(props) {
 

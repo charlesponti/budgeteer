@@ -1,17 +1,21 @@
-const History = ReactRouter.History;
+import React from 'react';
+import { History } from 'react-router';
 import CostPerDayStore from './CostPerDayStore.js';
 
-const CostPerDayForm = React.createClass({
+export default React.createClass({
+  propTypes: {
+    location: React.PropTypes.object.isRequired
+  },
 
   mixins: [History],
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       record: this.props.location.item || {}
     };
   },
 
-  _onSubmit: function(event) {
+  _onSubmit(event) {
     event.preventDefault();
 
     var name = this.refs.itemName;
@@ -27,7 +31,7 @@ const CostPerDayForm = React.createClass({
     });
   },
 
-  render: function() {
+  render() {
     return (
       <div className="panel panel-default" style={{maxWidth: '600px', margin: '0 auto'}}>
         <div className="panel-heading">
@@ -48,5 +52,3 @@ const CostPerDayForm = React.createClass({
     );
   }
 });
-
-export default CostPerDayForm;

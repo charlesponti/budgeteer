@@ -1,17 +1,21 @@
-'use strict';
+import React from 'react';
+import BaseComponent from './BaseComponent';
 
-const DateRangeField = React.createClass({
+export default class DateRangeField extends BaseComponent {
+  constructor(props) {
+    super(props);
+    this.propTypes = {
+      name: React.PropTypes.string.isRequired
+    };
+  }
 
   componentDidMount() {
-    debugger;
-  },
+
+  }
 
   render() {
     return (
       <input type="text" name={this.props.name}/>
     );
   }
-
-});
-
-export default DateRangeField;
+}

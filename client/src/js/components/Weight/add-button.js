@@ -1,13 +1,14 @@
-const History = ReactRouter.History;
+import React from 'react';
+import { History } from 'react-router';
 
-var WeightAddButton = React.createClass({
+export default React.createClass({
   mixins: [History],
 
-  onClick: function() {
+  onClick() {
     this.history.pushState(null, '/weight/new');
   },
 
-  render: function() {
+  render() {
     return (
       <button onClick={this.onClick} className="btn add btn-default">
       +
@@ -16,5 +17,3 @@ var WeightAddButton = React.createClass({
   }
 
 });
-
-module.exports = WeightAddButton;

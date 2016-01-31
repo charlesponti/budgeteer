@@ -1,7 +1,21 @@
-const WeightGraph = React.createClass({
+import React from 'react';
+import Highcharts from 'highcharts';
 
-  drawChart: function() {
-    var weights = this.props.weights;
+export default React.createClass({
+  propTypes: {
+    weights: React.PropTypes.array.isRequired
+  },
+
+  componentDidMount() {
+    return this.drawChart(this.props.weights);
+  },
+
+  componentDidUpdate() {
+    return this.drawChart(this.props.weights);
+  },
+
+  drawChart() {
+    const weights = this.props.weights;
 
     new Highcharts.Chart({
       title: {
@@ -27,24 +41,14 @@ const WeightGraph = React.createClass({
     });
   },
 
-  componentDidMount: function() {
-    return this.drawChart(this.props.weights);
-  },
-
-  componentDidUpdate: function() {
-    return this.drawChart(this.props.weights);
-  },
-
   /**
    * Render element
    * @return {ReactElement}
    */
-  render: function() {
+  render() {
     return (
       <div id="weight-chart"></div>
     );
   }
 
 });
-
-module.exports = WeightGraph;

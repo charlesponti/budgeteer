@@ -1,10 +1,8 @@
-'use strict';
-
-import {Transaction} from '../TransactionStore';
-import TransactionListItem from '../TransactionListItem';
+import { Transaction } from './TransactionStore';
+import TransactionListItem from './TransactionListItem';
 import React from 'react';
 
-describe('TransactionList', function() {
+describe('TransactionList', () => {
   var TestUtils;
 
   beforeEach(function () {

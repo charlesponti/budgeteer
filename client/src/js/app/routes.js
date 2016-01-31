@@ -1,14 +1,12 @@
-const Router = ReactRouter.Router;
-const Route = ReactRouter.Route;
-const IndexRoute = ReactRouter.IndexRoute;
-const ReactDOM = window.ReactDOM;
+import React from 'react';
+import { Router, Route, IndexRoute } from 'react-router';
 
-import auth from './auth.js';
+import firebaseUtils from '../utils/firebase';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import App from '../components/App.js';
 import NotFound from '../components/NotFound.js';
-import Transactions from '../components/Transactions';
-import TransactionForm from '../components/transactions/TransactionForm.js';
+import Transactions from '../components/Transactions/TransactionsList';
+import TransactionForm from '../components/Transactions/TransactionForm.js';
 import CostPerDay from '../components/CostPerDay';
 import CostPerDayForm from '../components/CostPerDay/CostPerDayForm.js';
 import Weight from '../components/Weight';
@@ -16,16 +14,20 @@ import WeightForm from '../components/Weight/WeightForm.js';
 import LogIn from '../components/LogIn.js';
 
 function requireAuth(nextState, replaceState) {
-  if (!auth.loggedIn()) {
-    replaceState({nextPathname: nextState.location.pathname}, '/login');
+  const authenticated = firebaseUtils.isLoggedIn();
+
+  if (nextState.location.pathname === '/login' && authenticated) {
+    replaceState({ nextPathname: nextState.location.pathname}, '/transactions');
+  } else if (!authenticated) {
+    replaceState({ nextPathname: nextState.location.pathname }, '/login');
   }
 }
 
-ReactDOM.render(
+export default (
   <Router history={createBrowserHistory()}>
     <Route path="/" component={App}>
-      <IndexRoute component={LogIn} onEnter={requireAuth}/>
-      <Route path="login" component={LogIn}/>
+      <IndexRoute component={Transactions} onEnter={requireAuth}/>
+      <Route path="login" component={LogIn} onEnter={requireAuth}/>
       <Route path="transactions" onEnter={requireAuth}>
         <IndexRoute component={Transactions}/>
         <Route path="new" component={TransactionForm}/>
@@ -39,4 +41,5 @@ ReactDOM.render(
         <Route path="new" component={WeightForm}/>
       </Route>
     </Route>
-  </Router>, document.getElementById('app'));
+  </Router>
+);

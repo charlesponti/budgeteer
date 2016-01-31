@@ -1,21 +1,22 @@
+import React from 'react';
+import { History } from 'react-router';
 const classnames = require('classnames');
 const ItemActionButtons = require('../../ItemActionButtons');
 const WeightStore = require('./WeightStore');
 
-const WeightTable = React.createClass({
-
-  mixins: [ReactRouter.History],
-
+export default React.createClass({
   propTypes: {
     weights: React.PropTypes.array.isRequired
   },
 
-  onEdit: function onWeightEdit(weight) {
+  mixins: [History],
+
+  onEdit(weight) {
     this.history.pushState(weight, '/weight/new');
   },
 
-  onRemove: function onWeightRemove(weight) {
-    var answer = window.confirm(`
+  onRemove(weight) {
+    const answer = window.confirm(`
       Are you sure you want to delete this weight?
     `);
 
@@ -24,8 +25,8 @@ const WeightTable = React.createClass({
     }
   },
 
-  render: function onWeightRender() {
-    var classes = classnames({
+  render() {
+    const classes = classnames({
       'table': true,
       'hover': true,
       // Hide table if no weights
@@ -59,5 +60,3 @@ const WeightTable = React.createClass({
   }
 
 });
-
-module.exports = WeightTable;

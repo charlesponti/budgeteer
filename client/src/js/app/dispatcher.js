@@ -1,5 +1,3 @@
-'use strict';
-
 import Flux from 'flux';
 
-module.exports = new Flux.Dispatcher();
+export default new Flux.Dispatcher();

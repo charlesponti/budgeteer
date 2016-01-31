@@ -1,4 +1,5 @@
-import {constants, dispatcher} from '../../app';
+import constants from '../../app/constants';
+import dispatcher from '../../app/dispatcher';
 import Store from '../../Store.js';
 
 function Transaction(transaction) {
@@ -7,7 +8,7 @@ function Transaction(transaction) {
   this.category = transaction.category;
   this.amount = parseFloat(transaction.amount);
   this.amountToString = function() {
-    return `${this.amount.toFixed(2)}`
+    return `${this.amount.toFixed(2)}`;
   };
 }
 

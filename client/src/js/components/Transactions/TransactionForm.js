@@ -1,15 +1,19 @@
-const History = ReactRouter.History;
+import React from 'react';
+import { History } from 'react-router';
 import TransactionStore from './TransactionStore';
 
-export default React.createClass({
+export default class TransactionForm extends React.Component {
 
-  mixins: [History],
+  static mixins = [History];
 
-  getInitialState() {
-    return {
+  constructor(props) {
+    super(props);
+
+    // Set initial state
+    this.state = {
       transaction: this.props.location.state || {}
     };
-  },
+  }
 
   onSubmit(event) {
     event.preventDefault();
@@ -20,10 +24,10 @@ export default React.createClass({
     }).then(() => {
       this.history.pushState(null, '/transactions');
     });
-  },
+  }
 
   render() {
-    let transaction = this.state.transaction;
+    const transaction = this.state.transaction;
 
     return (
       <div className="panel panel-default" style={{maxWidth: '600px', margin: '0 auto'}}>
@@ -49,7 +53,6 @@ export default React.createClass({
               <div className="col-sm-10">
                 <input
                   className="form-control"
-                  type="number"
                   ref="amount"
                   name="amount"
                   value={transaction.amount}
@@ -72,5 +75,4 @@ export default React.createClass({
       </div>
     );
   }
-
-})
+}

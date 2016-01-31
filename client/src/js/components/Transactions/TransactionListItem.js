@@ -1,9 +1,9 @@
-const History = ReactRouter.History;
+import React from 'react';
+import { History } from 'react-router';
 import TransactionStore from './TransactionStore.js';
 import ItemActionButtons from '../../ItemActionButtons.js';
 
-export var TransactionListItem = React.createClass({
-
+export default React.createClass({
   mixins: [History],
 
   componentWillMount() {
@@ -14,7 +14,7 @@ export var TransactionListItem = React.createClass({
       icon: {
         padding: '0px 5px'
       }
-    }
+    };
   },
 
   onEditClick() {
@@ -38,7 +38,7 @@ export var TransactionListItem = React.createClass({
     }
 
     return (
-      <li className="list-group-item transaction">
+      <li className="collection-item transaction">
         <span className="desc">{transaction.description}</span>
         <span className="pull-right">
           <span className="amount" style={this.styles.transactionAmount}>
@@ -51,7 +51,4 @@ export var TransactionListItem = React.createClass({
       </li>
     );
   }
-
 });
-
-export default TransactionListItem;

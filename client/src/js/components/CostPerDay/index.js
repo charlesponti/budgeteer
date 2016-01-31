@@ -1,8 +1,9 @@
-const Link = ReactRouter.Link;
+import React from 'react';
+import { Link } from 'react-router';
 import CostPerDayStore from './CostPerDayStore.js';
 import CostPerDayListItem from './CostPerDayListItem.js';
 
-const CostPerDay = React.createClass({
+export default React.createClass({
 
   getInitialState() {
     return {
@@ -41,8 +42,6 @@ const CostPerDay = React.createClass({
           {this.state.items.map((item) => <CostPerDayListItem item={item}/>)}
         </ul>
       </div>
-    )
+    );
   }
 });
-
-export default CostPerDay;

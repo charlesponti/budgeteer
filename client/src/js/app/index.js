@@ -2,7 +2,7 @@
  * Application
  * @type {object}
  */
-const App  = {
+const App = {
   dispatcher: require('./dispatcher'),
 
   constants: require('./constants')

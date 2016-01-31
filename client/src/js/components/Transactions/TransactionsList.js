@@ -1,10 +1,10 @@
-const Link = ReactRouter.Link;
+import React from 'react';
+import { Link } from 'react-router';
 import Transaction from './TransactionListItem';
 import TransactionForm from './TransactionForm.js';
 import TransactionStore from './TransactionStore.js';
 
-class Transactions extends React.Component {
-
+export default class TransactionsList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -33,26 +33,24 @@ class Transactions extends React.Component {
     };
 
     if (transactions.length) {
-      transactions = transactions.map(function(transaction) {
+      transactions = transactions.map((transaction) => {
         return (<Transaction transaction={transaction} key={transaction.id}/>);
       });
     }
     else {
-      transactions = <Transaction/>
+      transactions = <Transaction/>;
     }
 
     return (
-      <div className="panel panel-default">
+      <div className="card blue-grey darken-1">
         <div className="panel-heading">
           Transactions
           <Link className="btn pull-right" style={buttonStyle} to="/transactions/new">New Transaction</Link>
         </div>
-        <ul className="panel-body list-group">
+        <ul className="collection">
           {transactions}
         </ul>
       </div>
     );
   }
 }
-
-export default Transactions;

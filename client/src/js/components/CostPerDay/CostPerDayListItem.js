@@ -1,8 +1,12 @@
-const History = ReactRouter.History;
+import React from 'react';
+import { History } from 'react-router';
 import ItemActionButtons from '../../ItemActionButtons.js';
 import CostPerDayStore from './CostPerDayStore.js';
 
-const CostPerDayListItem = React.createClass({
+export default React.createClass({
+  propTypes: {
+    item: React.PropTypes.object.isRequired
+  },
 
   mixins: [History],
 
@@ -17,8 +21,7 @@ const CostPerDayListItem = React.createClass({
   },
 
   render() {
-    var item = this.props.item;
-
+    const item = this.props.item;
     return (
       <li className="list-group-item" key={item.id}>
         <b>{item.name}</b>
@@ -27,9 +30,7 @@ const CostPerDayListItem = React.createClass({
                 </span>
         <span className="pull-right">{item.costPerDay}</span>
       </li>
-    )
+    );
   }
-
 });
 
-export default CostPerDayListItem;

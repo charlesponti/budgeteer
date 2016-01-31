@@ -1,17 +1,21 @@
-const History = ReactRouter.History;
+import React from 'react';
+import { History } from 'react-router';
 import WeightStore from './WeightStore';
 
-var WeightForm = React.createClass({
+export default React.createClass({
+  propTypes: {
+    location: React.PropTypes.object.isRequired
+  },
 
   mixins: [History],
 
-  getInitialState: function getInitialWeightFormState() {
+  getInitialState() {
     return {
       weight: this.props.location.state || {}
     };
   },
 
-  getWeightValues: function getWeightValues(weight) {
+  getWeightValues(weight) {
     const diff = 2.2046;
 
     switch (this.refs.measurement.value) {
@@ -28,7 +32,7 @@ var WeightForm = React.createClass({
     }
   },
 
-  onSubmit: function onWeightFormSubmit(e) {
+  onSubmit(e) {
     // Prevent default action
     e.preventDefault();
 
@@ -40,7 +44,7 @@ var WeightForm = React.createClass({
       });
   },
 
-  generateWeightRecord: function generateWeightRecord() {
+  generateWeightRecord() {
     const weight = this.getWeightValues(this.refs.weight.value);
 
     return {
@@ -107,7 +111,4 @@ var WeightForm = React.createClass({
       </div>
     );
   }
-
 });
-
-module.exports = WeightForm;

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 import Dispatcher from './app/dispatcher';
 
 const Store = _.extend({

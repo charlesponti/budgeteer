@@ -1,10 +1,11 @@
-const Link = ReactRouter.Link;
+import React from 'react';
+import { Link } from 'react-router';
 const WeightGraph = require('./graph');
 const WeightStore = require('./WeightStore');
 const WeightTable = require('./table');
 const WeightAddButton = require('./add-button');
 
-var Weight = React.createClass({
+export default React.createClass({
   propTypes: {
     initialData: React.PropTypes.array
   },
@@ -48,5 +49,3 @@ var Weight = React.createClass({
     );
   }
 });
-
-module.exports = Weight;

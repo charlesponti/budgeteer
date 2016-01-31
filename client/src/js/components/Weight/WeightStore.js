@@ -1,10 +1,9 @@
-var _ = require('lodash');
-var App = require('../app');
-var BaseStore = require('../../Store');
-var AppDispatcher = require('../../app/dispatcher');
+import _ from 'lodash';
+import BaseStore from '../../Store';
+import constants from '../../app/constants';
+import dispatcher from '../../app/dispatcher';
 
 class WeightModel {
-
   constructor(props) {
     this.id = props.id;
     this.kgs = props.kgs;
@@ -15,11 +14,9 @@ class WeightModel {
   getDate() {
     return new Date(this.created);
   }
-
 }
 
-var WeightStore = _.extend({
-
+const WeightStore = _.extend({
   url: '/api/weight',
 
   Model: WeightModel,
@@ -30,8 +27,8 @@ var WeightStore = _.extend({
    * Get dates of weights
    * @return {Date[]}
    */
-  getDates: function() {
-    return this.records.map(function(weight) {
+  getDates() {
+    return this.records.map((weight) => {
       return (new Date(weight.get('date'))).toDateString();
     });
   },
@@ -41,16 +38,15 @@ var WeightStore = _.extend({
    * @param {string} measurement Measurement to retrieve
    * @return {Number[]}
    */
-   getWeights: function(measurement) {
-     return this.records.map(function(weight) {
+   getWeights(measurement) {
+     return this.records.map((weight) => {
        return weight.get(measurement || 'kgs');
      });
    }
-
 }, BaseStore);
 
-WeightStore.dispatcherIndex = function(payload) {
-  switch(payload.action) {
+WeightStore.dispatcherIndex = (payload) => {
+  switch (payload.action) {
     case constants.WEIGHT_CREATE:
       WeightStore.add(payload.data);
       WeightStore.emitChange();
@@ -59,9 +55,11 @@ WeightStore.dispatcherIndex = function(payload) {
       WeightStore.remove(payload.data);
       WeightStore.emitChange();
       break;
+    default:
+      break;
   }
 };
 
-WeightStore.dispatcherToken = AppDispatcher.register(WeightStore.dispatcherIndex);
+WeightStore.dispatcherToken = dispatcher.register(WeightStore.dispatcherIndex);
 
 export default WeightStore;

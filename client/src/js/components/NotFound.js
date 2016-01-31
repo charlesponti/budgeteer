@@ -1,5 +1,6 @@
-var NotFound = React.createClass({
+import React from 'react';
 
+export default class NotFound extends React.Component {
   render() {
     return (
       <div>
@@ -7,8 +8,4 @@ var NotFound = React.createClass({
       </div>
     );
   }
-
-});
-
-
-export default NotFound;
+}
