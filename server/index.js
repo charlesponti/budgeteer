@@ -24,10 +24,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const util = require('util');
 const swig = require('swig');
-const config = require('../config');
 const enrouten = require('express-enrouten');
-const redis = require('redis');
-const expressSession = require('express-session');
 const favicon = require('serve-favicon');
 const serveStatic = require('serve-static');
 const passport = require('passport');
@@ -37,6 +34,18 @@ const day = hour * 24;
 const week = day * 7;
 
 const app = express();
+
+
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+app.use(session({
+  secret: 'foo',
+  store: new MongoStore({
+    url: process.env.MONGODB_URL || 'mongodb://localhost/backpack-dev',
+    ttl: 14 * 24 * 60 * 60 // = 14 days. Default
+  })
+}));
 
 // Add db to app object
 GLOBAL.DB = require('./db');
