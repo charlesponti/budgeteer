@@ -26,7 +26,7 @@ module.exports = function makeWebpackConfig (options) {
      * Karma will set this when it's a test build
      */
     entry: {
-      app: './client/src/js/main.js'
+      app: './client/src/js/index.js'
     },
 
     /**
