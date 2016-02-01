@@ -1,10 +1,10 @@
 import React from 'react';
-import firebaseUtils from '../utils/firebase';
+import auth from '../app/auth';
 
 export default class Login extends React.Component {
 
   onButtonClick() {
-    firebaseUtils.login();
+    auth.login();
   }
 
   render() {

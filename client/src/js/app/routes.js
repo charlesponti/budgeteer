@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 
-import firebaseUtils from '../utils/firebase';
+import auth from './auth';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import App from '../components/App.js';
 import NotFound from '../components/NotFound.js';
@@ -14,7 +14,7 @@ import WeightForm from '../components/Weight/WeightForm.js';
 import LogIn from '../components/LogIn.js';
 
 function requireAuth(nextState, replaceState) {
-  const authenticated = firebaseUtils.isLoggedIn();
+  const authenticated = auth.isLoggedIn();
 
   if (nextState.location.pathname === '/login' && authenticated) {
     replaceState({ nextPathname: nextState.location.pathname}, '/transactions');

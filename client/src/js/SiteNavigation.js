@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import firebaseUtils from './utils/firebase';
+import auth from './app/auth';
 
 export default class SiteNavigation extends React.Component {
 
@@ -24,7 +24,7 @@ export default class SiteNavigation extends React.Component {
         <div className="nav-wrapper">
           <a href="#" className="brand-logo">Backpack</a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
-            {firebaseUtils.isLoggedIn() ? buttons : <span></span>}
+            {auth.isLoggedIn() ? buttons : <span></span>}
           </ul>
         </div>
 
