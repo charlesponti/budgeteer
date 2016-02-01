@@ -42,6 +42,8 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
 app.use(session({
+  resave: true,
+  saveUninitialized: true,
   secret: process.env.SESSION_SECRET,
   store: new MongoStore({
     url: process.env.MONGODB_URL || 'mongodb://localhost/backpack-dev',
