@@ -7,9 +7,6 @@ import '../main.less';
 // Import jquery
 import 'jquery/dist/jquery.min';
 
-// Import Firebase
-import 'firebase';
-
 // Import Materialize CSS
 import 'materialize-css/dist/js/materialize';
 import 'materialize-css/dist/css/materialize.css';
