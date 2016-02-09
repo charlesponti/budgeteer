@@ -27,20 +27,14 @@ const enrouten = require('express-enrouten');
 const favicon = require('serve-favicon');
 const serveStatic = require('serve-static');
 const passport = require('passport');
-const webpack = require('webpack');
-const webpackConfig = require('../webpack.config');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-
-const hour = 3600000;
-const day = hour * 24;
-const week = day * 7;
 
 const app = express();
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
+/** @namespace process.env.MONGODB_URL */
+/** @namespace process.env.SESSION_SECRET */
 app.use(session({
   resave: true,
   saveUninitialized: true,
