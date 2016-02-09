@@ -105,42 +105,22 @@ passport.deserializeUser(function(user, done) {
 
 require('./lib/passport');
 
+// Set folder for static files.
+app.use('/assets', serveStatic(path.join(__dirname, '/../client/dist'),
+  { maxAge: '1d' } // TTL (Time To Live) for static files
+));
+
+//If we get here then the request for a static file is invalid so we may as well stop here
+app.use('/assets', function(req, res, next) {
+  res.send(404);
+});
+
 // Add routes to application stack
 app.use(enrouten({directory: 'controllers'}));
 
-
-if (isDevelopment) {
-  const compiler = webpack(webpackConfig);
-  const middleware = webpackDevMiddleware(compiler, {
-    publicPath: webpackConfig.output.publicPath,
-    contentBase: 'src',
-    stats: {
-      colors: true,
-      hash: false,
-      timings: true,
-      chunks: false,
-      chunkModules: false,
-      modules: false
-    }
-  });
-
-  app.use(middleware);
-  app.use(webpackHotMiddleware(compiler));
-  app.get('*', function response(req, res) {
-    res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
-    res.end();
-  });
-}
-else {
-  // Set folder for static files.
-  app.use(serveStatic(path.resolve(__dirname, '../client/dist'),
-    { maxAge: '1d' } // TTL (Time To Live) for static files
-  ));
-
-  app.get('*', function response(req, res) {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
-  });
-}
+app.get('*', function response(req, res) {
+  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+});
 
 const port = app.get('port');
 const env = app.get('env');
