@@ -63,9 +63,7 @@
     "psi": "^2.0.2",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.12",
-    "webpack-dev-middleware": "^1.5.1",
-    "webpack-hot-middleware": "^2.6.4"
+    "webpack": "^1.12.12"
   },
   "license": "MIT",
   "main": "server/index.js",
