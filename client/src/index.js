@@ -2,10 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import routes from './app/routes';
 
-import '../main.less';
-
-// Import jquery
-import 'jquery/dist/jquery.min';
+import './main.less';
 
 // Import Materialize CSS
 import 'materialize-css/dist/js/materialize';
