@@ -21,7 +21,7 @@ export default class Login extends React.Component {
         style={buttonStyle}
         onClick={this.onButtonClick}
       >
-        Log In With Facebook
+        <a href="/auth/facebook">Log In With Facebook</a>
       </button>
     );
   }
