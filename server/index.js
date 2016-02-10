@@ -27,11 +27,13 @@ const enrouten = require('express-enrouten');
 const favicon = require('serve-favicon');
 const serveStatic = require('serve-static');
 const passport = require('passport');
-
+const cors = require('cors');
 const app = express();
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+
+app.use(cors());
 
 /** @namespace process.env.MONGODB_URL */
 /** @namespace process.env.SESSION_SECRET */
