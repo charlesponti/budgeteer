@@ -4,8 +4,4 @@ import routes from './app/routes';
 
 import './main.less';
 
-// Import Materialize CSS
-import 'materialize-css/dist/js/materialize';
-import 'materialize-css/dist/css/materialize.css';
-
 ReactDOM.render(routes, document.getElementById('app'));
