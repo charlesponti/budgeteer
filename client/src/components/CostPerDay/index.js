@@ -22,16 +22,22 @@ export default angular
     restrict: 'E',
     template: costPerDayListItemTemplate,
     bindings: { item: '=' },
-    controller: function() {
+    controller: ['$state', function($state) {
+      this.edit = function(item) {
+        $state.go('new-cost-per-day', {record: item});
+      };
 
-    }
+    }]
   })
   .component('costPerDayForm', {
     restrict: 'E',
     template: costPerDayFormTemplate,
-    controller: function() {
-      this.onSubmit = function() {
-        event.preventDefault();
+    controller: ['$state', '$stateParams', function($state, $stateParams) {
+      if (angular.isObject($stateParams.record)) {
+        this.record = $stateParams.record;
+      } else {
+        this.record = {};
+      }
 
         var name = this.refs.itemName;
         var price = this.refs.itemPrice;
@@ -46,6 +52,7 @@ export default angular
         });
       }
     }
+    }]
   })
   .config(['$stateProvider', function($stateProvider) {
     $stateProvider
@@ -55,6 +62,7 @@ export default angular
       })
       .state('new-cost-per-day', {
         url: '/cost-per-day/new',
-        template: '<cost-per-day-form></cost-per-day-form>'
+        template: '<cost-per-day-form></cost-per-day-form>',
+        params : { record: null }
       })
   }]);
