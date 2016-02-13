@@ -1,7 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import routes from './app/routes';
+import angular from 'angular';
+import uirouter from 'angular-ui-router';
+//import routes from './app/routes';
+import navigation from './site-navigation.html';
+import costPerDay from './components/CostPerDay';
+
+// Import bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap';
 
 import './main.less';
 
-ReactDOM.render(routes, document.getElementById('app'));
+angular.module('backpack', [uirouter, costPerDay.name])
+  .directive('navigation', () => {
+    return {
+      restrict: 'E',
+      template: navigation
+    }
+  })
+  .config(['$urlRouterProvider', function($urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
+  }]);

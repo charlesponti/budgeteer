@@ -1,47 +1,60 @@
-import React from 'react';
-import { Link } from 'react-router';
+//import React from 'react';
+//import { Link } from 'react-router';
 import CostPerDayStore from './CostPerDayStore.js';
-import CostPerDayListItem from './CostPerDayListItem.js';
+//import CostPerDayListItem from './CostPerDayListItem.js';
 
-export default React.createClass({
+import angular from 'angular';
+import uirouter from 'angular-ui-router';
+import costPerDayTemplate from './cost-per-day.html';
+import costPerDayFormTemplate from './cost-per-day-form.html';
+import costPerDayListItemTemplate from './cost-per-day-list-item.html';
 
-  getInitialState() {
-    return {
-      items: CostPerDayStore.getRecords(),
-      formItem: {}
+export default angular
+  .module('backpack.cost-per-day', [uirouter])
+  .component('costPerDay', {
+    restrict: 'E',
+    template: costPerDayTemplate,
+    controller: function() {
+      this.items = CostPerDayStore.getRecords();
     }
-  },
+  })
+  .component('costPerDayListItem', {
+    restrict: 'E',
+    template: costPerDayListItemTemplate,
+    bindings: { item: '=' },
+    controller: function() {
 
-  componentWillMount() {
-    this.listStyle = {
-      maxWidth: '600px',
-      margin: '0 auto'
-    };
+    }
+  })
+  .component('costPerDayForm', {
+    restrict: 'E',
+    template: costPerDayFormTemplate,
+    controller: function() {
+      this.onSubmit = function() {
+        event.preventDefault();
 
-    CostPerDayStore.addChangeListener(this._onCostPerDayStoreChange);
-  },
+        var name = this.refs.itemName;
+        var price = this.refs.itemPrice;
+        var type = this.refs.itemType;
 
-  componentWillUnmount() {
-    CostPerDayStore.removeChangeListener(this._onCostPerDayStoreChange);
-  },
-
-  _onCostPerDayStoreChange() {
-    return this.setState({
-      items: CostPerDayStore.getRecords()
-    });
-  },
-
-  render() {
-    return (
-      <div className="panel panel-default">
-        <div className="panel-heading">
-          <b>Items</b>
-          <Link className="btn pull-right" style={{padding:'0px'}} to="/cost-per-day/new">New Item</Link>
-        </div>
-        <ul className="panel-body list-group" style={this.listStyle}>
-          {this.state.items.map((item) => <CostPerDayListItem item={item}/>)}
-        </ul>
-      </div>
-    );
-  }
-});
+        return CostPerDayStore.add({
+          name: name.value,
+          price: price.value,
+          type: type.value
+        }).then(() => {
+          this.history.pushState(null, '/cost-per-day');
+        });
+      }
+    }
+  })
+  .config(['$stateProvider', function($stateProvider) {
+    $stateProvider
+      .state('cost-per-day', {
+        url: '/cost-per-day',
+        template: '<cost-per-day></cost-per-day>'
+      })
+      .state('new-cost-per-day', {
+        url: '/cost-per-day/new',
+        template: '<cost-per-day-form></cost-per-day-form>'
+      })
+  }]);

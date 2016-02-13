@@ -1,0 +1,9 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <b>Items</b>
+        <a class="btn pull-right" style="padding:0" ui-sref="new-cost-per-day">New Item</a>
+    </div>
+    <ul className="panel-body list-group" style="max-width: 600px;margin: 0 auto">
+        <cost-per-day-list-item data-ng-repeat="item in items track by item.id" item="item"/>
+    </ul>
+</div>
