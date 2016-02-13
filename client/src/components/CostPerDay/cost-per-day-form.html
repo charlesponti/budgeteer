@@ -3,17 +3,17 @@
         <h3>New Cost Per Day Item</h3>
     </div>
     <div class="panel-body">
-        <form ng-submit="onSubmit()">
+        <ng-form name="form">
             <label for="itemName">Name</label>
-            <input type="text" id="itemName" class="form-control"/>
+            <input type="text" id="itemName" data-ng-model="$ctrl.record.name" class="form-control"/>
             <label for="itemPrice">Price</label>
-            <input type="number" step="any" id="itemPrice" class="form-control"/>
+            <input type="number" step="any" id="itemPrice" data-ng-model="$ctrl.record.price" class="form-control"/>
             <label for="itemType"> Type: </label>
-            <select id="itemType" class="form-control">
+            <select id="itemType" class="form-control" data-ng-model="$ctrl.record.type">
                 <option value="monthly"> Monthly </option>
                 <option value="yearly"> Yearly </option>
             </select>
-            <button class="btn btn-default">Add</button>
-        </form>
+            <button class="btn btn-default" data-ng-click="$ctrl.onSubmit()">Add</button>
+        </ng-form>
     </div>
 </div>
