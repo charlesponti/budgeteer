@@ -39,19 +39,17 @@ export default angular
         this.record = {};
       }
 
-        var name = this.refs.itemName;
-        var price = this.refs.itemPrice;
-        var type = this.refs.itemType;
+      this.onSubmit = function() {
+        var name = this.record.name;
+        var price = this.record.price;
+        var type = this.record.type;
 
-        return CostPerDayStore.add({
-          name: name.value,
-          price: price.value,
-          type: type.value
-        }).then(() => {
-          this.history.pushState(null, '/cost-per-day');
-        });
+        CostPerDayStore
+          .add({name, price, type})
+          .then(() => {
+            $state.go('cost-per-day');
+          });
       }
-    }
     }]
   })
   .config(['$stateProvider', function($stateProvider) {
