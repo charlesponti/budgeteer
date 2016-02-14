@@ -5,6 +5,7 @@ const dbURL = process.env.MONGODB_URL || "mongodb://localhost/backpack-dev";
 // Require models
 require('./models/user');
 require('./models/weight');
+require('./models/cost-per-day');
 
 mongoose.connect(dbURL);
 
