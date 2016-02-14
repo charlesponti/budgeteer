@@ -41,7 +41,7 @@ export default angular
   .component('costPerDayForm', {
     restrict: 'E',
     template: costPerDayFormTemplate,
-    controller: ['$state', '$stateParams', function($state, $stateParams) {
+    controller: ['$state', '$stateParams', 'CostPerDayResource', function($state, $stateParams, CostPerDayResource) {
       if (angular.isObject($stateParams.record)) {
         this.record = $stateParams.record;
       } else {
@@ -49,13 +49,18 @@ export default angular
       }
 
       this.onSubmit = function() {
-        var name = this.record.name;
-        var price = this.record.price;
+        var price = parseFloat(this.record.price, 100);
         var type = this.record.type;
 
-        CostPerDayStore
-          .add({name, price, type})
-          .then(() => {
+        if (type === 'monthly') {
+          this.record.costPerDay = ((price * 12) / 365).toPrecision(2);
+        }
+        else if (type === 'yearly') {
+          this.record.costPerDay = (price / 365).toPrecision(2);
+        }
+
+        CostPerDayResource
+          .save(this.record, () => {
             $state.go('cost-per-day');
           });
       }
