@@ -1,8 +1,3 @@
-//import React from 'react';
-//import { Link } from 'react-router';
-import CostPerDayStore from './CostPerDayStore.js';
-//import CostPerDayListItem from './CostPerDayListItem.js';
-
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import costPerDayTemplate from './cost-per-day.html';
