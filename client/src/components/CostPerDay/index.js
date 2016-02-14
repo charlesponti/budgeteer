@@ -28,11 +28,14 @@ export default angular
     restrict: 'E',
     template: costPerDayListItemTemplate,
     bindings: { item: '=' },
-    controller: ['$state', function($state) {
+    controller: ['$state', 'CostPerDayResource', function($state, CostPerDayResource) {
       this.edit = function(item) {
         $state.go('new-cost-per-day', {record: item});
       };
 
+      this.remove = function(item) {
+        CostPerDayResource.delete(item, () => $state.reload());
+      }
     }]
   })
   .component('costPerDayForm', {
