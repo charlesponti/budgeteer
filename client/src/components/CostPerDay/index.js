@@ -20,9 +20,9 @@ export default angular
   .component('costPerDay', {
     restrict: 'E',
     template: costPerDayTemplate,
-    controller: function() {
-      this.items = CostPerDayStore.getRecords();
-    }
+    controller: ['CostPerDayResource', function(CostPerDayResource) {
+      this.items = CostPerDayResource.query();
+    }]
   })
   .component('costPerDayListItem', {
     restrict: 'E',
