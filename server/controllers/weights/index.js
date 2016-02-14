@@ -1,6 +1,5 @@
 'use strict';
 
-var util = require('util');
 var Weight = require('mongoose').model('Weight');
 
 module.exports = function(router) {
