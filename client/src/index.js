@@ -1,5 +1,7 @@
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
+import 'angular-resource';
+
 //import routes from './app/routes';
 import navigation from './site-navigation.html';
 import costPerDay from './components/CostPerDay';
