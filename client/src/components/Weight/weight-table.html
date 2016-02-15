@@ -1,0 +1,20 @@
+<table class="table hover">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Weight</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr data-ng-repeat="weight in weights track by weight._id">
+        <td>{{weight.date | date: 'YYYY-MM-DD'}}</td>
+        <td>{{weight.kgs + ' kgs'}}</td>
+        <td>
+            <item-action-buttons
+                edit="$ctrl.edit(weight)"
+                remote="$ctrl.remove(weight)">
+            </item-action-buttons>
+        </td>
+    </tr>
+    </tbody>
+</table>

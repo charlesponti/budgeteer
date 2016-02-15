@@ -38,11 +38,11 @@ const WeightStore = _.extend({
    * @param {string} measurement Measurement to retrieve
    * @return {Number[]}
    */
-   getWeights(measurement) {
-     return this.records.map((weight) => {
-       return weight.get(measurement || 'kgs');
-     });
-   }
+  getWeights(measurement) {
+    return this.records.map((weight) => {
+      return weight.get(measurement || 'kgs');
+    });
+  }
 }, BaseStore);
 
 WeightStore.dispatcherIndex = (payload) => {
