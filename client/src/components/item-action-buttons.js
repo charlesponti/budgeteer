@@ -3,9 +3,10 @@ import template from './item-action-buttons.html';
 
 export default {
   restrist: 'E',
-  bindings: {edit: '&', remove: '&'},
+  bindings: {
+    edit: '&',
+    remove: '&'
+  },
   template,
-  controller: function () {
-
-  }
+  controller: function() {}
 };

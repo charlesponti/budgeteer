@@ -1,11 +1,11 @@
-import angular from 'angular';
-import uirouter from 'angular-ui-router';
-import 'angular-resource';
+const angular = require('angular')
+const uirouter = require('angular-ui-router')
+require('angular-resource')
 
-//import routes from './app/routes';
-import navigation from './site-navigation.html';
-import costPerDay from './components/CostPerDay';
-import itemActionButtons from './item-action-buttons';
+const navigation  = require('./site-navigation.html')
+const costPerDay = require('./components/CostPerDay')
+const weights = require('./components/Weight')
+const itemActionButtons = require('./components/item-action-buttons')
 
 // Import bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,7 +13,12 @@ import 'bootstrap/dist/js/bootstrap';
 
 import './main.less';
 
-angular.module('backpack', [uirouter, costPerDay.name])
+angular.module('backpack',
+  [
+    uirouter,
+    costPerDay.name,
+    weights.name
+  ])
   .component('navigation', {
     restrict: 'E',
     template: navigation
