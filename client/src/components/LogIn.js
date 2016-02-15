@@ -18,12 +18,12 @@ export default class Login extends React.Component {
 
     return (
       <button
-        style={buttonStyle}
-        onClick={this.onButtonClick}
+      style={buttonStyle}
+      onClick={this.onButtonClick}
       >
         <a href="/auth/facebook">Log In With Facebook</a>
       </button>
-    );
+      );
   }
 
 }

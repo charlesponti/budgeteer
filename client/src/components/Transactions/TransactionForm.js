@@ -4,7 +4,7 @@ import TransactionStore from './TransactionStore';
 
 export default class TransactionForm extends React.Component {
 
-  static mixins = [History];
+  static mixins =[History];
 
   constructor(props) {
     super(props);
@@ -30,7 +30,10 @@ export default class TransactionForm extends React.Component {
     const transaction = this.state.transaction;
 
     return (
-      <div className="panel panel-default" style={{maxWidth: '600px', margin: '0 auto'}}>
+      <div className="panel panel-default" style={{
+        maxWidth: '600px',
+        margin: '0 auto'
+      }}>
         <div className="panel-heading">
           <h4>New Transaction</h4>
         </div>
@@ -40,23 +43,23 @@ export default class TransactionForm extends React.Component {
               <label htmlFor="description" className="col-sm-2 control-label">Description</label>
               <div className="col-sm-10">
                 <input
-                  className="form-control"
-                  type="text"
-                  ref="description"
-                  name="description"
-                  value={transaction.description}
-                  onChange={this._onFormFieldChange}/>
+      className="form-control"
+      type="text"
+      ref="description"
+      name="description"
+      value={transaction.description}
+      onChange={this._onFormFieldChange}/>
               </div>
             </div>
             <div className="form-group">
               <label htmlFor="amount" className="col-sm-2 control-label">Amount</label>
               <div className="col-sm-10">
                 <input
-                  className="form-control"
-                  ref="amount"
-                  name="amount"
-                  value={transaction.amount}
-                  onChange={this._onFormFieldChange}/>
+      className="form-control"
+      ref="amount"
+      name="amount"
+      value={transaction.amount}
+      onChange={this._onFormFieldChange}/>
               </div>
             </div>
             <div className="form-group">
@@ -73,6 +76,6 @@ export default class TransactionForm extends React.Component {
           </form>
         </div>
       </div>
-    );
+      );
   }
 }

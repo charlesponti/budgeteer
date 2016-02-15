@@ -45,10 +45,10 @@ export default React.createClass({
             {transaction.amountToString()}
           </span>
           <ItemActionButtons iconStyle={this.styles.icon}
-                             edit={this.onEditClick}
-                             remove={this.onRemoveClick}/>
+      edit={this.onEditClick}
+      remove={this.onRemoveClick}/>
         </span>
       </li>
-    );
+      );
   }
 });

@@ -27,10 +27,14 @@ export default angular
   .component('costPerDayListItem', {
     restrict: 'E',
     template: costPerDayListItemTemplate,
-    bindings: { item: '=' },
+    bindings: {
+      item: '='
+    },
     controller: ['$state', 'CostPerDayResource', function($state, CostPerDayResource) {
       this.edit = function(item) {
-        $state.go('new-cost-per-day', {record: item});
+        $state.go('new-cost-per-day', {
+          record: item
+        });
       };
 
       this.remove = function(item) {
@@ -54,8 +58,7 @@ export default angular
 
         if (type === 'monthly') {
           this.record.costPerDay = ((price * 12) / 365).toPrecision(2);
-        }
-        else if (type === 'yearly') {
+        } else if (type === 'yearly') {
           this.record.costPerDay = (price / 365).toPrecision(2);
         }
 
@@ -75,6 +78,8 @@ export default angular
       .state('new-cost-per-day', {
         url: '/cost-per-day/new',
         template: '<cost-per-day-form></cost-per-day-form>',
-        params : { record: null }
+        params: {
+          record: null
+        }
       })
   }]);

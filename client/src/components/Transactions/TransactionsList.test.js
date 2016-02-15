@@ -6,8 +6,18 @@ import TestUtils from 'react-addons-test-utils';
 describe('TransactionList', () => {
 
   const transactions = [
-    new Transaction({ description: 'foo', amount: 5, category: 'food', id: 0 }),
-    new Transaction({ description: 'bar', amount: 6, category: 'food', id: 1 })
+    new Transaction({
+      description: 'foo',
+      amount: 5,
+      category: 'food',
+      id: 0
+    }),
+    new Transaction({
+      description: 'bar',
+      amount: 6,
+      category: 'food',
+      id: 1
+    })
   ];
 
   it('should show "No Transactions" if empty transactions', () => {

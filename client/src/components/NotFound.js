@@ -6,6 +6,6 @@ export default class NotFound extends React.Component {
       <div>
         <h1> What You Talking About, Willis?</h1>
       </div>
-    );
+      );
   }
 }

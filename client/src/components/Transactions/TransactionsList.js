@@ -22,7 +22,9 @@ export default class TransactionsList extends React.Component {
   }
 
   _onChange() {
-    return this.setState({transactions: TransactionStore.getRecords()});
+    return this.setState({
+      transactions: TransactionStore.getRecords()
+    });
   }
 
   render() {
@@ -36,8 +38,7 @@ export default class TransactionsList extends React.Component {
       transactions = transactions.map((transaction) => {
         return (<Transaction transaction={transaction} key={transaction.id}/>);
       });
-    }
-    else {
+    } else {
       transactions = <Transaction/>;
     }
 
@@ -51,6 +52,6 @@ export default class TransactionsList extends React.Component {
           {transactions}
         </ul>
       </div>
-    );
+      );
   }
 }
