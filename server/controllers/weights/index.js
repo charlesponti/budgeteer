@@ -1,39 +1,48 @@
-'use strict';
+'use strict'
 
-var Weight = require('mongoose').model('Weight');
+var WeightStore = require('mongoose').model('Weight')
 
-module.exports = function(router) {
-  router.get('/', function(req, res, next) {
-    Weight.find().exec(function(err, weights) {
+module.exports = function (router) {
+  router.get('/', function (req, res, next) {
+    WeightStore.find().exec(function (err, weights) {
       if (err) {
-        return next(err);
+        return next(err)
       }
 
-      return res.json({weights: weights});
+      return res.json({weights: weights})
     })
-  });
+  })
 
-  router.post('/', function(req, res, next) {
-    var weight = new Weight(req.body);
-    var date = weight.get('date');
+  router.post('/', function (req, res, next) {
+    var weight = new WeightStore(req.body)
+    var date = weight.get('date')
 
-    Weight.findOne({date: date}).exec(function(err, doc) {
+    WeightStore.findOne({date: date}).exec(function (err, doc) {
       if (err) {
-        return next(err);
+        return next(err)
       }
 
       if (!doc) {
-        return weight.save(function(err, weight) {
+        return weight.save(function (err, weight) {
           if (err) {
-            return next(err);
+            return next(err)
           }
 
-          return res.json({weight: weight});
-        });
+          return res.json({weight: weight})
+        })
+      } else {
+        return res.status(409).json({message: 'weight already exists', weight: doc})
       }
-      else {
-        return res.status(409).json({message: 'weight already exists', weight: doc});
+    })
+  })
+
+  router.delete('/', function (req, res, next) {
+    WeightStore.remove({ _id: req.query.id }, function (err) {
+      if (err) {
+        return next(err)
       }
-    });
-  });
-};
+
+      return res.json({message: 'item deleted'})
+    })
+  })
+}

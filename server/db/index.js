@@ -1,21 +1,21 @@
-const util = require('util');
-const mongoose = require('mongoose');
-const dbURL = process.env.MONGODB_URL || "mongodb://localhost/backpack-dev";
+const util = require('util')
+const mongoose = require('mongoose')
+const dbURL = process.env.MONGODB_URL || 'mongodb://localhost/backpack-dev'
 
 // Require models
-require('./models/user');
-require('./models/weight');
-require('./models/cost-per-day');
+require('./models/user')
+require('./models/weight')
+require('./models/cost-per-day')
 
-mongoose.connect(dbURL);
+mongoose.connect(dbURL)
 
-var db = mongoose.connection;
+var db = mongoose.connection
 
-db.once('open', function(err) {
+db.once('open', function (err) {
   if (err)
-    throw new Error(err);
+    throw new Error(err)
 
-  return util.log("Connected to " + dbURL + " database");
-});
+  return util.log('Connected to ' + dbURL + ' database')
+})
 
-module.exports = db;
+module.exports = db
