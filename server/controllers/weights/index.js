@@ -1,43 +1,43 @@
 'use strict'
 
-var WeightStore = require('mongoose').model('Weight')
+var Weight = require('mongoose').model('Weight')
 
 module.exports = function (router) {
   router.get('/', function (req, res, next) {
-    WeightStore.find().exec(function (err, weights) {
+    Weight.find().exec(function (err, docs) {
       if (err) {
         return next(err)
       }
 
-      return res.json({weights: weights})
+      return res.json(docs)
     })
   })
 
   router.post('/', function (req, res, next) {
-    var weight = new WeightStore(req.body)
+    var weight = new Weight(req.body)
     var date = weight.get('date')
 
-    WeightStore.findOne({date: date}).exec(function (err, doc) {
+    Weight.findOne({date: date}).exec(function (err, doc) {
       if (err) {
         return next(err)
       }
 
       if (!doc) {
-        return weight.save(function (err, weight) {
+        return weight.save(function (err, doc) {
           if (err) {
             return next(err)
           }
 
-          return res.json({weight: weight})
+          return res.json(doc)
         })
       } else {
-        return res.status(409).json({message: 'weight already exists', weight: doc})
+        return res.status(409).json({message: 'record already exists', item: doc})
       }
     })
   })
 
   router.delete('/', function (req, res, next) {
-    WeightStore.remove({ _id: req.query.id }, function (err) {
+    Weight.remove({ _id: req.query.id }, function (err) {
       if (err) {
         return next(err)
       }
