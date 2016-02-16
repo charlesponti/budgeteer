@@ -115,7 +115,11 @@ app.use('/assets', function (req, res, next) {
 app.use(enrouten({directory: 'controllers'}))
 
 app.get('*', function response (req, res) {
-  res.sendFile(path.join(__dirname, '/../client/dist/index.html'))
+  if (req.user) {
+    res.sendFile(path.join(__dirname, '/../client/dist/index.html'))
+  } else {
+    res.sendFile(path.join(__dirname, '/../client/login.html'))
+  }
 })
 
 const port = app.get('port')
