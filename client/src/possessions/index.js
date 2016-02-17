@@ -1,18 +1,17 @@
-import angular from 'angular';
-import uirouter from 'angular-ui-router';
-
-import costPerDayTemplate from './cost-per-day.html';
-import costPerDayFormTemplate from './cost-per-day-form.html';
-import costPerDayListItemTemplate from './cost-per-day-list-item.html';
+import angular from 'angular'
+import uirouter from 'angular-ui-router'
+import costPerDayTemplate from './cost-per-day.html'
+import costPerDayFormTemplate from './cost-per-day-form.html'
+import costPerDayListItemTemplate from './cost-per-day-list-item.html'
 
 export default angular
   .module('backpack.cost-per-day', [uirouter, 'ngResource'])
-  .factory('CostPerDayResource', ['$resource', function($resource) {
+  .factory('CostPerDayResource', ['$resource', function ($resource) {
     return $resource('/cost-per-day', {}, {
       query: {
         isArray: true,
-        transformResponse: function(data, headers) {
-          return angular.fromJson(data).items;
+        transformResponse: function (data, headers) {
+          return angular.fromJson(data).items
         }
       }
     })
@@ -20,8 +19,8 @@ export default angular
   .component('costPerDay', {
     restrict: 'E',
     template: costPerDayTemplate,
-    controller: ['CostPerDayResource', function(CostPerDayResource) {
-      this.items = CostPerDayResource.query();
+    controller: ['CostPerDayResource', function (CostPerDayResource) {
+      this.items = CostPerDayResource.query()
     }]
   })
   .component('costPerDayListItem', {
@@ -30,7 +29,7 @@ export default angular
     bindings: {
       item: '='
     },
-    controller: ['$state', 'CostPerDayResource', function($state, CostPerDayResource) {
+    controller: ['$state', 'CostPerDayResource', function ($state, CostPerDayResource) {
       this.edit = function(item) {
         $state.go('new-cost-per-day', {
           record: item
