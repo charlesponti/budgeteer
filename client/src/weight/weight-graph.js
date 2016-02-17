@@ -1,14 +1,14 @@
+import Highcharts from 'highcharts'
+
 export default {
   restrict: 'E',
-  bindings: {
-    weights: '='
-  },
+  bindings: {weights: '<'},
   template: '<div id="weight-chart"></div>',
-  controller: function() {
-    this.drawChart = function() {
-      const weights = this.weights;
+  controller: function () {
+    this.drawChart = function () {
+      const weights = this.weights
 
-      new Highcharts.Chart({
+      const chart = new Highcharts.Chart({
         title: {
           text: '',
           x: 90,
@@ -19,7 +19,9 @@ export default {
           renderTo: 'weight-chart'
         },
         xAxis: {
-          categories: weights.map(weight => weight.getDate().toLocaleDateString())
+          categories: weights.map((weight) => {
+            return weight.date.toLocaleDateString()
+          })
         },
         yAxis: {
           title: {
@@ -32,10 +34,10 @@ export default {
         series: [
           {
             name: 'Weight',
-            data: weights.map(weight => parseFloat(weight.kgs))
+            data: weights.map((weight) => parseFloat(weight.kgs))
           }
         ]
-      });
+      })
     }
   }
-};
+}

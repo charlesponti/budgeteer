@@ -3,11 +3,12 @@
     <tr>
         <th>Date</th>
         <th>Weight</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
-    <tr data-ng-repeat="weight in weights track by weight._id">
-        <td>{{weight.date | date: 'YYYY-MM-DD'}}</td>
+    <tr data-ng-repeat="weight in $ctrl.weights track by weight._id">
+        <td>{{weight.date | date: 'yyyy-MM-dd'}}</td>
         <td>{{weight.kgs + ' kgs'}}</td>
         <td>
             <item-action-buttons
