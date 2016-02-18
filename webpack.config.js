@@ -1,20 +1,22 @@
 // Modules
-const argv = require('yargs').argv;
-const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
-const CleanPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack')
+const autoprefixer = require('autoprefixer')
+const CleanPlugin = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const path = require('path')
 
 /**
  * Environment type
  * BUILD is for generating minified builds
  * TEST is for generating test builds
+ * COVERAGE is for generating coverage
  */
-const BUILD = process.env.NODE_ENV === 'production';
-const TEST = process.env.NODE_ENV === 'test';
+const BUILD = process.env.NODE_ENV === 'production'
+const TEST = process.env.NODE_ENV === 'test'
+const COVERAGE = process.argv.indexOf('--coverage') !== -1
 
-const deps = [];
+const deps = []
 
 function makeWebpackConfig () {
   /**
@@ -41,7 +43,7 @@ function makeWebpackConfig () {
      */
     output: {
       // Absolute output directory
-      path: __dirname + '/client/dist/',
+      path: path.resolve(__dirname, '/client/dist/'),
 
       // Output path from the view of the page
       // Uses webpack-dev-server in development
@@ -63,8 +65,10 @@ function makeWebpackConfig () {
 
     /**
      * Loaders
-     * Reference: http://webpack.github.io/docs/configuration.html#module-loaders
-     * List: http://webpack.github.io/docs/list-of-loaders.html
+     * Reference:
+     * http://webpack.github.io/docs/configuration.html#module-loaders
+     * List:
+     * http://webpack.github.io/docs/list-of-loaders.html
      * This handles most of the magic responsible for converting modules
      */
     module: {
@@ -83,10 +87,9 @@ function makeWebpackConfig () {
         {
           // ASSET LOADER
           // Reference: https://github.com/webpack/file-loader
-          // Copy png, jpg, jpeg, gif, svg, woff, woff2, ttf, eot files to output
-          // Rename the file using the asset hash
-          // Pass along the updated reference to your code
-          // You can add here any file extension you want to get copied to your output
+          // Copy image and font files to output. Rename the file using the
+          // asset hash. Pass along the updated reference to your code. You can
+          // add here any file extension you want to get copied to your output
           test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
           loader: 'file'
         },
@@ -116,10 +119,10 @@ function makeWebpackConfig () {
       // Reference: http://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack
       // Managing jquery dependencies
       new webpack.ProvidePlugin({
-        $: "jquery",
-        jQuery: "jquery",
-        "window.jQuery": "jquery",
-        "window.$": "jquery"
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+        'window.$': 'jquery'
       })
     ],
 
@@ -136,20 +139,19 @@ function makeWebpackConfig () {
 
     resolve: {
       alias: {
-        jquery: "jquery/src/jquery"
+        jquery: 'jquery/src/jquery'
       }
     }
-  };
-
+  }
 
   if (TEST) {
-    config.entry = {};
+    config.entry = {}
 
-    config.output = {};
+    config.output = {}
 
-    config.devtool = 'inline-source-map';
+    config.devtool = 'inline-source-map'
 
-    if (argv.coverage) {
+    if (COVERAGE) {
       // ISPARTA LOADER
       // Reference: https://github.com/ColCh/isparta-instrumenter-loader
       // Instrument JS files with Isparta for subsequent code coverage reporting
@@ -161,12 +163,12 @@ function makeWebpackConfig () {
           /\.test\.js$/
         ],
         loader: 'isparta-instrumenter'
-      });
+      })
     }
   }
 
   if (BUILD) {
-    config.devtool = 'source-map';
+    config.devtool = 'source-map'
 
     config.plugins.unshift(
       new CleanPlugin('dist'),
@@ -182,7 +184,7 @@ function makeWebpackConfig () {
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode
       new webpack.optimize.UglifyJsPlugin()
-    );
+    )
   }
 
   // CSS LOADER
@@ -199,7 +201,7 @@ function makeWebpackConfig () {
     // Reference: https://github.com/webpack/style-loader
     // Use style-loader in development for hot-loading
     loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
-  };
+  }
 
   var lessLoader = {
     test: /\.less$/,
@@ -212,16 +214,15 @@ function makeWebpackConfig () {
     // Reference: https://github.com/webpack/less-loader
     // Compile LESS files
     loader: ExtractTextPlugin.extract('style', 'css?sourceMap!less')
-  };
+  }
 
   // Skip loading css in test mode
   if (TEST) {
     // Reference: https://github.com/webpack/null-loader
     // Return an empty module
-    cssLoader.loader = 'null';
-    lessLoader.loader = 'null';
-  }
-  else {
+    cssLoader.loader = 'null'
+    lessLoader.loader = 'null'
+  } else {
     // Skip rendering index.html in test mode
     // Reference: https://github.com/ampedandwired/html-webpack-plugin
     // Render index.html
@@ -233,21 +234,21 @@ function makeWebpackConfig () {
           collapseWhitespace: BUILD
         }
       })
-    );
+    )
   }
 
   // Add cssLoader to the loader list
-  config.module.loaders.push(cssLoader);
+  config.module.loaders.push(cssLoader)
 
   // Add lessLoader to the loader list
-  config.module.loaders.push(lessLoader);
+  config.module.loaders.push(lessLoader)
 
-  deps.forEach(function addVendor(dep) {
-    config.resolve.alias[dep.name] = dep.path;
-    config.module.noParse.push(new RegExp(dep.path));
-  });
+  deps.forEach(function addVendor (dep) {
+    config.resolve.alias[dep.name] = dep.path
+    config.module.noParse.push(new RegExp(dep.path))
+  })
 
-  return config;
+  return config
 }
 
-module.exports = makeWebpackConfig();
+module.exports = makeWebpackConfig()
