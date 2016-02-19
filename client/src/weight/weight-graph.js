@@ -1,10 +1,17 @@
+import angular from 'angular'
 import Highcharts from 'highcharts'
 
 export default {
   restrict: 'E',
-  bindings: {weights: '<'},
+  bindings: {weights: '='},
   template: '<div id="weight-chart"></div>',
-  controller: function () {
+  controller: ['$scope', function ($scope) {
+    $scope.$watchCollection(() => this.weights, (weights) => {
+      if (angular.isArray(weights)) {
+        this.drawChart()
+      }
+    })
+
     this.drawChart = function () {
       const weights = this.weights
 
@@ -38,6 +45,8 @@ export default {
           }
         ]
       })
+
+      return chart
     }
-  }
+  }]
 }
