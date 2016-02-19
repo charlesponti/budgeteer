@@ -2,7 +2,7 @@ const angular = require('angular')
 const uirouter = require('angular-ui-router')
 require('angular-resource')
 
-const navigation = require('./site-navigation.html')
+import navigation from './navigation.html'
 import possessions from './possessions'
 import weight from './weight'
 import transactions from './transactions'
