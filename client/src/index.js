@@ -1,6 +1,6 @@
-const angular = require('angular')
-const uirouter = require('angular-ui-router')
-require('angular-resource')
+import angular from 'angular'
+import uirouter from 'angular-ui-router'
+import 'angular-resource'
 
 import navigation from './navigation.html'
 import possessions from './possessions'
