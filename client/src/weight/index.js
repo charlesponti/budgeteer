@@ -9,7 +9,17 @@ export default (
   angular
   .module('backpack.weights', [uirouter, 'ngResource'])
   .factory('Weight', ['$resource', function ($resource) {
-    return $resource('/weights', {}, {get: {isArray: true}})
+    return $resource('/weights', {}, {
+      get: {
+        isArray: true,
+        transformResponse (data, headers) {
+          return angular.fromJson(data).map((weight) => {
+            weight.date = new Date(weight.date)
+            return weight
+          })
+        }
+      }
+    })
   }])
   .component('weights', {
     restrict: 'E',
