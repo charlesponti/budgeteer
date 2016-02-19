@@ -23,7 +23,12 @@ angular.module('backpack',
   ])
   .component('navigation', {
     restrict: 'E',
-    template: navigation
+    template: navigation,
+    controller: ['$scope', '$element', ($scope, $element) => {
+      $element.find('.navbar-collapse a').on('click', function () {
+        $element.find('.navbar-collapse').collapse('hide')
+      })
+    }]
   })
   .component('itemActionButtons', itemActionButtons)
   .config(['$urlRouterProvider', function ($urlRouterProvider) {
