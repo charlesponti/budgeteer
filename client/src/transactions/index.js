@@ -1,9 +1,11 @@
 import angular from 'angular'
 import uirouter from 'angular-ui-router'
+import transactionListItem from './transaction-list-item'
 
 export default (
   angular
     .module('transactions', [uirouter])
+    .component('transactionListItem', transactionListItem)
     .config(['$stateProvider', function ($stateProvider) {
       $stateProvider
         .state('transactions', {

@@ -1,0 +1,12 @@
+<li className="collection-item transaction">
+  <span className="desc">{{$ctrl.transaction.description}}</span>
+  <span className="pull-right">
+    <span className="amount" style="padding: 0 5px">
+      {{$ctrl.transaction.amountToString()}}
+    </span>
+    <item-action-buttons
+        edit="$ctrl.edit"
+        remove="$ctrl.remove">
+    </item-action-buttons>
+  </span>
+</li>
