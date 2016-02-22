@@ -108,7 +108,7 @@ app.use('/assets', serveStatic(path.join(__dirname, '/../client/dist'),
 
 // If we get here then the request for a static file is invalid so we may as well stop here
 app.use('/assets', function (req, res, next) {
-  res.send(404)
+  return res.sendStatus(404)
 })
 
 // Add routes to application stack
