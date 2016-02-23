@@ -1,6 +1,7 @@
 import angular from 'angular'
 import uirouter from 'angular-ui-router'
 import transactionListItem from './transaction-list-item'
+import template from './transactions.html'
 
 export default (
   angular
@@ -13,6 +14,9 @@ export default (
         this.transactions = Transaction.query()
       }]
     })
+    .factory('Transaction', ['$resource', function ($resource) {
+      return $resource('/transactions', {}, {})
+    }])
     .config(['$stateProvider', function ($stateProvider) {
       $stateProvider
         .state('transactions', {
