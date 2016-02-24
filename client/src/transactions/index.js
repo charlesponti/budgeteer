@@ -39,7 +39,14 @@ export default (
       }]
     })
     .factory('Transaction', ['$resource', function ($resource) {
-      return $resource('/transactions', {}, {})
+      return $resource('/transactions', {}, {
+        post: {
+          transformRequest: function(record) {
+            record.amount = parseFloat(record.amount);
+            return record;
+          }
+        }
+      })
     }])
     .config(['$stateProvider', function ($stateProvider) {
       $stateProvider
