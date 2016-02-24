@@ -10,7 +10,9 @@ export default {
     'Weight',
     function ($state, $stateParams, Weight) {
       if (angular.isObject($stateParams.record)) {
-        $stateParams.record.date = new Date()
+        this.record = new Weight($stateParams.record)
+      } else {
+        this.record = new Weight({date: new Date()})
       }
 
       this.getWeightValues = (weight) => {
