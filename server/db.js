@@ -1,22 +1,23 @@
-const util = require('util')
-const mongoose = require('mongoose')
+import util from 'util'
+import mongoose from 'mongoose'
 const dbURL = process.env.MONGODB_URL || 'mongodb://localhost/backpack-dev'
 
 // Require models
-require('./models/user')
-require('./models/weight')
-require('./models/transaction')
-require('./models/cost-per-day')
+import './models/user'
+import './models/weight'
+import './models/transaction'
+import './models/cost-per-day'
 import './models/account'
 
+// Connect to MongoDB
 mongoose.connect(dbURL)
 
-var db = mongoose.connection
+const db = mongoose.connection
 
 db.once('open', function (err) {
-  if (err)
-    throw new Error(err)
-
+  // Throw error if connection cannot be made to database
+  if (err) throw new Error(err)
+  // Log successful connection to database
   return util.log('Connected to ' + dbURL + ' database')
 })
 
