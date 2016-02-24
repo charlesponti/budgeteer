@@ -30,11 +30,9 @@ export default angular
       item: '='
     },
     controller: ['$state', 'CostPerDayResource', function ($state, CostPerDayResource) {
-      this.edit = function(item) {
-        $state.go('new-cost-per-day', {
-          record: item
-        });
-      };
+      this.edit = function (record) {
+        $state.go('new-cost-per-day', {record})
+      }
 
       this.remove = function(item) {
         CostPerDayResource.delete(item, () => $state.reload());
