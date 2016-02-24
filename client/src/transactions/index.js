@@ -6,7 +6,20 @@ import template from './transactions.html'
 export default (
   angular
     .module('transactions', [uirouter])
-    .component('transactionListItem', transactionListItem)
+    .component('transactionListItem', {
+      restrict: 'E',
+      bindings: { transaction: '=' },
+      template: require('./transaction-list-item.html'),
+      controller: ['Transaction', '$state', function (Transaction, $state) {
+        this.edit = function () {
+          $state.go('new-transaction', { record: this.transaction })
+        }
+
+        this.remove = function () {
+          Transaction.delete(this.transaction, () => $state.reload())
+        }
+      }]
+    })
     .component('transactions', {
       restrict: 'E',
       template,
