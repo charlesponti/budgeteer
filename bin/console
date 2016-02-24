@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 'use strict';
 
-process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'development'
+var repl = require('repl')
 
-var repl = require('repl');
-var cthulhu = require('../server')();
+require('../server')
 
 var replServer = repl.start({
-  prompt: 'Backpack >',
+  prompt: 'Backpack >    ',
   useColors: true
-});
+})
 
-replServer.context.User = require('../server/models/user');
-replServer.context.Task = require('../server/models/task');
-replServer.context.Category = require('../server/models/category');
+replServer.context.User = require('../server/models/user')
+replServer.context.Task = require('../server/models/task')
+replServer.context.Weight = require('../server/models/weight')
+replServer.context.Transaction = require('../server/models/transaction')
