@@ -46,19 +46,19 @@ export default angular
     template: costPerDayFormTemplate,
     controller: ['$state', '$stateParams', 'CostPerDayResource', function($state, $stateParams, CostPerDayResource) {
       if (angular.isObject($stateParams.record)) {
-        this.record = $stateParams.record;
+        this.record = $stateParams.record
       } else {
-        this.record = {};
+        this.record = {}
       }
 
       this.onSubmit = function() {
-        var price = parseFloat(this.record.price, 100);
-        var type = this.record.type;
+        var price = parseFloat(this.record.price, 100)
+        var type = this.record.type
 
         if (type === 'monthly') {
-          this.record.costPerDay = ((price * 12) / 365).toPrecision(2);
+          this.record.costPerDay = ((price * 12) / 365).toPrecision(2)
         } else if (type === 'yearly') {
-          this.record.costPerDay = (price / 365).toPrecision(2);
+          this.record.costPerDay = (price / 365).toPrecision(2)
         }
 
         CostPerDayResource
