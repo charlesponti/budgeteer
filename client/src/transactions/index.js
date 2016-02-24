@@ -60,7 +60,10 @@ export default (
         })
         .state('new-transaction', {
           url: '/transactions/new',
-          template: '<transaction-form></transaction-form>'
+          template: '<transaction-form></transaction-form>',
+          params: {
+            record: null
+          }
         })
     }])
 )
