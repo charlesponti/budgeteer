@@ -75,7 +75,7 @@
   "repository": "http://github.com/theponti/backpack",
   "scripts": {
     "console": "node bin/console",
-    "start": "NODE_ENV=production node server",
+    "start": "NODE_ENV=production ./node_modules/.bin/babel-node server",
     "start:debug": "NODE_ENV=development node-debug server/index.js",
     "dev": "NODE_ENV=development node server",
     "watchpack": "node_modules/.bin/webpack --progress --stats --color --watch"
