@@ -43,14 +43,27 @@ export default (
       }]
     })
     .factory('Transaction', ['$resource', function ($resource) {
-      return $resource('/transactions', {}, {
-        post: {
-          transformRequest: function(record) {
-            record.amount = parseFloat(record.amount);
-            return record;
+      const Transaction = $resource('/transactions', null, {
+        query: {
+          isArray: true,
+          transformResponse: (data) => {
+            return angular.fromJson(data).map((item) => {
+              return new Transaction(item)
+            })
           }
         }
       })
+
+      Transaction.prototype.getAmount = function () {
+        return this.amount
+      }
+
+      Transaction.prototype.format = function () {
+        this.amount = parseFloat(this.amount)
+        return this
+      }
+
+      return Transaction
     }])
     .config(['$stateProvider', function ($stateProvider) {
       $stateProvider
