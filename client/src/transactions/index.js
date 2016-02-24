@@ -1,7 +1,5 @@
 import angular from 'angular'
 import uirouter from 'angular-ui-router'
-import transactionListItem from './transaction-list-item'
-import template from './transactions.html'
 
 export default (
   angular
@@ -22,7 +20,7 @@ export default (
     })
     .component('transactions', {
       restrict: 'E',
-      template,
+      template: require('./transactions.html'),
       controller: ['Transaction', function (Transaction) {
         this.transactions = Transaction.query()
       }]
