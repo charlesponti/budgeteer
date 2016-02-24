@@ -7,6 +7,7 @@ require('./models/user')
 require('./models/weight')
 require('./models/transaction')
 require('./models/cost-per-day')
+import './models/account'
 
 mongoose.connect(dbURL)
 
