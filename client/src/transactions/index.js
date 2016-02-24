@@ -30,13 +30,13 @@ export default (
       template: require('./transaction-form.html'),
       controller: ['Transaction', '$state', '$stateParams', function (Transaction, $state, $stateParams) {
         if (angular.isObject($stateParams.record)) {
-          this.record = $stateParams.record
+          this.record = new Transaction($stateParams.record)
         } else {
-          this.record = {}
+          this.record = new Transaction({})
         }
 
         this.onSubmit = function () {
-          Transaction.save(this.record, (data) => {
+          Transaction.save({}, this.record.format(), (data) => {
             $state.go('transactions')
           })
         }
