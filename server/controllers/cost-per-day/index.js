@@ -37,7 +37,7 @@ module.exports = function (router) {
   })
 
   router.delete('/', function (req, res, next) {
-    CostPerDay.remove({ _id: req.query.id }, function (err) {
+    CostPerDay.remove({ _id: req.query._id }, function (err) {
       if (err) {
         return next(err)
       }

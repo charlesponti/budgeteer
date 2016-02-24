@@ -26,7 +26,7 @@ module.exports = function (router) {
   })
 
   router.delete('/', function (req, res, next) {
-    Transaction.remove({ _id: req.query.id }, function (err) {
+    Transaction.remove({ _id: req.query._id }, function (err) {
       if (err) {
         return next(err)
       }
