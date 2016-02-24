@@ -3,10 +3,10 @@
 var mongoose = require('mongoose')
 
 var Schema = mongoose.Schema({
-  description: String,
-  category: String,
-  amount: Number,
-  date: Date,
+  payee: { type: String, required: true },
+  amount: { type: Number, required: true },
+  date: { type: Date, required: true },
+  category: {type: mongoose.Schema.Types.ObjectId, ref: 'Category'},
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 })
 
