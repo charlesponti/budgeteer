@@ -2,8 +2,9 @@
   <span class="desc">{{$ctrl.transaction.description}}</span>
   <span class="pull-right">
     <span class="amount" style="padding: 0 5px">
-      {{$ctrl.transaction.amountToString()}}
+      {{$ctrl.transaction.getAmount() | currency:"£ "}}
     </span>
+
     <item-action-buttons
         edit="$ctrl.edit()"
         remove="$ctrl.remove()">
