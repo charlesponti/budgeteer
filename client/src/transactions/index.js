@@ -14,6 +14,17 @@ export default (
         this.transactions = Transaction.query()
       }]
     })
+    .component('transactionForm', {
+      restirct: 'E',
+      template: require('./transaction-form.html'),
+      controller: ['Transaction', '$state', function (Transaction, $state) {
+        this.onSubmit = function () {
+          Transaction.save(this.record, (data) => {
+            $state.go('transactions')
+          })
+        }
+      }]
+    })
     .factory('Transaction', ['$resource', function ($resource) {
       return $resource('/transactions', {}, {})
     }])
