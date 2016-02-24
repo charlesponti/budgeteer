@@ -43,7 +43,7 @@ function makeWebpackConfig () {
      */
     output: {
       // Absolute output directory
-      path: path.resolve(__dirname, '/client/dist/'),
+      path: path.resolve(__dirname, 'client/dist/'),
 
       // Output path from the view of the page
       // Uses webpack-dev-server in development
