@@ -1,6 +1,9 @@
 <div class="panel panel-default" style="max-width: 600px; margin: 0 auto">
     <div class="panel-heading">
         New Transaction
+        <div class="btn btn-default pull-right" >
+            <a ui-sref="transactions">Cancel</a>
+        </div>
     </div>
     <div class="panel-body">
         <form data-ng-submit="$ctrl.onSubmit()" class="form-horizontal">
