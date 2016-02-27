@@ -1,16 +1,16 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
-    Transactions
-    <a class="btn pull-right" style="padding: 0" ui-sref="new-transaction">
-      New
-    </a>
-  </div>
   <ul class="panel-body list-group">
     <transaction-list-item
       data-ng-repeat="transaction in $ctrl.transactions"
       transaction="transaction">
     </transaction-list-item>
   </ul>
+    <div class="panel-heading">
+        Transactions
+        <div class="btn btn-default pull-right" >
+            <a ui-sref="new-transaction">New</a>
+        </div>
+    </div>
         <li class="list-group-item" style="text-align: center" data-ng-if="$ctrl.transactions.length === 0">
             No Transactions Yet!
         </li>
