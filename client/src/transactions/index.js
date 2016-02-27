@@ -41,6 +41,9 @@ export default (
               return new Transaction(item)
             })
           }
+        },
+        update: {
+          method: 'PUT'
         }
       })
 
