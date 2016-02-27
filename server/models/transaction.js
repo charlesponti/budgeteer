@@ -7,6 +7,7 @@ var Schema = mongoose.Schema({
   amount: { type: Number, required: true },
   date: { type: Date, required: true },
   category: {type: String, required: true},
+  location: { type: Object },
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 })
 
