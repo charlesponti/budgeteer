@@ -139,7 +139,7 @@ function makeWebpackConfig () {
 
     resolve: {
       alias: {
-        jquery: 'jquery/src/jquery'
+        jquery: 'jquery/dist/jquery'
       }
     }
   }
