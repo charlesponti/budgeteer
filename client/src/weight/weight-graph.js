@@ -26,9 +26,7 @@ export default {
           renderTo: 'weight-chart'
         },
         xAxis: {
-          categories: weights.map((weight) => {
-            return weight.date.toLocaleDateString()
-          })
+          categories: weights.map((weight) => (new Date(weight.date)).toLocaleDateString())
         },
         yAxis: {
           title: {
