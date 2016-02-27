@@ -1,7 +1,9 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         Weight
-        <a class="btn pull-right" style="padding: 0" ui-sref="new-weight">New</a>
+        <div class="btn btn-default pull-right" >
+            <a ui-sref="new-weight">New</a>
+        </div>
     </div>
     <div className="panel-body">
         <weight-graph weights="$ctrl.weights"></weight-graph>
