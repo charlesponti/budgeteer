@@ -37,6 +37,7 @@ export default (
           isArray: true,
           transformResponse: (data) => {
             return angular.fromJson(data).map((item) => {
+              item.date = new Date(item.date)
               return new Transaction(item)
             })
           }
