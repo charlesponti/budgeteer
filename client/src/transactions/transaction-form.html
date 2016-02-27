@@ -32,7 +32,17 @@
                 <label for="category" class="col-sm-2 control-label">Category</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="category" name="category" data-ng-model="$ctrl.record.category">
-                        <option value="food"> Food </option>
+                        <optgroup data-ng-repeat="category in $ctrl.categories"
+                                  data-ng-if="category.subcategories"
+                                  label="{{category.name}}">
+                            <option data-ng-repeat="subcategory in category.subcategories"
+                                    value="{{subcategory}}"> {{subcategory}}
+                            </option>
+                        </optgroup>
+                        <option data-ng-repeat="category in $ctrl.categories"
+                                data-ng-if="!category.subcategories"
+                                value="{{category.name}}"> {{category.name}}
+                        </option>
                     </select>
                 </div>
             </div>
