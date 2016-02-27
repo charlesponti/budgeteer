@@ -1,5 +1,6 @@
 import angular from 'angular'
 import uirouter from 'angular-ui-router'
+import transactionFormController from './transaction-form'
 
 export default (
   angular
@@ -28,19 +29,7 @@ export default (
     .component('transactionForm', {
       restirct: 'E',
       template: require('./transaction-form.html'),
-      controller: ['Transaction', '$state', '$stateParams', function (Transaction, $state, $stateParams) {
-        if (angular.isObject($stateParams.record)) {
-          this.record = new Transaction($stateParams.record)
-        } else {
-          this.record = new Transaction({})
-        }
-
-        this.onSubmit = function () {
-          Transaction.save({}, this.record.format(), (data) => {
-            $state.go('transactions')
-          })
-        }
-      }]
+      controller: transactionFormController
     })
     .factory('Transaction', ['$resource', function ($resource) {
       const Transaction = $resource('/transactions', null, {
