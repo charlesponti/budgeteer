@@ -78,7 +78,7 @@
     "console": "node bin/console",
     "start": "NODE_ENV=production ./node_modules/.bin/babel-node server",
     "start:debug": "NODE_ENV=development node-debug server/index.js",
-    "watchpack": "node_modules/.bin/webpack --progress --stats --color --watch"
     "dev": "NODE_ENV=development ./node_modules/.bin/babel-node server",
+    "watch": "node_modules/.bin/webpack --progress --stats --color --watch"
   }
 }
