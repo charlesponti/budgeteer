@@ -121,6 +121,12 @@ app.get('*', function response (req, res) {
     res.sendFile(path.join(__dirname, '/../client/login.html'))
   }
 })
+app.use(enrouten({
+  directory: 'controllers',
+  routes: [
+    { path: '/', method: 'GET', handler: require('./controllers/index') }
+  ]
+}));
 
 const port = app.get('port')
 const env = app.get('env')
