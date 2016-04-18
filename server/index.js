@@ -77,16 +77,12 @@ app.use(expressValidator())
 app.use(cookieParser())
 
 
-app.use(passport.initialize())
-app.use(passport.session())
 
-passport.serializeUser(function (user, done) {
-  done(null, user)
-})
-
-passport.deserializeUser(function(user, done) {
-  return done(null, user);
-});
+// Passport set up
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((user, done) => done(null, user));
 
 require('./lib/passport');
 
