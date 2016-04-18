@@ -24,8 +24,6 @@ const path = require('path')
 const mongoose = require('mongoose')
 const util = require('util')
 const enrouten = require('express-enrouten')
-const favicon = require('serve-favicon')
-const serveStatic = require('serve-static')
 const passport = require('passport')
 const cors = require('cors')
 const app = express()
@@ -85,9 +83,6 @@ app.use(function (req, res, next) {
   return next()
 })
 
-// Serve favicon
-app.use(favicon(path.resolve(__dirname, '../client/favicon.ico')))
-
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -101,10 +96,6 @@ passport.deserializeUser(function (user, done) {
 
 require('./lib/passport')
 
-// Set folder for static files.
-app.use('/assets', serveStatic(path.join(__dirname, '/../client/dist'),
-  { maxAge: '1d' } // TTL (Time To Live) for static files
-))
 
 // If we get here then the request for a static file is invalid so we may as well stop here
 app.use('/assets', function (req, res, next) {
