@@ -112,6 +112,13 @@ app.use(
     serverURL: `http://${SERVER_HOST}:${SERVER_PORT}/parse`,
   })
 );
+
+app.use((req, res) => (
+  res.status(404).json({
+    message: 'The index you have requested has no corresponding route',
+  })
+));
+
 const port = app.get('port');
 const env = app.get('env');
 const server = http.Server(app);
