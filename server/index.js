@@ -31,15 +31,21 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 
 app.use(cors())
+const {
+  APP_ID,
+  DATABASE_URI,
+  MASTER_KEY,
+  SERVER_HOST,
+  SERVER_PORT,
+  SESSION_SECRET,
+  } = process.env;
 
-/** @namespace process.env.MONGODB_URL */
-/** @namespace process.env.SESSION_SECRET */
 app.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: process.env.SESSION_SECRET,
-  store: new MongoStore({
-    url: process.env.MONGODB_URL || 'mongodb://localhost/backpack-dev',
+  secret: SESSION_SECRET,
+  store: new Mongo(session)({
+    url: DATABASE_URI,
     ttl: 14 * 24 * 60 * 60 // = 14 days. Default
   })
 }))
@@ -48,7 +54,7 @@ app.use(session({
 GLOBAL.DB = require('./db')
 
 // Set port
-app.set('port', process.env.PORT || 3003)
+app.set('port', SERVER_PORT);
 
 /**
  * Allow for the use of HTTP verbs such as PUT or DELETE in places
