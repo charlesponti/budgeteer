@@ -26,13 +26,11 @@ const enrouten = require('express-enrouten')
 const passport = require('passport')
 const cors = require('cors')
 import session from 'express-session';
-import Mongo from 'connect-mongo';
+import connetMongo from 'connect-mongo';
 
+const MongoStore = connetMongo(session);
 const {
-  APP_ID,
   DATABASE_URI,
-  MASTER_KEY,
-  SERVER_HOST,
   SERVER_PORT,
   SESSION_SECRET,
   } = process.env;
@@ -44,7 +42,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   secret: SESSION_SECRET,
-  store: new Mongo(session)({
+  store: new MongoStore({
     url: DATABASE_URI,
     ttl: 14 * 24 * 60 * 60 // = 14 days. Default
   })
