@@ -1,5 +1,4 @@
-// Load environment variables
-require('dotenv').load()
+
 
 /**
  * @desc Determine if application is running in development. Used for configs
@@ -49,7 +48,7 @@ app.use(session({
 GLOBAL.DB = require('./db')
 
 // Set port
-app.set('port', 3000)
+app.set('port', process.env.PORT || 3003)
 
 /**
  * Allow for the use of HTTP verbs such as PUT or DELETE in places
@@ -90,28 +89,13 @@ passport.serializeUser(function (user, done) {
   done(null, user)
 })
 
-passport.deserializeUser(function (user, done) {
-  done(null, user)
-})
+passport.deserializeUser(function(user, done) {
+  return done(null, user);
+});
 
-require('./lib/passport')
-
-
-// If we get here then the request for a static file is invalid so we may as well stop here
-app.use('/assets', function (req, res, next) {
-  return res.sendStatus(404)
-})
+require('./lib/passport');
 
 // Add routes to application stack
-app.use(enrouten({directory: 'controllers'}))
-
-app.get('*', function response (req, res) {
-  if (req.user) {
-    res.sendFile(path.join(__dirname, '/../client/dist/index.html'))
-  } else {
-    res.sendFile(path.join(__dirname, '/../client/login.html'))
-  }
-})
 app.use(enrouten({
   directory: 'controllers',
   routes: [
@@ -119,19 +103,19 @@ app.use(enrouten({
   ]
 }));
 
-const port = app.get('port')
-const env = app.get('env')
-const server = http.Server(app)
+const port = app.get('port');
+const env = app.get('env');
+const server = http.Server(app);
 
 // Add socket to app and begin listening.
-app.socket = io(server)
+app.socket = io(server);
 
 // Start application server.
-server.listen(port, function () {
-  return util.log('Cthulhu has risen at port ' + port + ' in ' + env + ' mode')
-})
+server.listen(port, () => (
+  util.log(`Cthulhu has risen at port ${port} in ${env} mode`)
+));
 
 // Emit initial message
-app.socket.on('connection', function (socket) {
-  return socket.emit('message', {message: 'Cthulhu has you in her grips.'})
-})
+app.socket.on('connection', (socket) => (
+  socket.emit('message', { message: 'Cthulhu has you in her grips.' })
+));
