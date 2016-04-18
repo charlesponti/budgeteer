@@ -1,30 +1,20 @@
-
-
-/**
- * @desc Determine if application is running in development. Used for configs
- * @type {Boolean}
- */
-var isDevelopment = process.env.NODE_ENV !== 'production'
-
 /**
  * Module dependencies.
  * @type {exports}
  */
-const bodyParser = require('body-parser')
-const compress = require('compression')
-const cookieParser = require('cookie-parser')
-const express = require('express')
-const expressValidator = require('express-validator')
-const http = require('http')
-const io = require('socket.io')
-const methodOverride = require('method-override')
-const morgan = require('morgan')
-const path = require('path')
-const mongoose = require('mongoose')
-const util = require('util')
-const enrouten = require('express-enrouten')
-const passport = require('passport')
-const cors = require('cors')
+import bodyParser from 'body-parser';
+import compress from 'compression';
+import cookieParser from 'cookie-parser';
+import express from 'express';
+import expressValidator from 'express-validator';
+import http from 'http';
+import io from 'socket.io';
+import methodOverride from 'method-override';
+import morgan from 'morgan';
+import util from 'util';
+import enrouten from 'express-enrouten';
+import passport from 'passport';
+import cors from 'cors';
 import session from 'express-session';
 import connetMongo from 'connect-mongo';
 
@@ -44,12 +34,12 @@ app.use(session({
   secret: SESSION_SECRET,
   store: new MongoStore({
     url: DATABASE_URI,
-    ttl: 14 * 24 * 60 * 60 // = 14 days. Default
-  })
+    ttl: 14 * 24 * 60 * 60, // = 14 days. Default
+  }),
 }));
 
 // Add db to app object
-GLOBAL.DB = require('./db');
+GLOBAL.DB = require('./lib/db');
 
 // Set port
 app.set('port', SERVER_PORT);
