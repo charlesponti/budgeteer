@@ -8,6 +8,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
     "babel-register": "^6.7.2",
+    "better-npm-run": "0.0.8",
     "body-parser": "^1.14.1",
     "compression": "^1.6.0",
     "connect-mongo": "^1.1.0",
@@ -47,7 +48,17 @@
   "scripts": {
     "console": "node bin/console",
     "start": "NODE_ENV=production node bin/server",
-    "start:debug": "NODE_ENV=development node-debug bin/server",
-    "dev": "NODE_ENV=development node bin/server"
+    "start:debug": "NODE_ENV=development node-debug bin/server"
+  },
+  "betterScripts": {
+    "server:dev": {
+      "command": "node bin/server",
+      "env": {
+        "DATABASE_URI": "mongodb://localhost/backpack-dev",
+        "NODE_ENV": "development",
+        "SERVER_HOST": "localhost",
+        "SERVER_PORT": 3003
+      }
+    }
   }
 }
