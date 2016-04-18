@@ -25,13 +25,10 @@ const util = require('util')
 const enrouten = require('express-enrouten')
 const passport = require('passport')
 const cors = require('cors')
-const app = express()
+import session from 'express-session';
 import ParseServer from 'parse-server';
+import Mongo from 'connect-mongo';
 
-const session = require('express-session')
-const MongoStore = require('connect-mongo')(session)
-
-app.use(cors())
 const {
   APP_ID,
   DATABASE_URI,
@@ -41,6 +38,9 @@ const {
   SESSION_SECRET,
   } = process.env;
 
+const app = express();
+app.use(cors());
+
 app.use(session({
   resave: true,
   saveUninitialized: true,
@@ -49,10 +49,10 @@ app.use(session({
     url: DATABASE_URI,
     ttl: 14 * 24 * 60 * 60 // = 14 days. Default
   })
-}))
+}));
 
 // Add db to app object
-GLOBAL.DB = require('./db')
+GLOBAL.DB = require('./db');
 
 // Set port
 app.set('port', SERVER_PORT);
@@ -61,29 +61,27 @@ app.set('port', SERVER_PORT);
  * Allow for the use of HTTP verbs such as PUT or DELETE in places
  * where the client doesn't support it.
  */
-app.use(methodOverride())
+app.use(methodOverride());
 
 // Add `compression` for compressing responses.
-app.use(compress())
+app.use(compress());
 
 // Add `morgan` for logging HTTP requests.
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 
 // Add `body-parser` for parsing request body
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /**
  * Add `express-validator`
  * This module allows values in req.body to be validated with the use of
  * helper methods.
  */
-app.use(expressValidator())
+app.use(expressValidator());
 
 // Add cookie-parser
-app.use(cookieParser())
-
-
+app.use(cookieParser());
 
 // Passport set up
 app.use(passport.initialize());
@@ -97,8 +95,8 @@ require('./lib/passport');
 app.use(enrouten({
   directory: 'controllers',
   routes: [
-    { path: '/', method: 'GET', handler: require('./controllers/index') }
-  ]
+    { path: '/', method: 'GET', handler: require('./controllers/index') },
+  ],
 }));
 
 app.use(
@@ -121,7 +119,7 @@ app.use((req, res) => (
 
 const port = app.get('port');
 const env = app.get('env');
-const server = http.Server(app);
+const server = http.Server(app); /* eslint new-cap: 0 */
 
 // Add socket to app and begin listening.
 app.socket = io(server);
