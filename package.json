@@ -49,7 +49,8 @@
   "scripts": {
     "console": "node bin/console",
     "start": "NODE_ENV=production node bin/server",
-    "start:debug": "NODE_ENV=development node-debug bin/server"
+    "start:debug": "NODE_ENV=development node-debug bin/server",
+    "dev": "better-npm-run server:dev"
   },
   "betterScripts": {
     "server:dev": {
