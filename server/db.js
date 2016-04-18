@@ -1,6 +1,6 @@
 import util from 'util'
 import mongoose from 'mongoose'
-const dbURL = process.env.MONGODB_URL || 'mongodb://localhost/backpack-dev'
+const { DATABASE_URI } = process.env;
 
 // Require models
 import './models/user'
@@ -10,7 +10,7 @@ import './models/cost-per-day'
 import './models/account'
 
 // Connect to MongoDB
-mongoose.connect(dbURL)
+mongoose.connect(DATABASE_URI);
 
 const db = mongoose.connection
 
@@ -18,7 +18,6 @@ db.once('open', function (err) {
   // Throw error if connection cannot be made to database
   if (err) throw new Error(err)
   // Log successful connection to database
-  return util.log('Connected to ' + dbURL + ' database')
-})
+  return util.log(`Connected to ${DATABASE_URI} database`);
 
 module.exports = db
