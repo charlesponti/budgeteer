@@ -26,7 +26,6 @@ const enrouten = require('express-enrouten')
 const passport = require('passport')
 const cors = require('cors')
 import session from 'express-session';
-import ParseServer from 'parse-server';
 import Mongo from 'connect-mongo';
 
 const {
@@ -98,18 +97,6 @@ app.use(enrouten({
     { path: '/', method: 'GET', handler: require('./controllers/index') },
   ],
 }));
-
-app.use(
-  '/parse',
-  new ParseServer({
-    databaseURI: DATABASE_URI,
-    cloud: path.resolve(__dirname, 'cloud.js'),
-    appId: APP_ID,
-    masterKey: MASTER_KEY,
-    fileKey: 'f33fc1a9-9ba9-4589-95ca-9976c0d52cd5',
-    serverURL: `http://${SERVER_HOST}:${SERVER_PORT}/parse`,
-  })
-);
 
 app.use((req, res) => (
   res.status(404).json({
