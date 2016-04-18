@@ -76,11 +76,6 @@ app.use(expressValidator())
 // Add cookie-parser
 app.use(cookieParser())
 
-// Add `locals` to response object
-app.use(function (req, res, next) {
-  res.locals.bundle = isDevelopment ? 'main' : 'main.min'
-  return next()
-})
 
 app.use(passport.initialize())
 app.use(passport.session())
