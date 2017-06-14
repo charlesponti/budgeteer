@@ -1,8 +1,8 @@
 // Load environment variables
-require('dotenv').load();
+require("dotenv").load();
 
 // Register babel
-require('babel-register');
+require("babel-register");
 
 // Load server
-require('../server');
+require("../server");
