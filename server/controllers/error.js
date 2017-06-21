@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Handler for errors
  * @param {*} err

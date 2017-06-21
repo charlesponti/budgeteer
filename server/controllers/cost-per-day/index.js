@@ -1,5 +1,3 @@
-'use strict'
-
 var CostPerDay = require('mongoose').model('CostPerDay')
 
 module.exports = function (router) {
@@ -9,7 +7,7 @@ module.exports = function (router) {
         return next(err)
       }
 
-      return res.json({items: items})
+      return res.json({ items: items })
     })
   })
 
@@ -17,7 +15,7 @@ module.exports = function (router) {
     var weight = new CostPerDay(req.body)
     var id = weight.get('id')
 
-    CostPerDay.findOne({id: id}).exec(function (err, doc) {
+    CostPerDay.findOne({ id: id }).exec(function (err, doc) {
       if (err) {
         return next(err)
       }
@@ -28,10 +26,12 @@ module.exports = function (router) {
             return next(err)
           }
 
-          return res.json({weight: weight})
+          return res.json({ weight: weight })
         })
       } else {
-        return res.status(409).json({message: 'weight already exists', weight: doc})
+        return res
+          .status(409)
+          .json({ message: 'weight already exists', weight: doc })
       }
     })
   })
@@ -42,7 +42,7 @@ module.exports = function (router) {
         return next(err)
       }
 
-      return res.json({message: 'item deleted'})
+      return res.json({ message: 'item deleted' })
     })
   })
 }

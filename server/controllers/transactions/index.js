@@ -1,5 +1,3 @@
-'use strict'
-
 var Transaction = require('mongoose').model('Transaction')
 
 module.exports = function (router) {
@@ -20,7 +18,9 @@ module.exports = function (router) {
       }
 
       if (typeof doc === 'undefined') {
-        return res.status(400).json({ message: 'record '+req.query._id+' does not exist'})
+        return res
+          .status(400)
+          .json({ message: 'record ' + req.query._id + ' does not exist' })
       }
 
       if (doc) {
@@ -53,7 +53,7 @@ module.exports = function (router) {
         return next(err)
       }
 
-      return res.json({message: 'item deleted'})
+      return res.json({ message: 'item deleted' })
     })
   })
 }

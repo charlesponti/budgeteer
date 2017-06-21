@@ -1,5 +1,3 @@
-'use strict'
-
 var Weight = require('mongoose').model('Weight')
 
 module.exports = function (router) {
@@ -17,7 +15,7 @@ module.exports = function (router) {
     var weight = new Weight(req.body)
     var date = weight.get('date')
 
-    Weight.findOne({date: date}).exec(function (err, doc) {
+    Weight.findOne({ date: date }).exec(function (err, doc) {
       if (err) {
         return next(err)
       }
@@ -31,7 +29,9 @@ module.exports = function (router) {
           return res.json(doc)
         })
       } else {
-        return res.status(409).json({message: 'record already exists', item: doc})
+        return res
+          .status(409)
+          .json({ message: 'record already exists', item: doc })
       }
     })
   })
@@ -42,7 +42,7 @@ module.exports = function (router) {
         return next(err)
       }
 
-      return res.json({message: 'item deleted'})
+      return res.json({ message: 'item deleted' })
     })
   })
 }

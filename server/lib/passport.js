@@ -1,6 +1,6 @@
-const passport = require("passport");
-const FacebookStrategy = require("passport-facebook").Strategy;
-const User = require("mongoose").model("User");
+const passport = require('passport')
+const FacebookStrategy = require('passport-facebook').Strategy
+const User = require('mongoose').model('User')
 
 /** @namespace process.env.FACEBOOK_APP_ID */
 /** @namespace process.env.FACEBOOK_APP_SECRET */
@@ -20,38 +20,38 @@ passport.use(
           // if there is an error, stop everything and return that
           // ie an error connecting to the database
           if (err) {
-            return done(err);
+            return done(err)
           }
 
           // if the user is found, then log them in
           if (user) {
-            return done(null, user); // user found, return that user
+            return done(null, user) // user found, return that user
           }
 
           // if there is no user found with that facebook id, create them
-          var newUser = new User();
+          var newUser = new User()
 
           // set the users facebook id
-          newUser.id = profile.id;
+          newUser.id = profile.id
           // we will save the token that facebook provides to the user
-          newUser.accessToken = accessToken;
+          newUser.accessToken = accessToken
           // look at the passport user profile to see how names are returned
-          newUser.firstName = profile.name.givenName;
-          newUser.lastName = profile.name.familyName;
+          newUser.firstName = profile.name.givenName
+          newUser.lastName = profile.name.familyName
           // facebook can return multiple emails so we'll take the first
-          newUser.email = profile.emails[0].value;
+          newUser.email = profile.emails[0].value
 
           // save our user to the database
           return newUser.save(err => {
             if (err) {
-              throw err;
+              throw err
             }
 
             // if successful, return the new user
-            return done(null, newUser);
-          });
-        });
-      });
+            return done(null, newUser)
+          })
+        })
+      })
     }
   )
-);
+)

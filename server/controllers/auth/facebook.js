@@ -1,5 +1,3 @@
-'use strict'
-
 var passport = require('passport')
 
 module.exports = function (router) {
@@ -12,8 +10,11 @@ module.exports = function (router) {
   // authentication process by attempting to obtain an access token.  If
   // access was granted, the user will be logged in.  Otherwise,
   // authentication has failed.
-  router.get('/callback', passport.authenticate('facebook', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-  }))
+  router.get(
+    '/callback',
+    passport.authenticate('facebook', {
+      successRedirect: '/',
+      failureRedirect: '/login'
+    })
+  )
 }

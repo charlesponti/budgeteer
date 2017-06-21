@@ -2,110 +2,146 @@
  * Module dependencies.
  * @type {exports}
  */
-import bodyParser from "body-parser";
-import compress from "compression";
-import cookieParser from "cookie-parser";
-import express from "express";
-import expressValidator from "express-validator";
-import http from "http";
-import io from "socket.io";
-import methodOverride from "method-override";
-import morgan from "morgan";
-import util from "util";
-import enrouten from "express-enrouten";
-import passport from "passport";
-import cors from "cors";
-import session from "express-session";
-import connetMongo from "connect-mongo";
-import controllers from "./controllers/index";
+import bodyParser from 'body-parser'
+import compress from 'compression'
+import cookieParser from 'cookie-parser'
+import express from 'express'
+import expressValidator from 'express-validator'
+import http from 'http'
+import io from 'socket.io'
+import methodOverride from 'method-override'
+import morgan from 'morgan'
+import util from 'util'
+import enrouten from 'express-enrouten'
+import passport from 'passport'
+import cors from 'cors'
+import session from 'express-session'
+import connetMongo from 'connect-mongo'
+import controllers from './controllers/index'
+import typeDefs from './data/schema'
+import resolvers from './data/resolvers'
+// import Mocks from './data/mocks';
 
-const MongoStore = connetMongo(session);
-const { DATABASE_URI, SERVER_PORT, SESSION_SECRET } = process.env;
+import { apolloExpress, graphiqlExpress } from 'apollo-server'
+import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools'
 
-const app = express();
-app.use(cors());
+const GRAPHQL_PORT = 8080
 
-app.use(
+// addMockFunctionsToSchema({
+//   schema: executableSchema,
+//   mocks: Mocks,
+//   preserveResolvers: true,
+// });
+
+const MongoStore = connetMongo(session)
+const { DATABASE_URI, SERVER_PORT, SESSION_SECRET } = process.env
+
+const graphQLServer = express()
+graphQLServer.use(cors())
+
+graphQLServer.use(
   session({
     resave: true,
     saveUninitialized: true,
-    secret: SESSION_SECRET || "foobar",
+    secret: SESSION_SECRET || 'foobar',
     store: new MongoStore({
-      url: DATABASE_URI || "mongodb://127.0.0.1/test-app",
+      url: DATABASE_URI || 'mongodb://127.0.0.1/test-graphQLServer',
       ttl: 14 * 24 * 60 * 60 // = 14 days. Default
     })
   })
-);
+)
 
-// Add db to app object
-global.DB = require("./lib/db");
+// Add db to graphQLServer object
+global.DB = require('./lib/db')
 
 // Set port
-app.set("port", SERVER_PORT || 3000);
+graphQLServer.set('port', SERVER_PORT || 3000)
 
 /**
  * Allow for the use of HTTP verbs such as PUT or DELETE in places
  * where the client doesn't support it.
  */
-app.use(methodOverride());
+graphQLServer.use(methodOverride())
 
 // Add `compression` for compressing responses.
-app.use(compress());
+graphQLServer.use(compress())
 
 // Add `morgan` for logging HTTP requests.
-app.use(morgan("dev"));
+graphQLServer.use(morgan('dev'))
 
 // Add `body-parser` for parsing request body
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+graphQLServer.use(bodyParser.json())
+graphQLServer.use(bodyParser.urlencoded({ extended: true }))
 
 /**
  * Add `express-validator`
  * This module allows values in req.body to be validated with the use of
  * helper methods.
  */
-app.use(expressValidator());
+graphQLServer.use(expressValidator())
 
 // Add cookie-parser
-app.use(cookieParser());
+graphQLServer.use(cookieParser())
 
 // Passport set up
-app.use(passport.initialize());
-app.use(passport.session());
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((user, done) => done(null, user));
+graphQLServer.use(passport.initialize())
+graphQLServer.use(passport.session())
+passport.serializeUser((user, done) => done(null, user))
+passport.deserializeUser((user, done) => done(null, user))
 
 // require("./lib/passport");
 
-// Add routes to application stack
-app.use(
+// Add routes to graphQLServerlication stack
+graphQLServer.use(
   enrouten({
-    directory: "controllers",
-    routes: [{ path: "/", method: "GET", handler: controllers }]
+    directory: 'controllers',
+    routes: [{ path: '/', method: 'GET', handler: controllers }]
   })
-);
+)
 
-app.use((req, res) =>
+// `context` must be an object and can't be undefined when using connectors
+graphQLServer.use(
+  '/graphql',
+  bodyParser.json(),
+  apolloExpress({
+    schema: makeExecutableSchema({
+      typeDefs,
+      resolvers,
+      allowUndefinedInResolve: false,
+      printErrors: true
+    }),
+    context: {}
+  })
+)
+
+graphQLServer.use(
+  '/graphiql',
+  graphiqlExpress({
+    endpointURL: '/graphql'
+  })
+)
+
+graphQLServer.use((req, res) =>
   res.status(404).json({
-    message: "The index you have requested has no corresponding route"
+    message: 'The index you have requested has no corresponding route'
   })
-);
+)
 
-const port = app.get("port");
-const env = app.get("env");
-const server = http.Server(app); /* eslint new-cap: 0 */
+const port = graphQLServer.get('port')
+const env = graphQLServer.get('env')
+const server = http.Server(graphQLServer) /* eslint new-cap: 0 */
 
-// Add socket to app and begin listening.
-app.socket = io(server);
+// Add socket to graphQLServer and begin listening.
+graphQLServer.socket = io(server)
 
-// Start application server.
+// Start graphQLServerlication server.
 server.listen(port, () =>
   util.log(`Cthulhu has risen at port ${port} in ${env} mode`)
-);
+)
 
 // Emit initial message
-app.socket.on("connection", socket =>
-  socket.emit("message", {
-    message: "Cthulhu has you in her grips."
+graphQLServer.socket.on('connection', socket =>
+  socket.emit('message', {
+    message: 'Cthulhu has you in her grips.'
   })
-);
+)
