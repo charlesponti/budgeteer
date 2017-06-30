@@ -1,19 +1,6 @@
 # Backpack
 
-### A life management application
-
----
-
-## Stack
-
-### Server-side
-* **NodeJS**
-* **ExpressJS**
-* **MongoDB**
-
-### Client-side
-* **ReactJS**
-* **Backbone**
+## A life management application
 
 The goal of this application is to build a task management application that will work for both the average person needing to manage their day-to-day life and teams needing to manage their tasks and missions.
 
@@ -25,16 +12,15 @@ We're building apps in the real world for real consumers. These apps have to be 
 
 So I wanted to take the basic premise of the basic to-do application and build out some extra real-world features such as:
 
-* **Authentication & OAuth**
-* **File uploading**
-* **Build systems**
-* **Testing**
-
 My other goal for this application is for it become a sort of snapshot of what the current state of full-stack JavaScript application development looks like. It should use the current "go-to" tools, frameworks, libraries, architectures, and methodologies that have proven themselves as "here for the long haul" technologies that every developer should have in their tool kit and integrated into their stack.
 
-### TODO
+## TODO
+* Server-side rendering
+* Authentication & OAuth
+* Build systems
+* Testing
 * Server-side error logging
-* Client-side error logging
 * An analytics layer
+* File uploading
 * An application dashboard layer
-* Two-factor Authentication (NO MORE PASSWORDS!)
+* Phone Authentication (NO MORE PASSWORDS!)
