@@ -12,12 +12,7 @@ import io from 'socket.io'
 import methodOverride from 'method-override'
 import morgan from 'morgan'
 import util from 'util'
-import enrouten from 'express-enrouten'
-import passport from 'passport'
 import cors from 'cors'
-import session from 'express-session'
-import connetMongo from 'connect-mongo'
-import controllers from './controllers/index'
 import typeDefs from './data/schema'
 import resolvers from './data/resolvers'
 // import Mocks from './data/mocks';
@@ -25,34 +20,16 @@ import resolvers from './data/resolvers'
 import { apolloExpress, graphiqlExpress } from 'apollo-server'
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools'
 
-const GRAPHQL_PORT = 8080
-
 // addMockFunctionsToSchema({
 //   schema: executableSchema,
 //   mocks: Mocks,
 //   preserveResolvers: true,
 // });
 
-const MongoStore = connetMongo(session)
-const { DATABASE_URI, SERVER_PORT, SESSION_SECRET } = process.env
+const { SERVER_PORT } = process.env
 
 const graphQLServer = express()
 graphQLServer.use(cors())
-
-graphQLServer.use(
-  session({
-    resave: true,
-    saveUninitialized: true,
-    secret: SESSION_SECRET || 'foobar',
-    store: new MongoStore({
-      url: DATABASE_URI || 'mongodb://127.0.0.1/test-graphQLServer',
-      ttl: 14 * 24 * 60 * 60 // = 14 days. Default
-    })
-  })
-)
-
-// Add db to graphQLServer object
-global.DB = require('./lib/db')
 
 // Set port
 graphQLServer.set('port', SERVER_PORT || 3000)
@@ -82,22 +59,6 @@ graphQLServer.use(expressValidator())
 
 // Add cookie-parser
 graphQLServer.use(cookieParser())
-
-// Passport set up
-graphQLServer.use(passport.initialize())
-graphQLServer.use(passport.session())
-passport.serializeUser((user, done) => done(null, user))
-passport.deserializeUser((user, done) => done(null, user))
-
-// require("./lib/passport");
-
-// Add routes to graphQLServerlication stack
-graphQLServer.use(
-  enrouten({
-    directory: 'controllers',
-    routes: [{ path: '/', method: 'GET', handler: controllers }]
-  })
-)
 
 // `context` must be an object and can't be undefined when using connectors
 graphQLServer.use(

@@ -1,76 +1,6 @@
 {
   "name": "backpack",
   "version": "1.0.0",
-  "dependencies": {
-    "apollo-server": "^0.3.3",
-    "babel-core": "^6.25.0",
-    "babel-eslint": "^7.2.3",
-    "babel-preset-env": "^1.5.2",
-    "babel-register": "^6.24.1",
-    "better-npm-run": "0.0.15",
-    "body-parser": "^1.17.2",
-    "compression": "^1.6.2",
-    "connect-mongo": "^1.3.2",
-    "cookie-parser": "^1.4.3",
-    "cors": "^2.8.3",
-    "dotenv": "^4.0.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.3.0",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "express": "^4.15.3",
-    "express-enrouten": "^1.3.0",
-    "express-graphql": "^0.6.6",
-    "express-session": "^1.15.3",
-    "express-validator": "^3.2.0",
-    "graphql": "^0.10.3",
-    "graphql-date": "^1.0.3",
-    "graphql-server-express": "^0.8.4",
-    "graphql-tools": "^1.0.0",
-    "history": "^4.6.2",
-    "kerberos": "0.0.23",
-    "lodash": "^4.17.4",
-    "method-override": "^2.3.9",
-    "moment": "^2.18.1",
-    "mongoose": "^4.10.6",
-    "morgan": "^1.8.2",
-    "passport": "^0.3.2",
-    "passport-facebook": "^2.1.1",
-    "reqwest": "^2.0.5",
-    "sendgrid": "^5.1.1",
-    "socket.io": "^2.0.3",
-    "util": "^0.10.3",
-    "when": "^3.7.8"
-  },
-  "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-plugin-node": "^5.0.0",
-    "eslint-plugin-prettier": "^2.1.2",
-    "husky": "^0.13.4",
-    "lint-staged": "^4.0.0",
-    "prettier": "^1.4.4",
-    "prettier-standard": "^5.1.0"
-  },
-  "license": "MIT",
-  "main": "server/index.js",
-  "private": false,
-  "repository": "http://github.com/theponti/backpack",
-  "scripts": {
-    "console": "node bin/console",
-    "start": "NODE_ENV=production node bin/server",
-    "start:debug": "NODE_ENV=development node-debug bin/server",
-    "dev": "better-npm-run server:dev",
-    "precommit": "lint-staged",
-    "format": "prettier-standard 'server/**/*.js'"
-  },
-  "lint-staged": {
-    "linters": {
-      "server/**/*.js": [
-        "prettier-standard",
-        "git add"
-      ]
-    }
-  },
   "betterScripts": {
     "server:dev": {
       "command": "node bin/server",
@@ -81,5 +11,68 @@
         "SERVER_PORT": 3003
       }
     }
+  },
+  "dependencies": {
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-env": "^1.5.2",
+    "babel-register": "^6.24.1",
+    "better-npm-run": "0.0.15",
+    "body-parser": "^1.17.2",
+    "compression": "^1.6.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "express-graphql": "^0.6.6",
+    "express-validator": "^3.2.0",
+    "graphql": "^0.10.3",
+    "graphql-date": "^1.0.3",
+    "graphql-server-express": "^0.8.5",
+    "graphql-tools": "^1.0.0",
+    "history": "^4.6.2",
+    "kerberos": "0.0.23",
+    "lodash": "^4.17.4",
+    "method-override": "^2.3.9",
+    "moment": "^2.18.1",
+    "morgan": "^1.8.2",
+    "reqwest": "^2.0.5",
+    "sendgrid": "^5.1.1",
+    "socket.io": "^2.0.3",
+    "util": "^0.10.3",
+    "when": "^3.7.8"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-prettier": "^2.1.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "husky": "^0.13.4",
+    "lint-staged": "^4.0.0",
+    "prettier": "^1.4.4",
+    "prettier-standard": "^5.1.0"
+  },
+  "license": "MIT",
+  "lint-staged": {
+    "linters": {
+      "server/**/*.js": [
+        "prettier-standard",
+        "git add"
+      ]
+    }
+  },
+  "main": "server/index.js",
+  "private": false,
+  "repository": "http://github.com/theponti/backpack",
+  "scripts": {
+    "console": "node bin/console",
+    "dev": "better-npm-run server:dev",
+    "format": "prettier-standard 'server/**/*.js'",
+    "precommit": "lint-staged",
+    "start": "NODE_ENV=production node bin/server",
+    "start:debug": "NODE_ENV=development node-debug bin/server"
   }
 }
