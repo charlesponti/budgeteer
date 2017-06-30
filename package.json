@@ -39,10 +39,11 @@
     "reqwest": "^2.0.5",
     "sendgrid": "^5.1.1",
     "socket.io": "^2.0.3",
+    "util": "^0.10.3",
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "eslint": "^4.0.0",
+    "eslint": "^3.19.0",
     "eslint-plugin-node": "^5.0.0",
     "eslint-plugin-prettier": "^2.1.2",
     "husky": "^0.13.4",
