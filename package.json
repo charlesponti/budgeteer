@@ -38,6 +38,7 @@
     "morgan": "^1.8.2",
     "reqwest": "^2.0.5",
     "sendgrid": "^5.1.1",
+    "sequelize": "^4.4.2",
     "socket.io": "^2.0.3",
     "util": "^0.10.3",
     "when": "^3.7.8"
