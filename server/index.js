@@ -11,24 +11,34 @@ import http from 'http'
 import io from 'socket.io'
 import methodOverride from 'method-override'
 import morgan from 'morgan'
-import util from 'util'
 import cors from 'cors'
-import typeDefs from './data/schema'
-import resolvers from './data/resolvers'
-// import Mocks from './data/mocks';
-
 import { apolloExpress, graphiqlExpress } from 'apollo-server'
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools'
 
-// addMockFunctionsToSchema({
-//   schema: executableSchema,
-//   mocks: Mocks,
-//   preserveResolvers: true,
-// });
+import typeDefs from './data/schema'
+import resolvers from './data/resolvers'
+import Mocks from './data/mocks'
 
 const { SERVER_PORT } = process.env
 
 const graphQLServer = express()
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+  allowUndefinedInResolve: false,
+  printErrors: true
+})
+
+/**
+ * Add mock functions to schema for testing
+ */
+addMockFunctionsToSchema({
+  schema,
+  mocks: Mocks,
+  preserveResolvers: true
+})
+
 graphQLServer.use(cors())
 
 // Set port
@@ -65,12 +75,7 @@ graphQLServer.use(
   '/graphql',
   bodyParser.json(),
   apolloExpress({
-    schema: makeExecutableSchema({
-      typeDefs,
-      resolvers,
-      allowUndefinedInResolve: false,
-      printErrors: true
-    }),
+    schema,
     context: {}
   })
 )
@@ -97,7 +102,7 @@ graphQLServer.socket = io(server)
 
 // Start graphQLServerlication server.
 server.listen(port, () =>
-  util.log(`Cthulhu has risen at port ${port} in ${env} mode`)
+  console.log(`Cthulhu has risen at port ${port} in ${env} mode`)
 )
 
 // Emit initial message
