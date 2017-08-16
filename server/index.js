@@ -9,6 +9,7 @@ import express from 'express'
 import expressValidator from 'express-validator'
 import http from 'http'
 import io from 'socket.io'
+import winston from 'winston'
 import methodOverride from 'method-override'
 import morgan from 'morgan'
 import cors from 'cors'
@@ -102,7 +103,7 @@ graphQLServer.socket = io(server)
 
 // Start graphQLServerlication server.
 server.listen(port, () =>
-  console.log(`Cthulhu has risen at port ${port} in ${env} mode`)
+  winston.log('info', `Cthulhu has risen at port ${port} in ${env} mode`)
 )
 
 // Emit initial message
