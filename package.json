@@ -1,23 +1,18 @@
 {
-  "name": "command-line-budgeter",
-  "version": "1.0.0",
+  "name": "budgeteer-cli",
   "description": "A personal finance analysis tool for the command line",
-  "main": "main.js",
-  "scripts": {
-    "test": "jasmine './src/**/*.test.js'",
-    "test:specs": "chokidar -p './src/**/*.js' -c 'npm run test'",
-    "budget": "./node_modules/.bin/babel-node ./src/main.js --budget",
-    "create": "./node_modules/.bin/babel-node ./src/main.js --create",
-    "start": "node ./src/server.js",
-    "dev": "nodemon ./src/server.js"
+  "version": "1.0.0",
+  "author": "charlesponti @charlesponti",
+  "bin": {
+    "budgeteer-cli": "./bin/run"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/charlesponti/budgeteer.git"
-  },
-  "author": "",
-  "license": "ISC",
+  "bugs": "https://github.com/charlesponti/budgeteer-cli/issues",
   "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^2",
+    "argv": "0.0.2",
+    "csv-stringify": "^3.1.1",
     "dotenv": "^6.0.0",
     "express": "^4.13.4",
     "express-graphql": "^0.6.11",
@@ -25,18 +20,66 @@
     "graphql-tools": "^2.0.0",
     "jquery": ">3.0.0",
     "lodash": "^3.10.1",
+    "moment": "^2.22.2",
     "numeral": "^1.5.3",
     "sequelize": "^4.38.0",
+    "tslib": "^1",
     "validator": "^9.0.0",
     "winston": "^2.4.0",
+    "xlsx": "^0.13.0",
     "yargs": "^3.25.0"
   },
   "devDependencies": {
-    "@types/node": "^9.6.23",
+    "@oclif/dev-cli": "^1",
+    "@oclif/test": "^1",
+    "@oclif/tslint": "^1",
+    "@types/chai": "^4",
+    "@types/mocha": "^5",
+    "@types/node": "^10",
+    "@types/optimist": "0.0.29",
+    "chai": "^4",
     "faker": "^4.1.0",
-    "ts-node": "^5.0.1",
-    "tslint": "^5.11.0",
-    "typescript": "^2.9.2",
+    "globby": "^8",
+    "mocha": "^5",
+    "nyc": "^12",
+    "ts-node": "^6",
+    "tslint": "^5",
+    "typescript": "^2.9",
     "webpack": "^3.5.2"
-  }
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/charlesponti/budgeteer-cli",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "ISC",
+  "main": "main.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "budgeteer-cli",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/charlesponti/budgeteer.git"
+  },
+  "scripts": {
+    "budget": "./node_modules/.bin/babel-node ./src/main.js --budget",
+    "create": "./node_modules/.bin/babel-node ./src/main.js --create",
+    "dev": "nodemon ./src/server.js",
+    "start": "node ./src/server.js",
+    "test": "jasmine './src/**/*.test.js'",
+    "test:specs": "chokidar -p './src/**/*.js' -c 'npm run test'"
+  },
+  "types": "lib/index.d.ts"
 }
