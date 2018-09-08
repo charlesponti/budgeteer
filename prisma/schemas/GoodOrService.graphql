@@ -1,0 +1,28 @@
+type GoodOrService {
+  id: ID! @unique
+  type: String
+
+  name: String
+  brand: String!
+  price: Float!
+
+  "URL @ which item can be purchased"
+  url: String
+
+  "Has item been purchased?"
+  purchased: Boolean! @default(value: "false")
+
+  """
+  An individual's possessions should be able to be traced
+  back to a transaction (the one in which they purchased
+  the item). Not all possessions will have a transaction
+  however because some possessions where free or gifts
+  """
+  transaction: Transaction @relation(name: "TransactionForGoodOrService")
+}
+
+type WishList {
+  "Sum of all wishlist items"
+  balance: Float! @default(value: "0")
+  items: [GoodOrService!]!
+}

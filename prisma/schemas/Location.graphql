@@ -1,0 +1,7 @@
+type Location {
+  longitude: Float!
+  latitude: Float!
+  address: String!
+  type: String
+  name: String!
+}

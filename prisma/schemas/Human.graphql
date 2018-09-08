@@ -1,0 +1,68 @@
+type Human {
+    id: ID! @unique
+    first_name: String
+    last_name: String
+    middle_name: String
+
+    birthday: String
+
+    # A list of their favourite things
+    favourites: [HumanFavorite!]! @relation(name: "HumanFavorites")
+
+    # A list of things they want that you could get them as a gift
+    wish_list: [GoodOrService!]!
+
+    contact: ContactInfo @relation(name: "HumanContactInfo")
+
+    # Educational qualifications
+    education: Education
+
+    tasks: [Task!]!
+
+    "TV shows the human has watched"
+    tv_shows: [TvEpisodeTransaction!]!
+
+    # {name: 'The Big Short', watched: Boolean, DateTime!: '2016-03-30T00:00'}
+    movies: [MovieTransaction!]! @relation(name: "MoviesWatchedByHuman")
+
+    "Books the human as read or wants to read"
+    books: [BookTransaction!]!
+
+    "Father of Human"
+    father: Human @relation(name: "FatherOfHuman")
+
+    "Mother of Human"
+    mother: Human @relation(name: "MotherOfHuman")
+
+    "Siblings of Human"
+    siblings: [Human!]! @relation(name: "SiblingOfHuman")
+
+    "Aunts of Human"
+    aunts: [Human!]! @relation(name: "AuntOfHuman")
+
+    "Uncles of Human"
+    uncles: [Human!]! @relation(name: "UncleOfHuman")
+
+    "Grandparents of Human"
+    grandparents: [Human!]! @relation(name: "GrandparentOfHuman")
+
+    "Greatgrandparents of Human"
+    great_grandparents: [Human!]! @relation(name: "GreatgrandparentOfHuman")
+
+    #  description Groupings of friends
+    ## Questions
+    # 1. Why do we separate our friends nto different categories?
+    # 2. What f we treated all people like a close friend, even those people whom we do not know (strangers)?
+    friends: [Human!]! @relation(name: "FriendOfHuman")
+    acquaintances: [Human!]! @relation(name: "AcquaintanceOfHuman")
+    colleagues: [Human!]! @relation(name: "ColleagueOfHuman")
+
+    height: Float
+    weight: Float
+    weight_history: [WeightHistoryItem!]! @relation(name: "WeightOfHuman")
+
+    directed: [Movie!]! @relation(name: "MovieDirectedByHuman")
+    acted_in: [Movie!]! @relation(name: "ActionRolesOfHuman")
+
+    # finances: HumanFinance
+}

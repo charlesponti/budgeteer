@@ -1,0 +1,54 @@
+type TvShow {
+  id: ID! @unique
+  name: String!
+  episodes: [TvEpisode!]! @relation(name: "TvShowEpisodes")
+}
+
+type TvEpisode {
+  id: ID! @unique
+  name: String
+  episode: Int
+  season: Int
+  watched: Boolean
+  show: TvShow! @relation(name: "TvShowEpisodes")
+  date_watched: DateTime!
+  release_date: DateTime!
+}
+
+type Movie {
+  id: ID! @unique
+  name: String
+  category: String
+  release_date: DateTime!
+  director: Human @relation(name: "MovieDirectedByHuman")
+  actors: [Human!]! @relation(name: "ActionRolesOfHuman")
+}
+
+type Book {
+  id: ID! @unique
+  name: String
+  author: String
+  release_date: DateTime!
+  word_count: Int
+}
+
+type TvEpisodeTransaction {
+  id: ID! @unique
+  human: Human!
+  show: TvShow!
+  episode: TvEpisode!
+  date_watched: DateTime!
+}
+
+type BookTransaction {
+  id: ID! @unique
+  book: Book
+  date_started: DateTime
+  date_finished: DateTime
+}
+
+type MovieTransaction {
+  id: ID! @unique
+  movie: Movie!
+  date_watched: DateTime!
+}

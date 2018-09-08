@@ -1,0 +1,17 @@
+type Timeline {
+  id: ID! @unique
+  events: [Event!]!
+}
+
+enum EventType {
+  PHOTO,
+  THOUGHT,
+  MOVIE
+}
+
+type Event {
+  date: DateTime!
+  location: Location!
+  type: EventType!
+  description: String
+}

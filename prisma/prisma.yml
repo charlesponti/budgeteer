@@ -1,0 +1,15 @@
+endpoint: http://localhost:4466
+
+datamodel:
+    - schemas/Education.graphql
+    - schemas/Entertainment.graphql
+    - schemas/Event.graphql
+    - schemas/Finance.graphql
+    - schemas/GoodOrService.graphql
+    - schemas/Location.graphql
+    - schemas/Human.graphql
+    - datamodel.graphql
+
+hooks:
+    post-deploy:
+        - graphql get-schema -p schema

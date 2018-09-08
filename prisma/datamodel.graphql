@@ -1,0 +1,55 @@
+enum TaskStatus {
+    IN_PROGRESS
+    COMPLETED
+    CANCELLED
+}
+
+type Task {
+    id: ID! @unique
+    name: String
+    start: DateTime!
+    end: DateTime!
+    status: TaskStatus
+}
+
+enum Relation {
+    MATERNAL
+    PATERNAL
+}
+
+enum FavoriteKind {
+    COLOR
+    FLOWER
+    MOVIE
+    BOOK
+    SONG
+    MUSIC_ALBUM
+}
+
+type HumanFavorite {
+    id: ID! @unique
+    kind: FavoriteKind!
+    thing: ID!
+    human: Human! @relation(name: "FavoriesOfHuman")
+}
+
+type ContactInfo {
+    email: String
+    phone_number: String
+
+    "Their Twitter handle"
+    twitter: String
+
+    "Their Snapchat handle"
+    snapchat: String
+
+    human: Human! @relation(name: "HumanContactInfo")
+}
+
+# Only stored in kilograms
+type WeightHistoryItem {
+    id: ID! @unique
+    weight: Float
+    date: DateTime!
+    human: Human! @relation(name: "WeightOfHuman")
+}

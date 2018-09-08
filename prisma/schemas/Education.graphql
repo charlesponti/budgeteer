@@ -1,0 +1,36 @@
+type School {
+    id: ID! @unique
+    name: String!
+    location: String!
+}
+
+type Course {
+  name: String
+  subject: ID!
+  completion: Float! # Percentage completion of required lectures & assignments
+  start_date: DateTime!
+  end_date: DateTime!
+  lectures: [CourseLecture!]!
+  assignments: [CourseAssignment!]!
+  school: School!
+}
+
+type CourseLecture {
+  id: ID! @unique
+  title: String!
+  description: String!
+  course: Course!
+}
+
+type CourseAssignment {
+  id: ID! @unique
+  description: String!
+  grade: Float
+  course: Course!
+}
+
+type Education {
+  id: ID! @unique
+  schools: [School!]!
+  courses: [Course!]!
+}
