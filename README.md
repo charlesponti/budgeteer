@@ -15,7 +15,6 @@ So I wanted to take the basic premise of the basic to-do application and build o
 My other goal for this application is for it become a sort of snapshot of what the current state of full-stack JavaScript application development looks like. It should use the current "go-to" tools, frameworks, libraries, architectures, and methodologies that have proven themselves as "here for the long haul" technologies that every developer should have in their tool kit and integrated into their stack.
 
 ## TODO
-
 -   Server-side rendering
 -   Authentication & OAuth
 -   Build systems

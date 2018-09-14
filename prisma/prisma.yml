@@ -1,4 +1,6 @@
-endpoint: http://localhost:4466
+endpoint: http://${env:PRISMA_HOST}:4466
+
+secret: ${env:PRISMA_MANAGEMENT_API_SECRET}
 
 datamodel:
     - schemas/Education.graphql
@@ -12,4 +14,4 @@ datamodel:
 
 hooks:
     post-deploy:
-        - graphql get-schema -p schema
+        - graphql get-schema -p prisma

@@ -24,7 +24,6 @@ type Transaction {
 
   items: [GoodOrService!]! @relation(name: "TransactionForGoodOrService")
 
-  # TODO Define Event schema
   # You can attach transactions to a specific calendar event so you can see how
   # you spent in total
   event: Event
