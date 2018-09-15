@@ -1,7 +1,8 @@
 # source: http://localhost:4466
-# timestamp: Sat Sep 08 2018 12:11:18 GMT+0100 (BST)
+# timestamp: Sat Sep 15 2018 20:17:03 GMT+0100 (BST)
 
-type Account {
+type Account implements Node {
+  id: ID!
   name: String!
   balance: Float!
   transactions(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transaction!]
@@ -25,6 +26,7 @@ input AccountCreateInput {
 
 input AccountCreateManyInput {
   create: [AccountCreateInput!]
+  connect: [AccountWhereUniqueInput!]
 }
 
 """An edge in a connection."""
@@ -37,12 +39,12 @@ type AccountEdge {
 }
 
 enum AccountOrderByInput {
+  id_ASC
+  id_DESC
   name_ASC
   name_DESC
   balance_ASC
   balance_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -50,6 +52,7 @@ enum AccountOrderByInput {
 }
 
 type AccountPreviousValues {
+  id: ID!
   name: String!
   balance: Float!
 }
@@ -93,6 +96,12 @@ input AccountSubscriptionWhereInput {
   node: AccountWhereInput
 }
 
+input AccountUpdateDataInput {
+  name: String
+  balance: Float
+  transactions: TransactionUpdateManyInput
+}
+
 input AccountUpdateInput {
   name: String
   balance: Float
@@ -101,6 +110,22 @@ input AccountUpdateInput {
 
 input AccountUpdateManyInput {
   create: [AccountCreateInput!]
+  connect: [AccountWhereUniqueInput!]
+  disconnect: [AccountWhereUniqueInput!]
+  delete: [AccountWhereUniqueInput!]
+  update: [AccountUpdateWithWhereUniqueNestedInput!]
+  upsert: [AccountUpsertWithWhereUniqueNestedInput!]
+}
+
+input AccountUpdateWithWhereUniqueNestedInput {
+  where: AccountWhereUniqueInput!
+  data: AccountUpdateDataInput!
+}
+
+input AccountUpsertWithWhereUniqueNestedInput {
+  where: AccountWhereUniqueInput!
+  update: AccountUpdateDataInput!
+  create: AccountCreateInput!
 }
 
 input AccountWhereInput {
@@ -112,6 +137,46 @@ input AccountWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [AccountWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
   name: String
 
   """All values that are not equal to given value."""
@@ -177,6 +242,10 @@ input AccountWhereInput {
   transactions_every: TransactionWhereInput
   transactions_some: TransactionWhereInput
   transactions_none: TransactionWhereInput
+}
+
+input AccountWhereUniqueInput {
+  id: ID
 }
 
 type AggregateAccount {
@@ -837,7 +906,8 @@ input BookWhereUniqueInput {
   id: ID
 }
 
-type Budget {
+type Budget implements Node {
+  id: ID!
   flexible_spending: Float
   total_fixed_cost: Float
   fixed_costs(where: FixedCostWhereInput, orderBy: FixedCostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FixedCost!]
@@ -861,6 +931,7 @@ input BudgetCreateInput {
 
 input BudgetCreateOneInput {
   create: BudgetCreateInput
+  connect: BudgetWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -873,12 +944,12 @@ type BudgetEdge {
 }
 
 enum BudgetOrderByInput {
+  id_ASC
+  id_DESC
   flexible_spending_ASC
   flexible_spending_DESC
   total_fixed_cost_ASC
   total_fixed_cost_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -886,6 +957,7 @@ enum BudgetOrderByInput {
 }
 
 type BudgetPreviousValues {
+  id: ID!
   flexible_spending: Float
   total_fixed_cost: Float
 }
@@ -943,6 +1015,7 @@ input BudgetUpdateInput {
 
 input BudgetUpdateOneInput {
   create: BudgetCreateInput
+  connect: BudgetWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
   update: BudgetUpdateDataInput
@@ -963,6 +1036,46 @@ input BudgetWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [BudgetWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
   flexible_spending: Float
 
   """All values that are not equal to given value."""
@@ -1010,6 +1123,10 @@ input BudgetWhereInput {
   fixed_costs_every: FixedCostWhereInput
   fixed_costs_some: FixedCostWhereInput
   fixed_costs_none: FixedCostWhereInput
+}
+
+input BudgetWhereUniqueInput {
+  id: ID
 }
 
 type ContactInfo {
@@ -2373,11 +2490,13 @@ input EducationWhereUniqueInput {
   id: ID
 }
 
-type Event {
+type Event implements Node {
+  id: ID!
   date: DateTime!
   location(where: LocationWhereInput): Location!
   type: EventType!
   description: String
+  with(where: HumanWhereInput, orderBy: HumanOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Human!]
 }
 
 """A connection to a list of items."""
@@ -2395,14 +2514,17 @@ input EventCreateInput {
   type: EventType!
   description: String
   location: LocationCreateOneInput!
+  with: HumanCreateManyInput
 }
 
 input EventCreateManyInput {
   create: [EventCreateInput!]
+  connect: [EventWhereUniqueInput!]
 }
 
 input EventCreateOneInput {
   create: EventCreateInput
+  connect: EventWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -2415,14 +2537,14 @@ type EventEdge {
 }
 
 enum EventOrderByInput {
+  id_ASC
+  id_DESC
   date_ASC
   date_DESC
   type_ASC
   type_DESC
   description_ASC
   description_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2430,6 +2552,7 @@ enum EventOrderByInput {
 }
 
 type EventPreviousValues {
+  id: ID!
   date: DateTime!
   type: EventType!
   description: String
@@ -2478,6 +2601,8 @@ enum EventType {
   PHOTO
   THOUGHT
   MOVIE
+  SEX
+  DINING_OUT
 }
 
 input EventUpdateDataInput {
@@ -2485,6 +2610,7 @@ input EventUpdateDataInput {
   type: EventType
   description: String
   location: LocationUpdateOneInput
+  with: HumanUpdateManyInput
 }
 
 input EventUpdateInput {
@@ -2492,21 +2618,39 @@ input EventUpdateInput {
   type: EventType
   description: String
   location: LocationUpdateOneInput
+  with: HumanUpdateManyInput
 }
 
 input EventUpdateManyInput {
   create: [EventCreateInput!]
+  connect: [EventWhereUniqueInput!]
+  disconnect: [EventWhereUniqueInput!]
+  delete: [EventWhereUniqueInput!]
+  update: [EventUpdateWithWhereUniqueNestedInput!]
+  upsert: [EventUpsertWithWhereUniqueNestedInput!]
 }
 
 input EventUpdateOneInput {
   create: EventCreateInput
+  connect: EventWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
   update: EventUpdateDataInput
   upsert: EventUpsertNestedInput
 }
 
+input EventUpdateWithWhereUniqueNestedInput {
+  where: EventWhereUniqueInput!
+  data: EventUpdateDataInput!
+}
+
 input EventUpsertNestedInput {
+  update: EventUpdateDataInput!
+  create: EventCreateInput!
+}
+
+input EventUpsertWithWhereUniqueNestedInput {
+  where: EventWhereUniqueInput!
   update: EventUpdateDataInput!
   create: EventCreateInput!
 }
@@ -2520,6 +2664,46 @@ input EventWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [EventWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
   date: DateTime
 
   """All values that are not equal to given value."""
@@ -2593,6 +2777,13 @@ input EventWhereInput {
   """All values not ending with the given string."""
   description_not_ends_with: String
   location: LocationWhereInput
+  with_every: HumanWhereInput
+  with_some: HumanWhereInput
+  with_none: HumanWhereInput
+}
+
+input EventWhereUniqueInput {
+  id: ID
 }
 
 enum FavoriteKind {
@@ -2873,7 +3064,8 @@ input FinanceGoalsWhereUniqueInput {
   id: ID
 }
 
-type FixedCost {
+type FixedCost implements Node {
+  id: ID!
   name: String
   amount: Float
   type: FixedCostType
@@ -2897,6 +3089,7 @@ input FixedCostCreateInput {
 
 input FixedCostCreateManyInput {
   create: [FixedCostCreateInput!]
+  connect: [FixedCostWhereUniqueInput!]
 }
 
 """An edge in a connection."""
@@ -2909,14 +3102,14 @@ type FixedCostEdge {
 }
 
 enum FixedCostOrderByInput {
+  id_ASC
+  id_DESC
   name_ASC
   name_DESC
   amount_ASC
   amount_DESC
   type_ASC
   type_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2924,6 +3117,7 @@ enum FixedCostOrderByInput {
 }
 
 type FixedCostPreviousValues {
+  id: ID!
   name: String
   amount: Float
   type: FixedCostType
@@ -2975,6 +3169,12 @@ enum FixedCostType {
   WEEKLY
 }
 
+input FixedCostUpdateDataInput {
+  name: String
+  amount: Float
+  type: FixedCostType
+}
+
 input FixedCostUpdateInput {
   name: String
   amount: Float
@@ -2983,6 +3183,22 @@ input FixedCostUpdateInput {
 
 input FixedCostUpdateManyInput {
   create: [FixedCostCreateInput!]
+  connect: [FixedCostWhereUniqueInput!]
+  disconnect: [FixedCostWhereUniqueInput!]
+  delete: [FixedCostWhereUniqueInput!]
+  update: [FixedCostUpdateWithWhereUniqueNestedInput!]
+  upsert: [FixedCostUpsertWithWhereUniqueNestedInput!]
+}
+
+input FixedCostUpdateWithWhereUniqueNestedInput {
+  where: FixedCostWhereUniqueInput!
+  data: FixedCostUpdateDataInput!
+}
+
+input FixedCostUpsertWithWhereUniqueNestedInput {
+  where: FixedCostWhereUniqueInput!
+  update: FixedCostUpdateDataInput!
+  create: FixedCostCreateInput!
 }
 
 input FixedCostWhereInput {
@@ -2994,6 +3210,46 @@ input FixedCostWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [FixedCostWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
   name: String
 
   """All values that are not equal to given value."""
@@ -3066,6 +3322,10 @@ input FixedCostWhereInput {
 
   """All values that are not contained in given list."""
   type_not_in: [FixedCostType!]
+}
+
+input FixedCostWhereUniqueInput {
+  id: ID
 }
 
 type GoodOrService implements Node {
@@ -5613,8 +5873,10 @@ type Mutation {
   updateCourseAssignment(data: CourseAssignmentUpdateInput!, where: CourseAssignmentWhereUniqueInput!): CourseAssignment
   updateTvEpisodeTransaction(data: TvEpisodeTransactionUpdateInput!, where: TvEpisodeTransactionWhereUniqueInput!): TvEpisodeTransaction
   updateTimeline(data: TimelineUpdateInput!, where: TimelineWhereUniqueInput!): Timeline
+  updateOverview(data: OverviewUpdateInput!, where: OverviewWhereUniqueInput!): Overview
   updateWeightHistoryItem(data: WeightHistoryItemUpdateInput!, where: WeightHistoryItemWhereUniqueInput!): WeightHistoryItem
   updateTvEpisode(data: TvEpisodeUpdateInput!, where: TvEpisodeWhereUniqueInput!): TvEpisode
+  updateBudget(data: BudgetUpdateInput!, where: BudgetWhereUniqueInput!): Budget
   updateFinanceGoals(data: FinanceGoalsUpdateInput!, where: FinanceGoalsWhereUniqueInput!): FinanceGoals
   updateTask(data: TaskUpdateInput!, where: TaskWhereUniqueInput!): Task
   updateMovie(data: MovieUpdateInput!, where: MovieWhereUniqueInput!): Movie
@@ -5624,7 +5886,10 @@ type Mutation {
   updateBookTransaction(data: BookTransactionUpdateInput!, where: BookTransactionWhereUniqueInput!): BookTransaction
   updateBook(data: BookUpdateInput!, where: BookWhereUniqueInput!): Book
   updateTvShow(data: TvShowUpdateInput!, where: TvShowWhereUniqueInput!): TvShow
+  updateEvent(data: EventUpdateInput!, where: EventWhereUniqueInput!): Event
   updateSchool(data: SchoolUpdateInput!, where: SchoolWhereUniqueInput!): School
+  updateAccount(data: AccountUpdateInput!, where: AccountWhereUniqueInput!): Account
+  updateFixedCost(data: FixedCostUpdateInput!, where: FixedCostWhereUniqueInput!): FixedCost
   updateGoodOrService(data: GoodOrServiceUpdateInput!, where: GoodOrServiceWhereUniqueInput!): GoodOrService
   updateMovieTransaction(data: MovieTransactionUpdateInput!, where: MovieTransactionWhereUniqueInput!): MovieTransaction
   updateHuman(data: HumanUpdateInput!, where: HumanWhereUniqueInput!): Human
@@ -5632,8 +5897,10 @@ type Mutation {
   deleteCourseAssignment(where: CourseAssignmentWhereUniqueInput!): CourseAssignment
   deleteTvEpisodeTransaction(where: TvEpisodeTransactionWhereUniqueInput!): TvEpisodeTransaction
   deleteTimeline(where: TimelineWhereUniqueInput!): Timeline
+  deleteOverview(where: OverviewWhereUniqueInput!): Overview
   deleteWeightHistoryItem(where: WeightHistoryItemWhereUniqueInput!): WeightHistoryItem
   deleteTvEpisode(where: TvEpisodeWhereUniqueInput!): TvEpisode
+  deleteBudget(where: BudgetWhereUniqueInput!): Budget
   deleteFinanceGoals(where: FinanceGoalsWhereUniqueInput!): FinanceGoals
   deleteTask(where: TaskWhereUniqueInput!): Task
   deleteMovie(where: MovieWhereUniqueInput!): Movie
@@ -5643,7 +5910,10 @@ type Mutation {
   deleteBookTransaction(where: BookTransactionWhereUniqueInput!): BookTransaction
   deleteBook(where: BookWhereUniqueInput!): Book
   deleteTvShow(where: TvShowWhereUniqueInput!): TvShow
+  deleteEvent(where: EventWhereUniqueInput!): Event
   deleteSchool(where: SchoolWhereUniqueInput!): School
+  deleteAccount(where: AccountWhereUniqueInput!): Account
+  deleteFixedCost(where: FixedCostWhereUniqueInput!): FixedCost
   deleteGoodOrService(where: GoodOrServiceWhereUniqueInput!): GoodOrService
   deleteMovieTransaction(where: MovieTransactionWhereUniqueInput!): MovieTransaction
   deleteHuman(where: HumanWhereUniqueInput!): Human
@@ -5651,8 +5921,10 @@ type Mutation {
   upsertCourseAssignment(where: CourseAssignmentWhereUniqueInput!, create: CourseAssignmentCreateInput!, update: CourseAssignmentUpdateInput!): CourseAssignment!
   upsertTvEpisodeTransaction(where: TvEpisodeTransactionWhereUniqueInput!, create: TvEpisodeTransactionCreateInput!, update: TvEpisodeTransactionUpdateInput!): TvEpisodeTransaction!
   upsertTimeline(where: TimelineWhereUniqueInput!, create: TimelineCreateInput!, update: TimelineUpdateInput!): Timeline!
+  upsertOverview(where: OverviewWhereUniqueInput!, create: OverviewCreateInput!, update: OverviewUpdateInput!): Overview!
   upsertWeightHistoryItem(where: WeightHistoryItemWhereUniqueInput!, create: WeightHistoryItemCreateInput!, update: WeightHistoryItemUpdateInput!): WeightHistoryItem!
   upsertTvEpisode(where: TvEpisodeWhereUniqueInput!, create: TvEpisodeCreateInput!, update: TvEpisodeUpdateInput!): TvEpisode!
+  upsertBudget(where: BudgetWhereUniqueInput!, create: BudgetCreateInput!, update: BudgetUpdateInput!): Budget!
   upsertFinanceGoals(where: FinanceGoalsWhereUniqueInput!, create: FinanceGoalsCreateInput!, update: FinanceGoalsUpdateInput!): FinanceGoals!
   upsertTask(where: TaskWhereUniqueInput!, create: TaskCreateInput!, update: TaskUpdateInput!): Task!
   upsertMovie(where: MovieWhereUniqueInput!, create: MovieCreateInput!, update: MovieUpdateInput!): Movie!
@@ -5662,7 +5934,10 @@ type Mutation {
   upsertBookTransaction(where: BookTransactionWhereUniqueInput!, create: BookTransactionCreateInput!, update: BookTransactionUpdateInput!): BookTransaction!
   upsertBook(where: BookWhereUniqueInput!, create: BookCreateInput!, update: BookUpdateInput!): Book!
   upsertTvShow(where: TvShowWhereUniqueInput!, create: TvShowCreateInput!, update: TvShowUpdateInput!): TvShow!
+  upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
   upsertSchool(where: SchoolWhereUniqueInput!, create: SchoolCreateInput!, update: SchoolUpdateInput!): School!
+  upsertAccount(where: AccountWhereUniqueInput!, create: AccountCreateInput!, update: AccountUpdateInput!): Account!
+  upsertFixedCost(where: FixedCostWhereUniqueInput!, create: FixedCostCreateInput!, update: FixedCostUpdateInput!): FixedCost!
   upsertGoodOrService(where: GoodOrServiceWhereUniqueInput!, create: GoodOrServiceCreateInput!, update: GoodOrServiceUpdateInput!): GoodOrService!
   upsertMovieTransaction(where: MovieTransactionWhereUniqueInput!, create: MovieTransactionCreateInput!, update: MovieTransactionUpdateInput!): MovieTransaction!
   upsertHuman(where: HumanWhereUniqueInput!, create: HumanCreateInput!, update: HumanUpdateInput!): Human!
@@ -5738,7 +6013,8 @@ interface Node {
   id: ID!
 }
 
-type Overview {
+type Overview implements Node {
+  id: ID!
   net_worth: Float!
   credit_score: Int
   income: Float!
@@ -5776,14 +6052,14 @@ type OverviewEdge {
 }
 
 enum OverviewOrderByInput {
+  id_ASC
+  id_DESC
   net_worth_ASC
   net_worth_DESC
   credit_score_ASC
   credit_score_DESC
   income_ASC
   income_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -5791,6 +6067,7 @@ enum OverviewOrderByInput {
 }
 
 type OverviewPreviousValues {
+  id: ID!
   net_worth: Float!
   credit_score: Int
   income: Float!
@@ -5853,6 +6130,46 @@ input OverviewWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [OverviewWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
   net_worth: Float
 
   """All values that are not equal to given value."""
@@ -5928,6 +6245,10 @@ input OverviewWhereInput {
   accounts_none: AccountWhereInput
 }
 
+input OverviewWhereUniqueInput {
+  id: ID
+}
+
 """Information about pagination in a connection."""
 type PageInfo {
   """When paginating forwards, are there more items?"""
@@ -5977,8 +6298,10 @@ type Query {
   courseAssignment(where: CourseAssignmentWhereUniqueInput!): CourseAssignment
   tvEpisodeTransaction(where: TvEpisodeTransactionWhereUniqueInput!): TvEpisodeTransaction
   timeline(where: TimelineWhereUniqueInput!): Timeline
+  overview(where: OverviewWhereUniqueInput!): Overview
   weightHistoryItem(where: WeightHistoryItemWhereUniqueInput!): WeightHistoryItem
   tvEpisode(where: TvEpisodeWhereUniqueInput!): TvEpisode
+  budget(where: BudgetWhereUniqueInput!): Budget
   financeGoals(where: FinanceGoalsWhereUniqueInput!): FinanceGoals
   task(where: TaskWhereUniqueInput!): Task
   movie(where: MovieWhereUniqueInput!): Movie
@@ -5988,7 +6311,10 @@ type Query {
   bookTransaction(where: BookTransactionWhereUniqueInput!): BookTransaction
   book(where: BookWhereUniqueInput!): Book
   tvShow(where: TvShowWhereUniqueInput!): TvShow
+  event(where: EventWhereUniqueInput!): Event
   school(where: SchoolWhereUniqueInput!): School
+  account(where: AccountWhereUniqueInput!): Account
+  fixedCost(where: FixedCostWhereUniqueInput!): FixedCost
   goodOrService(where: GoodOrServiceWhereUniqueInput!): GoodOrService
   movieTransaction(where: MovieTransactionWhereUniqueInput!): MovieTransaction
   human(where: HumanWhereUniqueInput!): Human
@@ -6632,6 +6958,7 @@ input TaskWhereUniqueInput {
 type Timeline implements Node {
   id: ID!
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
+  belongs_to(where: HumanWhereInput): Human!
 }
 
 """A connection to a list of items."""
@@ -6646,6 +6973,7 @@ type TimelineConnection {
 
 input TimelineCreateInput {
   events: EventCreateManyInput
+  belongs_to: HumanCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -6711,6 +7039,7 @@ input TimelineSubscriptionWhereInput {
 
 input TimelineUpdateInput {
   events: EventUpdateManyInput
+  belongs_to: HumanUpdateOneInput
 }
 
 input TimelineWhereInput {
@@ -6765,6 +7094,7 @@ input TimelineWhereInput {
   events_every: EventWhereInput
   events_some: EventWhereInput
   events_none: EventWhereInput
+  belongs_to: HumanWhereInput
 }
 
 input TimelineWhereUniqueInput {
@@ -6780,6 +7110,7 @@ type Transaction implements Node {
   splits(where: TransactionSplitWhereInput, orderBy: TransactionSplitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TransactionSplit!]
   location(where: LocationWhereInput): Location
   items(where: GoodOrServiceWhereInput, orderBy: GoodOrServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GoodOrService!]
+  with(where: HumanWhereInput, orderBy: HumanOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Human!]
   event(where: EventWhereInput): Event
 }
 
@@ -6801,6 +7132,7 @@ input TransactionCreateInput {
   splits: TransactionSplitCreateManyInput
   location: LocationCreateOneInput
   items: GoodOrServiceCreateManyWithoutTransactionInput
+  with: HumanCreateManyInput
   event: EventCreateOneInput
 }
 
@@ -6821,6 +7153,7 @@ input TransactionCreateWithoutItemsInput {
   category: String!
   splits: TransactionSplitCreateManyInput
   location: LocationCreateOneInput
+  with: HumanCreateManyInput
   event: EventCreateOneInput
 }
 
@@ -6859,7 +7192,7 @@ type TransactionPreviousValues {
 }
 
 type TransactionSplit {
-  person: ID!
+  human(where: HumanWhereInput): Human!
   percentage: Float
   amount: Float
   pending: Boolean
@@ -6876,10 +7209,10 @@ type TransactionSplitConnection {
 }
 
 input TransactionSplitCreateInput {
-  person: ID!
   percentage: Float
   amount: Float
   pending: Boolean
+  human: HumanCreateOneInput!
 }
 
 input TransactionSplitCreateManyInput {
@@ -6896,8 +7229,6 @@ type TransactionSplitEdge {
 }
 
 enum TransactionSplitOrderByInput {
-  person_ASC
-  person_DESC
   percentage_ASC
   percentage_DESC
   amount_ASC
@@ -6913,7 +7244,6 @@ enum TransactionSplitOrderByInput {
 }
 
 type TransactionSplitPreviousValues {
-  person: ID!
   percentage: Float
   amount: Float
   pending: Boolean
@@ -6959,10 +7289,10 @@ input TransactionSplitSubscriptionWhereInput {
 }
 
 input TransactionSplitUpdateInput {
-  person: ID
   percentage: Float
   amount: Float
   pending: Boolean
+  human: HumanUpdateOneInput
 }
 
 input TransactionSplitUpdateManyInput {
@@ -6978,46 +7308,6 @@ input TransactionSplitWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [TransactionSplitWhereInput!]
-  person: ID
-
-  """All values that are not equal to given value."""
-  person_not: ID
-
-  """All values that are contained in given list."""
-  person_in: [ID!]
-
-  """All values that are not contained in given list."""
-  person_not_in: [ID!]
-
-  """All values less than the given value."""
-  person_lt: ID
-
-  """All values less than or equal the given value."""
-  person_lte: ID
-
-  """All values greater than the given value."""
-  person_gt: ID
-
-  """All values greater than or equal the given value."""
-  person_gte: ID
-
-  """All values containing the given string."""
-  person_contains: ID
-
-  """All values not containing the given string."""
-  person_not_contains: ID
-
-  """All values starting with the given string."""
-  person_starts_with: ID
-
-  """All values not starting with the given string."""
-  person_not_starts_with: ID
-
-  """All values ending with the given string."""
-  person_ends_with: ID
-
-  """All values not ending with the given string."""
-  person_not_ends_with: ID
   percentage: Float
 
   """All values that are not equal to given value."""
@@ -7066,6 +7356,7 @@ input TransactionSplitWhereInput {
 
   """All values that are not equal to given value."""
   pending_not: Boolean
+  human: HumanWhereInput
 }
 
 type TransactionSubscriptionPayload {
@@ -7115,6 +7406,7 @@ input TransactionUpdateDataInput {
   splits: TransactionSplitUpdateManyInput
   location: LocationUpdateOneInput
   items: GoodOrServiceUpdateManyWithoutTransactionInput
+  with: HumanUpdateManyInput
   event: EventUpdateOneInput
 }
 
@@ -7126,6 +7418,7 @@ input TransactionUpdateInput {
   splits: TransactionSplitUpdateManyInput
   location: LocationUpdateOneInput
   items: GoodOrServiceUpdateManyWithoutTransactionInput
+  with: HumanUpdateManyInput
   event: EventUpdateOneInput
 }
 
@@ -7154,6 +7447,7 @@ input TransactionUpdateWithoutItemsDataInput {
   category: String
   splits: TransactionSplitUpdateManyInput
   location: LocationUpdateOneInput
+  with: HumanUpdateManyInput
   event: EventUpdateOneInput
 }
 
@@ -7371,6 +7665,9 @@ input TransactionWhereInput {
   items_every: GoodOrServiceWhereInput
   items_some: GoodOrServiceWhereInput
   items_none: GoodOrServiceWhereInput
+  with_every: HumanWhereInput
+  with_some: HumanWhereInput
+  with_none: HumanWhereInput
   event: EventWhereInput
 }
 
