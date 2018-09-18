@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "betterScripts": {
     "server:dev": {
-      "command": "node server/apollo-server",
+      "command": "nodemon",
       "env": {
-        "DATABASE_URI": "mongodb://localhost/backpack-dev",
         "NODE_ENV": "development",
-        "SERVER_HOST": "localhost",
-        "SERVER_PORT": 3003
+        "PRISMA_SECRET": "my-secret-secret",
+        "PRISMA_ENDPOINT": "http://localhost:4466"
       }
     }
   },
@@ -54,11 +53,10 @@
   "repository": "http://github.com/theponti/backpack",
   "scripts": {
     "console": "node bin/console",
-    "dev": "better-npm-run server:dev",
     "format": "prettier-standard 'server/**/*.js'",
     "precommit": "pretty-quick --lint-staged",
     "start": "node build/server.js",
-    "start:debug": "NODE_ENV=development nodemon",
+    "start:dev": "better-npm-run server:dev",
     "prisma:rebuild": "prisma deploy && graphql get-schema --project prisma"
   }
 }
