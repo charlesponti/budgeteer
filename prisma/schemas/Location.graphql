@@ -1,7 +1,9 @@
 type Location {
-  longitude: Float!
-  latitude: Float!
-  address: String!
-  type: String
-  name: String!
+    id: ID! @unique
+    longitude: Float!
+    latitude: Float!
+    address: String!
+    type: String
+    name: String!
+    events: [Event!]! @relation(name: "LocationEvents")
 }

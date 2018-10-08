@@ -1,7 +1,9 @@
-import { GraphQLServer } from "graphql-yoga";
-import { Prisma } from "prisma-binding";
+import * as express from "express";
+import * as path from "path";
 import * as winston from "winston";
-import { Mutation } from "./mutations";
+import { prisma } from "./prisma-client";
+
+const app = express();
 
 const logger = winston.createLogger({
     format: winston.format.json(),
@@ -11,8 +13,11 @@ const logger = winston.createLogger({
         // - Write to all logs with level `info` and below to `combined.log`
         // - Write all logs error (and below) to `error.log`.
         //
-        new winston.transports.File({ filename: "error.log", level: "error" }),
-        new winston.transports.File({ filename: "combined.log" })
+        new winston.transports.File({
+            filename: "logs/error.log",
+            level: "error"
+        }),
+        new winston.transports.File({ filename: "logs/combined.log" })
     ]
 });
 
@@ -28,28 +33,16 @@ if (process.env.NODE_ENV !== "production") {
     );
 }
 
-const resolvers = {
-    Mutation,
-    Query: {
-        humans: (_, args, context, info) => {
-            return context.prisma.query.humans({}, info);
-        }
-    }
-};
-
-const server = new GraphQLServer({
-    context: req => ({
-        ...req,
-        prisma: new Prisma({
-            endpoint: process.env.PRISMA_ENDPOINT,
-            secret: process.env.PRISMA_SECRET,
-            typeDefs: "src/generated/prisma.graphql"
-        })
-    }),
-    resolvers,
-    typeDefs: "src/schema.graphql"
+app.post("/api/events", async (req, res) => {
+    const events = await prisma.events({ where: { date_lte: "2018-10-01" } });
+    res.json(events);
 });
 
-server.start(() =>
-    logger.info(`🚀 GraphQL server is running on http://localhost:4000 🚀`)
+const staticDir = path.resolve(
+    __dirname,
+    "../../backpack-ui/dist/backpack-ui/"
 );
+app.use(express.static(staticDir));
+app.use("*", express.static(staticDir));
+
+app.listen(4200, () => logger.info(`🚀 GraphQL server is running 🚀`));

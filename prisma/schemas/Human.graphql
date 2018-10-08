@@ -23,7 +23,7 @@ type Human {
     tv_shows: [TvEpisodeTransaction!]!
 
     # {name: 'The Big Short', watched: Boolean, DateTime!: '2016-03-30T00:00'}
-    movies: [MovieTransaction!]! @relation(name: "MoviesWatchedByHuman")
+    movies: [MovieTransaction!]!
 
     "Books the human as read or wants to read"
     books: [BookTransaction!]!

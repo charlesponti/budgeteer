@@ -1,20 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["es6", "dom"],
+    "lib": ["es6", "dom", "es2015", "esnext.asynciterable"],
     "module": "commonjs",
-    "target": "es5",
-    "noImplicitAny": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "noUnusedLocals": false,
     "sourceMap": true,
-    "declaration": true,
-    "rootDir": ".",
     "outDir": "dist",
-    "allowSyntheticDefaultImports": true,
-    "removeComments": true,
-    "experimentalDecorators": true,
-    "skipLibCheck": true
+    "removeComments": true
   },
-  "include": ["index.ts", "test.ts", "lib/**/*", "spec/**/*"]
+  "include": ["src/**/*", "test.ts", "lib/**/*", "spec/**/*"]
 }

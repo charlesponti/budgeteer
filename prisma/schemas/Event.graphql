@@ -9,7 +9,9 @@ enum EventType {
     THOUGHT,
     MOVIE,
     SEX,
-    DINING_OUT
+    DINING_OUT,
+    HOLIDAY,
+    ANNIVERSARY
 }
 
 type Event {

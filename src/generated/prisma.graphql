@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Sat Sep 15 2018 20:17:03 GMT+0100 (BST)
+# timestamp: Sun Oct 07 2018 21:21:47 GMT-0400 (EDT)
 
 type Account implements Node {
   id: ID!
@@ -288,6 +288,10 @@ type AggregateEvent {
   count: Int!
 }
 
+type AggregateFavorite {
+  count: Int!
+}
+
 type AggregateFinanceGoals {
   count: Int!
 }
@@ -301,10 +305,6 @@ type AggregateGoodOrService {
 }
 
 type AggregateHuman {
-  count: Int!
-}
-
-type AggregateHumanFavorite {
   count: Int!
 }
 
@@ -2513,7 +2513,7 @@ input EventCreateInput {
   date: DateTime!
   type: EventType!
   description: String
-  location: LocationCreateOneInput!
+  location: LocationCreateOneWithoutEventsInput!
   with: HumanCreateManyInput
 }
 
@@ -2522,9 +2522,21 @@ input EventCreateManyInput {
   connect: [EventWhereUniqueInput!]
 }
 
+input EventCreateManyWithoutLocationInput {
+  create: [EventCreateWithoutLocationInput!]
+  connect: [EventWhereUniqueInput!]
+}
+
 input EventCreateOneInput {
   create: EventCreateInput
   connect: EventWhereUniqueInput
+}
+
+input EventCreateWithoutLocationInput {
+  date: DateTime!
+  type: EventType!
+  description: String
+  with: HumanCreateManyInput
 }
 
 """An edge in a connection."""
@@ -2603,13 +2615,15 @@ enum EventType {
   MOVIE
   SEX
   DINING_OUT
+  HOLIDAY
+  ANNIVERSARY
 }
 
 input EventUpdateDataInput {
   date: DateTime
   type: EventType
   description: String
-  location: LocationUpdateOneInput
+  location: LocationUpdateOneWithoutEventsInput
   with: HumanUpdateManyInput
 }
 
@@ -2617,7 +2631,7 @@ input EventUpdateInput {
   date: DateTime
   type: EventType
   description: String
-  location: LocationUpdateOneInput
+  location: LocationUpdateOneWithoutEventsInput
   with: HumanUpdateManyInput
 }
 
@@ -2630,6 +2644,15 @@ input EventUpdateManyInput {
   upsert: [EventUpsertWithWhereUniqueNestedInput!]
 }
 
+input EventUpdateManyWithoutLocationInput {
+  create: [EventCreateWithoutLocationInput!]
+  connect: [EventWhereUniqueInput!]
+  disconnect: [EventWhereUniqueInput!]
+  delete: [EventWhereUniqueInput!]
+  update: [EventUpdateWithWhereUniqueWithoutLocationInput!]
+  upsert: [EventUpsertWithWhereUniqueWithoutLocationInput!]
+}
+
 input EventUpdateOneInput {
   create: EventCreateInput
   connect: EventWhereUniqueInput
@@ -2639,9 +2662,21 @@ input EventUpdateOneInput {
   upsert: EventUpsertNestedInput
 }
 
+input EventUpdateWithoutLocationDataInput {
+  date: DateTime
+  type: EventType
+  description: String
+  with: HumanUpdateManyInput
+}
+
 input EventUpdateWithWhereUniqueNestedInput {
   where: EventWhereUniqueInput!
   data: EventUpdateDataInput!
+}
+
+input EventUpdateWithWhereUniqueWithoutLocationInput {
+  where: EventWhereUniqueInput!
+  data: EventUpdateWithoutLocationDataInput!
 }
 
 input EventUpsertNestedInput {
@@ -2653,6 +2688,12 @@ input EventUpsertWithWhereUniqueNestedInput {
   where: EventWhereUniqueInput!
   update: EventUpdateDataInput!
   create: EventCreateInput!
+}
+
+input EventUpsertWithWhereUniqueWithoutLocationInput {
+  where: EventWhereUniqueInput!
+  update: EventUpdateWithoutLocationDataInput!
+  create: EventCreateWithoutLocationInput!
 }
 
 input EventWhereInput {
@@ -2786,6 +2827,41 @@ input EventWhereUniqueInput {
   id: ID
 }
 
+type Favorite implements Node {
+  id: ID!
+  kind: FavoriteKind!
+  thing: ID!
+}
+
+"""A connection to a list of items."""
+type FavoriteConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [FavoriteEdge]!
+  aggregate: AggregateFavorite!
+}
+
+input FavoriteCreateInput {
+  kind: FavoriteKind!
+  thing: ID!
+}
+
+input FavoriteCreateManyInput {
+  create: [FavoriteCreateInput!]
+  connect: [FavoriteWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type FavoriteEdge {
+  """The item at the end of the edge."""
+  node: Favorite!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
 enum FavoriteKind {
   COLOR
   FLOWER
@@ -2793,6 +2869,199 @@ enum FavoriteKind {
   BOOK
   SONG
   MUSIC_ALBUM
+}
+
+enum FavoriteOrderByInput {
+  id_ASC
+  id_DESC
+  kind_ASC
+  kind_DESC
+  thing_ASC
+  thing_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type FavoritePreviousValues {
+  id: ID!
+  kind: FavoriteKind!
+  thing: ID!
+}
+
+type FavoriteSubscriptionPayload {
+  mutation: MutationType!
+  node: Favorite
+  updatedFields: [String!]
+  previousValues: FavoritePreviousValues
+}
+
+input FavoriteSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FavoriteSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FavoriteSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FavoriteSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FavoriteWhereInput
+}
+
+input FavoriteUpdateDataInput {
+  kind: FavoriteKind
+  thing: ID
+}
+
+input FavoriteUpdateInput {
+  kind: FavoriteKind
+  thing: ID
+}
+
+input FavoriteUpdateManyInput {
+  create: [FavoriteCreateInput!]
+  connect: [FavoriteWhereUniqueInput!]
+  disconnect: [FavoriteWhereUniqueInput!]
+  delete: [FavoriteWhereUniqueInput!]
+  update: [FavoriteUpdateWithWhereUniqueNestedInput!]
+  upsert: [FavoriteUpsertWithWhereUniqueNestedInput!]
+}
+
+input FavoriteUpdateWithWhereUniqueNestedInput {
+  where: FavoriteWhereUniqueInput!
+  data: FavoriteUpdateDataInput!
+}
+
+input FavoriteUpsertWithWhereUniqueNestedInput {
+  where: FavoriteWhereUniqueInput!
+  update: FavoriteUpdateDataInput!
+  create: FavoriteCreateInput!
+}
+
+input FavoriteWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FavoriteWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FavoriteWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FavoriteWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  kind: FavoriteKind
+
+  """All values that are not equal to given value."""
+  kind_not: FavoriteKind
+
+  """All values that are contained in given list."""
+  kind_in: [FavoriteKind!]
+
+  """All values that are not contained in given list."""
+  kind_not_in: [FavoriteKind!]
+  thing: ID
+
+  """All values that are not equal to given value."""
+  thing_not: ID
+
+  """All values that are contained in given list."""
+  thing_in: [ID!]
+
+  """All values that are not contained in given list."""
+  thing_not_in: [ID!]
+
+  """All values less than the given value."""
+  thing_lt: ID
+
+  """All values less than or equal the given value."""
+  thing_lte: ID
+
+  """All values greater than the given value."""
+  thing_gt: ID
+
+  """All values greater than or equal the given value."""
+  thing_gte: ID
+
+  """All values containing the given string."""
+  thing_contains: ID
+
+  """All values not containing the given string."""
+  thing_not_contains: ID
+
+  """All values starting with the given string."""
+  thing_starts_with: ID
+
+  """All values not starting with the given string."""
+  thing_not_starts_with: ID
+
+  """All values ending with the given string."""
+  thing_ends_with: ID
+
+  """All values not ending with the given string."""
+  thing_not_ends_with: ID
+}
+
+input FavoriteWhereUniqueInput {
+  id: ID
 }
 
 type FinanceGoals implements Node {
@@ -3774,7 +4043,7 @@ type Human implements Node {
   last_name: String
   middle_name: String
   birthday: String
-  favourites(where: HumanFavoriteWhereInput, orderBy: HumanFavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [HumanFavorite!]
+  favorites(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Favorite!]
   wish_list(where: GoodOrServiceWhereInput, orderBy: GoodOrServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GoodOrService!]
   contact(where: ContactInfoWhereInput): ContactInfo
   education(where: EducationWhereInput): Education
@@ -3816,7 +4085,7 @@ input HumanCreateInput {
   birthday: String
   height: Float
   weight: Float
-  favourites: HumanFavoriteCreateManyInput
+  favorites: FavoriteCreateManyInput
   wish_list: GoodOrServiceCreateManyInput
   contact: ContactInfoCreateOneWithoutHumanInput
   education: EducationCreateOneInput
@@ -3881,7 +4150,7 @@ input HumanCreateWithoutActed_inInput {
   birthday: String
   height: Float
   weight: Float
-  favourites: HumanFavoriteCreateManyInput
+  favorites: FavoriteCreateManyInput
   wish_list: GoodOrServiceCreateManyInput
   contact: ContactInfoCreateOneWithoutHumanInput
   education: EducationCreateOneInput
@@ -3910,7 +4179,7 @@ input HumanCreateWithoutContactInput {
   birthday: String
   height: Float
   weight: Float
-  favourites: HumanFavoriteCreateManyInput
+  favorites: FavoriteCreateManyInput
   wish_list: GoodOrServiceCreateManyInput
   education: EducationCreateOneInput
   tasks: TaskCreateManyInput
@@ -3939,7 +4208,7 @@ input HumanCreateWithoutDirectedInput {
   birthday: String
   height: Float
   weight: Float
-  favourites: HumanFavoriteCreateManyInput
+  favorites: FavoriteCreateManyInput
   wish_list: GoodOrServiceCreateManyInput
   contact: ContactInfoCreateOneWithoutHumanInput
   education: EducationCreateOneInput
@@ -3968,7 +4237,7 @@ input HumanCreateWithoutTv_showsInput {
   birthday: String
   height: Float
   weight: Float
-  favourites: HumanFavoriteCreateManyInput
+  favorites: FavoriteCreateManyInput
   wish_list: GoodOrServiceCreateManyInput
   contact: ContactInfoCreateOneWithoutHumanInput
   education: EducationCreateOneInput
@@ -3997,7 +4266,7 @@ input HumanCreateWithoutWeight_historyInput {
   birthday: String
   height: Float
   weight: Float
-  favourites: HumanFavoriteCreateManyInput
+  favorites: FavoriteCreateManyInput
   wish_list: GoodOrServiceCreateManyInput
   contact: ContactInfoCreateOneWithoutHumanInput
   education: EducationCreateOneInput
@@ -4026,239 +4295,6 @@ type HumanEdge {
 
   """A cursor for use in pagination."""
   cursor: String!
-}
-
-type HumanFavorite implements Node {
-  id: ID!
-  kind: FavoriteKind!
-  thing: ID!
-  human(where: HumanWhereInput): Human!
-}
-
-"""A connection to a list of items."""
-type HumanFavoriteConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [HumanFavoriteEdge]!
-  aggregate: AggregateHumanFavorite!
-}
-
-input HumanFavoriteCreateInput {
-  kind: FavoriteKind!
-  thing: ID!
-  human: HumanCreateOneInput!
-}
-
-input HumanFavoriteCreateManyInput {
-  create: [HumanFavoriteCreateInput!]
-  connect: [HumanFavoriteWhereUniqueInput!]
-}
-
-"""An edge in a connection."""
-type HumanFavoriteEdge {
-  """The item at the end of the edge."""
-  node: HumanFavorite!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum HumanFavoriteOrderByInput {
-  id_ASC
-  id_DESC
-  kind_ASC
-  kind_DESC
-  thing_ASC
-  thing_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type HumanFavoritePreviousValues {
-  id: ID!
-  kind: FavoriteKind!
-  thing: ID!
-}
-
-type HumanFavoriteSubscriptionPayload {
-  mutation: MutationType!
-  node: HumanFavorite
-  updatedFields: [String!]
-  previousValues: HumanFavoritePreviousValues
-}
-
-input HumanFavoriteSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [HumanFavoriteSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [HumanFavoriteSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [HumanFavoriteSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: HumanFavoriteWhereInput
-}
-
-input HumanFavoriteUpdateDataInput {
-  kind: FavoriteKind
-  thing: ID
-  human: HumanUpdateOneInput
-}
-
-input HumanFavoriteUpdateInput {
-  kind: FavoriteKind
-  thing: ID
-  human: HumanUpdateOneInput
-}
-
-input HumanFavoriteUpdateManyInput {
-  create: [HumanFavoriteCreateInput!]
-  connect: [HumanFavoriteWhereUniqueInput!]
-  disconnect: [HumanFavoriteWhereUniqueInput!]
-  delete: [HumanFavoriteWhereUniqueInput!]
-  update: [HumanFavoriteUpdateWithWhereUniqueNestedInput!]
-  upsert: [HumanFavoriteUpsertWithWhereUniqueNestedInput!]
-}
-
-input HumanFavoriteUpdateWithWhereUniqueNestedInput {
-  where: HumanFavoriteWhereUniqueInput!
-  data: HumanFavoriteUpdateDataInput!
-}
-
-input HumanFavoriteUpsertWithWhereUniqueNestedInput {
-  where: HumanFavoriteWhereUniqueInput!
-  update: HumanFavoriteUpdateDataInput!
-  create: HumanFavoriteCreateInput!
-}
-
-input HumanFavoriteWhereInput {
-  """Logical AND on all given filters."""
-  AND: [HumanFavoriteWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [HumanFavoriteWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [HumanFavoriteWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  kind: FavoriteKind
-
-  """All values that are not equal to given value."""
-  kind_not: FavoriteKind
-
-  """All values that are contained in given list."""
-  kind_in: [FavoriteKind!]
-
-  """All values that are not contained in given list."""
-  kind_not_in: [FavoriteKind!]
-  thing: ID
-
-  """All values that are not equal to given value."""
-  thing_not: ID
-
-  """All values that are contained in given list."""
-  thing_in: [ID!]
-
-  """All values that are not contained in given list."""
-  thing_not_in: [ID!]
-
-  """All values less than the given value."""
-  thing_lt: ID
-
-  """All values less than or equal the given value."""
-  thing_lte: ID
-
-  """All values greater than the given value."""
-  thing_gt: ID
-
-  """All values greater than or equal the given value."""
-  thing_gte: ID
-
-  """All values containing the given string."""
-  thing_contains: ID
-
-  """All values not containing the given string."""
-  thing_not_contains: ID
-
-  """All values starting with the given string."""
-  thing_starts_with: ID
-
-  """All values not starting with the given string."""
-  thing_not_starts_with: ID
-
-  """All values ending with the given string."""
-  thing_ends_with: ID
-
-  """All values not ending with the given string."""
-  thing_not_ends_with: ID
-  human: HumanWhereInput
-}
-
-input HumanFavoriteWhereUniqueInput {
-  id: ID
 }
 
 enum HumanOrderByInput {
@@ -4338,7 +4374,7 @@ input HumanUpdateDataInput {
   birthday: String
   height: Float
   weight: Float
-  favourites: HumanFavoriteUpdateManyInput
+  favorites: FavoriteUpdateManyInput
   wish_list: GoodOrServiceUpdateManyInput
   contact: ContactInfoUpdateOneWithoutHumanInput
   education: EducationUpdateOneInput
@@ -4368,7 +4404,7 @@ input HumanUpdateInput {
   birthday: String
   height: Float
   weight: Float
-  favourites: HumanFavoriteUpdateManyInput
+  favorites: FavoriteUpdateManyInput
   wish_list: GoodOrServiceUpdateManyInput
   contact: ContactInfoUpdateOneWithoutHumanInput
   education: EducationUpdateOneInput
@@ -4412,6 +4448,7 @@ input HumanUpdateManyWithoutActed_inInput {
 input HumanUpdateOneInput {
   create: HumanCreateInput
   connect: HumanWhereUniqueInput
+  disconnect: Boolean
   delete: Boolean
   update: HumanUpdateDataInput
   upsert: HumanUpsertNestedInput
@@ -4457,7 +4494,7 @@ input HumanUpdateWithoutActed_inDataInput {
   birthday: String
   height: Float
   weight: Float
-  favourites: HumanFavoriteUpdateManyInput
+  favorites: FavoriteUpdateManyInput
   wish_list: GoodOrServiceUpdateManyInput
   contact: ContactInfoUpdateOneWithoutHumanInput
   education: EducationUpdateOneInput
@@ -4486,7 +4523,7 @@ input HumanUpdateWithoutContactDataInput {
   birthday: String
   height: Float
   weight: Float
-  favourites: HumanFavoriteUpdateManyInput
+  favorites: FavoriteUpdateManyInput
   wish_list: GoodOrServiceUpdateManyInput
   education: EducationUpdateOneInput
   tasks: TaskUpdateManyInput
@@ -4515,7 +4552,7 @@ input HumanUpdateWithoutDirectedDataInput {
   birthday: String
   height: Float
   weight: Float
-  favourites: HumanFavoriteUpdateManyInput
+  favorites: FavoriteUpdateManyInput
   wish_list: GoodOrServiceUpdateManyInput
   contact: ContactInfoUpdateOneWithoutHumanInput
   education: EducationUpdateOneInput
@@ -4544,7 +4581,7 @@ input HumanUpdateWithoutTv_showsDataInput {
   birthday: String
   height: Float
   weight: Float
-  favourites: HumanFavoriteUpdateManyInput
+  favorites: FavoriteUpdateManyInput
   wish_list: GoodOrServiceUpdateManyInput
   contact: ContactInfoUpdateOneWithoutHumanInput
   education: EducationUpdateOneInput
@@ -4573,7 +4610,7 @@ input HumanUpdateWithoutWeight_historyDataInput {
   birthday: String
   height: Float
   weight: Float
-  favourites: HumanFavoriteUpdateManyInput
+  favorites: FavoriteUpdateManyInput
   wish_list: GoodOrServiceUpdateManyInput
   contact: ContactInfoUpdateOneWithoutHumanInput
   education: EducationUpdateOneInput
@@ -4895,9 +4932,9 @@ input HumanWhereInput {
 
   """All values greater than or equal the given value."""
   weight_gte: Float
-  favourites_every: HumanFavoriteWhereInput
-  favourites_some: HumanFavoriteWhereInput
-  favourites_none: HumanFavoriteWhereInput
+  favorites_every: FavoriteWhereInput
+  favorites_some: FavoriteWhereInput
+  favorites_none: FavoriteWhereInput
   wish_list_every: GoodOrServiceWhereInput
   wish_list_some: GoodOrServiceWhereInput
   wish_list_none: GoodOrServiceWhereInput
@@ -4962,6 +4999,7 @@ type Location {
   address: String!
   type: String
   name: String!
+  events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
 }
 
 """A connection to a list of items."""
@@ -4980,10 +5018,23 @@ input LocationCreateInput {
   address: String!
   type: String
   name: String!
+  events: EventCreateManyWithoutLocationInput
 }
 
 input LocationCreateOneInput {
   create: LocationCreateInput
+}
+
+input LocationCreateOneWithoutEventsInput {
+  create: LocationCreateWithoutEventsInput
+}
+
+input LocationCreateWithoutEventsInput {
+  longitude: Float!
+  latitude: Float!
+  address: String!
+  type: String
+  name: String!
 }
 
 """An edge in a connection."""
@@ -5067,6 +5118,7 @@ input LocationUpdateDataInput {
   address: String
   type: String
   name: String
+  events: EventUpdateManyWithoutLocationInput
 }
 
 input LocationUpdateInput {
@@ -5075,6 +5127,7 @@ input LocationUpdateInput {
   address: String
   type: String
   name: String
+  events: EventUpdateManyWithoutLocationInput
 }
 
 input LocationUpdateOneInput {
@@ -5085,9 +5138,29 @@ input LocationUpdateOneInput {
   upsert: LocationUpsertNestedInput
 }
 
+input LocationUpdateOneWithoutEventsInput {
+  create: LocationCreateWithoutEventsInput
+  delete: Boolean
+  update: LocationUpdateWithoutEventsDataInput
+  upsert: LocationUpsertWithoutEventsInput
+}
+
+input LocationUpdateWithoutEventsDataInput {
+  longitude: Float
+  latitude: Float
+  address: String
+  type: String
+  name: String
+}
+
 input LocationUpsertNestedInput {
   update: LocationUpdateDataInput!
   create: LocationCreateInput!
+}
+
+input LocationUpsertWithoutEventsInput {
+  update: LocationUpdateWithoutEventsDataInput!
+  create: LocationCreateWithoutEventsInput!
 }
 
 input LocationWhereInput {
@@ -5263,6 +5336,9 @@ input LocationWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  events_every: EventWhereInput
+  events_some: EventWhereInput
+  events_none: EventWhereInput
 }
 
 """
@@ -5853,21 +5929,21 @@ type Mutation {
   createFinanceGoals(data: FinanceGoalsCreateInput!): FinanceGoals!
   createTask(data: TaskCreateInput!): Task!
   createMovie(data: MovieCreateInput!): Movie!
-  createHumanFavorite(data: HumanFavoriteCreateInput!): HumanFavorite!
   createTransaction(data: TransactionCreateInput!): Transaction!
   createEducation(data: EducationCreateInput!): Education!
   createBookTransaction(data: BookTransactionCreateInput!): BookTransaction!
   createTransactionSplit(data: TransactionSplitCreateInput!): TransactionSplit!
   createBook(data: BookCreateInput!): Book!
   createCourse(data: CourseCreateInput!): Course!
+  createMovieTransaction(data: MovieTransactionCreateInput!): MovieTransaction!
   createTvShow(data: TvShowCreateInput!): TvShow!
+  createFavorite(data: FavoriteCreateInput!): Favorite!
   createEvent(data: EventCreateInput!): Event!
+  createLocation(data: LocationCreateInput!): Location!
   createSchool(data: SchoolCreateInput!): School!
   createAccount(data: AccountCreateInput!): Account!
   createFixedCost(data: FixedCostCreateInput!): FixedCost!
   createGoodOrService(data: GoodOrServiceCreateInput!): GoodOrService!
-  createMovieTransaction(data: MovieTransactionCreateInput!): MovieTransaction!
-  createLocation(data: LocationCreateInput!): Location!
   createHuman(data: HumanCreateInput!): Human!
   updateCourseLecture(data: CourseLectureUpdateInput!, where: CourseLectureWhereUniqueInput!): CourseLecture
   updateCourseAssignment(data: CourseAssignmentUpdateInput!, where: CourseAssignmentWhereUniqueInput!): CourseAssignment
@@ -5880,18 +5956,18 @@ type Mutation {
   updateFinanceGoals(data: FinanceGoalsUpdateInput!, where: FinanceGoalsWhereUniqueInput!): FinanceGoals
   updateTask(data: TaskUpdateInput!, where: TaskWhereUniqueInput!): Task
   updateMovie(data: MovieUpdateInput!, where: MovieWhereUniqueInput!): Movie
-  updateHumanFavorite(data: HumanFavoriteUpdateInput!, where: HumanFavoriteWhereUniqueInput!): HumanFavorite
   updateTransaction(data: TransactionUpdateInput!, where: TransactionWhereUniqueInput!): Transaction
   updateEducation(data: EducationUpdateInput!, where: EducationWhereUniqueInput!): Education
   updateBookTransaction(data: BookTransactionUpdateInput!, where: BookTransactionWhereUniqueInput!): BookTransaction
   updateBook(data: BookUpdateInput!, where: BookWhereUniqueInput!): Book
+  updateMovieTransaction(data: MovieTransactionUpdateInput!, where: MovieTransactionWhereUniqueInput!): MovieTransaction
   updateTvShow(data: TvShowUpdateInput!, where: TvShowWhereUniqueInput!): TvShow
+  updateFavorite(data: FavoriteUpdateInput!, where: FavoriteWhereUniqueInput!): Favorite
   updateEvent(data: EventUpdateInput!, where: EventWhereUniqueInput!): Event
   updateSchool(data: SchoolUpdateInput!, where: SchoolWhereUniqueInput!): School
   updateAccount(data: AccountUpdateInput!, where: AccountWhereUniqueInput!): Account
   updateFixedCost(data: FixedCostUpdateInput!, where: FixedCostWhereUniqueInput!): FixedCost
   updateGoodOrService(data: GoodOrServiceUpdateInput!, where: GoodOrServiceWhereUniqueInput!): GoodOrService
-  updateMovieTransaction(data: MovieTransactionUpdateInput!, where: MovieTransactionWhereUniqueInput!): MovieTransaction
   updateHuman(data: HumanUpdateInput!, where: HumanWhereUniqueInput!): Human
   deleteCourseLecture(where: CourseLectureWhereUniqueInput!): CourseLecture
   deleteCourseAssignment(where: CourseAssignmentWhereUniqueInput!): CourseAssignment
@@ -5904,18 +5980,18 @@ type Mutation {
   deleteFinanceGoals(where: FinanceGoalsWhereUniqueInput!): FinanceGoals
   deleteTask(where: TaskWhereUniqueInput!): Task
   deleteMovie(where: MovieWhereUniqueInput!): Movie
-  deleteHumanFavorite(where: HumanFavoriteWhereUniqueInput!): HumanFavorite
   deleteTransaction(where: TransactionWhereUniqueInput!): Transaction
   deleteEducation(where: EducationWhereUniqueInput!): Education
   deleteBookTransaction(where: BookTransactionWhereUniqueInput!): BookTransaction
   deleteBook(where: BookWhereUniqueInput!): Book
+  deleteMovieTransaction(where: MovieTransactionWhereUniqueInput!): MovieTransaction
   deleteTvShow(where: TvShowWhereUniqueInput!): TvShow
+  deleteFavorite(where: FavoriteWhereUniqueInput!): Favorite
   deleteEvent(where: EventWhereUniqueInput!): Event
   deleteSchool(where: SchoolWhereUniqueInput!): School
   deleteAccount(where: AccountWhereUniqueInput!): Account
   deleteFixedCost(where: FixedCostWhereUniqueInput!): FixedCost
   deleteGoodOrService(where: GoodOrServiceWhereUniqueInput!): GoodOrService
-  deleteMovieTransaction(where: MovieTransactionWhereUniqueInput!): MovieTransaction
   deleteHuman(where: HumanWhereUniqueInput!): Human
   upsertCourseLecture(where: CourseLectureWhereUniqueInput!, create: CourseLectureCreateInput!, update: CourseLectureUpdateInput!): CourseLecture!
   upsertCourseAssignment(where: CourseAssignmentWhereUniqueInput!, create: CourseAssignmentCreateInput!, update: CourseAssignmentUpdateInput!): CourseAssignment!
@@ -5928,18 +6004,18 @@ type Mutation {
   upsertFinanceGoals(where: FinanceGoalsWhereUniqueInput!, create: FinanceGoalsCreateInput!, update: FinanceGoalsUpdateInput!): FinanceGoals!
   upsertTask(where: TaskWhereUniqueInput!, create: TaskCreateInput!, update: TaskUpdateInput!): Task!
   upsertMovie(where: MovieWhereUniqueInput!, create: MovieCreateInput!, update: MovieUpdateInput!): Movie!
-  upsertHumanFavorite(where: HumanFavoriteWhereUniqueInput!, create: HumanFavoriteCreateInput!, update: HumanFavoriteUpdateInput!): HumanFavorite!
   upsertTransaction(where: TransactionWhereUniqueInput!, create: TransactionCreateInput!, update: TransactionUpdateInput!): Transaction!
   upsertEducation(where: EducationWhereUniqueInput!, create: EducationCreateInput!, update: EducationUpdateInput!): Education!
   upsertBookTransaction(where: BookTransactionWhereUniqueInput!, create: BookTransactionCreateInput!, update: BookTransactionUpdateInput!): BookTransaction!
   upsertBook(where: BookWhereUniqueInput!, create: BookCreateInput!, update: BookUpdateInput!): Book!
+  upsertMovieTransaction(where: MovieTransactionWhereUniqueInput!, create: MovieTransactionCreateInput!, update: MovieTransactionUpdateInput!): MovieTransaction!
   upsertTvShow(where: TvShowWhereUniqueInput!, create: TvShowCreateInput!, update: TvShowUpdateInput!): TvShow!
+  upsertFavorite(where: FavoriteWhereUniqueInput!, create: FavoriteCreateInput!, update: FavoriteUpdateInput!): Favorite!
   upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
   upsertSchool(where: SchoolWhereUniqueInput!, create: SchoolCreateInput!, update: SchoolUpdateInput!): School!
   upsertAccount(where: AccountWhereUniqueInput!, create: AccountCreateInput!, update: AccountUpdateInput!): Account!
   upsertFixedCost(where: FixedCostWhereUniqueInput!, create: FixedCostCreateInput!, update: FixedCostUpdateInput!): FixedCost!
   upsertGoodOrService(where: GoodOrServiceWhereUniqueInput!, create: GoodOrServiceCreateInput!, update: GoodOrServiceUpdateInput!): GoodOrService!
-  upsertMovieTransaction(where: MovieTransactionWhereUniqueInput!, create: MovieTransactionCreateInput!, update: MovieTransactionUpdateInput!): MovieTransaction!
   upsertHuman(where: HumanWhereUniqueInput!, create: HumanCreateInput!, update: HumanUpdateInput!): Human!
   updateManyCourseLectures(data: CourseLectureUpdateInput!, where: CourseLectureWhereInput): BatchPayload!
   updateManyCourseAssignments(data: CourseAssignmentUpdateInput!, where: CourseAssignmentWhereInput): BatchPayload!
@@ -5954,21 +6030,21 @@ type Mutation {
   updateManyFinanceGoalses(data: FinanceGoalsUpdateInput!, where: FinanceGoalsWhereInput): BatchPayload!
   updateManyTasks(data: TaskUpdateInput!, where: TaskWhereInput): BatchPayload!
   updateManyMovies(data: MovieUpdateInput!, where: MovieWhereInput): BatchPayload!
-  updateManyHumanFavorites(data: HumanFavoriteUpdateInput!, where: HumanFavoriteWhereInput): BatchPayload!
   updateManyTransactions(data: TransactionUpdateInput!, where: TransactionWhereInput): BatchPayload!
   updateManyEducations(data: EducationUpdateInput!, where: EducationWhereInput): BatchPayload!
   updateManyBookTransactions(data: BookTransactionUpdateInput!, where: BookTransactionWhereInput): BatchPayload!
   updateManyTransactionSplits(data: TransactionSplitUpdateInput!, where: TransactionSplitWhereInput): BatchPayload!
   updateManyBooks(data: BookUpdateInput!, where: BookWhereInput): BatchPayload!
   updateManyCourses(data: CourseUpdateInput!, where: CourseWhereInput): BatchPayload!
+  updateManyMovieTransactions(data: MovieTransactionUpdateInput!, where: MovieTransactionWhereInput): BatchPayload!
   updateManyTvShows(data: TvShowUpdateInput!, where: TvShowWhereInput): BatchPayload!
+  updateManyFavorites(data: FavoriteUpdateInput!, where: FavoriteWhereInput): BatchPayload!
   updateManyEvents(data: EventUpdateInput!, where: EventWhereInput): BatchPayload!
+  updateManyLocations(data: LocationUpdateInput!, where: LocationWhereInput): BatchPayload!
   updateManySchools(data: SchoolUpdateInput!, where: SchoolWhereInput): BatchPayload!
   updateManyAccounts(data: AccountUpdateInput!, where: AccountWhereInput): BatchPayload!
   updateManyFixedCosts(data: FixedCostUpdateInput!, where: FixedCostWhereInput): BatchPayload!
   updateManyGoodOrServices(data: GoodOrServiceUpdateInput!, where: GoodOrServiceWhereInput): BatchPayload!
-  updateManyMovieTransactions(data: MovieTransactionUpdateInput!, where: MovieTransactionWhereInput): BatchPayload!
-  updateManyLocations(data: LocationUpdateInput!, where: LocationWhereInput): BatchPayload!
   updateManyHumans(data: HumanUpdateInput!, where: HumanWhereInput): BatchPayload!
   deleteManyCourseLectures(where: CourseLectureWhereInput): BatchPayload!
   deleteManyCourseAssignments(where: CourseAssignmentWhereInput): BatchPayload!
@@ -5983,21 +6059,21 @@ type Mutation {
   deleteManyFinanceGoalses(where: FinanceGoalsWhereInput): BatchPayload!
   deleteManyTasks(where: TaskWhereInput): BatchPayload!
   deleteManyMovies(where: MovieWhereInput): BatchPayload!
-  deleteManyHumanFavorites(where: HumanFavoriteWhereInput): BatchPayload!
   deleteManyTransactions(where: TransactionWhereInput): BatchPayload!
   deleteManyEducations(where: EducationWhereInput): BatchPayload!
   deleteManyBookTransactions(where: BookTransactionWhereInput): BatchPayload!
   deleteManyTransactionSplits(where: TransactionSplitWhereInput): BatchPayload!
   deleteManyBooks(where: BookWhereInput): BatchPayload!
   deleteManyCourses(where: CourseWhereInput): BatchPayload!
+  deleteManyMovieTransactions(where: MovieTransactionWhereInput): BatchPayload!
   deleteManyTvShows(where: TvShowWhereInput): BatchPayload!
+  deleteManyFavorites(where: FavoriteWhereInput): BatchPayload!
   deleteManyEvents(where: EventWhereInput): BatchPayload!
+  deleteManyLocations(where: LocationWhereInput): BatchPayload!
   deleteManySchools(where: SchoolWhereInput): BatchPayload!
   deleteManyAccounts(where: AccountWhereInput): BatchPayload!
   deleteManyFixedCosts(where: FixedCostWhereInput): BatchPayload!
   deleteManyGoodOrServices(where: GoodOrServiceWhereInput): BatchPayload!
-  deleteManyMovieTransactions(where: MovieTransactionWhereInput): BatchPayload!
-  deleteManyLocations(where: LocationWhereInput): BatchPayload!
   deleteManyHumans(where: HumanWhereInput): BatchPayload!
 }
 
@@ -6278,21 +6354,21 @@ type Query {
   financeGoalses(where: FinanceGoalsWhereInput, orderBy: FinanceGoalsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FinanceGoals]!
   tasks(where: TaskWhereInput, orderBy: TaskOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Task]!
   movies(where: MovieWhereInput, orderBy: MovieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Movie]!
-  humanFavorites(where: HumanFavoriteWhereInput, orderBy: HumanFavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [HumanFavorite]!
   transactions(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transaction]!
   educations(where: EducationWhereInput, orderBy: EducationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Education]!
   bookTransactions(where: BookTransactionWhereInput, orderBy: BookTransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BookTransaction]!
   transactionSplits(where: TransactionSplitWhereInput, orderBy: TransactionSplitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TransactionSplit]!
   books(where: BookWhereInput, orderBy: BookOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Book]!
   courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
+  movieTransactions(where: MovieTransactionWhereInput, orderBy: MovieTransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MovieTransaction]!
   tvShows(where: TvShowWhereInput, orderBy: TvShowOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TvShow]!
+  favorites(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Favorite]!
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event]!
+  locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
   schools(where: SchoolWhereInput, orderBy: SchoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [School]!
   accounts(where: AccountWhereInput, orderBy: AccountOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Account]!
   fixedCosts(where: FixedCostWhereInput, orderBy: FixedCostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FixedCost]!
   goodOrServices(where: GoodOrServiceWhereInput, orderBy: GoodOrServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GoodOrService]!
-  movieTransactions(where: MovieTransactionWhereInput, orderBy: MovieTransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MovieTransaction]!
-  locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
   humans(where: HumanWhereInput, orderBy: HumanOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Human]!
   courseLecture(where: CourseLectureWhereUniqueInput!): CourseLecture
   courseAssignment(where: CourseAssignmentWhereUniqueInput!): CourseAssignment
@@ -6305,18 +6381,18 @@ type Query {
   financeGoals(where: FinanceGoalsWhereUniqueInput!): FinanceGoals
   task(where: TaskWhereUniqueInput!): Task
   movie(where: MovieWhereUniqueInput!): Movie
-  humanFavorite(where: HumanFavoriteWhereUniqueInput!): HumanFavorite
   transaction(where: TransactionWhereUniqueInput!): Transaction
   education(where: EducationWhereUniqueInput!): Education
   bookTransaction(where: BookTransactionWhereUniqueInput!): BookTransaction
   book(where: BookWhereUniqueInput!): Book
+  movieTransaction(where: MovieTransactionWhereUniqueInput!): MovieTransaction
   tvShow(where: TvShowWhereUniqueInput!): TvShow
+  favorite(where: FavoriteWhereUniqueInput!): Favorite
   event(where: EventWhereUniqueInput!): Event
   school(where: SchoolWhereUniqueInput!): School
   account(where: AccountWhereUniqueInput!): Account
   fixedCost(where: FixedCostWhereUniqueInput!): FixedCost
   goodOrService(where: GoodOrServiceWhereUniqueInput!): GoodOrService
-  movieTransaction(where: MovieTransactionWhereUniqueInput!): MovieTransaction
   human(where: HumanWhereUniqueInput!): Human
   courseLecturesConnection(where: CourseLectureWhereInput, orderBy: CourseLectureOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CourseLectureConnection!
   courseAssignmentsConnection(where: CourseAssignmentWhereInput, orderBy: CourseAssignmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CourseAssignmentConnection!
@@ -6331,21 +6407,21 @@ type Query {
   financeGoalsesConnection(where: FinanceGoalsWhereInput, orderBy: FinanceGoalsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FinanceGoalsConnection!
   tasksConnection(where: TaskWhereInput, orderBy: TaskOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TaskConnection!
   moviesConnection(where: MovieWhereInput, orderBy: MovieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MovieConnection!
-  humanFavoritesConnection(where: HumanFavoriteWhereInput, orderBy: HumanFavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HumanFavoriteConnection!
   transactionsConnection(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransactionConnection!
   educationsConnection(where: EducationWhereInput, orderBy: EducationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EducationConnection!
   bookTransactionsConnection(where: BookTransactionWhereInput, orderBy: BookTransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BookTransactionConnection!
   transactionSplitsConnection(where: TransactionSplitWhereInput, orderBy: TransactionSplitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransactionSplitConnection!
   booksConnection(where: BookWhereInput, orderBy: BookOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BookConnection!
   coursesConnection(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CourseConnection!
+  movieTransactionsConnection(where: MovieTransactionWhereInput, orderBy: MovieTransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MovieTransactionConnection!
   tvShowsConnection(where: TvShowWhereInput, orderBy: TvShowOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TvShowConnection!
+  favoritesConnection(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FavoriteConnection!
   eventsConnection(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection!
+  locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
   schoolsConnection(where: SchoolWhereInput, orderBy: SchoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SchoolConnection!
   accountsConnection(where: AccountWhereInput, orderBy: AccountOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccountConnection!
   fixedCostsConnection(where: FixedCostWhereInput, orderBy: FixedCostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FixedCostConnection!
   goodOrServicesConnection(where: GoodOrServiceWhereInput, orderBy: GoodOrServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GoodOrServiceConnection!
-  movieTransactionsConnection(where: MovieTransactionWhereInput, orderBy: MovieTransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MovieTransactionConnection!
-  locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
   humansConnection(where: HumanWhereInput, orderBy: HumanOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HumanConnection!
 
   """Fetches an object given its ID"""
@@ -6645,21 +6721,21 @@ type Subscription {
   financeGoals(where: FinanceGoalsSubscriptionWhereInput): FinanceGoalsSubscriptionPayload
   task(where: TaskSubscriptionWhereInput): TaskSubscriptionPayload
   movie(where: MovieSubscriptionWhereInput): MovieSubscriptionPayload
-  humanFavorite(where: HumanFavoriteSubscriptionWhereInput): HumanFavoriteSubscriptionPayload
   transaction(where: TransactionSubscriptionWhereInput): TransactionSubscriptionPayload
   education(where: EducationSubscriptionWhereInput): EducationSubscriptionPayload
   bookTransaction(where: BookTransactionSubscriptionWhereInput): BookTransactionSubscriptionPayload
   transactionSplit(where: TransactionSplitSubscriptionWhereInput): TransactionSplitSubscriptionPayload
   book(where: BookSubscriptionWhereInput): BookSubscriptionPayload
   course(where: CourseSubscriptionWhereInput): CourseSubscriptionPayload
+  movieTransaction(where: MovieTransactionSubscriptionWhereInput): MovieTransactionSubscriptionPayload
   tvShow(where: TvShowSubscriptionWhereInput): TvShowSubscriptionPayload
+  favorite(where: FavoriteSubscriptionWhereInput): FavoriteSubscriptionPayload
   event(where: EventSubscriptionWhereInput): EventSubscriptionPayload
+  location(where: LocationSubscriptionWhereInput): LocationSubscriptionPayload
   school(where: SchoolSubscriptionWhereInput): SchoolSubscriptionPayload
   account(where: AccountSubscriptionWhereInput): AccountSubscriptionPayload
   fixedCost(where: FixedCostSubscriptionWhereInput): FixedCostSubscriptionPayload
   goodOrService(where: GoodOrServiceSubscriptionWhereInput): GoodOrServiceSubscriptionPayload
-  movieTransaction(where: MovieTransactionSubscriptionWhereInput): MovieTransactionSubscriptionPayload
-  location(where: LocationSubscriptionWhereInput): LocationSubscriptionPayload
   human(where: HumanSubscriptionWhereInput): HumanSubscriptionPayload
 }
 
@@ -7108,7 +7184,7 @@ type Transaction implements Node {
   date: String!
   category: String!
   splits(where: TransactionSplitWhereInput, orderBy: TransactionSplitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TransactionSplit!]
-  location(where: LocationWhereInput): Location
+  where(where: LocationWhereInput): Location
   items(where: GoodOrServiceWhereInput, orderBy: GoodOrServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GoodOrService!]
   with(where: HumanWhereInput, orderBy: HumanOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Human!]
   event(where: EventWhereInput): Event
@@ -7130,7 +7206,7 @@ input TransactionCreateInput {
   date: String!
   category: String!
   splits: TransactionSplitCreateManyInput
-  location: LocationCreateOneInput
+  where: LocationCreateOneInput
   items: GoodOrServiceCreateManyWithoutTransactionInput
   with: HumanCreateManyInput
   event: EventCreateOneInput
@@ -7152,7 +7228,7 @@ input TransactionCreateWithoutItemsInput {
   date: String!
   category: String!
   splits: TransactionSplitCreateManyInput
-  location: LocationCreateOneInput
+  where: LocationCreateOneInput
   with: HumanCreateManyInput
   event: EventCreateOneInput
 }
@@ -7404,7 +7480,7 @@ input TransactionUpdateDataInput {
   date: String
   category: String
   splits: TransactionSplitUpdateManyInput
-  location: LocationUpdateOneInput
+  where: LocationUpdateOneInput
   items: GoodOrServiceUpdateManyWithoutTransactionInput
   with: HumanUpdateManyInput
   event: EventUpdateOneInput
@@ -7416,7 +7492,7 @@ input TransactionUpdateInput {
   date: String
   category: String
   splits: TransactionSplitUpdateManyInput
-  location: LocationUpdateOneInput
+  where: LocationUpdateOneInput
   items: GoodOrServiceUpdateManyWithoutTransactionInput
   with: HumanUpdateManyInput
   event: EventUpdateOneInput
@@ -7446,7 +7522,7 @@ input TransactionUpdateWithoutItemsDataInput {
   date: String
   category: String
   splits: TransactionSplitUpdateManyInput
-  location: LocationUpdateOneInput
+  where: LocationUpdateOneInput
   with: HumanUpdateManyInput
   event: EventUpdateOneInput
 }
@@ -7661,7 +7737,7 @@ input TransactionWhereInput {
   splits_every: TransactionSplitWhereInput
   splits_some: TransactionSplitWhereInput
   splits_none: TransactionSplitWhereInput
-  location: LocationWhereInput
+  where: LocationWhereInput
   items_every: GoodOrServiceWhereInput
   items_some: GoodOrServiceWhereInput
   items_none: GoodOrServiceWhereInput
