@@ -26,11 +26,10 @@ enum FavoriteKind {
     MUSIC_ALBUM
 }
 
-type HumanFavorite {
+type Favorite {
     id: ID! @unique
     kind: FavoriteKind!
     thing: ID!
-    human: Human! @relation(name: "FavoriesOfHuman")
 }
 
 type ContactInfo {

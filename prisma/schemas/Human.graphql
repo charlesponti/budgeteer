@@ -7,7 +7,7 @@ type Human {
     birthday: String
 
     # A list of their favourite things
-    favourites: [HumanFavorite!]! @relation(name: "HumanFavorites")
+    favorites: [Favorite!]!
 
     # A list of things they want that you could get them as a gift
     wish_list: [GoodOrService!]!
