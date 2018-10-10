@@ -8,1338 +8,1328 @@ import { makePrismaClientClass, BaseClientOptions } from "prisma-client-lib";
 import { typeDefs } from "./prisma-schema";
 
 type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
-    U[keyof U];
+  U[keyof U];
 
 export interface Exists {
-    account: (where?: AccountWhereInput) => Promise<boolean>;
-    book: (where?: BookWhereInput) => Promise<boolean>;
-    bookTransaction: (where?: BookTransactionWhereInput) => Promise<boolean>;
-    budget: (where?: BudgetWhereInput) => Promise<boolean>;
-    contactInfo: (where?: ContactInfoWhereInput) => Promise<boolean>;
-    course: (where?: CourseWhereInput) => Promise<boolean>;
-    courseAssignment: (where?: CourseAssignmentWhereInput) => Promise<boolean>;
-    courseLecture: (where?: CourseLectureWhereInput) => Promise<boolean>;
-    education: (where?: EducationWhereInput) => Promise<boolean>;
-    event: (where?: EventWhereInput) => Promise<boolean>;
-    favorite: (where?: FavoriteWhereInput) => Promise<boolean>;
-    financeGoals: (where?: FinanceGoalsWhereInput) => Promise<boolean>;
-    fixedCost: (where?: FixedCostWhereInput) => Promise<boolean>;
-    goodOrService: (where?: GoodOrServiceWhereInput) => Promise<boolean>;
-    human: (where?: HumanWhereInput) => Promise<boolean>;
-    location: (where?: LocationWhereInput) => Promise<boolean>;
-    movie: (where?: MovieWhereInput) => Promise<boolean>;
-    movieTransaction: (where?: MovieTransactionWhereInput) => Promise<boolean>;
-    overview: (where?: OverviewWhereInput) => Promise<boolean>;
-    school: (where?: SchoolWhereInput) => Promise<boolean>;
-    task: (where?: TaskWhereInput) => Promise<boolean>;
-    timeline: (where?: TimelineWhereInput) => Promise<boolean>;
-    transaction: (where?: TransactionWhereInput) => Promise<boolean>;
-    transactionSplit: (where?: TransactionSplitWhereInput) => Promise<boolean>;
-    tvEpisode: (where?: TvEpisodeWhereInput) => Promise<boolean>;
-    tvEpisodeTransaction: (
-        where?: TvEpisodeTransactionWhereInput
-    ) => Promise<boolean>;
-    tvShow: (where?: TvShowWhereInput) => Promise<boolean>;
-    weightHistoryItem: (
-        where?: WeightHistoryItemWhereInput
-    ) => Promise<boolean>;
-    wishList: (where?: WishListWhereInput) => Promise<boolean>;
+  account: (where?: AccountWhereInput) => Promise<boolean>;
+  book: (where?: BookWhereInput) => Promise<boolean>;
+  bookTransaction: (where?: BookTransactionWhereInput) => Promise<boolean>;
+  budget: (where?: BudgetWhereInput) => Promise<boolean>;
+  contactInfo: (where?: ContactInfoWhereInput) => Promise<boolean>;
+  course: (where?: CourseWhereInput) => Promise<boolean>;
+  courseAssignment: (where?: CourseAssignmentWhereInput) => Promise<boolean>;
+  courseLecture: (where?: CourseLectureWhereInput) => Promise<boolean>;
+  education: (where?: EducationWhereInput) => Promise<boolean>;
+  event: (where?: EventWhereInput) => Promise<boolean>;
+  favorite: (where?: FavoriteWhereInput) => Promise<boolean>;
+  financeGoals: (where?: FinanceGoalsWhereInput) => Promise<boolean>;
+  fixedCost: (where?: FixedCostWhereInput) => Promise<boolean>;
+  goodOrService: (where?: GoodOrServiceWhereInput) => Promise<boolean>;
+  human: (where?: HumanWhereInput) => Promise<boolean>;
+  location: (where?: LocationWhereInput) => Promise<boolean>;
+  movie: (where?: MovieWhereInput) => Promise<boolean>;
+  movieTransaction: (where?: MovieTransactionWhereInput) => Promise<boolean>;
+  overview: (where?: OverviewWhereInput) => Promise<boolean>;
+  school: (where?: SchoolWhereInput) => Promise<boolean>;
+  task: (where?: TaskWhereInput) => Promise<boolean>;
+  timeline: (where?: TimelineWhereInput) => Promise<boolean>;
+  transaction: (where?: TransactionWhereInput) => Promise<boolean>;
+  transactionSplit: (where?: TransactionSplitWhereInput) => Promise<boolean>;
+  tvEpisode: (where?: TvEpisodeWhereInput) => Promise<boolean>;
+  tvEpisodeTransaction: (
+    where?: TvEpisodeTransactionWhereInput
+  ) => Promise<boolean>;
+  tvShow: (where?: TvShowWhereInput) => Promise<boolean>;
+  weightHistoryItem: (where?: WeightHistoryItemWhereInput) => Promise<boolean>;
+  wishList: (where?: WishListWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
 
 export interface Fragmentable {
-    $fragment<T>(fragment: string | Object): T;
+  $fragment<T>(fragment: string | Object): T;
 }
 
 export interface Prisma {
-    $exists: Exists;
-    $graphql: <T = any>(
-        query: string,
-        variables?: { [key: string]: any }
-    ) => Promise<T>;
-    $getAbstractResolvers(filterSchema?: GraphQLSchema | string): IResolvers;
+  $exists: Exists;
+  $graphql: <T = any>(
+    query: string,
+    variables?: { [key: string]: any }
+  ) => Promise<T>;
+  $getAbstractResolvers(filterSchema?: GraphQLSchema | string): IResolvers;
 
-    /**
-     * Queries
-     */
+  /**
+   * Queries
+   */
 
-    account: (where: AccountWhereUniqueInput) => Account;
-    accounts: (
-        args?: {
-            where?: AccountWhereInput;
-            orderBy?: AccountOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<AccountNode>>;
-    accountsConnection: (
-        args?: {
-            where?: AccountWhereInput;
-            orderBy?: AccountOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => AccountConnection;
-    book: (where: BookWhereUniqueInput) => Book;
-    books: (
-        args?: {
-            where?: BookWhereInput;
-            orderBy?: BookOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<BookNode>>;
-    booksConnection: (
-        args?: {
-            where?: BookWhereInput;
-            orderBy?: BookOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => BookConnection;
-    bookTransaction: (
-        where: BookTransactionWhereUniqueInput
-    ) => BookTransaction;
-    bookTransactions: (
-        args?: {
-            where?: BookTransactionWhereInput;
-            orderBy?: BookTransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<BookTransactionNode>>;
-    bookTransactionsConnection: (
-        args?: {
-            where?: BookTransactionWhereInput;
-            orderBy?: BookTransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => BookTransactionConnection;
-    budget: (where: BudgetWhereUniqueInput) => Budget;
-    budgets: (
-        args?: {
-            where?: BudgetWhereInput;
-            orderBy?: BudgetOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<BudgetNode>>;
-    budgetsConnection: (
-        args?: {
-            where?: BudgetWhereInput;
-            orderBy?: BudgetOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => BudgetConnection;
-    contactInfoes: (
-        args?: {
-            where?: ContactInfoWhereInput;
-            orderBy?: ContactInfoOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<ContactInfoNode>>;
-    contactInfoesConnection: (
-        args?: {
-            where?: ContactInfoWhereInput;
-            orderBy?: ContactInfoOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => ContactInfoConnection;
-    courses: (
-        args?: {
-            where?: CourseWhereInput;
-            orderBy?: CourseOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<CourseNode>>;
-    coursesConnection: (
-        args?: {
-            where?: CourseWhereInput;
-            orderBy?: CourseOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => CourseConnection;
-    courseAssignment: (
-        where: CourseAssignmentWhereUniqueInput
-    ) => CourseAssignment;
-    courseAssignments: (
-        args?: {
-            where?: CourseAssignmentWhereInput;
-            orderBy?: CourseAssignmentOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<CourseAssignmentNode>>;
-    courseAssignmentsConnection: (
-        args?: {
-            where?: CourseAssignmentWhereInput;
-            orderBy?: CourseAssignmentOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => CourseAssignmentConnection;
-    courseLecture: (where: CourseLectureWhereUniqueInput) => CourseLecture;
-    courseLectures: (
-        args?: {
-            where?: CourseLectureWhereInput;
-            orderBy?: CourseLectureOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<CourseLectureNode>>;
-    courseLecturesConnection: (
-        args?: {
-            where?: CourseLectureWhereInput;
-            orderBy?: CourseLectureOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => CourseLectureConnection;
-    education: (where: EducationWhereUniqueInput) => Education;
-    educations: (
-        args?: {
-            where?: EducationWhereInput;
-            orderBy?: EducationOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<EducationNode>>;
-    educationsConnection: (
-        args?: {
-            where?: EducationWhereInput;
-            orderBy?: EducationOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => EducationConnection;
-    event: (where: EventWhereUniqueInput) => Event;
-    events: (
-        args?: {
-            where?: EventWhereInput;
-            orderBy?: EventOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<EventNode>>;
-    eventsConnection: (
-        args?: {
-            where?: EventWhereInput;
-            orderBy?: EventOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => EventConnection;
-    favorite: (where: FavoriteWhereUniqueInput) => Favorite;
-    favorites: (
-        args?: {
-            where?: FavoriteWhereInput;
-            orderBy?: FavoriteOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<FavoriteNode>>;
-    favoritesConnection: (
-        args?: {
-            where?: FavoriteWhereInput;
-            orderBy?: FavoriteOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => FavoriteConnection;
-    financeGoals: (where: FinanceGoalsWhereUniqueInput) => FinanceGoals;
-    financeGoalses: (
-        args?: {
-            where?: FinanceGoalsWhereInput;
-            orderBy?: FinanceGoalsOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<FinanceGoalsNode>>;
-    financeGoalsesConnection: (
-        args?: {
-            where?: FinanceGoalsWhereInput;
-            orderBy?: FinanceGoalsOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => FinanceGoalsConnection;
-    fixedCost: (where: FixedCostWhereUniqueInput) => FixedCost;
-    fixedCosts: (
-        args?: {
-            where?: FixedCostWhereInput;
-            orderBy?: FixedCostOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<FixedCostNode>>;
-    fixedCostsConnection: (
-        args?: {
-            where?: FixedCostWhereInput;
-            orderBy?: FixedCostOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => FixedCostConnection;
-    goodOrService: (where: GoodOrServiceWhereUniqueInput) => GoodOrService;
-    goodOrServices: (
-        args?: {
-            where?: GoodOrServiceWhereInput;
-            orderBy?: GoodOrServiceOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<GoodOrServiceNode>>;
-    goodOrServicesConnection: (
-        args?: {
-            where?: GoodOrServiceWhereInput;
-            orderBy?: GoodOrServiceOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => GoodOrServiceConnection;
-    human: (where: HumanWhereUniqueInput) => Human;
-    humans: (
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<HumanNode>>;
-    humansConnection: (
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => HumanConnection;
-    locations: (
-        args?: {
-            where?: LocationWhereInput;
-            orderBy?: LocationOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<LocationNode>>;
-    locationsConnection: (
-        args?: {
-            where?: LocationWhereInput;
-            orderBy?: LocationOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => LocationConnection;
-    movie: (where: MovieWhereUniqueInput) => Movie;
-    movies: (
-        args?: {
-            where?: MovieWhereInput;
-            orderBy?: MovieOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<MovieNode>>;
-    moviesConnection: (
-        args?: {
-            where?: MovieWhereInput;
-            orderBy?: MovieOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => MovieConnection;
-    movieTransaction: (
-        where: MovieTransactionWhereUniqueInput
-    ) => MovieTransaction;
-    movieTransactions: (
-        args?: {
-            where?: MovieTransactionWhereInput;
-            orderBy?: MovieTransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<MovieTransactionNode>>;
-    movieTransactionsConnection: (
-        args?: {
-            where?: MovieTransactionWhereInput;
-            orderBy?: MovieTransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => MovieTransactionConnection;
-    overview: (where: OverviewWhereUniqueInput) => Overview;
-    overviews: (
-        args?: {
-            where?: OverviewWhereInput;
-            orderBy?: OverviewOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<OverviewNode>>;
-    overviewsConnection: (
-        args?: {
-            where?: OverviewWhereInput;
-            orderBy?: OverviewOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => OverviewConnection;
-    school: (where: SchoolWhereUniqueInput) => School;
-    schools: (
-        args?: {
-            where?: SchoolWhereInput;
-            orderBy?: SchoolOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<SchoolNode>>;
-    schoolsConnection: (
-        args?: {
-            where?: SchoolWhereInput;
-            orderBy?: SchoolOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => SchoolConnection;
-    task: (where: TaskWhereUniqueInput) => Task;
-    tasks: (
-        args?: {
-            where?: TaskWhereInput;
-            orderBy?: TaskOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<TaskNode>>;
-    tasksConnection: (
-        args?: {
-            where?: TaskWhereInput;
-            orderBy?: TaskOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => TaskConnection;
-    timeline: (where: TimelineWhereUniqueInput) => Timeline;
-    timelines: (
-        args?: {
-            where?: TimelineWhereInput;
-            orderBy?: TimelineOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<TimelineNode>>;
-    timelinesConnection: (
-        args?: {
-            where?: TimelineWhereInput;
-            orderBy?: TimelineOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => TimelineConnection;
-    transaction: (where: TransactionWhereUniqueInput) => Transaction;
-    transactions: (
-        args?: {
-            where?: TransactionWhereInput;
-            orderBy?: TransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<TransactionNode>>;
-    transactionsConnection: (
-        args?: {
-            where?: TransactionWhereInput;
-            orderBy?: TransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => TransactionConnection;
-    transactionSplits: (
-        args?: {
-            where?: TransactionSplitWhereInput;
-            orderBy?: TransactionSplitOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<TransactionSplitNode>>;
-    transactionSplitsConnection: (
-        args?: {
-            where?: TransactionSplitWhereInput;
-            orderBy?: TransactionSplitOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => TransactionSplitConnection;
-    tvEpisode: (where: TvEpisodeWhereUniqueInput) => TvEpisode;
-    tvEpisodes: (
-        args?: {
-            where?: TvEpisodeWhereInput;
-            orderBy?: TvEpisodeOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<TvEpisodeNode>>;
-    tvEpisodesConnection: (
-        args?: {
-            where?: TvEpisodeWhereInput;
-            orderBy?: TvEpisodeOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => TvEpisodeConnection;
-    tvEpisodeTransaction: (
-        where: TvEpisodeTransactionWhereUniqueInput
-    ) => TvEpisodeTransaction;
-    tvEpisodeTransactions: (
-        args?: {
-            where?: TvEpisodeTransactionWhereInput;
-            orderBy?: TvEpisodeTransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<TvEpisodeTransactionNode>>;
-    tvEpisodeTransactionsConnection: (
-        args?: {
-            where?: TvEpisodeTransactionWhereInput;
-            orderBy?: TvEpisodeTransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => TvEpisodeTransactionConnection;
-    tvShow: (where: TvShowWhereUniqueInput) => TvShow;
-    tvShows: (
-        args?: {
-            where?: TvShowWhereInput;
-            orderBy?: TvShowOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<TvShowNode>>;
-    tvShowsConnection: (
-        args?: {
-            where?: TvShowWhereInput;
-            orderBy?: TvShowOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => TvShowConnection;
-    weightHistoryItem: (
-        where: WeightHistoryItemWhereUniqueInput
-    ) => WeightHistoryItem;
-    weightHistoryItems: (
-        args?: {
-            where?: WeightHistoryItemWhereInput;
-            orderBy?: WeightHistoryItemOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<WeightHistoryItemNode>>;
-    weightHistoryItemsConnection: (
-        args?: {
-            where?: WeightHistoryItemWhereInput;
-            orderBy?: WeightHistoryItemOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => WeightHistoryItemConnection;
-    wishLists: (
-        args?: {
-            where?: WishListWhereInput;
-            orderBy?: WishListOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => Promise<Array<WishListNode>>;
-    wishListsConnection: (
-        args?: {
-            where?: WishListWhereInput;
-            orderBy?: WishListOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => WishListConnection;
-    node: (args: { id: ID_Output }) => Node;
+  account: (where: AccountWhereUniqueInput) => Account;
+  accounts: (
+    args?: {
+      where?: AccountWhereInput;
+      orderBy?: AccountOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<AccountNode>>;
+  accountsConnection: (
+    args?: {
+      where?: AccountWhereInput;
+      orderBy?: AccountOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => AccountConnection;
+  book: (where: BookWhereUniqueInput) => Book;
+  books: (
+    args?: {
+      where?: BookWhereInput;
+      orderBy?: BookOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<BookNode>>;
+  booksConnection: (
+    args?: {
+      where?: BookWhereInput;
+      orderBy?: BookOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => BookConnection;
+  bookTransaction: (where: BookTransactionWhereUniqueInput) => BookTransaction;
+  bookTransactions: (
+    args?: {
+      where?: BookTransactionWhereInput;
+      orderBy?: BookTransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<BookTransactionNode>>;
+  bookTransactionsConnection: (
+    args?: {
+      where?: BookTransactionWhereInput;
+      orderBy?: BookTransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => BookTransactionConnection;
+  budget: (where: BudgetWhereUniqueInput) => Budget;
+  budgets: (
+    args?: {
+      where?: BudgetWhereInput;
+      orderBy?: BudgetOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<BudgetNode>>;
+  budgetsConnection: (
+    args?: {
+      where?: BudgetWhereInput;
+      orderBy?: BudgetOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => BudgetConnection;
+  contactInfoes: (
+    args?: {
+      where?: ContactInfoWhereInput;
+      orderBy?: ContactInfoOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<ContactInfoNode>>;
+  contactInfoesConnection: (
+    args?: {
+      where?: ContactInfoWhereInput;
+      orderBy?: ContactInfoOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => ContactInfoConnection;
+  courses: (
+    args?: {
+      where?: CourseWhereInput;
+      orderBy?: CourseOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<CourseNode>>;
+  coursesConnection: (
+    args?: {
+      where?: CourseWhereInput;
+      orderBy?: CourseOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => CourseConnection;
+  courseAssignment: (
+    where: CourseAssignmentWhereUniqueInput
+  ) => CourseAssignment;
+  courseAssignments: (
+    args?: {
+      where?: CourseAssignmentWhereInput;
+      orderBy?: CourseAssignmentOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<CourseAssignmentNode>>;
+  courseAssignmentsConnection: (
+    args?: {
+      where?: CourseAssignmentWhereInput;
+      orderBy?: CourseAssignmentOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => CourseAssignmentConnection;
+  courseLecture: (where: CourseLectureWhereUniqueInput) => CourseLecture;
+  courseLectures: (
+    args?: {
+      where?: CourseLectureWhereInput;
+      orderBy?: CourseLectureOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<CourseLectureNode>>;
+  courseLecturesConnection: (
+    args?: {
+      where?: CourseLectureWhereInput;
+      orderBy?: CourseLectureOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => CourseLectureConnection;
+  education: (where: EducationWhereUniqueInput) => Education;
+  educations: (
+    args?: {
+      where?: EducationWhereInput;
+      orderBy?: EducationOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<EducationNode>>;
+  educationsConnection: (
+    args?: {
+      where?: EducationWhereInput;
+      orderBy?: EducationOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => EducationConnection;
+  event: (where: EventWhereUniqueInput) => Event;
+  events: (
+    args?: {
+      where?: EventWhereInput;
+      orderBy?: EventOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<EventNode>>;
+  eventsConnection: (
+    args?: {
+      where?: EventWhereInput;
+      orderBy?: EventOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => EventConnection;
+  favorite: (where: FavoriteWhereUniqueInput) => Favorite;
+  favorites: (
+    args?: {
+      where?: FavoriteWhereInput;
+      orderBy?: FavoriteOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<FavoriteNode>>;
+  favoritesConnection: (
+    args?: {
+      where?: FavoriteWhereInput;
+      orderBy?: FavoriteOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FavoriteConnection;
+  financeGoals: (where: FinanceGoalsWhereUniqueInput) => FinanceGoals;
+  financeGoalses: (
+    args?: {
+      where?: FinanceGoalsWhereInput;
+      orderBy?: FinanceGoalsOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<FinanceGoalsNode>>;
+  financeGoalsesConnection: (
+    args?: {
+      where?: FinanceGoalsWhereInput;
+      orderBy?: FinanceGoalsOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FinanceGoalsConnection;
+  fixedCost: (where: FixedCostWhereUniqueInput) => FixedCost;
+  fixedCosts: (
+    args?: {
+      where?: FixedCostWhereInput;
+      orderBy?: FixedCostOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<FixedCostNode>>;
+  fixedCostsConnection: (
+    args?: {
+      where?: FixedCostWhereInput;
+      orderBy?: FixedCostOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FixedCostConnection;
+  goodOrService: (where: GoodOrServiceWhereUniqueInput) => GoodOrService;
+  goodOrServices: (
+    args?: {
+      where?: GoodOrServiceWhereInput;
+      orderBy?: GoodOrServiceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<GoodOrServiceNode>>;
+  goodOrServicesConnection: (
+    args?: {
+      where?: GoodOrServiceWhereInput;
+      orderBy?: GoodOrServiceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => GoodOrServiceConnection;
+  human: (where: HumanWhereUniqueInput) => Human;
+  humans: (
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<HumanNode>>;
+  humansConnection: (
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => HumanConnection;
+  location: (where: LocationWhereUniqueInput) => Location;
+  locations: (
+    args?: {
+      where?: LocationWhereInput;
+      orderBy?: LocationOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<LocationNode>>;
+  locationsConnection: (
+    args?: {
+      where?: LocationWhereInput;
+      orderBy?: LocationOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => LocationConnection;
+  movie: (where: MovieWhereUniqueInput) => Movie;
+  movies: (
+    args?: {
+      where?: MovieWhereInput;
+      orderBy?: MovieOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<MovieNode>>;
+  moviesConnection: (
+    args?: {
+      where?: MovieWhereInput;
+      orderBy?: MovieOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => MovieConnection;
+  movieTransaction: (
+    where: MovieTransactionWhereUniqueInput
+  ) => MovieTransaction;
+  movieTransactions: (
+    args?: {
+      where?: MovieTransactionWhereInput;
+      orderBy?: MovieTransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<MovieTransactionNode>>;
+  movieTransactionsConnection: (
+    args?: {
+      where?: MovieTransactionWhereInput;
+      orderBy?: MovieTransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => MovieTransactionConnection;
+  overview: (where: OverviewWhereUniqueInput) => Overview;
+  overviews: (
+    args?: {
+      where?: OverviewWhereInput;
+      orderBy?: OverviewOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<OverviewNode>>;
+  overviewsConnection: (
+    args?: {
+      where?: OverviewWhereInput;
+      orderBy?: OverviewOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => OverviewConnection;
+  school: (where: SchoolWhereUniqueInput) => School;
+  schools: (
+    args?: {
+      where?: SchoolWhereInput;
+      orderBy?: SchoolOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<SchoolNode>>;
+  schoolsConnection: (
+    args?: {
+      where?: SchoolWhereInput;
+      orderBy?: SchoolOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => SchoolConnection;
+  task: (where: TaskWhereUniqueInput) => Task;
+  tasks: (
+    args?: {
+      where?: TaskWhereInput;
+      orderBy?: TaskOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<TaskNode>>;
+  tasksConnection: (
+    args?: {
+      where?: TaskWhereInput;
+      orderBy?: TaskOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => TaskConnection;
+  timeline: (where: TimelineWhereUniqueInput) => Timeline;
+  timelines: (
+    args?: {
+      where?: TimelineWhereInput;
+      orderBy?: TimelineOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<TimelineNode>>;
+  timelinesConnection: (
+    args?: {
+      where?: TimelineWhereInput;
+      orderBy?: TimelineOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => TimelineConnection;
+  transaction: (where: TransactionWhereUniqueInput) => Transaction;
+  transactions: (
+    args?: {
+      where?: TransactionWhereInput;
+      orderBy?: TransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<TransactionNode>>;
+  transactionsConnection: (
+    args?: {
+      where?: TransactionWhereInput;
+      orderBy?: TransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => TransactionConnection;
+  transactionSplits: (
+    args?: {
+      where?: TransactionSplitWhereInput;
+      orderBy?: TransactionSplitOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<TransactionSplitNode>>;
+  transactionSplitsConnection: (
+    args?: {
+      where?: TransactionSplitWhereInput;
+      orderBy?: TransactionSplitOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => TransactionSplitConnection;
+  tvEpisode: (where: TvEpisodeWhereUniqueInput) => TvEpisode;
+  tvEpisodes: (
+    args?: {
+      where?: TvEpisodeWhereInput;
+      orderBy?: TvEpisodeOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<TvEpisodeNode>>;
+  tvEpisodesConnection: (
+    args?: {
+      where?: TvEpisodeWhereInput;
+      orderBy?: TvEpisodeOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => TvEpisodeConnection;
+  tvEpisodeTransaction: (
+    where: TvEpisodeTransactionWhereUniqueInput
+  ) => TvEpisodeTransaction;
+  tvEpisodeTransactions: (
+    args?: {
+      where?: TvEpisodeTransactionWhereInput;
+      orderBy?: TvEpisodeTransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<TvEpisodeTransactionNode>>;
+  tvEpisodeTransactionsConnection: (
+    args?: {
+      where?: TvEpisodeTransactionWhereInput;
+      orderBy?: TvEpisodeTransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => TvEpisodeTransactionConnection;
+  tvShow: (where: TvShowWhereUniqueInput) => TvShow;
+  tvShows: (
+    args?: {
+      where?: TvShowWhereInput;
+      orderBy?: TvShowOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<TvShowNode>>;
+  tvShowsConnection: (
+    args?: {
+      where?: TvShowWhereInput;
+      orderBy?: TvShowOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => TvShowConnection;
+  weightHistoryItem: (
+    where: WeightHistoryItemWhereUniqueInput
+  ) => WeightHistoryItem;
+  weightHistoryItems: (
+    args?: {
+      where?: WeightHistoryItemWhereInput;
+      orderBy?: WeightHistoryItemOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<WeightHistoryItemNode>>;
+  weightHistoryItemsConnection: (
+    args?: {
+      where?: WeightHistoryItemWhereInput;
+      orderBy?: WeightHistoryItemOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => WeightHistoryItemConnection;
+  wishLists: (
+    args?: {
+      where?: WishListWhereInput;
+      orderBy?: WishListOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => Promise<Array<WishListNode>>;
+  wishListsConnection: (
+    args?: {
+      where?: WishListWhereInput;
+      orderBy?: WishListOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => WishListConnection;
+  node: (args: { id: ID_Output }) => Node;
 
-    /**
-     * Mutations
-     */
+  /**
+   * Mutations
+   */
 
-    createAccount: (data: AccountCreateInput) => Account;
-    updateAccount: (
-        args: { data: AccountUpdateInput; where: AccountWhereUniqueInput }
-    ) => Account;
-    updateManyAccounts: (
-        args: { data: AccountUpdateInput; where?: AccountWhereInput }
-    ) => BatchPayload;
-    upsertAccount: (
-        args: {
-            where: AccountWhereUniqueInput;
-            create: AccountCreateInput;
-            update: AccountUpdateInput;
-        }
-    ) => Account;
-    deleteAccount: (where: AccountWhereUniqueInput) => Account;
-    deleteManyAccounts: (where?: AccountWhereInput) => BatchPayload;
-    createBook: (data: BookCreateInput) => Book;
-    updateBook: (
-        args: { data: BookUpdateInput; where: BookWhereUniqueInput }
-    ) => Book;
-    updateManyBooks: (
-        args: { data: BookUpdateInput; where?: BookWhereInput }
-    ) => BatchPayload;
-    upsertBook: (
-        args: {
-            where: BookWhereUniqueInput;
-            create: BookCreateInput;
-            update: BookUpdateInput;
-        }
-    ) => Book;
-    deleteBook: (where: BookWhereUniqueInput) => Book;
-    deleteManyBooks: (where?: BookWhereInput) => BatchPayload;
-    createBookTransaction: (
-        data: BookTransactionCreateInput
-    ) => BookTransaction;
-    updateBookTransaction: (
-        args: {
-            data: BookTransactionUpdateInput;
-            where: BookTransactionWhereUniqueInput;
-        }
-    ) => BookTransaction;
-    updateManyBookTransactions: (
-        args: {
-            data: BookTransactionUpdateInput;
-            where?: BookTransactionWhereInput;
-        }
-    ) => BatchPayload;
-    upsertBookTransaction: (
-        args: {
-            where: BookTransactionWhereUniqueInput;
-            create: BookTransactionCreateInput;
-            update: BookTransactionUpdateInput;
-        }
-    ) => BookTransaction;
-    deleteBookTransaction: (
-        where: BookTransactionWhereUniqueInput
-    ) => BookTransaction;
-    deleteManyBookTransactions: (
-        where?: BookTransactionWhereInput
-    ) => BatchPayload;
-    createBudget: (data: BudgetCreateInput) => Budget;
-    updateBudget: (
-        args: { data: BudgetUpdateInput; where: BudgetWhereUniqueInput }
-    ) => Budget;
-    updateManyBudgets: (
-        args: { data: BudgetUpdateInput; where?: BudgetWhereInput }
-    ) => BatchPayload;
-    upsertBudget: (
-        args: {
-            where: BudgetWhereUniqueInput;
-            create: BudgetCreateInput;
-            update: BudgetUpdateInput;
-        }
-    ) => Budget;
-    deleteBudget: (where: BudgetWhereUniqueInput) => Budget;
-    deleteManyBudgets: (where?: BudgetWhereInput) => BatchPayload;
-    createContactInfo: (data: ContactInfoCreateInput) => ContactInfo;
-    updateManyContactInfoes: (
-        args: { data: ContactInfoUpdateInput; where?: ContactInfoWhereInput }
-    ) => BatchPayload;
-    deleteManyContactInfoes: (where?: ContactInfoWhereInput) => BatchPayload;
-    createCourse: (data: CourseCreateInput) => Course;
-    updateManyCourses: (
-        args: { data: CourseUpdateInput; where?: CourseWhereInput }
-    ) => BatchPayload;
-    deleteManyCourses: (where?: CourseWhereInput) => BatchPayload;
-    createCourseAssignment: (
-        data: CourseAssignmentCreateInput
-    ) => CourseAssignment;
-    updateCourseAssignment: (
-        args: {
-            data: CourseAssignmentUpdateInput;
-            where: CourseAssignmentWhereUniqueInput;
-        }
-    ) => CourseAssignment;
-    updateManyCourseAssignments: (
-        args: {
-            data: CourseAssignmentUpdateInput;
-            where?: CourseAssignmentWhereInput;
-        }
-    ) => BatchPayload;
-    upsertCourseAssignment: (
-        args: {
-            where: CourseAssignmentWhereUniqueInput;
-            create: CourseAssignmentCreateInput;
-            update: CourseAssignmentUpdateInput;
-        }
-    ) => CourseAssignment;
-    deleteCourseAssignment: (
-        where: CourseAssignmentWhereUniqueInput
-    ) => CourseAssignment;
-    deleteManyCourseAssignments: (
-        where?: CourseAssignmentWhereInput
-    ) => BatchPayload;
-    createCourseLecture: (data: CourseLectureCreateInput) => CourseLecture;
-    updateCourseLecture: (
-        args: {
-            data: CourseLectureUpdateInput;
-            where: CourseLectureWhereUniqueInput;
-        }
-    ) => CourseLecture;
-    updateManyCourseLectures: (
-        args: {
-            data: CourseLectureUpdateInput;
-            where?: CourseLectureWhereInput;
-        }
-    ) => BatchPayload;
-    upsertCourseLecture: (
-        args: {
-            where: CourseLectureWhereUniqueInput;
-            create: CourseLectureCreateInput;
-            update: CourseLectureUpdateInput;
-        }
-    ) => CourseLecture;
-    deleteCourseLecture: (
-        where: CourseLectureWhereUniqueInput
-    ) => CourseLecture;
-    deleteManyCourseLectures: (where?: CourseLectureWhereInput) => BatchPayload;
-    createEducation: (data: EducationCreateInput) => Education;
-    updateEducation: (
-        args: { data: EducationUpdateInput; where: EducationWhereUniqueInput }
-    ) => Education;
-    updateManyEducations: (
-        args: { data: EducationUpdateInput; where?: EducationWhereInput }
-    ) => BatchPayload;
-    upsertEducation: (
-        args: {
-            where: EducationWhereUniqueInput;
-            create: EducationCreateInput;
-            update: EducationUpdateInput;
-        }
-    ) => Education;
-    deleteEducation: (where: EducationWhereUniqueInput) => Education;
-    deleteManyEducations: (where?: EducationWhereInput) => BatchPayload;
-    createEvent: (data: EventCreateInput) => Event;
-    updateEvent: (
-        args: { data: EventUpdateInput; where: EventWhereUniqueInput }
-    ) => Event;
-    updateManyEvents: (
-        args: { data: EventUpdateInput; where?: EventWhereInput }
-    ) => BatchPayload;
-    upsertEvent: (
-        args: {
-            where: EventWhereUniqueInput;
-            create: EventCreateInput;
-            update: EventUpdateInput;
-        }
-    ) => Event;
-    deleteEvent: (where: EventWhereUniqueInput) => Event;
-    deleteManyEvents: (where?: EventWhereInput) => BatchPayload;
-    createFavorite: (data: FavoriteCreateInput) => Favorite;
-    updateFavorite: (
-        args: { data: FavoriteUpdateInput; where: FavoriteWhereUniqueInput }
-    ) => Favorite;
-    updateManyFavorites: (
-        args: { data: FavoriteUpdateInput; where?: FavoriteWhereInput }
-    ) => BatchPayload;
-    upsertFavorite: (
-        args: {
-            where: FavoriteWhereUniqueInput;
-            create: FavoriteCreateInput;
-            update: FavoriteUpdateInput;
-        }
-    ) => Favorite;
-    deleteFavorite: (where: FavoriteWhereUniqueInput) => Favorite;
-    deleteManyFavorites: (where?: FavoriteWhereInput) => BatchPayload;
-    createFinanceGoals: (data: FinanceGoalsCreateInput) => FinanceGoals;
-    updateFinanceGoals: (
-        args: {
-            data: FinanceGoalsUpdateInput;
-            where: FinanceGoalsWhereUniqueInput;
-        }
-    ) => FinanceGoals;
-    updateManyFinanceGoalses: (
-        args: { data: FinanceGoalsUpdateInput; where?: FinanceGoalsWhereInput }
-    ) => BatchPayload;
-    upsertFinanceGoals: (
-        args: {
-            where: FinanceGoalsWhereUniqueInput;
-            create: FinanceGoalsCreateInput;
-            update: FinanceGoalsUpdateInput;
-        }
-    ) => FinanceGoals;
-    deleteFinanceGoals: (where: FinanceGoalsWhereUniqueInput) => FinanceGoals;
-    deleteManyFinanceGoalses: (where?: FinanceGoalsWhereInput) => BatchPayload;
-    createFixedCost: (data: FixedCostCreateInput) => FixedCost;
-    updateFixedCost: (
-        args: { data: FixedCostUpdateInput; where: FixedCostWhereUniqueInput }
-    ) => FixedCost;
-    updateManyFixedCosts: (
-        args: { data: FixedCostUpdateInput; where?: FixedCostWhereInput }
-    ) => BatchPayload;
-    upsertFixedCost: (
-        args: {
-            where: FixedCostWhereUniqueInput;
-            create: FixedCostCreateInput;
-            update: FixedCostUpdateInput;
-        }
-    ) => FixedCost;
-    deleteFixedCost: (where: FixedCostWhereUniqueInput) => FixedCost;
-    deleteManyFixedCosts: (where?: FixedCostWhereInput) => BatchPayload;
-    createGoodOrService: (data: GoodOrServiceCreateInput) => GoodOrService;
-    updateGoodOrService: (
-        args: {
-            data: GoodOrServiceUpdateInput;
-            where: GoodOrServiceWhereUniqueInput;
-        }
-    ) => GoodOrService;
-    updateManyGoodOrServices: (
-        args: {
-            data: GoodOrServiceUpdateInput;
-            where?: GoodOrServiceWhereInput;
-        }
-    ) => BatchPayload;
-    upsertGoodOrService: (
-        args: {
-            where: GoodOrServiceWhereUniqueInput;
-            create: GoodOrServiceCreateInput;
-            update: GoodOrServiceUpdateInput;
-        }
-    ) => GoodOrService;
-    deleteGoodOrService: (
-        where: GoodOrServiceWhereUniqueInput
-    ) => GoodOrService;
-    deleteManyGoodOrServices: (where?: GoodOrServiceWhereInput) => BatchPayload;
-    createHuman: (data: HumanCreateInput) => Human;
-    updateHuman: (
-        args: { data: HumanUpdateInput; where: HumanWhereUniqueInput }
-    ) => Human;
-    updateManyHumans: (
-        args: { data: HumanUpdateInput; where?: HumanWhereInput }
-    ) => BatchPayload;
-    upsertHuman: (
-        args: {
-            where: HumanWhereUniqueInput;
-            create: HumanCreateInput;
-            update: HumanUpdateInput;
-        }
-    ) => Human;
-    deleteHuman: (where: HumanWhereUniqueInput) => Human;
-    deleteManyHumans: (where?: HumanWhereInput) => BatchPayload;
-    createLocation: (data: LocationCreateInput) => Location;
-    updateManyLocations: (
-        args: { data: LocationUpdateInput; where?: LocationWhereInput }
-    ) => BatchPayload;
-    deleteManyLocations: (where?: LocationWhereInput) => BatchPayload;
-    createMovie: (data: MovieCreateInput) => Movie;
-    updateMovie: (
-        args: { data: MovieUpdateInput; where: MovieWhereUniqueInput }
-    ) => Movie;
-    updateManyMovies: (
-        args: { data: MovieUpdateInput; where?: MovieWhereInput }
-    ) => BatchPayload;
-    upsertMovie: (
-        args: {
-            where: MovieWhereUniqueInput;
-            create: MovieCreateInput;
-            update: MovieUpdateInput;
-        }
-    ) => Movie;
-    deleteMovie: (where: MovieWhereUniqueInput) => Movie;
-    deleteManyMovies: (where?: MovieWhereInput) => BatchPayload;
-    createMovieTransaction: (
-        data: MovieTransactionCreateInput
-    ) => MovieTransaction;
-    updateMovieTransaction: (
-        args: {
-            data: MovieTransactionUpdateInput;
-            where: MovieTransactionWhereUniqueInput;
-        }
-    ) => MovieTransaction;
-    updateManyMovieTransactions: (
-        args: {
-            data: MovieTransactionUpdateInput;
-            where?: MovieTransactionWhereInput;
-        }
-    ) => BatchPayload;
-    upsertMovieTransaction: (
-        args: {
-            where: MovieTransactionWhereUniqueInput;
-            create: MovieTransactionCreateInput;
-            update: MovieTransactionUpdateInput;
-        }
-    ) => MovieTransaction;
-    deleteMovieTransaction: (
-        where: MovieTransactionWhereUniqueInput
-    ) => MovieTransaction;
-    deleteManyMovieTransactions: (
-        where?: MovieTransactionWhereInput
-    ) => BatchPayload;
-    createOverview: (data: OverviewCreateInput) => Overview;
-    updateOverview: (
-        args: { data: OverviewUpdateInput; where: OverviewWhereUniqueInput }
-    ) => Overview;
-    updateManyOverviews: (
-        args: { data: OverviewUpdateInput; where?: OverviewWhereInput }
-    ) => BatchPayload;
-    upsertOverview: (
-        args: {
-            where: OverviewWhereUniqueInput;
-            create: OverviewCreateInput;
-            update: OverviewUpdateInput;
-        }
-    ) => Overview;
-    deleteOverview: (where: OverviewWhereUniqueInput) => Overview;
-    deleteManyOverviews: (where?: OverviewWhereInput) => BatchPayload;
-    createSchool: (data: SchoolCreateInput) => School;
-    updateSchool: (
-        args: { data: SchoolUpdateInput; where: SchoolWhereUniqueInput }
-    ) => School;
-    updateManySchools: (
-        args: { data: SchoolUpdateInput; where?: SchoolWhereInput }
-    ) => BatchPayload;
-    upsertSchool: (
-        args: {
-            where: SchoolWhereUniqueInput;
-            create: SchoolCreateInput;
-            update: SchoolUpdateInput;
-        }
-    ) => School;
-    deleteSchool: (where: SchoolWhereUniqueInput) => School;
-    deleteManySchools: (where?: SchoolWhereInput) => BatchPayload;
-    createTask: (data: TaskCreateInput) => Task;
-    updateTask: (
-        args: { data: TaskUpdateInput; where: TaskWhereUniqueInput }
-    ) => Task;
-    updateManyTasks: (
-        args: { data: TaskUpdateInput; where?: TaskWhereInput }
-    ) => BatchPayload;
-    upsertTask: (
-        args: {
-            where: TaskWhereUniqueInput;
-            create: TaskCreateInput;
-            update: TaskUpdateInput;
-        }
-    ) => Task;
-    deleteTask: (where: TaskWhereUniqueInput) => Task;
-    deleteManyTasks: (where?: TaskWhereInput) => BatchPayload;
-    createTimeline: (data: TimelineCreateInput) => Timeline;
-    updateTimeline: (
-        args: { data: TimelineUpdateInput; where: TimelineWhereUniqueInput }
-    ) => Timeline;
-    updateManyTimelines: (
-        args: { data: TimelineUpdateInput; where?: TimelineWhereInput }
-    ) => BatchPayload;
-    upsertTimeline: (
-        args: {
-            where: TimelineWhereUniqueInput;
-            create: TimelineCreateInput;
-            update: TimelineUpdateInput;
-        }
-    ) => Timeline;
-    deleteTimeline: (where: TimelineWhereUniqueInput) => Timeline;
-    deleteManyTimelines: (where?: TimelineWhereInput) => BatchPayload;
-    createTransaction: (data: TransactionCreateInput) => Transaction;
-    updateTransaction: (
-        args: {
-            data: TransactionUpdateInput;
-            where: TransactionWhereUniqueInput;
-        }
-    ) => Transaction;
-    updateManyTransactions: (
-        args: { data: TransactionUpdateInput; where?: TransactionWhereInput }
-    ) => BatchPayload;
-    upsertTransaction: (
-        args: {
-            where: TransactionWhereUniqueInput;
-            create: TransactionCreateInput;
-            update: TransactionUpdateInput;
-        }
-    ) => Transaction;
-    deleteTransaction: (where: TransactionWhereUniqueInput) => Transaction;
-    deleteManyTransactions: (where?: TransactionWhereInput) => BatchPayload;
-    createTransactionSplit: (
-        data: TransactionSplitCreateInput
-    ) => TransactionSplit;
-    updateManyTransactionSplits: (
-        args: {
-            data: TransactionSplitUpdateInput;
-            where?: TransactionSplitWhereInput;
-        }
-    ) => BatchPayload;
-    deleteManyTransactionSplits: (
-        where?: TransactionSplitWhereInput
-    ) => BatchPayload;
-    createTvEpisode: (data: TvEpisodeCreateInput) => TvEpisode;
-    updateTvEpisode: (
-        args: { data: TvEpisodeUpdateInput; where: TvEpisodeWhereUniqueInput }
-    ) => TvEpisode;
-    updateManyTvEpisodes: (
-        args: { data: TvEpisodeUpdateInput; where?: TvEpisodeWhereInput }
-    ) => BatchPayload;
-    upsertTvEpisode: (
-        args: {
-            where: TvEpisodeWhereUniqueInput;
-            create: TvEpisodeCreateInput;
-            update: TvEpisodeUpdateInput;
-        }
-    ) => TvEpisode;
-    deleteTvEpisode: (where: TvEpisodeWhereUniqueInput) => TvEpisode;
-    deleteManyTvEpisodes: (where?: TvEpisodeWhereInput) => BatchPayload;
-    createTvEpisodeTransaction: (
-        data: TvEpisodeTransactionCreateInput
-    ) => TvEpisodeTransaction;
-    updateTvEpisodeTransaction: (
-        args: {
-            data: TvEpisodeTransactionUpdateInput;
-            where: TvEpisodeTransactionWhereUniqueInput;
-        }
-    ) => TvEpisodeTransaction;
-    updateManyTvEpisodeTransactions: (
-        args: {
-            data: TvEpisodeTransactionUpdateInput;
-            where?: TvEpisodeTransactionWhereInput;
-        }
-    ) => BatchPayload;
-    upsertTvEpisodeTransaction: (
-        args: {
-            where: TvEpisodeTransactionWhereUniqueInput;
-            create: TvEpisodeTransactionCreateInput;
-            update: TvEpisodeTransactionUpdateInput;
-        }
-    ) => TvEpisodeTransaction;
-    deleteTvEpisodeTransaction: (
-        where: TvEpisodeTransactionWhereUniqueInput
-    ) => TvEpisodeTransaction;
-    deleteManyTvEpisodeTransactions: (
-        where?: TvEpisodeTransactionWhereInput
-    ) => BatchPayload;
-    createTvShow: (data: TvShowCreateInput) => TvShow;
-    updateTvShow: (
-        args: { data: TvShowUpdateInput; where: TvShowWhereUniqueInput }
-    ) => TvShow;
-    updateManyTvShows: (
-        args: { data: TvShowUpdateInput; where?: TvShowWhereInput }
-    ) => BatchPayload;
-    upsertTvShow: (
-        args: {
-            where: TvShowWhereUniqueInput;
-            create: TvShowCreateInput;
-            update: TvShowUpdateInput;
-        }
-    ) => TvShow;
-    deleteTvShow: (where: TvShowWhereUniqueInput) => TvShow;
-    deleteManyTvShows: (where?: TvShowWhereInput) => BatchPayload;
-    createWeightHistoryItem: (
-        data: WeightHistoryItemCreateInput
-    ) => WeightHistoryItem;
-    updateWeightHistoryItem: (
-        args: {
-            data: WeightHistoryItemUpdateInput;
-            where: WeightHistoryItemWhereUniqueInput;
-        }
-    ) => WeightHistoryItem;
-    updateManyWeightHistoryItems: (
-        args: {
-            data: WeightHistoryItemUpdateInput;
-            where?: WeightHistoryItemWhereInput;
-        }
-    ) => BatchPayload;
-    upsertWeightHistoryItem: (
-        args: {
-            where: WeightHistoryItemWhereUniqueInput;
-            create: WeightHistoryItemCreateInput;
-            update: WeightHistoryItemUpdateInput;
-        }
-    ) => WeightHistoryItem;
-    deleteWeightHistoryItem: (
-        where: WeightHistoryItemWhereUniqueInput
-    ) => WeightHistoryItem;
-    deleteManyWeightHistoryItems: (
-        where?: WeightHistoryItemWhereInput
-    ) => BatchPayload;
-    createWishList: (data: WishListCreateInput) => WishList;
-    updateManyWishLists: (
-        args: { data: WishListUpdateInput; where?: WishListWhereInput }
-    ) => BatchPayload;
-    deleteManyWishLists: (where?: WishListWhereInput) => BatchPayload;
+  createAccount: (data: AccountCreateInput) => Account;
+  updateAccount: (
+    args: { data: AccountUpdateInput; where: AccountWhereUniqueInput }
+  ) => Account;
+  updateManyAccounts: (
+    args: { data: AccountUpdateInput; where?: AccountWhereInput }
+  ) => BatchPayload;
+  upsertAccount: (
+    args: {
+      where: AccountWhereUniqueInput;
+      create: AccountCreateInput;
+      update: AccountUpdateInput;
+    }
+  ) => Account;
+  deleteAccount: (where: AccountWhereUniqueInput) => Account;
+  deleteManyAccounts: (where?: AccountWhereInput) => BatchPayload;
+  createBook: (data: BookCreateInput) => Book;
+  updateBook: (
+    args: { data: BookUpdateInput; where: BookWhereUniqueInput }
+  ) => Book;
+  updateManyBooks: (
+    args: { data: BookUpdateInput; where?: BookWhereInput }
+  ) => BatchPayload;
+  upsertBook: (
+    args: {
+      where: BookWhereUniqueInput;
+      create: BookCreateInput;
+      update: BookUpdateInput;
+    }
+  ) => Book;
+  deleteBook: (where: BookWhereUniqueInput) => Book;
+  deleteManyBooks: (where?: BookWhereInput) => BatchPayload;
+  createBookTransaction: (data: BookTransactionCreateInput) => BookTransaction;
+  updateBookTransaction: (
+    args: {
+      data: BookTransactionUpdateInput;
+      where: BookTransactionWhereUniqueInput;
+    }
+  ) => BookTransaction;
+  updateManyBookTransactions: (
+    args: {
+      data: BookTransactionUpdateInput;
+      where?: BookTransactionWhereInput;
+    }
+  ) => BatchPayload;
+  upsertBookTransaction: (
+    args: {
+      where: BookTransactionWhereUniqueInput;
+      create: BookTransactionCreateInput;
+      update: BookTransactionUpdateInput;
+    }
+  ) => BookTransaction;
+  deleteBookTransaction: (
+    where: BookTransactionWhereUniqueInput
+  ) => BookTransaction;
+  deleteManyBookTransactions: (
+    where?: BookTransactionWhereInput
+  ) => BatchPayload;
+  createBudget: (data: BudgetCreateInput) => Budget;
+  updateBudget: (
+    args: { data: BudgetUpdateInput; where: BudgetWhereUniqueInput }
+  ) => Budget;
+  updateManyBudgets: (
+    args: { data: BudgetUpdateInput; where?: BudgetWhereInput }
+  ) => BatchPayload;
+  upsertBudget: (
+    args: {
+      where: BudgetWhereUniqueInput;
+      create: BudgetCreateInput;
+      update: BudgetUpdateInput;
+    }
+  ) => Budget;
+  deleteBudget: (where: BudgetWhereUniqueInput) => Budget;
+  deleteManyBudgets: (where?: BudgetWhereInput) => BatchPayload;
+  createContactInfo: (data: ContactInfoCreateInput) => ContactInfo;
+  updateManyContactInfoes: (
+    args: { data: ContactInfoUpdateInput; where?: ContactInfoWhereInput }
+  ) => BatchPayload;
+  deleteManyContactInfoes: (where?: ContactInfoWhereInput) => BatchPayload;
+  createCourse: (data: CourseCreateInput) => Course;
+  updateManyCourses: (
+    args: { data: CourseUpdateInput; where?: CourseWhereInput }
+  ) => BatchPayload;
+  deleteManyCourses: (where?: CourseWhereInput) => BatchPayload;
+  createCourseAssignment: (
+    data: CourseAssignmentCreateInput
+  ) => CourseAssignment;
+  updateCourseAssignment: (
+    args: {
+      data: CourseAssignmentUpdateInput;
+      where: CourseAssignmentWhereUniqueInput;
+    }
+  ) => CourseAssignment;
+  updateManyCourseAssignments: (
+    args: {
+      data: CourseAssignmentUpdateInput;
+      where?: CourseAssignmentWhereInput;
+    }
+  ) => BatchPayload;
+  upsertCourseAssignment: (
+    args: {
+      where: CourseAssignmentWhereUniqueInput;
+      create: CourseAssignmentCreateInput;
+      update: CourseAssignmentUpdateInput;
+    }
+  ) => CourseAssignment;
+  deleteCourseAssignment: (
+    where: CourseAssignmentWhereUniqueInput
+  ) => CourseAssignment;
+  deleteManyCourseAssignments: (
+    where?: CourseAssignmentWhereInput
+  ) => BatchPayload;
+  createCourseLecture: (data: CourseLectureCreateInput) => CourseLecture;
+  updateCourseLecture: (
+    args: {
+      data: CourseLectureUpdateInput;
+      where: CourseLectureWhereUniqueInput;
+    }
+  ) => CourseLecture;
+  updateManyCourseLectures: (
+    args: { data: CourseLectureUpdateInput; where?: CourseLectureWhereInput }
+  ) => BatchPayload;
+  upsertCourseLecture: (
+    args: {
+      where: CourseLectureWhereUniqueInput;
+      create: CourseLectureCreateInput;
+      update: CourseLectureUpdateInput;
+    }
+  ) => CourseLecture;
+  deleteCourseLecture: (where: CourseLectureWhereUniqueInput) => CourseLecture;
+  deleteManyCourseLectures: (where?: CourseLectureWhereInput) => BatchPayload;
+  createEducation: (data: EducationCreateInput) => Education;
+  updateEducation: (
+    args: { data: EducationUpdateInput; where: EducationWhereUniqueInput }
+  ) => Education;
+  updateManyEducations: (
+    args: { data: EducationUpdateInput; where?: EducationWhereInput }
+  ) => BatchPayload;
+  upsertEducation: (
+    args: {
+      where: EducationWhereUniqueInput;
+      create: EducationCreateInput;
+      update: EducationUpdateInput;
+    }
+  ) => Education;
+  deleteEducation: (where: EducationWhereUniqueInput) => Education;
+  deleteManyEducations: (where?: EducationWhereInput) => BatchPayload;
+  createEvent: (data: EventCreateInput) => Event;
+  updateEvent: (
+    args: { data: EventUpdateInput; where: EventWhereUniqueInput }
+  ) => Event;
+  updateManyEvents: (
+    args: { data: EventUpdateInput; where?: EventWhereInput }
+  ) => BatchPayload;
+  upsertEvent: (
+    args: {
+      where: EventWhereUniqueInput;
+      create: EventCreateInput;
+      update: EventUpdateInput;
+    }
+  ) => Event;
+  deleteEvent: (where: EventWhereUniqueInput) => Event;
+  deleteManyEvents: (where?: EventWhereInput) => BatchPayload;
+  createFavorite: (data: FavoriteCreateInput) => Favorite;
+  updateFavorite: (
+    args: { data: FavoriteUpdateInput; where: FavoriteWhereUniqueInput }
+  ) => Favorite;
+  updateManyFavorites: (
+    args: { data: FavoriteUpdateInput; where?: FavoriteWhereInput }
+  ) => BatchPayload;
+  upsertFavorite: (
+    args: {
+      where: FavoriteWhereUniqueInput;
+      create: FavoriteCreateInput;
+      update: FavoriteUpdateInput;
+    }
+  ) => Favorite;
+  deleteFavorite: (where: FavoriteWhereUniqueInput) => Favorite;
+  deleteManyFavorites: (where?: FavoriteWhereInput) => BatchPayload;
+  createFinanceGoals: (data: FinanceGoalsCreateInput) => FinanceGoals;
+  updateFinanceGoals: (
+    args: { data: FinanceGoalsUpdateInput; where: FinanceGoalsWhereUniqueInput }
+  ) => FinanceGoals;
+  updateManyFinanceGoalses: (
+    args: { data: FinanceGoalsUpdateInput; where?: FinanceGoalsWhereInput }
+  ) => BatchPayload;
+  upsertFinanceGoals: (
+    args: {
+      where: FinanceGoalsWhereUniqueInput;
+      create: FinanceGoalsCreateInput;
+      update: FinanceGoalsUpdateInput;
+    }
+  ) => FinanceGoals;
+  deleteFinanceGoals: (where: FinanceGoalsWhereUniqueInput) => FinanceGoals;
+  deleteManyFinanceGoalses: (where?: FinanceGoalsWhereInput) => BatchPayload;
+  createFixedCost: (data: FixedCostCreateInput) => FixedCost;
+  updateFixedCost: (
+    args: { data: FixedCostUpdateInput; where: FixedCostWhereUniqueInput }
+  ) => FixedCost;
+  updateManyFixedCosts: (
+    args: { data: FixedCostUpdateInput; where?: FixedCostWhereInput }
+  ) => BatchPayload;
+  upsertFixedCost: (
+    args: {
+      where: FixedCostWhereUniqueInput;
+      create: FixedCostCreateInput;
+      update: FixedCostUpdateInput;
+    }
+  ) => FixedCost;
+  deleteFixedCost: (where: FixedCostWhereUniqueInput) => FixedCost;
+  deleteManyFixedCosts: (where?: FixedCostWhereInput) => BatchPayload;
+  createGoodOrService: (data: GoodOrServiceCreateInput) => GoodOrService;
+  updateGoodOrService: (
+    args: {
+      data: GoodOrServiceUpdateInput;
+      where: GoodOrServiceWhereUniqueInput;
+    }
+  ) => GoodOrService;
+  updateManyGoodOrServices: (
+    args: { data: GoodOrServiceUpdateInput; where?: GoodOrServiceWhereInput }
+  ) => BatchPayload;
+  upsertGoodOrService: (
+    args: {
+      where: GoodOrServiceWhereUniqueInput;
+      create: GoodOrServiceCreateInput;
+      update: GoodOrServiceUpdateInput;
+    }
+  ) => GoodOrService;
+  deleteGoodOrService: (where: GoodOrServiceWhereUniqueInput) => GoodOrService;
+  deleteManyGoodOrServices: (where?: GoodOrServiceWhereInput) => BatchPayload;
+  createHuman: (data: HumanCreateInput) => Human;
+  updateHuman: (
+    args: { data: HumanUpdateInput; where: HumanWhereUniqueInput }
+  ) => Human;
+  updateManyHumans: (
+    args: { data: HumanUpdateInput; where?: HumanWhereInput }
+  ) => BatchPayload;
+  upsertHuman: (
+    args: {
+      where: HumanWhereUniqueInput;
+      create: HumanCreateInput;
+      update: HumanUpdateInput;
+    }
+  ) => Human;
+  deleteHuman: (where: HumanWhereUniqueInput) => Human;
+  deleteManyHumans: (where?: HumanWhereInput) => BatchPayload;
+  createLocation: (data: LocationCreateInput) => Location;
+  updateLocation: (
+    args: { data: LocationUpdateInput; where: LocationWhereUniqueInput }
+  ) => Location;
+  updateManyLocations: (
+    args: { data: LocationUpdateInput; where?: LocationWhereInput }
+  ) => BatchPayload;
+  upsertLocation: (
+    args: {
+      where: LocationWhereUniqueInput;
+      create: LocationCreateInput;
+      update: LocationUpdateInput;
+    }
+  ) => Location;
+  deleteLocation: (where: LocationWhereUniqueInput) => Location;
+  deleteManyLocations: (where?: LocationWhereInput) => BatchPayload;
+  createMovie: (data: MovieCreateInput) => Movie;
+  updateMovie: (
+    args: { data: MovieUpdateInput; where: MovieWhereUniqueInput }
+  ) => Movie;
+  updateManyMovies: (
+    args: { data: MovieUpdateInput; where?: MovieWhereInput }
+  ) => BatchPayload;
+  upsertMovie: (
+    args: {
+      where: MovieWhereUniqueInput;
+      create: MovieCreateInput;
+      update: MovieUpdateInput;
+    }
+  ) => Movie;
+  deleteMovie: (where: MovieWhereUniqueInput) => Movie;
+  deleteManyMovies: (where?: MovieWhereInput) => BatchPayload;
+  createMovieTransaction: (
+    data: MovieTransactionCreateInput
+  ) => MovieTransaction;
+  updateMovieTransaction: (
+    args: {
+      data: MovieTransactionUpdateInput;
+      where: MovieTransactionWhereUniqueInput;
+    }
+  ) => MovieTransaction;
+  updateManyMovieTransactions: (
+    args: {
+      data: MovieTransactionUpdateInput;
+      where?: MovieTransactionWhereInput;
+    }
+  ) => BatchPayload;
+  upsertMovieTransaction: (
+    args: {
+      where: MovieTransactionWhereUniqueInput;
+      create: MovieTransactionCreateInput;
+      update: MovieTransactionUpdateInput;
+    }
+  ) => MovieTransaction;
+  deleteMovieTransaction: (
+    where: MovieTransactionWhereUniqueInput
+  ) => MovieTransaction;
+  deleteManyMovieTransactions: (
+    where?: MovieTransactionWhereInput
+  ) => BatchPayload;
+  createOverview: (data: OverviewCreateInput) => Overview;
+  updateOverview: (
+    args: { data: OverviewUpdateInput; where: OverviewWhereUniqueInput }
+  ) => Overview;
+  updateManyOverviews: (
+    args: { data: OverviewUpdateInput; where?: OverviewWhereInput }
+  ) => BatchPayload;
+  upsertOverview: (
+    args: {
+      where: OverviewWhereUniqueInput;
+      create: OverviewCreateInput;
+      update: OverviewUpdateInput;
+    }
+  ) => Overview;
+  deleteOverview: (where: OverviewWhereUniqueInput) => Overview;
+  deleteManyOverviews: (where?: OverviewWhereInput) => BatchPayload;
+  createSchool: (data: SchoolCreateInput) => School;
+  updateSchool: (
+    args: { data: SchoolUpdateInput; where: SchoolWhereUniqueInput }
+  ) => School;
+  updateManySchools: (
+    args: { data: SchoolUpdateInput; where?: SchoolWhereInput }
+  ) => BatchPayload;
+  upsertSchool: (
+    args: {
+      where: SchoolWhereUniqueInput;
+      create: SchoolCreateInput;
+      update: SchoolUpdateInput;
+    }
+  ) => School;
+  deleteSchool: (where: SchoolWhereUniqueInput) => School;
+  deleteManySchools: (where?: SchoolWhereInput) => BatchPayload;
+  createTask: (data: TaskCreateInput) => Task;
+  updateTask: (
+    args: { data: TaskUpdateInput; where: TaskWhereUniqueInput }
+  ) => Task;
+  updateManyTasks: (
+    args: { data: TaskUpdateInput; where?: TaskWhereInput }
+  ) => BatchPayload;
+  upsertTask: (
+    args: {
+      where: TaskWhereUniqueInput;
+      create: TaskCreateInput;
+      update: TaskUpdateInput;
+    }
+  ) => Task;
+  deleteTask: (where: TaskWhereUniqueInput) => Task;
+  deleteManyTasks: (where?: TaskWhereInput) => BatchPayload;
+  createTimeline: (data: TimelineCreateInput) => Timeline;
+  updateTimeline: (
+    args: { data: TimelineUpdateInput; where: TimelineWhereUniqueInput }
+  ) => Timeline;
+  updateManyTimelines: (
+    args: { data: TimelineUpdateInput; where?: TimelineWhereInput }
+  ) => BatchPayload;
+  upsertTimeline: (
+    args: {
+      where: TimelineWhereUniqueInput;
+      create: TimelineCreateInput;
+      update: TimelineUpdateInput;
+    }
+  ) => Timeline;
+  deleteTimeline: (where: TimelineWhereUniqueInput) => Timeline;
+  deleteManyTimelines: (where?: TimelineWhereInput) => BatchPayload;
+  createTransaction: (data: TransactionCreateInput) => Transaction;
+  updateTransaction: (
+    args: { data: TransactionUpdateInput; where: TransactionWhereUniqueInput }
+  ) => Transaction;
+  updateManyTransactions: (
+    args: { data: TransactionUpdateInput; where?: TransactionWhereInput }
+  ) => BatchPayload;
+  upsertTransaction: (
+    args: {
+      where: TransactionWhereUniqueInput;
+      create: TransactionCreateInput;
+      update: TransactionUpdateInput;
+    }
+  ) => Transaction;
+  deleteTransaction: (where: TransactionWhereUniqueInput) => Transaction;
+  deleteManyTransactions: (where?: TransactionWhereInput) => BatchPayload;
+  createTransactionSplit: (
+    data: TransactionSplitCreateInput
+  ) => TransactionSplit;
+  updateManyTransactionSplits: (
+    args: {
+      data: TransactionSplitUpdateInput;
+      where?: TransactionSplitWhereInput;
+    }
+  ) => BatchPayload;
+  deleteManyTransactionSplits: (
+    where?: TransactionSplitWhereInput
+  ) => BatchPayload;
+  createTvEpisode: (data: TvEpisodeCreateInput) => TvEpisode;
+  updateTvEpisode: (
+    args: { data: TvEpisodeUpdateInput; where: TvEpisodeWhereUniqueInput }
+  ) => TvEpisode;
+  updateManyTvEpisodes: (
+    args: { data: TvEpisodeUpdateInput; where?: TvEpisodeWhereInput }
+  ) => BatchPayload;
+  upsertTvEpisode: (
+    args: {
+      where: TvEpisodeWhereUniqueInput;
+      create: TvEpisodeCreateInput;
+      update: TvEpisodeUpdateInput;
+    }
+  ) => TvEpisode;
+  deleteTvEpisode: (where: TvEpisodeWhereUniqueInput) => TvEpisode;
+  deleteManyTvEpisodes: (where?: TvEpisodeWhereInput) => BatchPayload;
+  createTvEpisodeTransaction: (
+    data: TvEpisodeTransactionCreateInput
+  ) => TvEpisodeTransaction;
+  updateTvEpisodeTransaction: (
+    args: {
+      data: TvEpisodeTransactionUpdateInput;
+      where: TvEpisodeTransactionWhereUniqueInput;
+    }
+  ) => TvEpisodeTransaction;
+  updateManyTvEpisodeTransactions: (
+    args: {
+      data: TvEpisodeTransactionUpdateInput;
+      where?: TvEpisodeTransactionWhereInput;
+    }
+  ) => BatchPayload;
+  upsertTvEpisodeTransaction: (
+    args: {
+      where: TvEpisodeTransactionWhereUniqueInput;
+      create: TvEpisodeTransactionCreateInput;
+      update: TvEpisodeTransactionUpdateInput;
+    }
+  ) => TvEpisodeTransaction;
+  deleteTvEpisodeTransaction: (
+    where: TvEpisodeTransactionWhereUniqueInput
+  ) => TvEpisodeTransaction;
+  deleteManyTvEpisodeTransactions: (
+    where?: TvEpisodeTransactionWhereInput
+  ) => BatchPayload;
+  createTvShow: (data: TvShowCreateInput) => TvShow;
+  updateTvShow: (
+    args: { data: TvShowUpdateInput; where: TvShowWhereUniqueInput }
+  ) => TvShow;
+  updateManyTvShows: (
+    args: { data: TvShowUpdateInput; where?: TvShowWhereInput }
+  ) => BatchPayload;
+  upsertTvShow: (
+    args: {
+      where: TvShowWhereUniqueInput;
+      create: TvShowCreateInput;
+      update: TvShowUpdateInput;
+    }
+  ) => TvShow;
+  deleteTvShow: (where: TvShowWhereUniqueInput) => TvShow;
+  deleteManyTvShows: (where?: TvShowWhereInput) => BatchPayload;
+  createWeightHistoryItem: (
+    data: WeightHistoryItemCreateInput
+  ) => WeightHistoryItem;
+  updateWeightHistoryItem: (
+    args: {
+      data: WeightHistoryItemUpdateInput;
+      where: WeightHistoryItemWhereUniqueInput;
+    }
+  ) => WeightHistoryItem;
+  updateManyWeightHistoryItems: (
+    args: {
+      data: WeightHistoryItemUpdateInput;
+      where?: WeightHistoryItemWhereInput;
+    }
+  ) => BatchPayload;
+  upsertWeightHistoryItem: (
+    args: {
+      where: WeightHistoryItemWhereUniqueInput;
+      create: WeightHistoryItemCreateInput;
+      update: WeightHistoryItemUpdateInput;
+    }
+  ) => WeightHistoryItem;
+  deleteWeightHistoryItem: (
+    where: WeightHistoryItemWhereUniqueInput
+  ) => WeightHistoryItem;
+  deleteManyWeightHistoryItems: (
+    where?: WeightHistoryItemWhereInput
+  ) => BatchPayload;
+  createWishList: (data: WishListCreateInput) => WishList;
+  updateManyWishLists: (
+    args: { data: WishListUpdateInput; where?: WishListWhereInput }
+  ) => BatchPayload;
+  deleteManyWishLists: (where?: WishListWhereInput) => BatchPayload;
 
-    /**
-     * Subscriptions
-     */
+  /**
+   * Subscriptions
+   */
 
-    $subscribe: Subscription;
+  $subscribe: Subscription;
 }
 
 export interface Subscription {
-    account: (
-        where?: AccountSubscriptionWhereInput
-    ) => AccountSubscriptionPayloadSubscription;
-    book: (
-        where?: BookSubscriptionWhereInput
-    ) => BookSubscriptionPayloadSubscription;
-    bookTransaction: (
-        where?: BookTransactionSubscriptionWhereInput
-    ) => BookTransactionSubscriptionPayloadSubscription;
-    budget: (
-        where?: BudgetSubscriptionWhereInput
-    ) => BudgetSubscriptionPayloadSubscription;
-    contactInfo: (
-        where?: ContactInfoSubscriptionWhereInput
-    ) => ContactInfoSubscriptionPayloadSubscription;
-    course: (
-        where?: CourseSubscriptionWhereInput
-    ) => CourseSubscriptionPayloadSubscription;
-    courseAssignment: (
-        where?: CourseAssignmentSubscriptionWhereInput
-    ) => CourseAssignmentSubscriptionPayloadSubscription;
-    courseLecture: (
-        where?: CourseLectureSubscriptionWhereInput
-    ) => CourseLectureSubscriptionPayloadSubscription;
-    education: (
-        where?: EducationSubscriptionWhereInput
-    ) => EducationSubscriptionPayloadSubscription;
-    event: (
-        where?: EventSubscriptionWhereInput
-    ) => EventSubscriptionPayloadSubscription;
-    favorite: (
-        where?: FavoriteSubscriptionWhereInput
-    ) => FavoriteSubscriptionPayloadSubscription;
-    financeGoals: (
-        where?: FinanceGoalsSubscriptionWhereInput
-    ) => FinanceGoalsSubscriptionPayloadSubscription;
-    fixedCost: (
-        where?: FixedCostSubscriptionWhereInput
-    ) => FixedCostSubscriptionPayloadSubscription;
-    goodOrService: (
-        where?: GoodOrServiceSubscriptionWhereInput
-    ) => GoodOrServiceSubscriptionPayloadSubscription;
-    human: (
-        where?: HumanSubscriptionWhereInput
-    ) => HumanSubscriptionPayloadSubscription;
-    location: (
-        where?: LocationSubscriptionWhereInput
-    ) => LocationSubscriptionPayloadSubscription;
-    movie: (
-        where?: MovieSubscriptionWhereInput
-    ) => MovieSubscriptionPayloadSubscription;
-    movieTransaction: (
-        where?: MovieTransactionSubscriptionWhereInput
-    ) => MovieTransactionSubscriptionPayloadSubscription;
-    overview: (
-        where?: OverviewSubscriptionWhereInput
-    ) => OverviewSubscriptionPayloadSubscription;
-    school: (
-        where?: SchoolSubscriptionWhereInput
-    ) => SchoolSubscriptionPayloadSubscription;
-    task: (
-        where?: TaskSubscriptionWhereInput
-    ) => TaskSubscriptionPayloadSubscription;
-    timeline: (
-        where?: TimelineSubscriptionWhereInput
-    ) => TimelineSubscriptionPayloadSubscription;
-    transaction: (
-        where?: TransactionSubscriptionWhereInput
-    ) => TransactionSubscriptionPayloadSubscription;
-    transactionSplit: (
-        where?: TransactionSplitSubscriptionWhereInput
-    ) => TransactionSplitSubscriptionPayloadSubscription;
-    tvEpisode: (
-        where?: TvEpisodeSubscriptionWhereInput
-    ) => TvEpisodeSubscriptionPayloadSubscription;
-    tvEpisodeTransaction: (
-        where?: TvEpisodeTransactionSubscriptionWhereInput
-    ) => TvEpisodeTransactionSubscriptionPayloadSubscription;
-    tvShow: (
-        where?: TvShowSubscriptionWhereInput
-    ) => TvShowSubscriptionPayloadSubscription;
-    weightHistoryItem: (
-        where?: WeightHistoryItemSubscriptionWhereInput
-    ) => WeightHistoryItemSubscriptionPayloadSubscription;
-    wishList: (
-        where?: WishListSubscriptionWhereInput
-    ) => WishListSubscriptionPayloadSubscription;
+  account: (
+    where?: AccountSubscriptionWhereInput
+  ) => AccountSubscriptionPayloadSubscription;
+  book: (
+    where?: BookSubscriptionWhereInput
+  ) => BookSubscriptionPayloadSubscription;
+  bookTransaction: (
+    where?: BookTransactionSubscriptionWhereInput
+  ) => BookTransactionSubscriptionPayloadSubscription;
+  budget: (
+    where?: BudgetSubscriptionWhereInput
+  ) => BudgetSubscriptionPayloadSubscription;
+  contactInfo: (
+    where?: ContactInfoSubscriptionWhereInput
+  ) => ContactInfoSubscriptionPayloadSubscription;
+  course: (
+    where?: CourseSubscriptionWhereInput
+  ) => CourseSubscriptionPayloadSubscription;
+  courseAssignment: (
+    where?: CourseAssignmentSubscriptionWhereInput
+  ) => CourseAssignmentSubscriptionPayloadSubscription;
+  courseLecture: (
+    where?: CourseLectureSubscriptionWhereInput
+  ) => CourseLectureSubscriptionPayloadSubscription;
+  education: (
+    where?: EducationSubscriptionWhereInput
+  ) => EducationSubscriptionPayloadSubscription;
+  event: (
+    where?: EventSubscriptionWhereInput
+  ) => EventSubscriptionPayloadSubscription;
+  favorite: (
+    where?: FavoriteSubscriptionWhereInput
+  ) => FavoriteSubscriptionPayloadSubscription;
+  financeGoals: (
+    where?: FinanceGoalsSubscriptionWhereInput
+  ) => FinanceGoalsSubscriptionPayloadSubscription;
+  fixedCost: (
+    where?: FixedCostSubscriptionWhereInput
+  ) => FixedCostSubscriptionPayloadSubscription;
+  goodOrService: (
+    where?: GoodOrServiceSubscriptionWhereInput
+  ) => GoodOrServiceSubscriptionPayloadSubscription;
+  human: (
+    where?: HumanSubscriptionWhereInput
+  ) => HumanSubscriptionPayloadSubscription;
+  location: (
+    where?: LocationSubscriptionWhereInput
+  ) => LocationSubscriptionPayloadSubscription;
+  movie: (
+    where?: MovieSubscriptionWhereInput
+  ) => MovieSubscriptionPayloadSubscription;
+  movieTransaction: (
+    where?: MovieTransactionSubscriptionWhereInput
+  ) => MovieTransactionSubscriptionPayloadSubscription;
+  overview: (
+    where?: OverviewSubscriptionWhereInput
+  ) => OverviewSubscriptionPayloadSubscription;
+  school: (
+    where?: SchoolSubscriptionWhereInput
+  ) => SchoolSubscriptionPayloadSubscription;
+  task: (
+    where?: TaskSubscriptionWhereInput
+  ) => TaskSubscriptionPayloadSubscription;
+  timeline: (
+    where?: TimelineSubscriptionWhereInput
+  ) => TimelineSubscriptionPayloadSubscription;
+  transaction: (
+    where?: TransactionSubscriptionWhereInput
+  ) => TransactionSubscriptionPayloadSubscription;
+  transactionSplit: (
+    where?: TransactionSplitSubscriptionWhereInput
+  ) => TransactionSplitSubscriptionPayloadSubscription;
+  tvEpisode: (
+    where?: TvEpisodeSubscriptionWhereInput
+  ) => TvEpisodeSubscriptionPayloadSubscription;
+  tvEpisodeTransaction: (
+    where?: TvEpisodeTransactionSubscriptionWhereInput
+  ) => TvEpisodeTransactionSubscriptionPayloadSubscription;
+  tvShow: (
+    where?: TvShowSubscriptionWhereInput
+  ) => TvShowSubscriptionPayloadSubscription;
+  weightHistoryItem: (
+    where?: WeightHistoryItemSubscriptionWhereInput
+  ) => WeightHistoryItemSubscriptionPayloadSubscription;
+  wishList: (
+    where?: WishListSubscriptionWhereInput
+  ) => WishListSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
-    new (options?: BaseClientOptions): T;
+  new (options?: BaseClientOptions): T;
 }
 
 /**
@@ -1347,9814 +1337,9792 @@ export interface ClientConstructor<T> {
  */
 
 export type MovieOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "name_ASC"
-    | "name_DESC"
-    | "category_ASC"
-    | "category_DESC"
-    | "release_date_ASC"
-    | "release_date_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "category_ASC"
+  | "category_DESC"
+  | "release_date_ASC"
+  | "release_date_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type TransactionSplitOrderByInput =
-    | "percentage_ASC"
-    | "percentage_DESC"
-    | "amount_ASC"
-    | "amount_DESC"
-    | "pending_ASC"
-    | "pending_DESC"
-    | "id_ASC"
-    | "id_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "percentage_ASC"
+  | "percentage_DESC"
+  | "amount_ASC"
+  | "amount_DESC"
+  | "pending_ASC"
+  | "pending_DESC"
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type WeightHistoryItemOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "weight_ASC"
-    | "weight_DESC"
-    | "date_ASC"
-    | "date_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "weight_ASC"
+  | "weight_DESC"
+  | "date_ASC"
+  | "date_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type WishListOrderByInput =
-    | "balance_ASC"
-    | "balance_DESC"
-    | "id_ASC"
-    | "id_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "balance_ASC"
+  | "balance_DESC"
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type TaskStatus = "IN_PROGRESS" | "COMPLETED" | "CANCELLED";
 
 export type TimelineOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type BookTransactionOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "date_started_ASC"
-    | "date_started_DESC"
-    | "date_finished_ASC"
-    | "date_finished_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "date_started_ASC"
+  | "date_started_DESC"
+  | "date_finished_ASC"
+  | "date_finished_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type LocationOrderByInput =
-    | "longitude_ASC"
-    | "longitude_DESC"
-    | "latitude_ASC"
-    | "latitude_DESC"
-    | "address_ASC"
-    | "address_DESC"
-    | "type_ASC"
-    | "type_DESC"
-    | "name_ASC"
-    | "name_DESC"
-    | "id_ASC"
-    | "id_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "longitude_ASC"
+  | "longitude_DESC"
+  | "latitude_ASC"
+  | "latitude_DESC"
+  | "address_ASC"
+  | "address_DESC"
+  | "type_ASC"
+  | "type_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type HumanOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "first_name_ASC"
-    | "first_name_DESC"
-    | "last_name_ASC"
-    | "last_name_DESC"
-    | "middle_name_ASC"
-    | "middle_name_DESC"
-    | "birthday_ASC"
-    | "birthday_DESC"
-    | "height_ASC"
-    | "height_DESC"
-    | "weight_ASC"
-    | "weight_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "first_name_ASC"
+  | "first_name_DESC"
+  | "last_name_ASC"
+  | "last_name_DESC"
+  | "middle_name_ASC"
+  | "middle_name_DESC"
+  | "birthday_ASC"
+  | "birthday_DESC"
+  | "height_ASC"
+  | "height_DESC"
+  | "weight_ASC"
+  | "weight_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type FavoriteKind =
-    | "COLOR"
-    | "FLOWER"
-    | "MOVIE"
-    | "BOOK"
-    | "SONG"
-    | "MUSIC_ALBUM";
+  | "COLOR"
+  | "FLOWER"
+  | "MOVIE"
+  | "BOOK"
+  | "SONG"
+  | "MUSIC_ALBUM";
 
 export type MovieTransactionOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "date_watched_ASC"
-    | "date_watched_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "date_watched_ASC"
+  | "date_watched_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type ContactInfoOrderByInput =
-    | "email_ASC"
-    | "email_DESC"
-    | "phone_number_ASC"
-    | "phone_number_DESC"
-    | "twitter_ASC"
-    | "twitter_DESC"
-    | "snapchat_ASC"
-    | "snapchat_DESC"
-    | "id_ASC"
-    | "id_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "email_ASC"
+  | "email_DESC"
+  | "phone_number_ASC"
+  | "phone_number_DESC"
+  | "twitter_ASC"
+  | "twitter_DESC"
+  | "snapchat_ASC"
+  | "snapchat_DESC"
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type TvEpisodeOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "name_ASC"
-    | "name_DESC"
-    | "episode_ASC"
-    | "episode_DESC"
-    | "season_ASC"
-    | "season_DESC"
-    | "watched_ASC"
-    | "watched_DESC"
-    | "date_watched_ASC"
-    | "date_watched_DESC"
-    | "release_date_ASC"
-    | "release_date_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "episode_ASC"
+  | "episode_DESC"
+  | "season_ASC"
+  | "season_DESC"
+  | "watched_ASC"
+  | "watched_DESC"
+  | "date_watched_ASC"
+  | "date_watched_DESC"
+  | "release_date_ASC"
+  | "release_date_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type FixedCostOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "name_ASC"
-    | "name_DESC"
-    | "amount_ASC"
-    | "amount_DESC"
-    | "type_ASC"
-    | "type_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "amount_ASC"
+  | "amount_DESC"
+  | "type_ASC"
+  | "type_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type TvEpisodeTransactionOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "date_watched_ASC"
-    | "date_watched_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "date_watched_ASC"
+  | "date_watched_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type BookOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "name_ASC"
-    | "name_DESC"
-    | "author_ASC"
-    | "author_DESC"
-    | "release_date_ASC"
-    | "release_date_DESC"
-    | "word_count_ASC"
-    | "word_count_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "author_ASC"
+  | "author_DESC"
+  | "release_date_ASC"
+  | "release_date_DESC"
+  | "word_count_ASC"
+  | "word_count_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type TaskOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "name_ASC"
-    | "name_DESC"
-    | "start_ASC"
-    | "start_DESC"
-    | "end_ASC"
-    | "end_DESC"
-    | "status_ASC"
-    | "status_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "start_ASC"
+  | "start_DESC"
+  | "end_ASC"
+  | "end_DESC"
+  | "status_ASC"
+  | "status_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type EventOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "date_ASC"
-    | "date_DESC"
-    | "type_ASC"
-    | "type_DESC"
-    | "description_ASC"
-    | "description_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "date_ASC"
+  | "date_DESC"
+  | "type_ASC"
+  | "type_DESC"
+  | "description_ASC"
+  | "description_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type CourseAssignmentOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "description_ASC"
-    | "description_DESC"
-    | "grade_ASC"
-    | "grade_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "description_ASC"
+  | "description_DESC"
+  | "grade_ASC"
+  | "grade_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type TvShowOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "name_ASC"
-    | "name_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type CourseLectureOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "title_ASC"
-    | "title_DESC"
-    | "description_ASC"
-    | "description_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "title_ASC"
+  | "title_DESC"
+  | "description_ASC"
+  | "description_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type FinanceGoalsOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "name_ASC"
-    | "name_DESC"
-    | "cost_ASC"
-    | "cost_DESC"
-    | "due_ASC"
-    | "due_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "cost_ASC"
+  | "cost_DESC"
+  | "due_ASC"
+  | "due_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type CourseOrderByInput =
-    | "name_ASC"
-    | "name_DESC"
-    | "subject_ASC"
-    | "subject_DESC"
-    | "completion_ASC"
-    | "completion_DESC"
-    | "start_date_ASC"
-    | "start_date_DESC"
-    | "end_date_ASC"
-    | "end_date_DESC"
-    | "id_ASC"
-    | "id_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "name_ASC"
+  | "name_DESC"
+  | "subject_ASC"
+  | "subject_DESC"
+  | "completion_ASC"
+  | "completion_DESC"
+  | "start_date_ASC"
+  | "start_date_DESC"
+  | "end_date_ASC"
+  | "end_date_DESC"
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type BudgetOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "flexible_spending_ASC"
-    | "flexible_spending_DESC"
-    | "total_fixed_cost_ASC"
-    | "total_fixed_cost_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "flexible_spending_ASC"
+  | "flexible_spending_DESC"
+  | "total_fixed_cost_ASC"
+  | "total_fixed_cost_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type SchoolOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "name_ASC"
-    | "name_DESC"
-    | "location_ASC"
-    | "location_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "location_ASC"
+  | "location_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type AccountOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "name_ASC"
-    | "name_DESC"
-    | "balance_ASC"
-    | "balance_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "balance_ASC"
+  | "balance_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type FavoriteOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "kind_ASC"
-    | "kind_DESC"
-    | "thing_ASC"
-    | "thing_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "kind_ASC"
+  | "kind_DESC"
+  | "thing_ASC"
+  | "thing_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type TransactionOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "payee_ASC"
-    | "payee_DESC"
-    | "amount_ASC"
-    | "amount_DESC"
-    | "date_ASC"
-    | "date_DESC"
-    | "category_ASC"
-    | "category_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "payee_ASC"
+  | "payee_DESC"
+  | "amount_ASC"
+  | "amount_DESC"
+  | "date_ASC"
+  | "date_DESC"
+  | "category_ASC"
+  | "category_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type EventType =
-    | "PHOTO"
-    | "THOUGHT"
-    | "MOVIE"
-    | "SEX"
-    | "DINING_OUT"
-    | "HOLIDAY"
-    | "ANNIVERSARY";
+  | "PHOTO"
+  | "THOUGHT"
+  | "MOVIE"
+  | "SEX"
+  | "DINING_OUT"
+  | "HOLIDAY"
+  | "ANNIVERSARY";
 
 export type GoodOrServiceOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "type_ASC"
-    | "type_DESC"
-    | "name_ASC"
-    | "name_DESC"
-    | "brand_ASC"
-    | "brand_DESC"
-    | "price_ASC"
-    | "price_DESC"
-    | "url_ASC"
-    | "url_DESC"
-    | "purchased_ASC"
-    | "purchased_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "type_ASC"
+  | "type_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "brand_ASC"
+  | "brand_DESC"
+  | "price_ASC"
+  | "price_DESC"
+  | "url_ASC"
+  | "url_DESC"
+  | "purchased_ASC"
+  | "purchased_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export type FixedCostType = "MONTHLY" | "DAILY" | "YEARLY" | "WEEKLY";
 
 export type EducationOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type OverviewOrderByInput =
-    | "id_ASC"
-    | "id_DESC"
-    | "net_worth_ASC"
-    | "net_worth_DESC"
-    | "credit_score_ASC"
-    | "credit_score_DESC"
-    | "income_ASC"
-    | "income_DESC"
-    | "createdAt_ASC"
-    | "createdAt_DESC"
-    | "updatedAt_ASC"
-    | "updatedAt_DESC";
+  | "id_ASC"
+  | "id_DESC"
+  | "net_worth_ASC"
+  | "net_worth_DESC"
+  | "credit_score_ASC"
+  | "credit_score_DESC"
+  | "income_ASC"
+  | "income_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export interface FavoriteUpsertWithWhereUniqueNestedInput {
-    where: FavoriteWhereUniqueInput;
-    update: FavoriteUpdateDataInput;
-    create: FavoriteCreateInput;
+  where: FavoriteWhereUniqueInput;
+  update: FavoriteUpdateDataInput;
+  create: FavoriteCreateInput;
 }
 
 export type AccountWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
+  id: ID_Input;
 }>;
 
-export interface CourseLectureCreateWithoutCourseInput {
-    title: String;
-    description: String;
+export interface CourseLectureCreateManyWithoutCourseInput {
+  create?:
+    | CourseLectureCreateWithoutCourseInput[]
+    | CourseLectureCreateWithoutCourseInput;
+  connect?: CourseLectureWhereUniqueInput[] | CourseLectureWhereUniqueInput;
 }
 
 export interface FixedCostCreateInput {
-    name?: String;
-    amount?: Float;
-    type?: FixedCostType;
+  name?: String;
+  amount?: Float;
+  type?: FixedCostType;
 }
 
-export interface CourseAssignmentCreateManyWithoutCourseInput {
-    create?:
-        | CourseAssignmentCreateWithoutCourseInput[]
-        | CourseAssignmentCreateWithoutCourseInput;
-    connect?:
-        | CourseAssignmentWhereUniqueInput[]
-        | CourseAssignmentWhereUniqueInput;
+export interface CourseLectureCreateWithoutCourseInput {
+  title: String;
+  description: String;
 }
 
 export interface EducationUpdateDataInput {
-    schools?: SchoolUpdateManyInput;
-    courses?: CourseUpdateManyInput;
+  schools?: SchoolUpdateManyInput;
+  courses?: CourseUpdateManyInput;
 }
 
-export interface CourseAssignmentCreateWithoutCourseInput {
-    description: String;
-    grade?: Float;
+export interface CourseAssignmentCreateManyWithoutCourseInput {
+  create?:
+    | CourseAssignmentCreateWithoutCourseInput[]
+    | CourseAssignmentCreateWithoutCourseInput;
+  connect?:
+    | CourseAssignmentWhereUniqueInput[]
+    | CourseAssignmentWhereUniqueInput;
 }
 
 export interface WeightHistoryItemSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: WeightHistoryItemWhereInput;
-    AND?:
-        | WeightHistoryItemSubscriptionWhereInput[]
-        | WeightHistoryItemSubscriptionWhereInput;
-    OR?:
-        | WeightHistoryItemSubscriptionWhereInput[]
-        | WeightHistoryItemSubscriptionWhereInput;
-    NOT?:
-        | WeightHistoryItemSubscriptionWhereInput[]
-        | WeightHistoryItemSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: WeightHistoryItemWhereInput;
+  AND?:
+    | WeightHistoryItemSubscriptionWhereInput[]
+    | WeightHistoryItemSubscriptionWhereInput;
+  OR?:
+    | WeightHistoryItemSubscriptionWhereInput[]
+    | WeightHistoryItemSubscriptionWhereInput;
+  NOT?:
+    | WeightHistoryItemSubscriptionWhereInput[]
+    | WeightHistoryItemSubscriptionWhereInput;
 }
 
-export interface SchoolCreateOneInput {
-    create?: SchoolCreateInput;
-    connect?: SchoolWhereUniqueInput;
+export interface CourseAssignmentCreateWithoutCourseInput {
+  description: String;
+  grade?: Float;
 }
 
 export interface TvShowSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: TvShowWhereInput;
-    AND?: TvShowSubscriptionWhereInput[] | TvShowSubscriptionWhereInput;
-    OR?: TvShowSubscriptionWhereInput[] | TvShowSubscriptionWhereInput;
-    NOT?: TvShowSubscriptionWhereInput[] | TvShowSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TvShowWhereInput;
+  AND?: TvShowSubscriptionWhereInput[] | TvShowSubscriptionWhereInput;
+  OR?: TvShowSubscriptionWhereInput[] | TvShowSubscriptionWhereInput;
+  NOT?: TvShowSubscriptionWhereInput[] | TvShowSubscriptionWhereInput;
 }
 
-export interface TaskCreateManyInput {
-    create?: TaskCreateInput[] | TaskCreateInput;
-    connect?: TaskWhereUniqueInput[] | TaskWhereUniqueInput;
+export interface SchoolCreateOneInput {
+  create?: SchoolCreateInput;
+  connect?: SchoolWhereUniqueInput;
 }
 
 export interface TvEpisodeSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: TvEpisodeWhereInput;
-    AND?: TvEpisodeSubscriptionWhereInput[] | TvEpisodeSubscriptionWhereInput;
-    OR?: TvEpisodeSubscriptionWhereInput[] | TvEpisodeSubscriptionWhereInput;
-    NOT?: TvEpisodeSubscriptionWhereInput[] | TvEpisodeSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TvEpisodeWhereInput;
+  AND?: TvEpisodeSubscriptionWhereInput[] | TvEpisodeSubscriptionWhereInput;
+  OR?: TvEpisodeSubscriptionWhereInput[] | TvEpisodeSubscriptionWhereInput;
+  NOT?: TvEpisodeSubscriptionWhereInput[] | TvEpisodeSubscriptionWhereInput;
 }
 
-export interface TaskCreateInput {
-    name?: String;
-    start: DateTimeInput;
-    end: DateTimeInput;
-    status?: TaskStatus;
+export interface TaskCreateManyInput {
+  create?: TaskCreateInput[] | TaskCreateInput;
+  connect?: TaskWhereUniqueInput[] | TaskWhereUniqueInput;
 }
 
 export interface TransactionSplitSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: TransactionSplitWhereInput;
-    AND?:
-        | TransactionSplitSubscriptionWhereInput[]
-        | TransactionSplitSubscriptionWhereInput;
-    OR?:
-        | TransactionSplitSubscriptionWhereInput[]
-        | TransactionSplitSubscriptionWhereInput;
-    NOT?:
-        | TransactionSplitSubscriptionWhereInput[]
-        | TransactionSplitSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TransactionSplitWhereInput;
+  AND?:
+    | TransactionSplitSubscriptionWhereInput[]
+    | TransactionSplitSubscriptionWhereInput;
+  OR?:
+    | TransactionSplitSubscriptionWhereInput[]
+    | TransactionSplitSubscriptionWhereInput;
+  NOT?:
+    | TransactionSplitSubscriptionWhereInput[]
+    | TransactionSplitSubscriptionWhereInput;
 }
 
-export interface TvEpisodeTransactionCreateManyWithoutHumanInput {
-    create?:
-        | TvEpisodeTransactionCreateWithoutHumanInput[]
-        | TvEpisodeTransactionCreateWithoutHumanInput;
-    connect?:
-        | TvEpisodeTransactionWhereUniqueInput[]
-        | TvEpisodeTransactionWhereUniqueInput;
+export interface TaskCreateInput {
+  name?: String;
+  start: DateTimeInput;
+  end: DateTimeInput;
+  status?: TaskStatus;
 }
 
 export interface TransactionSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: TransactionWhereInput;
-    AND?:
-        | TransactionSubscriptionWhereInput[]
-        | TransactionSubscriptionWhereInput;
-    OR?:
-        | TransactionSubscriptionWhereInput[]
-        | TransactionSubscriptionWhereInput;
-    NOT?:
-        | TransactionSubscriptionWhereInput[]
-        | TransactionSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TransactionWhereInput;
+  AND?: TransactionSubscriptionWhereInput[] | TransactionSubscriptionWhereInput;
+  OR?: TransactionSubscriptionWhereInput[] | TransactionSubscriptionWhereInput;
+  NOT?: TransactionSubscriptionWhereInput[] | TransactionSubscriptionWhereInput;
 }
 
-export interface TvEpisodeTransactionCreateWithoutHumanInput {
-    show: TvShowCreateOneInput;
-    episode: TvEpisodeCreateOneInput;
-    date_watched: DateTimeInput;
+export interface TvEpisodeTransactionCreateManyWithoutHumanInput {
+  create?:
+    | TvEpisodeTransactionCreateWithoutHumanInput[]
+    | TvEpisodeTransactionCreateWithoutHumanInput;
+  connect?:
+    | TvEpisodeTransactionWhereUniqueInput[]
+    | TvEpisodeTransactionWhereUniqueInput;
 }
 
 export interface TimelineSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: TimelineWhereInput;
-    AND?: TimelineSubscriptionWhereInput[] | TimelineSubscriptionWhereInput;
-    OR?: TimelineSubscriptionWhereInput[] | TimelineSubscriptionWhereInput;
-    NOT?: TimelineSubscriptionWhereInput[] | TimelineSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TimelineWhereInput;
+  AND?: TimelineSubscriptionWhereInput[] | TimelineSubscriptionWhereInput;
+  OR?: TimelineSubscriptionWhereInput[] | TimelineSubscriptionWhereInput;
+  NOT?: TimelineSubscriptionWhereInput[] | TimelineSubscriptionWhereInput;
 }
 
-export interface TvShowCreateOneInput {
-    create?: TvShowCreateInput;
-    connect?: TvShowWhereUniqueInput;
+export interface TvEpisodeTransactionCreateWithoutHumanInput {
+  show: TvShowCreateOneInput;
+  episode: TvEpisodeCreateOneInput;
+  date_watched: DateTimeInput;
 }
 
 export interface TaskSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: TaskWhereInput;
-    AND?: TaskSubscriptionWhereInput[] | TaskSubscriptionWhereInput;
-    OR?: TaskSubscriptionWhereInput[] | TaskSubscriptionWhereInput;
-    NOT?: TaskSubscriptionWhereInput[] | TaskSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TaskWhereInput;
+  AND?: TaskSubscriptionWhereInput[] | TaskSubscriptionWhereInput;
+  OR?: TaskSubscriptionWhereInput[] | TaskSubscriptionWhereInput;
+  NOT?: TaskSubscriptionWhereInput[] | TaskSubscriptionWhereInput;
 }
 
-export interface TvShowCreateInput {
-    name: String;
-    episodes?: TvEpisodeCreateManyWithoutShowInput;
+export interface TvShowCreateOneInput {
+  create?: TvShowCreateInput;
+  connect?: TvShowWhereUniqueInput;
 }
 
 export interface SchoolSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: SchoolWhereInput;
-    AND?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput;
-    OR?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput;
-    NOT?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: SchoolWhereInput;
+  AND?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput;
+  OR?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput;
+  NOT?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput;
 }
 
-export interface TvEpisodeCreateManyWithoutShowInput {
-    create?:
-        | TvEpisodeCreateWithoutShowInput[]
-        | TvEpisodeCreateWithoutShowInput;
-    connect?: TvEpisodeWhereUniqueInput[] | TvEpisodeWhereUniqueInput;
+export interface TvShowCreateInput {
+  name: String;
+  episodes?: TvEpisodeCreateManyWithoutShowInput;
 }
 
 export interface OverviewSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: OverviewWhereInput;
-    AND?: OverviewSubscriptionWhereInput[] | OverviewSubscriptionWhereInput;
-    OR?: OverviewSubscriptionWhereInput[] | OverviewSubscriptionWhereInput;
-    NOT?: OverviewSubscriptionWhereInput[] | OverviewSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: OverviewWhereInput;
+  AND?: OverviewSubscriptionWhereInput[] | OverviewSubscriptionWhereInput;
+  OR?: OverviewSubscriptionWhereInput[] | OverviewSubscriptionWhereInput;
+  NOT?: OverviewSubscriptionWhereInput[] | OverviewSubscriptionWhereInput;
 }
 
-export interface TvEpisodeCreateWithoutShowInput {
-    name?: String;
-    episode?: Int;
-    season?: Int;
-    watched?: Boolean;
-    date_watched: DateTimeInput;
-    release_date: DateTimeInput;
+export interface TvEpisodeCreateManyWithoutShowInput {
+  create?: TvEpisodeCreateWithoutShowInput[] | TvEpisodeCreateWithoutShowInput;
+  connect?: TvEpisodeWhereUniqueInput[] | TvEpisodeWhereUniqueInput;
 }
 
 export interface MovieSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: MovieWhereInput;
-    AND?: MovieSubscriptionWhereInput[] | MovieSubscriptionWhereInput;
-    OR?: MovieSubscriptionWhereInput[] | MovieSubscriptionWhereInput;
-    NOT?: MovieSubscriptionWhereInput[] | MovieSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: MovieWhereInput;
+  AND?: MovieSubscriptionWhereInput[] | MovieSubscriptionWhereInput;
+  OR?: MovieSubscriptionWhereInput[] | MovieSubscriptionWhereInput;
+  NOT?: MovieSubscriptionWhereInput[] | MovieSubscriptionWhereInput;
 }
 
-export interface TvEpisodeCreateOneInput {
-    create?: TvEpisodeCreateInput;
-    connect?: TvEpisodeWhereUniqueInput;
+export interface TvEpisodeCreateWithoutShowInput {
+  name?: String;
+  episode?: Int;
+  season?: Int;
+  watched?: Boolean;
+  date_watched: DateTimeInput;
+  release_date: DateTimeInput;
 }
 
 export interface TvEpisodeWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    name?: String;
-    name_not?: String;
-    name_in?: String[] | String;
-    name_not_in?: String[] | String;
-    name_lt?: String;
-    name_lte?: String;
-    name_gt?: String;
-    name_gte?: String;
-    name_contains?: String;
-    name_not_contains?: String;
-    name_starts_with?: String;
-    name_not_starts_with?: String;
-    name_ends_with?: String;
-    name_not_ends_with?: String;
-    episode?: Int;
-    episode_not?: Int;
-    episode_in?: Int[] | Int;
-    episode_not_in?: Int[] | Int;
-    episode_lt?: Int;
-    episode_lte?: Int;
-    episode_gt?: Int;
-    episode_gte?: Int;
-    season?: Int;
-    season_not?: Int;
-    season_in?: Int[] | Int;
-    season_not_in?: Int[] | Int;
-    season_lt?: Int;
-    season_lte?: Int;
-    season_gt?: Int;
-    season_gte?: Int;
-    watched?: Boolean;
-    watched_not?: Boolean;
-    show?: TvShowWhereInput;
-    date_watched?: DateTimeInput;
-    date_watched_not?: DateTimeInput;
-    date_watched_in?: DateTimeInput[] | DateTimeInput;
-    date_watched_not_in?: DateTimeInput[] | DateTimeInput;
-    date_watched_lt?: DateTimeInput;
-    date_watched_lte?: DateTimeInput;
-    date_watched_gt?: DateTimeInput;
-    date_watched_gte?: DateTimeInput;
-    release_date?: DateTimeInput;
-    release_date_not?: DateTimeInput;
-    release_date_in?: DateTimeInput[] | DateTimeInput;
-    release_date_not_in?: DateTimeInput[] | DateTimeInput;
-    release_date_lt?: DateTimeInput;
-    release_date_lte?: DateTimeInput;
-    release_date_gt?: DateTimeInput;
-    release_date_gte?: DateTimeInput;
-    AND?: TvEpisodeWhereInput[] | TvEpisodeWhereInput;
-    OR?: TvEpisodeWhereInput[] | TvEpisodeWhereInput;
-    NOT?: TvEpisodeWhereInput[] | TvEpisodeWhereInput;
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  episode?: Int;
+  episode_not?: Int;
+  episode_in?: Int[] | Int;
+  episode_not_in?: Int[] | Int;
+  episode_lt?: Int;
+  episode_lte?: Int;
+  episode_gt?: Int;
+  episode_gte?: Int;
+  season?: Int;
+  season_not?: Int;
+  season_in?: Int[] | Int;
+  season_not_in?: Int[] | Int;
+  season_lt?: Int;
+  season_lte?: Int;
+  season_gt?: Int;
+  season_gte?: Int;
+  watched?: Boolean;
+  watched_not?: Boolean;
+  show?: TvShowWhereInput;
+  date_watched?: DateTimeInput;
+  date_watched_not?: DateTimeInput;
+  date_watched_in?: DateTimeInput[] | DateTimeInput;
+  date_watched_not_in?: DateTimeInput[] | DateTimeInput;
+  date_watched_lt?: DateTimeInput;
+  date_watched_lte?: DateTimeInput;
+  date_watched_gt?: DateTimeInput;
+  date_watched_gte?: DateTimeInput;
+  release_date?: DateTimeInput;
+  release_date_not?: DateTimeInput;
+  release_date_in?: DateTimeInput[] | DateTimeInput;
+  release_date_not_in?: DateTimeInput[] | DateTimeInput;
+  release_date_lt?: DateTimeInput;
+  release_date_lte?: DateTimeInput;
+  release_date_gt?: DateTimeInput;
+  release_date_gte?: DateTimeInput;
+  AND?: TvEpisodeWhereInput[] | TvEpisodeWhereInput;
+  OR?: TvEpisodeWhereInput[] | TvEpisodeWhereInput;
+  NOT?: TvEpisodeWhereInput[] | TvEpisodeWhereInput;
 }
 
-export interface TvEpisodeCreateInput {
-    name?: String;
-    episode?: Int;
-    season?: Int;
-    watched?: Boolean;
-    show: TvShowCreateOneWithoutEpisodesInput;
-    date_watched: DateTimeInput;
-    release_date: DateTimeInput;
+export interface TvEpisodeCreateOneInput {
+  create?: TvEpisodeCreateInput;
+  connect?: TvEpisodeWhereUniqueInput;
 }
 
 export interface GoodOrServiceSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: GoodOrServiceWhereInput;
-    AND?:
-        | GoodOrServiceSubscriptionWhereInput[]
-        | GoodOrServiceSubscriptionWhereInput;
-    OR?:
-        | GoodOrServiceSubscriptionWhereInput[]
-        | GoodOrServiceSubscriptionWhereInput;
-    NOT?:
-        | GoodOrServiceSubscriptionWhereInput[]
-        | GoodOrServiceSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: GoodOrServiceWhereInput;
+  AND?:
+    | GoodOrServiceSubscriptionWhereInput[]
+    | GoodOrServiceSubscriptionWhereInput;
+  OR?:
+    | GoodOrServiceSubscriptionWhereInput[]
+    | GoodOrServiceSubscriptionWhereInput;
+  NOT?:
+    | GoodOrServiceSubscriptionWhereInput[]
+    | GoodOrServiceSubscriptionWhereInput;
 }
 
-export interface TvShowCreateOneWithoutEpisodesInput {
-    create?: TvShowCreateWithoutEpisodesInput;
-    connect?: TvShowWhereUniqueInput;
+export interface TvEpisodeCreateInput {
+  name?: String;
+  episode?: Int;
+  season?: Int;
+  watched?: Boolean;
+  show: TvShowCreateOneWithoutEpisodesInput;
+  date_watched: DateTimeInput;
+  release_date: DateTimeInput;
 }
 
 export interface TvEpisodeTransactionWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    human?: HumanWhereInput;
-    show?: TvShowWhereInput;
-    episode?: TvEpisodeWhereInput;
-    date_watched?: DateTimeInput;
-    date_watched_not?: DateTimeInput;
-    date_watched_in?: DateTimeInput[] | DateTimeInput;
-    date_watched_not_in?: DateTimeInput[] | DateTimeInput;
-    date_watched_lt?: DateTimeInput;
-    date_watched_lte?: DateTimeInput;
-    date_watched_gt?: DateTimeInput;
-    date_watched_gte?: DateTimeInput;
-    AND?: TvEpisodeTransactionWhereInput[] | TvEpisodeTransactionWhereInput;
-    OR?: TvEpisodeTransactionWhereInput[] | TvEpisodeTransactionWhereInput;
-    NOT?: TvEpisodeTransactionWhereInput[] | TvEpisodeTransactionWhereInput;
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  human?: HumanWhereInput;
+  show?: TvShowWhereInput;
+  episode?: TvEpisodeWhereInput;
+  date_watched?: DateTimeInput;
+  date_watched_not?: DateTimeInput;
+  date_watched_in?: DateTimeInput[] | DateTimeInput;
+  date_watched_not_in?: DateTimeInput[] | DateTimeInput;
+  date_watched_lt?: DateTimeInput;
+  date_watched_lte?: DateTimeInput;
+  date_watched_gt?: DateTimeInput;
+  date_watched_gte?: DateTimeInput;
+  AND?: TvEpisodeTransactionWhereInput[] | TvEpisodeTransactionWhereInput;
+  OR?: TvEpisodeTransactionWhereInput[] | TvEpisodeTransactionWhereInput;
+  NOT?: TvEpisodeTransactionWhereInput[] | TvEpisodeTransactionWhereInput;
 }
 
-export interface TvShowCreateWithoutEpisodesInput {
-    name: String;
+export interface TvShowCreateOneWithoutEpisodesInput {
+  create?: TvShowCreateWithoutEpisodesInput;
+  connect?: TvShowWhereUniqueInput;
 }
 
 export interface FinanceGoalsSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: FinanceGoalsWhereInput;
-    AND?:
-        | FinanceGoalsSubscriptionWhereInput[]
-        | FinanceGoalsSubscriptionWhereInput;
-    OR?:
-        | FinanceGoalsSubscriptionWhereInput[]
-        | FinanceGoalsSubscriptionWhereInput;
-    NOT?:
-        | FinanceGoalsSubscriptionWhereInput[]
-        | FinanceGoalsSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: FinanceGoalsWhereInput;
+  AND?:
+    | FinanceGoalsSubscriptionWhereInput[]
+    | FinanceGoalsSubscriptionWhereInput;
+  OR?:
+    | FinanceGoalsSubscriptionWhereInput[]
+    | FinanceGoalsSubscriptionWhereInput;
+  NOT?:
+    | FinanceGoalsSubscriptionWhereInput[]
+    | FinanceGoalsSubscriptionWhereInput;
 }
 
-export interface MovieTransactionCreateManyInput {
-    create?: MovieTransactionCreateInput[] | MovieTransactionCreateInput;
-    connect?:
-        | MovieTransactionWhereUniqueInput[]
-        | MovieTransactionWhereUniqueInput;
+export interface TvShowCreateWithoutEpisodesInput {
+  name: String;
 }
 
 export interface FavoriteSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: FavoriteWhereInput;
-    AND?: FavoriteSubscriptionWhereInput[] | FavoriteSubscriptionWhereInput;
-    OR?: FavoriteSubscriptionWhereInput[] | FavoriteSubscriptionWhereInput;
-    NOT?: FavoriteSubscriptionWhereInput[] | FavoriteSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: FavoriteWhereInput;
+  AND?: FavoriteSubscriptionWhereInput[] | FavoriteSubscriptionWhereInput;
+  OR?: FavoriteSubscriptionWhereInput[] | FavoriteSubscriptionWhereInput;
+  NOT?: FavoriteSubscriptionWhereInput[] | FavoriteSubscriptionWhereInput;
 }
 
-export interface MovieTransactionCreateInput {
-    movie: MovieCreateOneInput;
-    date_watched: DateTimeInput;
+export interface MovieTransactionCreateManyInput {
+  create?: MovieTransactionCreateInput[] | MovieTransactionCreateInput;
+  connect?:
+    | MovieTransactionWhereUniqueInput[]
+    | MovieTransactionWhereUniqueInput;
 }
 
 export interface EventSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: EventWhereInput;
-    AND?: EventSubscriptionWhereInput[] | EventSubscriptionWhereInput;
-    OR?: EventSubscriptionWhereInput[] | EventSubscriptionWhereInput;
-    NOT?: EventSubscriptionWhereInput[] | EventSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: EventWhereInput;
+  AND?: EventSubscriptionWhereInput[] | EventSubscriptionWhereInput;
+  OR?: EventSubscriptionWhereInput[] | EventSubscriptionWhereInput;
+  NOT?: EventSubscriptionWhereInput[] | EventSubscriptionWhereInput;
 }
 
-export interface MovieCreateOneInput {
-    create?: MovieCreateInput;
-    connect?: MovieWhereUniqueInput;
+export interface MovieTransactionCreateInput {
+  movie: MovieCreateOneInput;
+  date_watched: DateTimeInput;
 }
 
 export interface EducationSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: EducationWhereInput;
-    AND?: EducationSubscriptionWhereInput[] | EducationSubscriptionWhereInput;
-    OR?: EducationSubscriptionWhereInput[] | EducationSubscriptionWhereInput;
-    NOT?: EducationSubscriptionWhereInput[] | EducationSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: EducationWhereInput;
+  AND?: EducationSubscriptionWhereInput[] | EducationSubscriptionWhereInput;
+  OR?: EducationSubscriptionWhereInput[] | EducationSubscriptionWhereInput;
+  NOT?: EducationSubscriptionWhereInput[] | EducationSubscriptionWhereInput;
 }
 
-export interface MovieCreateInput {
-    name?: String;
-    category?: String;
-    release_date: DateTimeInput;
-    director?: HumanCreateOneWithoutDirectedInput;
-    actors?: HumanCreateManyWithoutActed_inInput;
+export interface MovieCreateOneInput {
+  create?: MovieCreateInput;
+  connect?: MovieWhereUniqueInput;
 }
 
 export interface CourseLectureSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: CourseLectureWhereInput;
-    AND?:
-        | CourseLectureSubscriptionWhereInput[]
-        | CourseLectureSubscriptionWhereInput;
-    OR?:
-        | CourseLectureSubscriptionWhereInput[]
-        | CourseLectureSubscriptionWhereInput;
-    NOT?:
-        | CourseLectureSubscriptionWhereInput[]
-        | CourseLectureSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: CourseLectureWhereInput;
+  AND?:
+    | CourseLectureSubscriptionWhereInput[]
+    | CourseLectureSubscriptionWhereInput;
+  OR?:
+    | CourseLectureSubscriptionWhereInput[]
+    | CourseLectureSubscriptionWhereInput;
+  NOT?:
+    | CourseLectureSubscriptionWhereInput[]
+    | CourseLectureSubscriptionWhereInput;
 }
 
-export interface HumanCreateOneWithoutDirectedInput {
-    create?: HumanCreateWithoutDirectedInput;
-    connect?: HumanWhereUniqueInput;
+export interface MovieCreateInput {
+  name?: String;
+  category?: String;
+  release_date: DateTimeInput;
+  director?: HumanCreateOneWithoutDirectedInput;
+  actors?: HumanCreateManyWithoutActed_inInput;
 }
 
 export interface CourseSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: CourseWhereInput;
-    AND?: CourseSubscriptionWhereInput[] | CourseSubscriptionWhereInput;
-    OR?: CourseSubscriptionWhereInput[] | CourseSubscriptionWhereInput;
-    NOT?: CourseSubscriptionWhereInput[] | CourseSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: CourseWhereInput;
+  AND?: CourseSubscriptionWhereInput[] | CourseSubscriptionWhereInput;
+  OR?: CourseSubscriptionWhereInput[] | CourseSubscriptionWhereInput;
+  NOT?: CourseSubscriptionWhereInput[] | CourseSubscriptionWhereInput;
 }
 
-export interface HumanCreateWithoutDirectedInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
+export interface HumanCreateOneWithoutDirectedInput {
+  create?: HumanCreateWithoutDirectedInput;
+  connect?: HumanWhereUniqueInput;
 }
 
 export interface BudgetSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: BudgetWhereInput;
-    AND?: BudgetSubscriptionWhereInput[] | BudgetSubscriptionWhereInput;
-    OR?: BudgetSubscriptionWhereInput[] | BudgetSubscriptionWhereInput;
-    NOT?: BudgetSubscriptionWhereInput[] | BudgetSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: BudgetWhereInput;
+  AND?: BudgetSubscriptionWhereInput[] | BudgetSubscriptionWhereInput;
+  OR?: BudgetSubscriptionWhereInput[] | BudgetSubscriptionWhereInput;
+  NOT?: BudgetSubscriptionWhereInput[] | BudgetSubscriptionWhereInput;
 }
 
-export interface BookTransactionCreateManyInput {
-    create?: BookTransactionCreateInput[] | BookTransactionCreateInput;
-    connect?:
-        | BookTransactionWhereUniqueInput[]
-        | BookTransactionWhereUniqueInput;
+export interface HumanCreateWithoutDirectedInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
 }
 
 export interface CourseWhereInput {
-    name?: String;
-    name_not?: String;
-    name_in?: String[] | String;
-    name_not_in?: String[] | String;
-    name_lt?: String;
-    name_lte?: String;
-    name_gt?: String;
-    name_gte?: String;
-    name_contains?: String;
-    name_not_contains?: String;
-    name_starts_with?: String;
-    name_not_starts_with?: String;
-    name_ends_with?: String;
-    name_not_ends_with?: String;
-    subject?: ID_Input;
-    subject_not?: ID_Input;
-    subject_in?: ID_Input[] | ID_Input;
-    subject_not_in?: ID_Input[] | ID_Input;
-    subject_lt?: ID_Input;
-    subject_lte?: ID_Input;
-    subject_gt?: ID_Input;
-    subject_gte?: ID_Input;
-    subject_contains?: ID_Input;
-    subject_not_contains?: ID_Input;
-    subject_starts_with?: ID_Input;
-    subject_not_starts_with?: ID_Input;
-    subject_ends_with?: ID_Input;
-    subject_not_ends_with?: ID_Input;
-    completion?: Float;
-    completion_not?: Float;
-    completion_in?: Float[] | Float;
-    completion_not_in?: Float[] | Float;
-    completion_lt?: Float;
-    completion_lte?: Float;
-    completion_gt?: Float;
-    completion_gte?: Float;
-    start_date?: DateTimeInput;
-    start_date_not?: DateTimeInput;
-    start_date_in?: DateTimeInput[] | DateTimeInput;
-    start_date_not_in?: DateTimeInput[] | DateTimeInput;
-    start_date_lt?: DateTimeInput;
-    start_date_lte?: DateTimeInput;
-    start_date_gt?: DateTimeInput;
-    start_date_gte?: DateTimeInput;
-    end_date?: DateTimeInput;
-    end_date_not?: DateTimeInput;
-    end_date_in?: DateTimeInput[] | DateTimeInput;
-    end_date_not_in?: DateTimeInput[] | DateTimeInput;
-    end_date_lt?: DateTimeInput;
-    end_date_lte?: DateTimeInput;
-    end_date_gt?: DateTimeInput;
-    end_date_gte?: DateTimeInput;
-    lectures_every?: CourseLectureWhereInput;
-    lectures_some?: CourseLectureWhereInput;
-    lectures_none?: CourseLectureWhereInput;
-    assignments_every?: CourseAssignmentWhereInput;
-    assignments_some?: CourseAssignmentWhereInput;
-    assignments_none?: CourseAssignmentWhereInput;
-    school?: SchoolWhereInput;
-    AND?: CourseWhereInput[] | CourseWhereInput;
-    OR?: CourseWhereInput[] | CourseWhereInput;
-    NOT?: CourseWhereInput[] | CourseWhereInput;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  subject?: ID_Input;
+  subject_not?: ID_Input;
+  subject_in?: ID_Input[] | ID_Input;
+  subject_not_in?: ID_Input[] | ID_Input;
+  subject_lt?: ID_Input;
+  subject_lte?: ID_Input;
+  subject_gt?: ID_Input;
+  subject_gte?: ID_Input;
+  subject_contains?: ID_Input;
+  subject_not_contains?: ID_Input;
+  subject_starts_with?: ID_Input;
+  subject_not_starts_with?: ID_Input;
+  subject_ends_with?: ID_Input;
+  subject_not_ends_with?: ID_Input;
+  completion?: Float;
+  completion_not?: Float;
+  completion_in?: Float[] | Float;
+  completion_not_in?: Float[] | Float;
+  completion_lt?: Float;
+  completion_lte?: Float;
+  completion_gt?: Float;
+  completion_gte?: Float;
+  start_date?: DateTimeInput;
+  start_date_not?: DateTimeInput;
+  start_date_in?: DateTimeInput[] | DateTimeInput;
+  start_date_not_in?: DateTimeInput[] | DateTimeInput;
+  start_date_lt?: DateTimeInput;
+  start_date_lte?: DateTimeInput;
+  start_date_gt?: DateTimeInput;
+  start_date_gte?: DateTimeInput;
+  end_date?: DateTimeInput;
+  end_date_not?: DateTimeInput;
+  end_date_in?: DateTimeInput[] | DateTimeInput;
+  end_date_not_in?: DateTimeInput[] | DateTimeInput;
+  end_date_lt?: DateTimeInput;
+  end_date_lte?: DateTimeInput;
+  end_date_gt?: DateTimeInput;
+  end_date_gte?: DateTimeInput;
+  lectures_every?: CourseLectureWhereInput;
+  lectures_some?: CourseLectureWhereInput;
+  lectures_none?: CourseLectureWhereInput;
+  assignments_every?: CourseAssignmentWhereInput;
+  assignments_some?: CourseAssignmentWhereInput;
+  assignments_none?: CourseAssignmentWhereInput;
+  school?: SchoolWhereInput;
+  AND?: CourseWhereInput[] | CourseWhereInput;
+  OR?: CourseWhereInput[] | CourseWhereInput;
+  NOT?: CourseWhereInput[] | CourseWhereInput;
 }
 
-export interface BookTransactionCreateInput {
-    book?: BookCreateOneInput;
-    date_started?: DateTimeInput;
-    date_finished?: DateTimeInput;
+export interface BookTransactionCreateManyInput {
+  create?: BookTransactionCreateInput[] | BookTransactionCreateInput;
+  connect?: BookTransactionWhereUniqueInput[] | BookTransactionWhereUniqueInput;
 }
 
 export interface BookSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: BookWhereInput;
-    AND?: BookSubscriptionWhereInput[] | BookSubscriptionWhereInput;
-    OR?: BookSubscriptionWhereInput[] | BookSubscriptionWhereInput;
-    NOT?: BookSubscriptionWhereInput[] | BookSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: BookWhereInput;
+  AND?: BookSubscriptionWhereInput[] | BookSubscriptionWhereInput;
+  OR?: BookSubscriptionWhereInput[] | BookSubscriptionWhereInput;
+  NOT?: BookSubscriptionWhereInput[] | BookSubscriptionWhereInput;
 }
 
-export interface BookCreateOneInput {
-    create?: BookCreateInput;
-    connect?: BookWhereUniqueInput;
+export interface BookTransactionCreateInput {
+  book?: BookCreateOneInput;
+  date_started?: DateTimeInput;
+  date_finished?: DateTimeInput;
 }
 
 export type BookTransactionWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
+  id: ID_Input;
 }>;
 
-export interface BookCreateInput {
-    name?: String;
-    author?: String;
-    release_date: DateTimeInput;
-    word_count?: Int;
+export interface BookCreateOneInput {
+  create?: BookCreateInput;
+  connect?: BookWhereUniqueInput;
 }
 
 export interface WishListCreateInput {
-    balance?: Float;
-    items?: GoodOrServiceCreateManyInput;
+  balance?: Float;
+  items?: GoodOrServiceCreateManyInput;
 }
 
-export interface HumanCreateOneWithoutFatherInput {
-    create?: HumanCreateWithoutFatherInput;
-    connect?: HumanWhereUniqueInput;
+export interface BookCreateInput {
+  name?: String;
+  author?: String;
+  release_date: DateTimeInput;
+  word_count?: Int;
 }
 
 export type BudgetWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
+  id: ID_Input;
 }>;
 
-export interface HumanCreateWithoutFatherInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
+export interface HumanCreateOneWithoutFatherInput {
+  create?: HumanCreateWithoutFatherInput;
+  connect?: HumanWhereUniqueInput;
 }
 
 export interface FixedCostWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    name?: String;
-    name_not?: String;
-    name_in?: String[] | String;
-    name_not_in?: String[] | String;
-    name_lt?: String;
-    name_lte?: String;
-    name_gt?: String;
-    name_gte?: String;
-    name_contains?: String;
-    name_not_contains?: String;
-    name_starts_with?: String;
-    name_not_starts_with?: String;
-    name_ends_with?: String;
-    name_not_ends_with?: String;
-    amount?: Float;
-    amount_not?: Float;
-    amount_in?: Float[] | Float;
-    amount_not_in?: Float[] | Float;
-    amount_lt?: Float;
-    amount_lte?: Float;
-    amount_gt?: Float;
-    amount_gte?: Float;
-    type?: FixedCostType;
-    type_not?: FixedCostType;
-    type_in?: FixedCostType[] | FixedCostType;
-    type_not_in?: FixedCostType[] | FixedCostType;
-    AND?: FixedCostWhereInput[] | FixedCostWhereInput;
-    OR?: FixedCostWhereInput[] | FixedCostWhereInput;
-    NOT?: FixedCostWhereInput[] | FixedCostWhereInput;
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  amount?: Float;
+  amount_not?: Float;
+  amount_in?: Float[] | Float;
+  amount_not_in?: Float[] | Float;
+  amount_lt?: Float;
+  amount_lte?: Float;
+  amount_gt?: Float;
+  amount_gte?: Float;
+  type?: FixedCostType;
+  type_not?: FixedCostType;
+  type_in?: FixedCostType[] | FixedCostType;
+  type_not_in?: FixedCostType[] | FixedCostType;
+  AND?: FixedCostWhereInput[] | FixedCostWhereInput;
+  OR?: FixedCostWhereInput[] | FixedCostWhereInput;
+  NOT?: FixedCostWhereInput[] | FixedCostWhereInput;
 }
 
-export interface HumanCreateOneWithoutMotherInput {
-    create?: HumanCreateWithoutMotherInput;
-    connect?: HumanWhereUniqueInput;
+export interface HumanCreateWithoutFatherInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
 }
 
 export interface EducationWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    schools_every?: SchoolWhereInput;
-    schools_some?: SchoolWhereInput;
-    schools_none?: SchoolWhereInput;
-    courses_every?: CourseWhereInput;
-    courses_some?: CourseWhereInput;
-    courses_none?: CourseWhereInput;
-    AND?: EducationWhereInput[] | EducationWhereInput;
-    OR?: EducationWhereInput[] | EducationWhereInput;
-    NOT?: EducationWhereInput[] | EducationWhereInput;
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  schools_every?: SchoolWhereInput;
+  schools_some?: SchoolWhereInput;
+  schools_none?: SchoolWhereInput;
+  courses_every?: CourseWhereInput;
+  courses_some?: CourseWhereInput;
+  courses_none?: CourseWhereInput;
+  AND?: EducationWhereInput[] | EducationWhereInput;
+  OR?: EducationWhereInput[] | EducationWhereInput;
+  NOT?: EducationWhereInput[] | EducationWhereInput;
 }
 
-export interface HumanCreateWithoutMotherInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
+export interface HumanCreateOneWithoutMotherInput {
+  create?: HumanCreateWithoutMotherInput;
+  connect?: HumanWhereUniqueInput;
 }
 
 export interface BudgetWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    flexible_spending?: Float;
-    flexible_spending_not?: Float;
-    flexible_spending_in?: Float[] | Float;
-    flexible_spending_not_in?: Float[] | Float;
-    flexible_spending_lt?: Float;
-    flexible_spending_lte?: Float;
-    flexible_spending_gt?: Float;
-    flexible_spending_gte?: Float;
-    total_fixed_cost?: Float;
-    total_fixed_cost_not?: Float;
-    total_fixed_cost_in?: Float[] | Float;
-    total_fixed_cost_not_in?: Float[] | Float;
-    total_fixed_cost_lt?: Float;
-    total_fixed_cost_lte?: Float;
-    total_fixed_cost_gt?: Float;
-    total_fixed_cost_gte?: Float;
-    fixed_costs_every?: FixedCostWhereInput;
-    fixed_costs_some?: FixedCostWhereInput;
-    fixed_costs_none?: FixedCostWhereInput;
-    AND?: BudgetWhereInput[] | BudgetWhereInput;
-    OR?: BudgetWhereInput[] | BudgetWhereInput;
-    NOT?: BudgetWhereInput[] | BudgetWhereInput;
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  flexible_spending?: Float;
+  flexible_spending_not?: Float;
+  flexible_spending_in?: Float[] | Float;
+  flexible_spending_not_in?: Float[] | Float;
+  flexible_spending_lt?: Float;
+  flexible_spending_lte?: Float;
+  flexible_spending_gt?: Float;
+  flexible_spending_gte?: Float;
+  total_fixed_cost?: Float;
+  total_fixed_cost_not?: Float;
+  total_fixed_cost_in?: Float[] | Float;
+  total_fixed_cost_not_in?: Float[] | Float;
+  total_fixed_cost_lt?: Float;
+  total_fixed_cost_lte?: Float;
+  total_fixed_cost_gt?: Float;
+  total_fixed_cost_gte?: Float;
+  fixed_costs_every?: FixedCostWhereInput;
+  fixed_costs_some?: FixedCostWhereInput;
+  fixed_costs_none?: FixedCostWhereInput;
+  AND?: BudgetWhereInput[] | BudgetWhereInput;
+  OR?: BudgetWhereInput[] | BudgetWhereInput;
+  NOT?: BudgetWhereInput[] | BudgetWhereInput;
 }
 
-export interface HumanCreateManyWithoutSiblingsInput {
-    create?:
-        | HumanCreateWithoutSiblingsInput[]
-        | HumanCreateWithoutSiblingsInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+export interface HumanCreateWithoutMotherInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
 }
 
 export interface WeightHistoryItemUpdateInput {
-    weight?: Float;
-    date?: DateTimeInput;
-    human?: HumanUpdateOneRequiredWithoutWeight_historyInput;
+  weight?: Float;
+  date?: DateTimeInput;
+  human?: HumanUpdateOneRequiredWithoutWeight_historyInput;
 }
 
-export interface HumanCreateWithoutSiblingsInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
+export interface HumanCreateManyWithoutSiblingsInput {
+  create?: HumanCreateWithoutSiblingsInput[] | HumanCreateWithoutSiblingsInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
 }
 
 export interface HumanCreateOneWithoutWeight_historyInput {
-    create?: HumanCreateWithoutWeight_historyInput;
-    connect?: HumanWhereUniqueInput;
+  create?: HumanCreateWithoutWeight_historyInput;
+  connect?: HumanWhereUniqueInput;
 }
 
-export interface HumanCreateManyWithoutAuntsInput {
-    create?: HumanCreateWithoutAuntsInput[] | HumanCreateWithoutAuntsInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+export interface HumanCreateWithoutSiblingsInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
 }
 
 export interface TvShowUpdateInput {
-    name?: String;
-    episodes?: TvEpisodeUpdateManyWithoutShowInput;
+  name?: String;
+  episodes?: TvEpisodeUpdateManyWithoutShowInput;
 }
 
-export interface HumanCreateWithoutAuntsInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
+export interface HumanCreateManyWithoutAuntsInput {
+  create?: HumanCreateWithoutAuntsInput[] | HumanCreateWithoutAuntsInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
 }
 
 export interface HumanUpdateWithoutTv_showsDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
 }
 
-export interface HumanCreateManyWithoutUnclesInput {
-    create?: HumanCreateWithoutUnclesInput[] | HumanCreateWithoutUnclesInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+export interface HumanCreateWithoutAuntsInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
 }
 
 export interface TvEpisodeTransactionUpdateInput {
-    human?: HumanUpdateOneRequiredWithoutTv_showsInput;
-    show?: TvShowUpdateOneRequiredInput;
-    episode?: TvEpisodeUpdateOneRequiredInput;
-    date_watched?: DateTimeInput;
+  human?: HumanUpdateOneRequiredWithoutTv_showsInput;
+  show?: TvShowUpdateOneRequiredInput;
+  episode?: TvEpisodeUpdateOneRequiredInput;
+  date_watched?: DateTimeInput;
 }
 
-export interface HumanCreateWithoutUnclesInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
+export interface HumanCreateManyWithoutUnclesInput {
+  create?: HumanCreateWithoutUnclesInput[] | HumanCreateWithoutUnclesInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
 }
 
 export type CourseAssignmentWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
+  id: ID_Input;
 }>;
 
-export interface HumanCreateManyWithoutGrandparentsInput {
-    create?:
-        | HumanCreateWithoutGrandparentsInput[]
-        | HumanCreateWithoutGrandparentsInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+export interface HumanCreateWithoutUnclesInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
 }
 
 export interface TvEpisodeTransactionCreateInput {
-    human: HumanCreateOneWithoutTv_showsInput;
-    show: TvShowCreateOneInput;
-    episode: TvEpisodeCreateOneInput;
-    date_watched: DateTimeInput;
+  human: HumanCreateOneWithoutTv_showsInput;
+  show: TvShowCreateOneInput;
+  episode: TvEpisodeCreateOneInput;
+  date_watched: DateTimeInput;
 }
 
-export interface HumanCreateWithoutGrandparentsInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
+export interface HumanCreateManyWithoutGrandparentsInput {
+  create?:
+    | HumanCreateWithoutGrandparentsInput[]
+    | HumanCreateWithoutGrandparentsInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
 }
 
 export type CourseLectureWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
+  id: ID_Input;
 }>;
 
-export interface HumanCreateManyWithoutGreat_grandparentsInput {
-    create?:
-        | HumanCreateWithoutGreat_grandparentsInput[]
-        | HumanCreateWithoutGreat_grandparentsInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+export interface HumanCreateWithoutGrandparentsInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
 }
 
 export interface TransactionUpdateInput {
-    payee?: String;
-    amount?: Float;
-    date?: String;
-    category?: String;
-    splits?: TransactionSplitUpdateManyInput;
-    where?: LocationUpdateOneInput;
-    items?: GoodOrServiceUpdateManyWithoutTransactionInput;
-    with?: HumanUpdateManyInput;
-    event?: EventUpdateOneInput;
+  payee?: String;
+  amount?: Float;
+  date?: String;
+  category?: String;
+  splits?: TransactionSplitUpdateManyInput;
+  location?: LocationUpdateOneInput;
+  items?: GoodOrServiceUpdateManyWithoutTransactionInput;
+  with?: HumanUpdateManyInput;
+  event?: EventUpdateOneInput;
 }
 
-export interface HumanCreateWithoutGreat_grandparentsInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
+export interface HumanCreateManyWithoutGreat_grandparentsInput {
+  create?:
+    | HumanCreateWithoutGreat_grandparentsInput[]
+    | HumanCreateWithoutGreat_grandparentsInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
 }
 
 export type EducationWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
+  id: ID_Input;
 }>;
 
-export interface HumanCreateManyWithoutFriendsInput {
-    create?: HumanCreateWithoutFriendsInput[] | HumanCreateWithoutFriendsInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+export interface HumanCreateWithoutGreat_grandparentsInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
 }
 
 export interface HumanUpdateOneRequiredInput {
-    create?: HumanCreateInput;
-    update?: HumanUpdateDataInput;
-    upsert?: HumanUpsertNestedInput;
-    connect?: HumanWhereUniqueInput;
+  create?: HumanCreateInput;
+  update?: HumanUpdateDataInput;
+  upsert?: HumanUpsertNestedInput;
+  connect?: HumanWhereUniqueInput;
 }
 
-export interface HumanCreateWithoutFriendsInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
+export interface HumanCreateManyWithoutFriendsInput {
+  create?: HumanCreateWithoutFriendsInput[] | HumanCreateWithoutFriendsInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
 }
 
 export interface EventUpdateWithWhereUniqueNestedInput {
-    where: EventWhereUniqueInput;
-    data: EventUpdateDataInput;
+  where: EventWhereUniqueInput;
+  data: EventUpdateDataInput;
 }
 
-export interface HumanCreateManyWithoutAcquaintancesInput {
-    create?:
-        | HumanCreateWithoutAcquaintancesInput[]
-        | HumanCreateWithoutAcquaintancesInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+export interface HumanCreateWithoutFriendsInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
 }
 
 export interface EventUpdateManyInput {
-    create?: EventCreateInput[] | EventCreateInput;
-    delete?: EventWhereUniqueInput[] | EventWhereUniqueInput;
-    connect?: EventWhereUniqueInput[] | EventWhereUniqueInput;
-    disconnect?: EventWhereUniqueInput[] | EventWhereUniqueInput;
-    update?:
-        | EventUpdateWithWhereUniqueNestedInput[]
-        | EventUpdateWithWhereUniqueNestedInput;
-    upsert?:
-        | EventUpsertWithWhereUniqueNestedInput[]
-        | EventUpsertWithWhereUniqueNestedInput;
+  create?: EventCreateInput[] | EventCreateInput;
+  delete?: EventWhereUniqueInput[] | EventWhereUniqueInput;
+  connect?: EventWhereUniqueInput[] | EventWhereUniqueInput;
+  disconnect?: EventWhereUniqueInput[] | EventWhereUniqueInput;
+  update?:
+    | EventUpdateWithWhereUniqueNestedInput[]
+    | EventUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | EventUpsertWithWhereUniqueNestedInput[]
+    | EventUpsertWithWhereUniqueNestedInput;
 }
 
-export interface HumanCreateWithoutAcquaintancesInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
+export interface HumanCreateManyWithoutAcquaintancesInput {
+  create?:
+    | HumanCreateWithoutAcquaintancesInput[]
+    | HumanCreateWithoutAcquaintancesInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
 }
 
 export interface EventCreateManyInput {
-    create?: EventCreateInput[] | EventCreateInput;
-    connect?: EventWhereUniqueInput[] | EventWhereUniqueInput;
+  create?: EventCreateInput[] | EventCreateInput;
+  connect?: EventWhereUniqueInput[] | EventWhereUniqueInput;
 }
 
-export interface HumanCreateManyWithoutColleaguesInput {
-    create?:
-        | HumanCreateWithoutColleaguesInput[]
-        | HumanCreateWithoutColleaguesInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+export interface HumanCreateWithoutAcquaintancesInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
 }
 
 export interface TimelineCreateInput {
-    events?: EventCreateManyInput;
-    belongs_to: HumanCreateOneInput;
+  events?: EventCreateManyInput;
+  belongs_to: HumanCreateOneInput;
 }
 
-export interface HumanCreateWithoutColleaguesInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
+export interface HumanCreateManyWithoutColleaguesInput {
+  create?:
+    | HumanCreateWithoutColleaguesInput[]
+    | HumanCreateWithoutColleaguesInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
 }
 
 export interface SchoolUpdateInput {
-    name?: String;
-    location?: String;
+  name?: String;
+  location?: String;
 }
 
-export interface WeightHistoryItemCreateManyWithoutHumanInput {
-    create?:
-        | WeightHistoryItemCreateWithoutHumanInput[]
-        | WeightHistoryItemCreateWithoutHumanInput;
-    connect?:
-        | WeightHistoryItemWhereUniqueInput[]
-        | WeightHistoryItemWhereUniqueInput;
+export interface HumanCreateWithoutColleaguesInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
 }
 
 export interface AccountUpsertWithWhereUniqueNestedInput {
-    where: AccountWhereUniqueInput;
-    update: AccountUpdateDataInput;
-    create: AccountCreateInput;
+  where: AccountWhereUniqueInput;
+  update: AccountUpdateDataInput;
+  create: AccountCreateInput;
 }
 
-export interface WeightHistoryItemCreateWithoutHumanInput {
-    weight?: Float;
-    date: DateTimeInput;
+export interface WeightHistoryItemCreateManyWithoutHumanInput {
+  create?:
+    | WeightHistoryItemCreateWithoutHumanInput[]
+    | WeightHistoryItemCreateWithoutHumanInput;
+  connect?:
+    | WeightHistoryItemWhereUniqueInput[]
+    | WeightHistoryItemWhereUniqueInput;
 }
 
 export interface FavoriteWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    kind?: FavoriteKind;
-    kind_not?: FavoriteKind;
-    kind_in?: FavoriteKind[] | FavoriteKind;
-    kind_not_in?: FavoriteKind[] | FavoriteKind;
-    thing?: ID_Input;
-    thing_not?: ID_Input;
-    thing_in?: ID_Input[] | ID_Input;
-    thing_not_in?: ID_Input[] | ID_Input;
-    thing_lt?: ID_Input;
-    thing_lte?: ID_Input;
-    thing_gt?: ID_Input;
-    thing_gte?: ID_Input;
-    thing_contains?: ID_Input;
-    thing_not_contains?: ID_Input;
-    thing_starts_with?: ID_Input;
-    thing_not_starts_with?: ID_Input;
-    thing_ends_with?: ID_Input;
-    thing_not_ends_with?: ID_Input;
-    AND?: FavoriteWhereInput[] | FavoriteWhereInput;
-    OR?: FavoriteWhereInput[] | FavoriteWhereInput;
-    NOT?: FavoriteWhereInput[] | FavoriteWhereInput;
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  kind?: FavoriteKind;
+  kind_not?: FavoriteKind;
+  kind_in?: FavoriteKind[] | FavoriteKind;
+  kind_not_in?: FavoriteKind[] | FavoriteKind;
+  thing?: ID_Input;
+  thing_not?: ID_Input;
+  thing_in?: ID_Input[] | ID_Input;
+  thing_not_in?: ID_Input[] | ID_Input;
+  thing_lt?: ID_Input;
+  thing_lte?: ID_Input;
+  thing_gt?: ID_Input;
+  thing_gte?: ID_Input;
+  thing_contains?: ID_Input;
+  thing_not_contains?: ID_Input;
+  thing_starts_with?: ID_Input;
+  thing_not_starts_with?: ID_Input;
+  thing_ends_with?: ID_Input;
+  thing_not_ends_with?: ID_Input;
+  AND?: FavoriteWhereInput[] | FavoriteWhereInput;
+  OR?: FavoriteWhereInput[] | FavoriteWhereInput;
+  NOT?: FavoriteWhereInput[] | FavoriteWhereInput;
 }
 
-export interface MovieCreateManyWithoutDirectorInput {
-    create?:
-        | MovieCreateWithoutDirectorInput[]
-        | MovieCreateWithoutDirectorInput;
-    connect?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
+export interface WeightHistoryItemCreateWithoutHumanInput {
+  weight?: Float;
+  date: DateTimeInput;
 }
 
 export interface AccountUpdateWithWhereUniqueNestedInput {
-    where: AccountWhereUniqueInput;
-    data: AccountUpdateDataInput;
+  where: AccountWhereUniqueInput;
+  data: AccountUpdateDataInput;
 }
 
-export interface MovieCreateWithoutDirectorInput {
-    name?: String;
-    category?: String;
-    release_date: DateTimeInput;
-    actors?: HumanCreateManyWithoutActed_inInput;
+export interface MovieCreateManyWithoutDirectorInput {
+  create?: MovieCreateWithoutDirectorInput[] | MovieCreateWithoutDirectorInput;
+  connect?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
 }
 
 export type FixedCostWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
+  id: ID_Input;
 }>;
 
-export interface HumanCreateManyWithoutActed_inInput {
-    create?:
-        | HumanCreateWithoutActed_inInput[]
-        | HumanCreateWithoutActed_inInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+export interface MovieCreateWithoutDirectorInput {
+  name?: String;
+  category?: String;
+  release_date: DateTimeInput;
+  actors?: HumanCreateManyWithoutActed_inInput;
 }
 
 export interface BudgetUpdateDataInput {
-    flexible_spending?: Float;
-    total_fixed_cost?: Float;
-    fixed_costs?: FixedCostUpdateManyInput;
+  flexible_spending?: Float;
+  total_fixed_cost?: Float;
+  fixed_costs?: FixedCostUpdateManyInput;
 }
 
-export interface HumanCreateWithoutActed_inInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
+export interface HumanCreateManyWithoutActed_inInput {
+  create?: HumanCreateWithoutActed_inInput[] | HumanCreateWithoutActed_inInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
 }
 
 export type GoodOrServiceWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
+  id: ID_Input;
 }>;
 
-export interface MovieCreateManyWithoutActorsInput {
-    create?: MovieCreateWithoutActorsInput[] | MovieCreateWithoutActorsInput;
-    connect?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
+export interface HumanCreateWithoutActed_inInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
 }
 
 export interface FinanceGoalsUpdateDataInput {
-    name?: String;
-    cost?: Float;
-    due?: DateTimeInput;
+  name?: String;
+  cost?: Float;
+  due?: DateTimeInput;
 }
 
-export interface MovieCreateWithoutActorsInput {
-    name?: String;
-    category?: String;
-    release_date: DateTimeInput;
-    director?: HumanCreateOneWithoutDirectedInput;
+export interface MovieCreateManyWithoutActorsInput {
+  create?: MovieCreateWithoutActorsInput[] | MovieCreateWithoutActorsInput;
+  connect?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
 }
 
 export type HumanWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
+  id: ID_Input;
 }>;
 
-export interface GoodOrServiceCreateManyWithoutTransactionInput {
-    create?:
-        | GoodOrServiceCreateWithoutTransactionInput[]
-        | GoodOrServiceCreateWithoutTransactionInput;
-    connect?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
+export interface MovieCreateWithoutActorsInput {
+  name?: String;
+  category?: String;
+  release_date: DateTimeInput;
+  director?: HumanCreateOneWithoutDirectedInput;
 }
 
 export interface OverviewUpdateInput {
-    net_worth?: Float;
-    credit_score?: Int;
-    income?: Float;
-    goals?: FinanceGoalsUpdateManyInput;
-    budget?: BudgetUpdateOneInput;
-    accounts?: AccountUpdateManyInput;
+  net_worth?: Float;
+  credit_score?: Int;
+  income?: Float;
+  goals?: FinanceGoalsUpdateManyInput;
+  budget?: BudgetUpdateOneInput;
+  accounts?: AccountUpdateManyInput;
 }
+
+export interface GoodOrServiceCreateManyWithoutTransactionInput {
+  create?:
+    | GoodOrServiceCreateWithoutTransactionInput[]
+    | GoodOrServiceCreateWithoutTransactionInput;
+  connect?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
+}
+
+export type LocationWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
 
 export interface GoodOrServiceCreateWithoutTransactionInput {
-    type?: String;
-    name?: String;
-    brand: String;
-    price: Float;
-    url?: String;
-    purchased?: Boolean;
-}
-
-export interface HumanWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    first_name?: String;
-    first_name_not?: String;
-    first_name_in?: String[] | String;
-    first_name_not_in?: String[] | String;
-    first_name_lt?: String;
-    first_name_lte?: String;
-    first_name_gt?: String;
-    first_name_gte?: String;
-    first_name_contains?: String;
-    first_name_not_contains?: String;
-    first_name_starts_with?: String;
-    first_name_not_starts_with?: String;
-    first_name_ends_with?: String;
-    first_name_not_ends_with?: String;
-    last_name?: String;
-    last_name_not?: String;
-    last_name_in?: String[] | String;
-    last_name_not_in?: String[] | String;
-    last_name_lt?: String;
-    last_name_lte?: String;
-    last_name_gt?: String;
-    last_name_gte?: String;
-    last_name_contains?: String;
-    last_name_not_contains?: String;
-    last_name_starts_with?: String;
-    last_name_not_starts_with?: String;
-    last_name_ends_with?: String;
-    last_name_not_ends_with?: String;
-    middle_name?: String;
-    middle_name_not?: String;
-    middle_name_in?: String[] | String;
-    middle_name_not_in?: String[] | String;
-    middle_name_lt?: String;
-    middle_name_lte?: String;
-    middle_name_gt?: String;
-    middle_name_gte?: String;
-    middle_name_contains?: String;
-    middle_name_not_contains?: String;
-    middle_name_starts_with?: String;
-    middle_name_not_starts_with?: String;
-    middle_name_ends_with?: String;
-    middle_name_not_ends_with?: String;
-    birthday?: String;
-    birthday_not?: String;
-    birthday_in?: String[] | String;
-    birthday_not_in?: String[] | String;
-    birthday_lt?: String;
-    birthday_lte?: String;
-    birthday_gt?: String;
-    birthday_gte?: String;
-    birthday_contains?: String;
-    birthday_not_contains?: String;
-    birthday_starts_with?: String;
-    birthday_not_starts_with?: String;
-    birthday_ends_with?: String;
-    birthday_not_ends_with?: String;
-    favorites_every?: FavoriteWhereInput;
-    favorites_some?: FavoriteWhereInput;
-    favorites_none?: FavoriteWhereInput;
-    wish_list_every?: GoodOrServiceWhereInput;
-    wish_list_some?: GoodOrServiceWhereInput;
-    wish_list_none?: GoodOrServiceWhereInput;
-    contact?: ContactInfoWhereInput;
-    education?: EducationWhereInput;
-    tasks_every?: TaskWhereInput;
-    tasks_some?: TaskWhereInput;
-    tasks_none?: TaskWhereInput;
-    tv_shows_every?: TvEpisodeTransactionWhereInput;
-    tv_shows_some?: TvEpisodeTransactionWhereInput;
-    tv_shows_none?: TvEpisodeTransactionWhereInput;
-    movies_every?: MovieTransactionWhereInput;
-    movies_some?: MovieTransactionWhereInput;
-    movies_none?: MovieTransactionWhereInput;
-    books_every?: BookTransactionWhereInput;
-    books_some?: BookTransactionWhereInput;
-    books_none?: BookTransactionWhereInput;
-    father?: HumanWhereInput;
-    mother?: HumanWhereInput;
-    siblings_every?: HumanWhereInput;
-    siblings_some?: HumanWhereInput;
-    siblings_none?: HumanWhereInput;
-    aunts_every?: HumanWhereInput;
-    aunts_some?: HumanWhereInput;
-    aunts_none?: HumanWhereInput;
-    uncles_every?: HumanWhereInput;
-    uncles_some?: HumanWhereInput;
-    uncles_none?: HumanWhereInput;
-    grandparents_every?: HumanWhereInput;
-    grandparents_some?: HumanWhereInput;
-    grandparents_none?: HumanWhereInput;
-    great_grandparents_every?: HumanWhereInput;
-    great_grandparents_some?: HumanWhereInput;
-    great_grandparents_none?: HumanWhereInput;
-    friends_every?: HumanWhereInput;
-    friends_some?: HumanWhereInput;
-    friends_none?: HumanWhereInput;
-    acquaintances_every?: HumanWhereInput;
-    acquaintances_some?: HumanWhereInput;
-    acquaintances_none?: HumanWhereInput;
-    colleagues_every?: HumanWhereInput;
-    colleagues_some?: HumanWhereInput;
-    colleagues_none?: HumanWhereInput;
-    height?: Float;
-    height_not?: Float;
-    height_in?: Float[] | Float;
-    height_not_in?: Float[] | Float;
-    height_lt?: Float;
-    height_lte?: Float;
-    height_gt?: Float;
-    height_gte?: Float;
-    weight?: Float;
-    weight_not?: Float;
-    weight_in?: Float[] | Float;
-    weight_not_in?: Float[] | Float;
-    weight_lt?: Float;
-    weight_lte?: Float;
-    weight_gt?: Float;
-    weight_gte?: Float;
-    weight_history_every?: WeightHistoryItemWhereInput;
-    weight_history_some?: WeightHistoryItemWhereInput;
-    weight_history_none?: WeightHistoryItemWhereInput;
-    directed_every?: MovieWhereInput;
-    directed_some?: MovieWhereInput;
-    directed_none?: MovieWhereInput;
-    acted_in_every?: MovieWhereInput;
-    acted_in_some?: MovieWhereInput;
-    acted_in_none?: MovieWhereInput;
-    AND?: HumanWhereInput[] | HumanWhereInput;
-    OR?: HumanWhereInput[] | HumanWhereInput;
-    NOT?: HumanWhereInput[] | HumanWhereInput;
-}
-
-export interface AccountUpdateInput {
-    name?: String;
-    balance?: Float;
-    transactions?: TransactionUpdateManyInput;
-}
-
-export interface FinanceGoalsCreateManyInput {
-    create?: FinanceGoalsCreateInput[] | FinanceGoalsCreateInput;
-    connect?: FinanceGoalsWhereUniqueInput[] | FinanceGoalsWhereUniqueInput;
-}
-
-export interface TransactionUpdateManyInput {
-    create?: TransactionCreateInput[] | TransactionCreateInput;
-    delete?: TransactionWhereUniqueInput[] | TransactionWhereUniqueInput;
-    connect?: TransactionWhereUniqueInput[] | TransactionWhereUniqueInput;
-    disconnect?: TransactionWhereUniqueInput[] | TransactionWhereUniqueInput;
-    update?:
-        | TransactionUpdateWithWhereUniqueNestedInput[]
-        | TransactionUpdateWithWhereUniqueNestedInput;
-    upsert?:
-        | TransactionUpsertWithWhereUniqueNestedInput[]
-        | TransactionUpsertWithWhereUniqueNestedInput;
-}
-
-export type MovieWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface TransactionUpdateWithWhereUniqueNestedInput {
-    where: TransactionWhereUniqueInput;
-    data: TransactionUpdateDataInput;
-}
-
-export interface MovieUpdateInput {
-    name?: String;
-    category?: String;
-    release_date?: DateTimeInput;
-    director?: HumanUpdateOneWithoutDirectedInput;
-    actors?: HumanUpdateManyWithoutActed_inInput;
-}
-
-export interface TransactionUpdateDataInput {
-    payee?: String;
-    amount?: Float;
-    date?: String;
-    category?: String;
-    splits?: TransactionSplitUpdateManyInput;
-    where?: LocationUpdateOneInput;
-    items?: GoodOrServiceUpdateManyWithoutTransactionInput;
-    with?: HumanUpdateManyInput;
-    event?: EventUpdateOneInput;
-}
-
-export type MovieTransactionWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface TransactionSplitUpdateManyInput {
-    create?: TransactionSplitCreateInput[] | TransactionSplitCreateInput;
-}
-
-export interface GoodOrServiceUpdateInput {
-    type?: String;
-    name?: String;
-    brand?: String;
-    price?: Float;
-    url?: String;
-    purchased?: Boolean;
-    transaction?: TransactionUpdateOneWithoutItemsInput;
-}
-
-export interface LocationUpdateOneInput {
-    create?: LocationCreateInput;
-    update?: LocationUpdateDataInput;
-    upsert?: LocationUpsertNestedInput;
-    delete?: Boolean;
-    disconnect?: Boolean;
-}
-
-export type OverviewWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface LocationUpdateDataInput {
-    longitude?: Float;
-    latitude?: Float;
-    address?: String;
-    type?: String;
-    name?: String;
-    events?: EventUpdateManyWithoutLocationInput;
-}
-
-export interface OverviewWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    net_worth?: Float;
-    net_worth_not?: Float;
-    net_worth_in?: Float[] | Float;
-    net_worth_not_in?: Float[] | Float;
-    net_worth_lt?: Float;
-    net_worth_lte?: Float;
-    net_worth_gt?: Float;
-    net_worth_gte?: Float;
-    credit_score?: Int;
-    credit_score_not?: Int;
-    credit_score_in?: Int[] | Int;
-    credit_score_not_in?: Int[] | Int;
-    credit_score_lt?: Int;
-    credit_score_lte?: Int;
-    credit_score_gt?: Int;
-    credit_score_gte?: Int;
-    income?: Float;
-    income_not?: Float;
-    income_in?: Float[] | Float;
-    income_not_in?: Float[] | Float;
-    income_lt?: Float;
-    income_lte?: Float;
-    income_gt?: Float;
-    income_gte?: Float;
-    goals_every?: FinanceGoalsWhereInput;
-    goals_some?: FinanceGoalsWhereInput;
-    goals_none?: FinanceGoalsWhereInput;
-    budget?: BudgetWhereInput;
-    accounts_every?: AccountWhereInput;
-    accounts_some?: AccountWhereInput;
-    accounts_none?: AccountWhereInput;
-    AND?: OverviewWhereInput[] | OverviewWhereInput;
-    OR?: OverviewWhereInput[] | OverviewWhereInput;
-    NOT?: OverviewWhereInput[] | OverviewWhereInput;
-}
-
-export interface EventUpdateManyWithoutLocationInput {
-    create?:
-        | EventCreateWithoutLocationInput[]
-        | EventCreateWithoutLocationInput;
-    delete?: EventWhereUniqueInput[] | EventWhereUniqueInput;
-    connect?: EventWhereUniqueInput[] | EventWhereUniqueInput;
-    disconnect?: EventWhereUniqueInput[] | EventWhereUniqueInput;
-    update?:
-        | EventUpdateWithWhereUniqueWithoutLocationInput[]
-        | EventUpdateWithWhereUniqueWithoutLocationInput;
-    upsert?:
-        | EventUpsertWithWhereUniqueWithoutLocationInput[]
-        | EventUpsertWithWhereUniqueWithoutLocationInput;
-}
-
-export interface FinanceGoalsCreateInput {
-    name: String;
-    cost?: Float;
-    due?: DateTimeInput;
-}
-
-export interface EventUpdateWithWhereUniqueWithoutLocationInput {
-    where: EventWhereUniqueInput;
-    data: EventUpdateWithoutLocationDataInput;
-}
-
-export interface EventUpdateInput {
-    date?: DateTimeInput;
-    location?: LocationUpdateOneRequiredWithoutEventsInput;
-    type?: EventType;
-    description?: String;
-    with?: HumanUpdateManyInput;
-}
-
-export interface EventUpdateWithoutLocationDataInput {
-    date?: DateTimeInput;
-    type?: EventType;
-    description?: String;
-    with?: HumanUpdateManyInput;
-}
-
-export interface EducationUpdateInput {
-    schools?: SchoolUpdateManyInput;
-    courses?: CourseUpdateManyInput;
-}
-
-export interface HumanUpdateManyInput {
-    create?: HumanCreateInput[] | HumanCreateInput;
-    delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    update?:
-        | HumanUpdateWithWhereUniqueNestedInput[]
-        | HumanUpdateWithWhereUniqueNestedInput;
-    upsert?:
-        | HumanUpsertWithWhereUniqueNestedInput[]
-        | HumanUpsertWithWhereUniqueNestedInput;
-}
-
-export interface CourseUpdateWithoutLecturesDataInput {
-    name?: String;
-    subject?: ID_Input;
-    completion?: Float;
-    start_date?: DateTimeInput;
-    end_date?: DateTimeInput;
-    assignments?: CourseAssignmentUpdateManyWithoutCourseInput;
-    school?: SchoolUpdateOneRequiredInput;
-}
-
-export interface HumanUpdateWithWhereUniqueNestedInput {
-    where: HumanWhereUniqueInput;
-    data: HumanUpdateDataInput;
-}
-
-export interface CourseUpdateOneRequiredWithoutLecturesInput {
-    create?: CourseCreateWithoutLecturesInput;
-    update?: CourseUpdateWithoutLecturesDataInput;
-    upsert?: CourseUpsertWithoutLecturesInput;
-}
-
-export interface HumanUpdateDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export interface CourseCreateWithoutLecturesInput {
-    name?: String;
-    subject: ID_Input;
-    completion: Float;
-    start_date: DateTimeInput;
-    end_date: DateTimeInput;
-    assignments?: CourseAssignmentCreateManyWithoutCourseInput;
-    school: SchoolCreateOneInput;
-}
-
-export interface FavoriteUpdateManyInput {
-    create?: FavoriteCreateInput[] | FavoriteCreateInput;
-    delete?: FavoriteWhereUniqueInput[] | FavoriteWhereUniqueInput;
-    connect?: FavoriteWhereUniqueInput[] | FavoriteWhereUniqueInput;
-    disconnect?: FavoriteWhereUniqueInput[] | FavoriteWhereUniqueInput;
-    update?:
-        | FavoriteUpdateWithWhereUniqueNestedInput[]
-        | FavoriteUpdateWithWhereUniqueNestedInput;
-    upsert?:
-        | FavoriteUpsertWithWhereUniqueNestedInput[]
-        | FavoriteUpsertWithWhereUniqueNestedInput;
-}
-
-export interface CourseCreateOneWithoutLecturesInput {
-    create?: CourseCreateWithoutLecturesInput;
-}
-
-export interface FavoriteUpdateWithWhereUniqueNestedInput {
-    where: FavoriteWhereUniqueInput;
-    data: FavoriteUpdateDataInput;
-}
-
-export interface TransactionWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    payee?: String;
-    payee_not?: String;
-    payee_in?: String[] | String;
-    payee_not_in?: String[] | String;
-    payee_lt?: String;
-    payee_lte?: String;
-    payee_gt?: String;
-    payee_gte?: String;
-    payee_contains?: String;
-    payee_not_contains?: String;
-    payee_starts_with?: String;
-    payee_not_starts_with?: String;
-    payee_ends_with?: String;
-    payee_not_ends_with?: String;
-    amount?: Float;
-    amount_not?: Float;
-    amount_in?: Float[] | Float;
-    amount_not_in?: Float[] | Float;
-    amount_lt?: Float;
-    amount_lte?: Float;
-    amount_gt?: Float;
-    amount_gte?: Float;
-    date?: String;
-    date_not?: String;
-    date_in?: String[] | String;
-    date_not_in?: String[] | String;
-    date_lt?: String;
-    date_lte?: String;
-    date_gt?: String;
-    date_gte?: String;
-    date_contains?: String;
-    date_not_contains?: String;
-    date_starts_with?: String;
-    date_not_starts_with?: String;
-    date_ends_with?: String;
-    date_not_ends_with?: String;
-    category?: String;
-    category_not?: String;
-    category_in?: String[] | String;
-    category_not_in?: String[] | String;
-    category_lt?: String;
-    category_lte?: String;
-    category_gt?: String;
-    category_gte?: String;
-    category_contains?: String;
-    category_not_contains?: String;
-    category_starts_with?: String;
-    category_not_starts_with?: String;
-    category_ends_with?: String;
-    category_not_ends_with?: String;
-    splits_every?: TransactionSplitWhereInput;
-    splits_some?: TransactionSplitWhereInput;
-    splits_none?: TransactionSplitWhereInput;
-    where?: LocationWhereInput;
-    items_every?: GoodOrServiceWhereInput;
-    items_some?: GoodOrServiceWhereInput;
-    items_none?: GoodOrServiceWhereInput;
-    with_every?: HumanWhereInput;
-    with_some?: HumanWhereInput;
-    with_none?: HumanWhereInput;
-    event?: EventWhereInput;
-    AND?: TransactionWhereInput[] | TransactionWhereInput;
-    OR?: TransactionWhereInput[] | TransactionWhereInput;
-    NOT?: TransactionWhereInput[] | TransactionWhereInput;
-}
-
-export interface FavoriteUpdateDataInput {
-    kind?: FavoriteKind;
-    thing?: ID_Input;
-}
-
-export interface CourseUpsertWithoutAssignmentsInput {
-    update: CourseUpdateWithoutAssignmentsDataInput;
-    create: CourseCreateWithoutAssignmentsInput;
-}
-
-export interface FixedCostUpdateDataInput {
-    name?: String;
-    amount?: Float;
-    type?: FixedCostType;
-}
-
-export type TransactionWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface GoodOrServiceUpdateManyInput {
-    create?: GoodOrServiceCreateInput[] | GoodOrServiceCreateInput;
-    delete?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
-    connect?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
-    disconnect?:
-        | GoodOrServiceWhereUniqueInput[]
-        | GoodOrServiceWhereUniqueInput;
-    update?:
-        | GoodOrServiceUpdateWithWhereUniqueNestedInput[]
-        | GoodOrServiceUpdateWithWhereUniqueNestedInput;
-    upsert?:
-        | GoodOrServiceUpsertWithWhereUniqueNestedInput[]
-        | GoodOrServiceUpsertWithWhereUniqueNestedInput;
-}
-
-export interface CourseAssignmentUpdateInput {
-    description?: String;
-    grade?: Float;
-    course?: CourseUpdateOneRequiredWithoutAssignmentsInput;
-}
-
-export interface GoodOrServiceUpdateWithWhereUniqueNestedInput {
-    where: GoodOrServiceWhereUniqueInput;
-    data: GoodOrServiceUpdateDataInput;
-}
-
-export interface CourseCreateOneWithoutAssignmentsInput {
-    create?: CourseCreateWithoutAssignmentsInput;
-}
-
-export interface GoodOrServiceUpdateDataInput {
-    type?: String;
-    name?: String;
-    brand?: String;
-    price?: Float;
-    url?: String;
-    purchased?: Boolean;
-    transaction?: TransactionUpdateOneWithoutItemsInput;
-}
-
-export interface SchoolUpsertNestedInput {
-    update: SchoolUpdateDataInput;
-    create: SchoolCreateInput;
-}
-
-export interface TransactionUpdateOneWithoutItemsInput {
-    create?: TransactionCreateWithoutItemsInput;
-    update?: TransactionUpdateWithoutItemsDataInput;
-    upsert?: TransactionUpsertWithoutItemsInput;
-    delete?: Boolean;
-    disconnect?: Boolean;
-    connect?: TransactionWhereUniqueInput;
-}
-
-export interface SchoolUpdateOneRequiredInput {
-    create?: SchoolCreateInput;
-    update?: SchoolUpdateDataInput;
-    upsert?: SchoolUpsertNestedInput;
-    connect?: SchoolWhereUniqueInput;
-}
-
-export interface TransactionUpdateWithoutItemsDataInput {
-    payee?: String;
-    amount?: Float;
-    date?: String;
-    category?: String;
-    splits?: TransactionSplitUpdateManyInput;
-    where?: LocationUpdateOneInput;
-    with?: HumanUpdateManyInput;
-    event?: EventUpdateOneInput;
-}
-
-export interface CourseAssignmentUpdateWithoutCourseDataInput {
-    description?: String;
-    grade?: Float;
-}
-
-export interface EventUpdateOneInput {
-    create?: EventCreateInput;
-    update?: EventUpdateDataInput;
-    upsert?: EventUpsertNestedInput;
-    delete?: Boolean;
-    disconnect?: Boolean;
-    connect?: EventWhereUniqueInput;
-}
-
-export interface CourseAssignmentUpdateWithWhereUniqueWithoutCourseInput {
-    where: CourseAssignmentWhereUniqueInput;
-    data: CourseAssignmentUpdateWithoutCourseDataInput;
-}
-
-export interface EventUpdateDataInput {
-    date?: DateTimeInput;
-    location?: LocationUpdateOneRequiredWithoutEventsInput;
-    type?: EventType;
-    description?: String;
-    with?: HumanUpdateManyInput;
-}
-
-export interface CourseLectureUpsertWithWhereUniqueWithoutCourseInput {
-    where: CourseLectureWhereUniqueInput;
-    update: CourseLectureUpdateWithoutCourseDataInput;
-    create: CourseLectureCreateWithoutCourseInput;
-}
-
-export interface LocationUpdateOneRequiredWithoutEventsInput {
-    create?: LocationCreateWithoutEventsInput;
-    update?: LocationUpdateWithoutEventsDataInput;
-    upsert?: LocationUpsertWithoutEventsInput;
-}
-
-export interface CourseLectureUpdateWithoutCourseDataInput {
-    title?: String;
-    description?: String;
-}
-
-export interface LocationUpdateWithoutEventsDataInput {
-    longitude?: Float;
-    latitude?: Float;
-    address?: String;
-    type?: String;
-    name?: String;
-}
-
-export interface CourseLectureUpdateManyWithoutCourseInput {
-    create?:
-        | CourseLectureCreateWithoutCourseInput[]
-        | CourseLectureCreateWithoutCourseInput;
-    delete?: CourseLectureWhereUniqueInput[] | CourseLectureWhereUniqueInput;
-    connect?: CourseLectureWhereUniqueInput[] | CourseLectureWhereUniqueInput;
-    disconnect?:
-        | CourseLectureWhereUniqueInput[]
-        | CourseLectureWhereUniqueInput;
-    update?:
-        | CourseLectureUpdateWithWhereUniqueWithoutCourseInput[]
-        | CourseLectureUpdateWithWhereUniqueWithoutCourseInput;
-    upsert?:
-        | CourseLectureUpsertWithWhereUniqueWithoutCourseInput[]
-        | CourseLectureUpsertWithWhereUniqueWithoutCourseInput;
-}
-
-export interface LocationUpsertWithoutEventsInput {
-    update: LocationUpdateWithoutEventsDataInput;
-    create: LocationCreateWithoutEventsInput;
-}
-
-export type WeightHistoryItemWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface EventUpsertNestedInput {
-    update: EventUpdateDataInput;
-    create: EventCreateInput;
-}
-
-export interface HumanUpdateWithoutContactDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export interface TransactionUpsertWithoutItemsInput {
-    update: TransactionUpdateWithoutItemsDataInput;
-    create: TransactionCreateWithoutItemsInput;
-}
-
-export interface WishListWhereInput {
-    balance?: Float;
-    balance_not?: Float;
-    balance_in?: Float[] | Float;
-    balance_not_in?: Float[] | Float;
-    balance_lt?: Float;
-    balance_lte?: Float;
-    balance_gt?: Float;
-    balance_gte?: Float;
-    items_every?: GoodOrServiceWhereInput;
-    items_some?: GoodOrServiceWhereInput;
-    items_none?: GoodOrServiceWhereInput;
-    AND?: WishListWhereInput[] | WishListWhereInput;
-    OR?: WishListWhereInput[] | WishListWhereInput;
-    NOT?: WishListWhereInput[] | WishListWhereInput;
-}
-
-export interface GoodOrServiceUpsertWithWhereUniqueNestedInput {
-    where: GoodOrServiceWhereUniqueInput;
-    update: GoodOrServiceUpdateDataInput;
-    create: GoodOrServiceCreateInput;
-}
-
-export interface HumanCreateWithoutContactInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
-}
-
-export interface ContactInfoUpdateOneWithoutHumanInput {
-    create?: ContactInfoCreateWithoutHumanInput;
-    update?: ContactInfoUpdateWithoutHumanDataInput;
-    upsert?: ContactInfoUpsertWithoutHumanInput;
-    delete?: Boolean;
-    disconnect?: Boolean;
-}
-
-export interface ContactInfoCreateInput {
-    email?: String;
-    phone_number?: String;
-    twitter?: String;
-    snapchat?: String;
-    human: HumanCreateOneWithoutContactInput;
-}
-
-export interface ContactInfoUpdateWithoutHumanDataInput {
-    email?: String;
-    phone_number?: String;
-    twitter?: String;
-    snapchat?: String;
-}
-
-export interface TransactionCreateManyInput {
-    create?: TransactionCreateInput[] | TransactionCreateInput;
-    connect?: TransactionWhereUniqueInput[] | TransactionWhereUniqueInput;
-}
-
-export interface ContactInfoUpsertWithoutHumanInput {
-    update: ContactInfoUpdateWithoutHumanDataInput;
-    create: ContactInfoCreateWithoutHumanInput;
-}
-
-export interface TransactionSplitCreateManyInput {
-    create?: TransactionSplitCreateInput[] | TransactionSplitCreateInput;
-}
-
-export interface EducationUpdateOneInput {
-    create?: EducationCreateInput;
-    update?: EducationUpdateDataInput;
-    upsert?: EducationUpsertNestedInput;
-    delete?: Boolean;
-    disconnect?: Boolean;
-    connect?: EducationWhereUniqueInput;
-}
-
-export interface HumanCreateOneInput {
-    create?: HumanCreateInput;
-    connect?: HumanWhereUniqueInput;
-}
-
-export interface FixedCostUpdateWithWhereUniqueNestedInput {
-    where: FixedCostWhereUniqueInput;
-    data: FixedCostUpdateDataInput;
-}
-
-export interface FavoriteCreateManyInput {
-    create?: FavoriteCreateInput[] | FavoriteCreateInput;
-    connect?: FavoriteWhereUniqueInput[] | FavoriteWhereUniqueInput;
-}
-
-export interface SchoolUpdateManyInput {
-    create?: SchoolCreateInput[] | SchoolCreateInput;
-    delete?: SchoolWhereUniqueInput[] | SchoolWhereUniqueInput;
-    connect?: SchoolWhereUniqueInput[] | SchoolWhereUniqueInput;
-    disconnect?: SchoolWhereUniqueInput[] | SchoolWhereUniqueInput;
-    update?:
-        | SchoolUpdateWithWhereUniqueNestedInput[]
-        | SchoolUpdateWithWhereUniqueNestedInput;
-    upsert?:
-        | SchoolUpsertWithWhereUniqueNestedInput[]
-        | SchoolUpsertWithWhereUniqueNestedInput;
-}
-
-export interface GoodOrServiceCreateManyInput {
-    create?: GoodOrServiceCreateInput[] | GoodOrServiceCreateInput;
-    connect?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
-}
-
-export interface SchoolUpdateWithWhereUniqueNestedInput {
-    where: SchoolWhereUniqueInput;
-    data: SchoolUpdateDataInput;
-}
-
-export interface TransactionCreateOneWithoutItemsInput {
-    create?: TransactionCreateWithoutItemsInput;
-    connect?: TransactionWhereUniqueInput;
-}
-
-export interface SchoolUpdateDataInput {
-    name?: String;
-    location?: String;
-}
-
-export interface LocationCreateOneInput {
-    create?: LocationCreateInput;
-}
-
-export interface SchoolUpsertWithWhereUniqueNestedInput {
-    where: SchoolWhereUniqueInput;
-    update: SchoolUpdateDataInput;
-    create: SchoolCreateInput;
-}
-
-export interface EventCreateManyWithoutLocationInput {
-    create?:
-        | EventCreateWithoutLocationInput[]
-        | EventCreateWithoutLocationInput;
-    connect?: EventWhereUniqueInput[] | EventWhereUniqueInput;
-}
-
-export interface CourseUpdateManyInput {
-    create?: CourseCreateInput[] | CourseCreateInput;
-}
-
-export interface HumanCreateManyInput {
-    create?: HumanCreateInput[] | HumanCreateInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-}
-
-export interface EducationUpsertNestedInput {
-    update: EducationUpdateDataInput;
-    create: EducationCreateInput;
-}
-
-export interface EventCreateInput {
-    date: DateTimeInput;
-    location: LocationCreateOneWithoutEventsInput;
-    type: EventType;
-    description?: String;
-    with?: HumanCreateManyInput;
-}
-
-export interface TaskUpdateManyInput {
-    create?: TaskCreateInput[] | TaskCreateInput;
-    delete?: TaskWhereUniqueInput[] | TaskWhereUniqueInput;
-    connect?: TaskWhereUniqueInput[] | TaskWhereUniqueInput;
-    disconnect?: TaskWhereUniqueInput[] | TaskWhereUniqueInput;
-    update?:
-        | TaskUpdateWithWhereUniqueNestedInput[]
-        | TaskUpdateWithWhereUniqueNestedInput;
-    upsert?:
-        | TaskUpsertWithWhereUniqueNestedInput[]
-        | TaskUpsertWithWhereUniqueNestedInput;
-}
-
-export interface LocationCreateWithoutEventsInput {
-    longitude: Float;
-    latitude: Float;
-    address: String;
-    type?: String;
-    name: String;
-}
-
-export interface TaskUpdateWithWhereUniqueNestedInput {
-    where: TaskWhereUniqueInput;
-    data: TaskUpdateDataInput;
-}
-
-export interface ContactInfoCreateWithoutHumanInput {
-    email?: String;
-    phone_number?: String;
-    twitter?: String;
-    snapchat?: String;
-}
-
-export interface TaskUpdateDataInput {
-    name?: String;
-    start?: DateTimeInput;
-    end?: DateTimeInput;
-    status?: TaskStatus;
-}
-
-export interface EducationCreateInput {
-    schools?: SchoolCreateManyInput;
-    courses?: CourseCreateManyInput;
-}
-
-export interface TaskUpsertWithWhereUniqueNestedInput {
-    where: TaskWhereUniqueInput;
-    update: TaskUpdateDataInput;
-    create: TaskCreateInput;
-}
-
-export interface SchoolCreateInput {
-    name: String;
-    location: String;
-}
-
-export interface TvEpisodeTransactionUpdateManyWithoutHumanInput {
-    create?:
-        | TvEpisodeTransactionCreateWithoutHumanInput[]
-        | TvEpisodeTransactionCreateWithoutHumanInput;
-    delete?:
-        | TvEpisodeTransactionWhereUniqueInput[]
-        | TvEpisodeTransactionWhereUniqueInput;
-    connect?:
-        | TvEpisodeTransactionWhereUniqueInput[]
-        | TvEpisodeTransactionWhereUniqueInput;
-    disconnect?:
-        | TvEpisodeTransactionWhereUniqueInput[]
-        | TvEpisodeTransactionWhereUniqueInput;
-    update?:
-        | TvEpisodeTransactionUpdateWithWhereUniqueWithoutHumanInput[]
-        | TvEpisodeTransactionUpdateWithWhereUniqueWithoutHumanInput;
-    upsert?:
-        | TvEpisodeTransactionUpsertWithWhereUniqueWithoutHumanInput[]
-        | TvEpisodeTransactionUpsertWithWhereUniqueWithoutHumanInput;
-}
-
-export interface CourseCreateInput {
-    name?: String;
-    subject: ID_Input;
-    completion: Float;
-    start_date: DateTimeInput;
-    end_date: DateTimeInput;
-    lectures?: CourseLectureCreateManyWithoutCourseInput;
-    assignments?: CourseAssignmentCreateManyWithoutCourseInput;
-    school: SchoolCreateOneInput;
-}
-
-export interface TvEpisodeTransactionUpdateWithWhereUniqueWithoutHumanInput {
-    where: TvEpisodeTransactionWhereUniqueInput;
-    data: TvEpisodeTransactionUpdateWithoutHumanDataInput;
-}
-
-export interface WishListSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: WishListWhereInput;
-    AND?: WishListSubscriptionWhereInput[] | WishListSubscriptionWhereInput;
-    OR?: WishListSubscriptionWhereInput[] | WishListSubscriptionWhereInput;
-    NOT?: WishListSubscriptionWhereInput[] | WishListSubscriptionWhereInput;
-}
-
-export interface TvEpisodeTransactionUpdateWithoutHumanDataInput {
-    show?: TvShowUpdateOneRequiredInput;
-    episode?: TvEpisodeUpdateOneRequiredInput;
-    date_watched?: DateTimeInput;
-}
-
-export interface TvEpisodeTransactionSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: TvEpisodeTransactionWhereInput;
-    AND?:
-        | TvEpisodeTransactionSubscriptionWhereInput[]
-        | TvEpisodeTransactionSubscriptionWhereInput;
-    OR?:
-        | TvEpisodeTransactionSubscriptionWhereInput[]
-        | TvEpisodeTransactionSubscriptionWhereInput;
-    NOT?:
-        | TvEpisodeTransactionSubscriptionWhereInput[]
-        | TvEpisodeTransactionSubscriptionWhereInput;
-}
-
-export interface TvShowUpdateOneRequiredInput {
-    create?: TvShowCreateInput;
-    update?: TvShowUpdateDataInput;
-    upsert?: TvShowUpsertNestedInput;
-    connect?: TvShowWhereUniqueInput;
-}
-
-export interface WeightHistoryItemWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    weight?: Float;
-    weight_not?: Float;
-    weight_in?: Float[] | Float;
-    weight_not_in?: Float[] | Float;
-    weight_lt?: Float;
-    weight_lte?: Float;
-    weight_gt?: Float;
-    weight_gte?: Float;
-    date?: DateTimeInput;
-    date_not?: DateTimeInput;
-    date_in?: DateTimeInput[] | DateTimeInput;
-    date_not_in?: DateTimeInput[] | DateTimeInput;
-    date_lt?: DateTimeInput;
-    date_lte?: DateTimeInput;
-    date_gt?: DateTimeInput;
-    date_gte?: DateTimeInput;
-    human?: HumanWhereInput;
-    AND?: WeightHistoryItemWhereInput[] | WeightHistoryItemWhereInput;
-    OR?: WeightHistoryItemWhereInput[] | WeightHistoryItemWhereInput;
-    NOT?: WeightHistoryItemWhereInput[] | WeightHistoryItemWhereInput;
-}
-
-export interface TvShowUpdateDataInput {
-    name?: String;
-    episodes?: TvEpisodeUpdateManyWithoutShowInput;
-}
-
-export interface BookTransactionWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    book?: BookWhereInput;
-    date_started?: DateTimeInput;
-    date_started_not?: DateTimeInput;
-    date_started_in?: DateTimeInput[] | DateTimeInput;
-    date_started_not_in?: DateTimeInput[] | DateTimeInput;
-    date_started_lt?: DateTimeInput;
-    date_started_lte?: DateTimeInput;
-    date_started_gt?: DateTimeInput;
-    date_started_gte?: DateTimeInput;
-    date_finished?: DateTimeInput;
-    date_finished_not?: DateTimeInput;
-    date_finished_in?: DateTimeInput[] | DateTimeInput;
-    date_finished_not_in?: DateTimeInput[] | DateTimeInput;
-    date_finished_lt?: DateTimeInput;
-    date_finished_lte?: DateTimeInput;
-    date_finished_gt?: DateTimeInput;
-    date_finished_gte?: DateTimeInput;
-    AND?: BookTransactionWhereInput[] | BookTransactionWhereInput;
-    OR?: BookTransactionWhereInput[] | BookTransactionWhereInput;
-    NOT?: BookTransactionWhereInput[] | BookTransactionWhereInput;
-}
-
-export interface TvEpisodeUpdateManyWithoutShowInput {
-    create?:
-        | TvEpisodeCreateWithoutShowInput[]
-        | TvEpisodeCreateWithoutShowInput;
-    delete?: TvEpisodeWhereUniqueInput[] | TvEpisodeWhereUniqueInput;
-    connect?: TvEpisodeWhereUniqueInput[] | TvEpisodeWhereUniqueInput;
-    disconnect?: TvEpisodeWhereUniqueInput[] | TvEpisodeWhereUniqueInput;
-    update?:
-        | TvEpisodeUpdateWithWhereUniqueWithoutShowInput[]
-        | TvEpisodeUpdateWithWhereUniqueWithoutShowInput;
-    upsert?:
-        | TvEpisodeUpsertWithWhereUniqueWithoutShowInput[]
-        | TvEpisodeUpsertWithWhereUniqueWithoutShowInput;
-}
-
-export interface MovieTransactionWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    movie?: MovieWhereInput;
-    date_watched?: DateTimeInput;
-    date_watched_not?: DateTimeInput;
-    date_watched_in?: DateTimeInput[] | DateTimeInput;
-    date_watched_not_in?: DateTimeInput[] | DateTimeInput;
-    date_watched_lt?: DateTimeInput;
-    date_watched_lte?: DateTimeInput;
-    date_watched_gt?: DateTimeInput;
-    date_watched_gte?: DateTimeInput;
-    AND?: MovieTransactionWhereInput[] | MovieTransactionWhereInput;
-    OR?: MovieTransactionWhereInput[] | MovieTransactionWhereInput;
-    NOT?: MovieTransactionWhereInput[] | MovieTransactionWhereInput;
-}
-
-export interface TvEpisodeUpdateWithWhereUniqueWithoutShowInput {
-    where: TvEpisodeWhereUniqueInput;
-    data: TvEpisodeUpdateWithoutShowDataInput;
-}
-
-export interface LocationSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: LocationWhereInput;
-    AND?: LocationSubscriptionWhereInput[] | LocationSubscriptionWhereInput;
-    OR?: LocationSubscriptionWhereInput[] | LocationSubscriptionWhereInput;
-    NOT?: LocationSubscriptionWhereInput[] | LocationSubscriptionWhereInput;
-}
-
-export interface TvEpisodeUpdateWithoutShowDataInput {
-    name?: String;
-    episode?: Int;
-    season?: Int;
-    watched?: Boolean;
-    date_watched?: DateTimeInput;
-    release_date?: DateTimeInput;
-}
-
-export interface TvShowWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    name?: String;
-    name_not?: String;
-    name_in?: String[] | String;
-    name_not_in?: String[] | String;
-    name_lt?: String;
-    name_lte?: String;
-    name_gt?: String;
-    name_gte?: String;
-    name_contains?: String;
-    name_not_contains?: String;
-    name_starts_with?: String;
-    name_not_starts_with?: String;
-    name_ends_with?: String;
-    name_not_ends_with?: String;
-    episodes_every?: TvEpisodeWhereInput;
-    episodes_some?: TvEpisodeWhereInput;
-    episodes_none?: TvEpisodeWhereInput;
-    AND?: TvShowWhereInput[] | TvShowWhereInput;
-    OR?: TvShowWhereInput[] | TvShowWhereInput;
-    NOT?: TvShowWhereInput[] | TvShowWhereInput;
-}
-
-export interface TvEpisodeUpsertWithWhereUniqueWithoutShowInput {
-    where: TvEpisodeWhereUniqueInput;
-    update: TvEpisodeUpdateWithoutShowDataInput;
-    create: TvEpisodeCreateWithoutShowInput;
-}
-
-export interface TaskWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    name?: String;
-    name_not?: String;
-    name_in?: String[] | String;
-    name_not_in?: String[] | String;
-    name_lt?: String;
-    name_lte?: String;
-    name_gt?: String;
-    name_gte?: String;
-    name_contains?: String;
-    name_not_contains?: String;
-    name_starts_with?: String;
-    name_not_starts_with?: String;
-    name_ends_with?: String;
-    name_not_ends_with?: String;
-    start?: DateTimeInput;
-    start_not?: DateTimeInput;
-    start_in?: DateTimeInput[] | DateTimeInput;
-    start_not_in?: DateTimeInput[] | DateTimeInput;
-    start_lt?: DateTimeInput;
-    start_lte?: DateTimeInput;
-    start_gt?: DateTimeInput;
-    start_gte?: DateTimeInput;
-    end?: DateTimeInput;
-    end_not?: DateTimeInput;
-    end_in?: DateTimeInput[] | DateTimeInput;
-    end_not_in?: DateTimeInput[] | DateTimeInput;
-    end_lt?: DateTimeInput;
-    end_lte?: DateTimeInput;
-    end_gt?: DateTimeInput;
-    end_gte?: DateTimeInput;
-    status?: TaskStatus;
-    status_not?: TaskStatus;
-    status_in?: TaskStatus[] | TaskStatus;
-    status_not_in?: TaskStatus[] | TaskStatus;
-    AND?: TaskWhereInput[] | TaskWhereInput;
-    OR?: TaskWhereInput[] | TaskWhereInput;
-    NOT?: TaskWhereInput[] | TaskWhereInput;
-}
-
-export interface TvShowUpsertNestedInput {
-    update: TvShowUpdateDataInput;
-    create: TvShowCreateInput;
-}
-
-export interface CourseLectureWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    title?: String;
-    title_not?: String;
-    title_in?: String[] | String;
-    title_not_in?: String[] | String;
-    title_lt?: String;
-    title_lte?: String;
-    title_gt?: String;
-    title_gte?: String;
-    title_contains?: String;
-    title_not_contains?: String;
-    title_starts_with?: String;
-    title_not_starts_with?: String;
-    title_ends_with?: String;
-    title_not_ends_with?: String;
-    description?: String;
-    description_not?: String;
-    description_in?: String[] | String;
-    description_not_in?: String[] | String;
-    description_lt?: String;
-    description_lte?: String;
-    description_gt?: String;
-    description_gte?: String;
-    description_contains?: String;
-    description_not_contains?: String;
-    description_starts_with?: String;
-    description_not_starts_with?: String;
-    description_ends_with?: String;
-    description_not_ends_with?: String;
-    course?: CourseWhereInput;
-    AND?: CourseLectureWhereInput[] | CourseLectureWhereInput;
-    OR?: CourseLectureWhereInput[] | CourseLectureWhereInput;
-    NOT?: CourseLectureWhereInput[] | CourseLectureWhereInput;
-}
-
-export interface TvEpisodeUpdateOneRequiredInput {
-    create?: TvEpisodeCreateInput;
-    update?: TvEpisodeUpdateDataInput;
-    upsert?: TvEpisodeUpsertNestedInput;
-    connect?: TvEpisodeWhereUniqueInput;
-}
-
-export interface CourseAssignmentSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: CourseAssignmentWhereInput;
-    AND?:
-        | CourseAssignmentSubscriptionWhereInput[]
-        | CourseAssignmentSubscriptionWhereInput;
-    OR?:
-        | CourseAssignmentSubscriptionWhereInput[]
-        | CourseAssignmentSubscriptionWhereInput;
-    NOT?:
-        | CourseAssignmentSubscriptionWhereInput[]
-        | CourseAssignmentSubscriptionWhereInput;
-}
-
-export interface TvEpisodeUpdateDataInput {
-    name?: String;
-    episode?: Int;
-    season?: Int;
-    watched?: Boolean;
-    show?: TvShowUpdateOneRequiredWithoutEpisodesInput;
-    date_watched?: DateTimeInput;
-    release_date?: DateTimeInput;
-}
-
-export type BookWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface TvShowUpdateOneRequiredWithoutEpisodesInput {
-    create?: TvShowCreateWithoutEpisodesInput;
-    update?: TvShowUpdateWithoutEpisodesDataInput;
-    upsert?: TvShowUpsertWithoutEpisodesInput;
-    connect?: TvShowWhereUniqueInput;
-}
-
-export interface AccountSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: AccountWhereInput;
-    AND?: AccountSubscriptionWhereInput[] | AccountSubscriptionWhereInput;
-    OR?: AccountSubscriptionWhereInput[] | AccountSubscriptionWhereInput;
-    NOT?: AccountSubscriptionWhereInput[] | AccountSubscriptionWhereInput;
-}
-
-export interface TvShowUpdateWithoutEpisodesDataInput {
-    name?: String;
-}
-
-export interface HumanUpsertWithoutWeight_historyInput {
-    update: HumanUpdateWithoutWeight_historyDataInput;
-    create: HumanCreateWithoutWeight_historyInput;
-}
-
-export interface TvShowUpsertWithoutEpisodesInput {
-    update: TvShowUpdateWithoutEpisodesDataInput;
-    create: TvShowCreateWithoutEpisodesInput;
-}
-
-export interface SchoolWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    name?: String;
-    name_not?: String;
-    name_in?: String[] | String;
-    name_not_in?: String[] | String;
-    name_lt?: String;
-    name_lte?: String;
-    name_gt?: String;
-    name_gte?: String;
-    name_contains?: String;
-    name_not_contains?: String;
-    name_starts_with?: String;
-    name_not_starts_with?: String;
-    name_ends_with?: String;
-    name_not_ends_with?: String;
-    location?: String;
-    location_not?: String;
-    location_in?: String[] | String;
-    location_not_in?: String[] | String;
-    location_lt?: String;
-    location_lte?: String;
-    location_gt?: String;
-    location_gte?: String;
-    location_contains?: String;
-    location_not_contains?: String;
-    location_starts_with?: String;
-    location_not_starts_with?: String;
-    location_ends_with?: String;
-    location_not_ends_with?: String;
-    AND?: SchoolWhereInput[] | SchoolWhereInput;
-    OR?: SchoolWhereInput[] | SchoolWhereInput;
-    NOT?: SchoolWhereInput[] | SchoolWhereInput;
-}
-
-export interface TvEpisodeUpsertNestedInput {
-    update: TvEpisodeUpdateDataInput;
-    create: TvEpisodeCreateInput;
-}
-
-export interface ContactInfoWhereInput {
-    email?: String;
-    email_not?: String;
-    email_in?: String[] | String;
-    email_not_in?: String[] | String;
-    email_lt?: String;
-    email_lte?: String;
-    email_gt?: String;
-    email_gte?: String;
-    email_contains?: String;
-    email_not_contains?: String;
-    email_starts_with?: String;
-    email_not_starts_with?: String;
-    email_ends_with?: String;
-    email_not_ends_with?: String;
-    phone_number?: String;
-    phone_number_not?: String;
-    phone_number_in?: String[] | String;
-    phone_number_not_in?: String[] | String;
-    phone_number_lt?: String;
-    phone_number_lte?: String;
-    phone_number_gt?: String;
-    phone_number_gte?: String;
-    phone_number_contains?: String;
-    phone_number_not_contains?: String;
-    phone_number_starts_with?: String;
-    phone_number_not_starts_with?: String;
-    phone_number_ends_with?: String;
-    phone_number_not_ends_with?: String;
-    twitter?: String;
-    twitter_not?: String;
-    twitter_in?: String[] | String;
-    twitter_not_in?: String[] | String;
-    twitter_lt?: String;
-    twitter_lte?: String;
-    twitter_gt?: String;
-    twitter_gte?: String;
-    twitter_contains?: String;
-    twitter_not_contains?: String;
-    twitter_starts_with?: String;
-    twitter_not_starts_with?: String;
-    twitter_ends_with?: String;
-    twitter_not_ends_with?: String;
-    snapchat?: String;
-    snapchat_not?: String;
-    snapchat_in?: String[] | String;
-    snapchat_not_in?: String[] | String;
-    snapchat_lt?: String;
-    snapchat_lte?: String;
-    snapchat_gt?: String;
-    snapchat_gte?: String;
-    snapchat_contains?: String;
-    snapchat_not_contains?: String;
-    snapchat_starts_with?: String;
-    snapchat_not_starts_with?: String;
-    snapchat_ends_with?: String;
-    snapchat_not_ends_with?: String;
-    human?: HumanWhereInput;
-    AND?: ContactInfoWhereInput[] | ContactInfoWhereInput;
-    OR?: ContactInfoWhereInput[] | ContactInfoWhereInput;
-    NOT?: ContactInfoWhereInput[] | ContactInfoWhereInput;
-}
-
-export interface TvEpisodeTransactionUpsertWithWhereUniqueWithoutHumanInput {
-    where: TvEpisodeTransactionWhereUniqueInput;
-    update: TvEpisodeTransactionUpdateWithoutHumanDataInput;
-    create: TvEpisodeTransactionCreateWithoutHumanInput;
-}
-
-export interface WeightHistoryItemCreateInput {
-    weight?: Float;
-    date: DateTimeInput;
-    human: HumanCreateOneWithoutWeight_historyInput;
-}
-
-export interface MovieTransactionUpdateManyInput {
-    create?: MovieTransactionCreateInput[] | MovieTransactionCreateInput;
-    delete?:
-        | MovieTransactionWhereUniqueInput[]
-        | MovieTransactionWhereUniqueInput;
-    connect?:
-        | MovieTransactionWhereUniqueInput[]
-        | MovieTransactionWhereUniqueInput;
-    disconnect?:
-        | MovieTransactionWhereUniqueInput[]
-        | MovieTransactionWhereUniqueInput;
-    update?:
-        | MovieTransactionUpdateWithWhereUniqueNestedInput[]
-        | MovieTransactionUpdateWithWhereUniqueNestedInput;
-    upsert?:
-        | MovieTransactionUpsertWithWhereUniqueNestedInput[]
-        | MovieTransactionUpsertWithWhereUniqueNestedInput;
-}
-
-export interface HumanUpdateOneRequiredWithoutTv_showsInput {
-    create?: HumanCreateWithoutTv_showsInput;
-    update?: HumanUpdateWithoutTv_showsDataInput;
-    upsert?: HumanUpsertWithoutTv_showsInput;
-    connect?: HumanWhereUniqueInput;
-}
-
-export interface MovieTransactionUpdateWithWhereUniqueNestedInput {
-    where: MovieTransactionWhereUniqueInput;
-    data: MovieTransactionUpdateDataInput;
-}
-
-export interface HumanCreateOneWithoutTv_showsInput {
-    create?: HumanCreateWithoutTv_showsInput;
-    connect?: HumanWhereUniqueInput;
-}
-
-export interface MovieTransactionUpdateDataInput {
-    movie?: MovieUpdateOneRequiredInput;
-    date_watched?: DateTimeInput;
-}
-
-export interface TransactionSplitUpdateInput {
-    human?: HumanUpdateOneRequiredInput;
-    percentage?: Float;
-    amount?: Float;
-    pending?: Boolean;
-}
-
-export interface MovieUpdateOneRequiredInput {
-    create?: MovieCreateInput;
-    update?: MovieUpdateDataInput;
-    upsert?: MovieUpsertNestedInput;
-    connect?: MovieWhereUniqueInput;
-}
-
-export interface GoodOrServiceWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    type?: String;
-    type_not?: String;
-    type_in?: String[] | String;
-    type_not_in?: String[] | String;
-    type_lt?: String;
-    type_lte?: String;
-    type_gt?: String;
-    type_gte?: String;
-    type_contains?: String;
-    type_not_contains?: String;
-    type_starts_with?: String;
-    type_not_starts_with?: String;
-    type_ends_with?: String;
-    type_not_ends_with?: String;
-    name?: String;
-    name_not?: String;
-    name_in?: String[] | String;
-    name_not_in?: String[] | String;
-    name_lt?: String;
-    name_lte?: String;
-    name_gt?: String;
-    name_gte?: String;
-    name_contains?: String;
-    name_not_contains?: String;
-    name_starts_with?: String;
-    name_not_starts_with?: String;
-    name_ends_with?: String;
-    name_not_ends_with?: String;
-    brand?: String;
-    brand_not?: String;
-    brand_in?: String[] | String;
-    brand_not_in?: String[] | String;
-    brand_lt?: String;
-    brand_lte?: String;
-    brand_gt?: String;
-    brand_gte?: String;
-    brand_contains?: String;
-    brand_not_contains?: String;
-    brand_starts_with?: String;
-    brand_not_starts_with?: String;
-    brand_ends_with?: String;
-    brand_not_ends_with?: String;
-    price?: Float;
-    price_not?: Float;
-    price_in?: Float[] | Float;
-    price_not_in?: Float[] | Float;
-    price_lt?: Float;
-    price_lte?: Float;
-    price_gt?: Float;
-    price_gte?: Float;
-    url?: String;
-    url_not?: String;
-    url_in?: String[] | String;
-    url_not_in?: String[] | String;
-    url_lt?: String;
-    url_lte?: String;
-    url_gt?: String;
-    url_gte?: String;
-    url_contains?: String;
-    url_not_contains?: String;
-    url_starts_with?: String;
-    url_not_starts_with?: String;
-    url_ends_with?: String;
-    url_not_ends_with?: String;
-    purchased?: Boolean;
-    purchased_not?: Boolean;
-    transaction?: TransactionWhereInput;
-    AND?: GoodOrServiceWhereInput[] | GoodOrServiceWhereInput;
-    OR?: GoodOrServiceWhereInput[] | GoodOrServiceWhereInput;
-    NOT?: GoodOrServiceWhereInput[] | GoodOrServiceWhereInput;
-}
-
-export interface MovieUpdateDataInput {
-    name?: String;
-    category?: String;
-    release_date?: DateTimeInput;
-    director?: HumanUpdateOneWithoutDirectedInput;
-    actors?: HumanUpdateManyWithoutActed_inInput;
-}
-
-export type EventWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface HumanUpdateOneWithoutDirectedInput {
-    create?: HumanCreateWithoutDirectedInput;
-    update?: HumanUpdateWithoutDirectedDataInput;
-    upsert?: HumanUpsertWithoutDirectedInput;
-    delete?: Boolean;
-    disconnect?: Boolean;
-    connect?: HumanWhereUniqueInput;
-}
-
-export type FavoriteWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface HumanUpdateWithoutDirectedDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export type FinanceGoalsWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface BookTransactionUpdateManyInput {
-    create?: BookTransactionCreateInput[] | BookTransactionCreateInput;
-    delete?:
-        | BookTransactionWhereUniqueInput[]
-        | BookTransactionWhereUniqueInput;
-    connect?:
-        | BookTransactionWhereUniqueInput[]
-        | BookTransactionWhereUniqueInput;
-    disconnect?:
-        | BookTransactionWhereUniqueInput[]
-        | BookTransactionWhereUniqueInput;
-    update?:
-        | BookTransactionUpdateWithWhereUniqueNestedInput[]
-        | BookTransactionUpdateWithWhereUniqueNestedInput;
-    upsert?:
-        | BookTransactionUpsertWithWhereUniqueNestedInput[]
-        | BookTransactionUpsertWithWhereUniqueNestedInput;
-}
-
-export interface AccountUpdateDataInput {
-    name?: String;
-    balance?: Float;
-    transactions?: TransactionUpdateManyInput;
-}
-
-export interface BookTransactionUpdateWithWhereUniqueNestedInput {
-    where: BookTransactionWhereUniqueInput;
-    data: BookTransactionUpdateDataInput;
-}
-
-export interface BudgetUpsertNestedInput {
-    update: BudgetUpdateDataInput;
-    create: BudgetCreateInput;
-}
-
-export interface BookTransactionUpdateDataInput {
-    book?: BookUpdateOneInput;
-    date_started?: DateTimeInput;
-    date_finished?: DateTimeInput;
-}
-
-export interface FinanceGoalsUpsertWithWhereUniqueNestedInput {
-    where: FinanceGoalsWhereUniqueInput;
-    update: FinanceGoalsUpdateDataInput;
-    create: FinanceGoalsCreateInput;
-}
-
-export interface BookUpdateOneInput {
-    create?: BookCreateInput;
-    update?: BookUpdateDataInput;
-    upsert?: BookUpsertNestedInput;
-    delete?: Boolean;
-    disconnect?: Boolean;
-    connect?: BookWhereUniqueInput;
-}
-
-export interface FinanceGoalsUpdateManyInput {
-    create?: FinanceGoalsCreateInput[] | FinanceGoalsCreateInput;
-    delete?: FinanceGoalsWhereUniqueInput[] | FinanceGoalsWhereUniqueInput;
-    connect?: FinanceGoalsWhereUniqueInput[] | FinanceGoalsWhereUniqueInput;
-    disconnect?: FinanceGoalsWhereUniqueInput[] | FinanceGoalsWhereUniqueInput;
-    update?:
-        | FinanceGoalsUpdateWithWhereUniqueNestedInput[]
-        | FinanceGoalsUpdateWithWhereUniqueNestedInput;
-    upsert?:
-        | FinanceGoalsUpsertWithWhereUniqueNestedInput[]
-        | FinanceGoalsUpsertWithWhereUniqueNestedInput;
-}
-
-export interface BookUpdateDataInput {
-    name?: String;
-    author?: String;
-    release_date?: DateTimeInput;
-    word_count?: Int;
+  type?: String;
+  name?: String;
+  brand: String;
+  price: Float;
+  url?: String;
+  purchased?: Boolean;
 }
 
 export interface BudgetCreateOneInput {
-    create?: BudgetCreateInput;
-    connect?: BudgetWhereUniqueInput;
+  create?: BudgetCreateInput;
+  connect?: BudgetWhereUniqueInput;
 }
 
-export interface BookUpsertNestedInput {
-    update: BookUpdateDataInput;
-    create: BookCreateInput;
-}
-
-export interface MovieTransactionUpdateInput {
-    movie?: MovieUpdateOneRequiredInput;
-    date_watched?: DateTimeInput;
-}
-
-export interface BookTransactionUpsertWithWhereUniqueNestedInput {
-    where: BookTransactionWhereUniqueInput;
-    update: BookTransactionUpdateDataInput;
-    create: BookTransactionCreateInput;
-}
-
-export interface HumanUpdateInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export interface HumanUpdateOneWithoutFatherInput {
-    create?: HumanCreateWithoutFatherInput;
-    update?: HumanUpdateWithoutFatherDataInput;
-    upsert?: HumanUpsertWithoutFatherInput;
-    delete?: Boolean;
-    disconnect?: Boolean;
-    connect?: HumanWhereUniqueInput;
-}
-
-export interface FinanceGoalsUpdateInput {
-    name?: String;
-    cost?: Float;
-    due?: DateTimeInput;
-}
-
-export interface HumanUpdateWithoutFatherDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export interface FavoriteUpdateInput {
-    kind?: FavoriteKind;
-    thing?: ID_Input;
-}
-
-export interface HumanUpdateOneWithoutMotherInput {
-    create?: HumanCreateWithoutMotherInput;
-    update?: HumanUpdateWithoutMotherDataInput;
-    upsert?: HumanUpsertWithoutMotherInput;
-    delete?: Boolean;
-    disconnect?: Boolean;
-    connect?: HumanWhereUniqueInput;
-}
-
-export interface CourseUpsertWithoutLecturesInput {
-    update: CourseUpdateWithoutLecturesDataInput;
-    create: CourseCreateWithoutLecturesInput;
-}
-
-export interface HumanUpdateWithoutMotherDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export interface CourseLectureUpdateInput {
-    title?: String;
-    description?: String;
-    course?: CourseUpdateOneRequiredWithoutLecturesInput;
-}
-
-export interface HumanUpdateManyWithoutSiblingsInput {
-    create?:
-        | HumanCreateWithoutSiblingsInput[]
-        | HumanCreateWithoutSiblingsInput;
-    delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    update?:
-        | HumanUpdateWithWhereUniqueWithoutSiblingsInput[]
-        | HumanUpdateWithWhereUniqueWithoutSiblingsInput;
-    upsert?:
-        | HumanUpsertWithWhereUniqueWithoutSiblingsInput[]
-        | HumanUpsertWithWhereUniqueWithoutSiblingsInput;
-}
-
-export interface TimelineWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    events_every?: EventWhereInput;
-    events_some?: EventWhereInput;
-    events_none?: EventWhereInput;
-    belongs_to?: HumanWhereInput;
-    AND?: TimelineWhereInput[] | TimelineWhereInput;
-    OR?: TimelineWhereInput[] | TimelineWhereInput;
-    NOT?: TimelineWhereInput[] | TimelineWhereInput;
-}
-
-export interface HumanUpdateWithWhereUniqueWithoutSiblingsInput {
-    where: HumanWhereUniqueInput;
-    data: HumanUpdateWithoutSiblingsDataInput;
-}
-
-export interface CourseUpdateWithoutAssignmentsDataInput {
-    name?: String;
-    subject?: ID_Input;
-    completion?: Float;
-    start_date?: DateTimeInput;
-    end_date?: DateTimeInput;
-    lectures?: CourseLectureUpdateManyWithoutCourseInput;
-    school?: SchoolUpdateOneRequiredInput;
-}
-
-export interface HumanUpdateWithoutSiblingsDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export interface CourseCreateWithoutAssignmentsInput {
-    name?: String;
-    subject: ID_Input;
-    completion: Float;
-    start_date: DateTimeInput;
-    end_date: DateTimeInput;
-    lectures?: CourseLectureCreateManyWithoutCourseInput;
-    school: SchoolCreateOneInput;
-}
-
-export interface HumanUpdateManyWithoutAuntsInput {
-    create?: HumanCreateWithoutAuntsInput[] | HumanCreateWithoutAuntsInput;
-    delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    update?:
-        | HumanUpdateWithWhereUniqueWithoutAuntsInput[]
-        | HumanUpdateWithWhereUniqueWithoutAuntsInput;
-    upsert?:
-        | HumanUpsertWithWhereUniqueWithoutAuntsInput[]
-        | HumanUpsertWithWhereUniqueWithoutAuntsInput;
-}
-
-export type TvEpisodeWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface HumanUpdateWithWhereUniqueWithoutAuntsInput {
-    where: HumanWhereUniqueInput;
-    data: HumanUpdateWithoutAuntsDataInput;
-}
-
-export type TvEpisodeTransactionWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface HumanUpdateWithoutAuntsDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export type TvShowWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface HumanUpdateManyWithoutUnclesInput {
-    create?: HumanCreateWithoutUnclesInput[] | HumanCreateWithoutUnclesInput;
-    delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    update?:
-        | HumanUpdateWithWhereUniqueWithoutUnclesInput[]
-        | HumanUpdateWithWhereUniqueWithoutUnclesInput;
-    upsert?:
-        | HumanUpsertWithWhereUniqueWithoutUnclesInput[]
-        | HumanUpsertWithWhereUniqueWithoutUnclesInput;
-}
-
-export interface CourseUpdateInput {
-    name?: String;
-    subject?: ID_Input;
-    completion?: Float;
-    start_date?: DateTimeInput;
-    end_date?: DateTimeInput;
-    lectures?: CourseLectureUpdateManyWithoutCourseInput;
-    assignments?: CourseAssignmentUpdateManyWithoutCourseInput;
-    school?: SchoolUpdateOneRequiredInput;
-}
-
-export interface HumanUpdateWithWhereUniqueWithoutUnclesInput {
-    where: HumanWhereUniqueInput;
-    data: HumanUpdateWithoutUnclesDataInput;
-}
-
-export interface HumanUpdateOneRequiredWithoutContactInput {
-    create?: HumanCreateWithoutContactInput;
-    update?: HumanUpdateWithoutContactDataInput;
-    upsert?: HumanUpsertWithoutContactInput;
-    connect?: HumanWhereUniqueInput;
-}
-
-export interface HumanUpdateWithoutUnclesDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export interface HumanCreateOneWithoutContactInput {
-    create?: HumanCreateWithoutContactInput;
-    connect?: HumanWhereUniqueInput;
-}
-
-export interface HumanUpdateManyWithoutGrandparentsInput {
-    create?:
-        | HumanCreateWithoutGrandparentsInput[]
-        | HumanCreateWithoutGrandparentsInput;
-    delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    update?:
-        | HumanUpdateWithWhereUniqueWithoutGrandparentsInput[]
-        | HumanUpdateWithWhereUniqueWithoutGrandparentsInput;
-    upsert?:
-        | HumanUpsertWithWhereUniqueWithoutGrandparentsInput[]
-        | HumanUpsertWithWhereUniqueWithoutGrandparentsInput;
-}
-
-export interface AccountCreateInput {
-    name: String;
-    balance: Float;
-    transactions?: TransactionCreateManyInput;
-}
-
-export interface HumanUpdateWithWhereUniqueWithoutGrandparentsInput {
-    where: HumanWhereUniqueInput;
-    data: HumanUpdateWithoutGrandparentsDataInput;
-}
-
-export interface TransactionSplitCreateInput {
-    human: HumanCreateOneInput;
-    percentage?: Float;
-    amount?: Float;
-    pending?: Boolean;
-}
-
-export interface HumanUpdateWithoutGrandparentsDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export interface FavoriteCreateInput {
-    kind: FavoriteKind;
-    thing: ID_Input;
-}
-
-export interface HumanUpdateManyWithoutGreat_grandparentsInput {
-    create?:
-        | HumanCreateWithoutGreat_grandparentsInput[]
-        | HumanCreateWithoutGreat_grandparentsInput;
-    delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    update?:
-        | HumanUpdateWithWhereUniqueWithoutGreat_grandparentsInput[]
-        | HumanUpdateWithWhereUniqueWithoutGreat_grandparentsInput;
-    upsert?:
-        | HumanUpsertWithWhereUniqueWithoutGreat_grandparentsInput[]
-        | HumanUpsertWithWhereUniqueWithoutGreat_grandparentsInput;
-}
-
-export interface TransactionCreateWithoutItemsInput {
-    payee: String;
-    amount: Float;
-    date: String;
-    category: String;
-    splits?: TransactionSplitCreateManyInput;
-    where?: LocationCreateOneInput;
-    with?: HumanCreateManyInput;
-    event?: EventCreateOneInput;
-}
-
-export interface HumanUpdateWithWhereUniqueWithoutGreat_grandparentsInput {
-    where: HumanWhereUniqueInput;
-    data: HumanUpdateWithoutGreat_grandparentsDataInput;
-}
-
-export interface EventCreateWithoutLocationInput {
-    date: DateTimeInput;
-    type: EventType;
-    description?: String;
-    with?: HumanCreateManyInput;
-}
-
-export interface HumanUpdateWithoutGreat_grandparentsDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export interface LocationCreateOneWithoutEventsInput {
-    create?: LocationCreateWithoutEventsInput;
-}
-
-export interface HumanUpdateManyWithoutFriendsInput {
-    create?: HumanCreateWithoutFriendsInput[] | HumanCreateWithoutFriendsInput;
-    delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    update?:
-        | HumanUpdateWithWhereUniqueWithoutFriendsInput[]
-        | HumanUpdateWithWhereUniqueWithoutFriendsInput;
-    upsert?:
-        | HumanUpsertWithWhereUniqueWithoutFriendsInput[]
-        | HumanUpsertWithWhereUniqueWithoutFriendsInput;
-}
-
-export interface EducationCreateOneInput {
-    create?: EducationCreateInput;
-    connect?: EducationWhereUniqueInput;
-}
-
-export interface HumanUpdateWithWhereUniqueWithoutFriendsInput {
-    where: HumanWhereUniqueInput;
-    data: HumanUpdateWithoutFriendsDataInput;
-}
-
-export interface CourseCreateManyInput {
-    create?: CourseCreateInput[] | CourseCreateInput;
-}
-
-export interface HumanUpdateWithoutFriendsDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export interface EventWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    date?: DateTimeInput;
-    date_not?: DateTimeInput;
-    date_in?: DateTimeInput[] | DateTimeInput;
-    date_not_in?: DateTimeInput[] | DateTimeInput;
-    date_lt?: DateTimeInput;
-    date_lte?: DateTimeInput;
-    date_gt?: DateTimeInput;
-    date_gte?: DateTimeInput;
-    location?: LocationWhereInput;
-    type?: EventType;
-    type_not?: EventType;
-    type_in?: EventType[] | EventType;
-    type_not_in?: EventType[] | EventType;
-    description?: String;
-    description_not?: String;
-    description_in?: String[] | String;
-    description_not_in?: String[] | String;
-    description_lt?: String;
-    description_lte?: String;
-    description_gt?: String;
-    description_gte?: String;
-    description_contains?: String;
-    description_not_contains?: String;
-    description_starts_with?: String;
-    description_not_starts_with?: String;
-    description_ends_with?: String;
-    description_not_ends_with?: String;
-    with_every?: HumanWhereInput;
-    with_some?: HumanWhereInput;
-    with_none?: HumanWhereInput;
-    AND?: EventWhereInput[] | EventWhereInput;
-    OR?: EventWhereInput[] | EventWhereInput;
-    NOT?: EventWhereInput[] | EventWhereInput;
-}
-
-export interface HumanUpdateManyWithoutAcquaintancesInput {
-    create?:
-        | HumanCreateWithoutAcquaintancesInput[]
-        | HumanCreateWithoutAcquaintancesInput;
-    delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    update?:
-        | HumanUpdateWithWhereUniqueWithoutAcquaintancesInput[]
-        | HumanUpdateWithWhereUniqueWithoutAcquaintancesInput;
-    upsert?:
-        | HumanUpsertWithWhereUniqueWithoutAcquaintancesInput[]
-        | HumanUpsertWithWhereUniqueWithoutAcquaintancesInput;
-}
-
-export interface BookWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    name?: String;
-    name_not?: String;
-    name_in?: String[] | String;
-    name_not_in?: String[] | String;
-    name_lt?: String;
-    name_lte?: String;
-    name_gt?: String;
-    name_gte?: String;
-    name_contains?: String;
-    name_not_contains?: String;
-    name_starts_with?: String;
-    name_not_starts_with?: String;
-    name_ends_with?: String;
-    name_not_ends_with?: String;
-    author?: String;
-    author_not?: String;
-    author_in?: String[] | String;
-    author_not_in?: String[] | String;
-    author_lt?: String;
-    author_lte?: String;
-    author_gt?: String;
-    author_gte?: String;
-    author_contains?: String;
-    author_not_contains?: String;
-    author_starts_with?: String;
-    author_not_starts_with?: String;
-    author_ends_with?: String;
-    author_not_ends_with?: String;
-    release_date?: DateTimeInput;
-    release_date_not?: DateTimeInput;
-    release_date_in?: DateTimeInput[] | DateTimeInput;
-    release_date_not_in?: DateTimeInput[] | DateTimeInput;
-    release_date_lt?: DateTimeInput;
-    release_date_lte?: DateTimeInput;
-    release_date_gt?: DateTimeInput;
-    release_date_gte?: DateTimeInput;
-    word_count?: Int;
-    word_count_not?: Int;
-    word_count_in?: Int[] | Int;
-    word_count_not_in?: Int[] | Int;
-    word_count_lt?: Int;
-    word_count_lte?: Int;
-    word_count_gt?: Int;
-    word_count_gte?: Int;
-    AND?: BookWhereInput[] | BookWhereInput;
-    OR?: BookWhereInput[] | BookWhereInput;
-    NOT?: BookWhereInput[] | BookWhereInput;
-}
-
-export interface HumanUpdateWithWhereUniqueWithoutAcquaintancesInput {
-    where: HumanWhereUniqueInput;
-    data: HumanUpdateWithoutAcquaintancesDataInput;
-}
-
-export interface MovieTransactionSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: MovieTransactionWhereInput;
-    AND?:
-        | MovieTransactionSubscriptionWhereInput[]
-        | MovieTransactionSubscriptionWhereInput;
-    OR?:
-        | MovieTransactionSubscriptionWhereInput[]
-        | MovieTransactionSubscriptionWhereInput;
-    NOT?:
-        | MovieTransactionSubscriptionWhereInput[]
-        | MovieTransactionSubscriptionWhereInput;
-}
-
-export interface HumanUpdateWithoutAcquaintancesDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export interface FixedCostSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: FixedCostWhereInput;
-    AND?: FixedCostSubscriptionWhereInput[] | FixedCostSubscriptionWhereInput;
-    OR?: FixedCostSubscriptionWhereInput[] | FixedCostSubscriptionWhereInput;
-    NOT?: FixedCostSubscriptionWhereInput[] | FixedCostSubscriptionWhereInput;
-}
-
-export interface HumanUpdateManyWithoutColleaguesInput {
-    create?:
-        | HumanCreateWithoutColleaguesInput[]
-        | HumanCreateWithoutColleaguesInput;
-    delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    update?:
-        | HumanUpdateWithWhereUniqueWithoutColleaguesInput[]
-        | HumanUpdateWithWhereUniqueWithoutColleaguesInput;
-    upsert?:
-        | HumanUpsertWithWhereUniqueWithoutColleaguesInput[]
-        | HumanUpsertWithWhereUniqueWithoutColleaguesInput;
-}
-
-export interface AccountWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    name?: String;
-    name_not?: String;
-    name_in?: String[] | String;
-    name_not_in?: String[] | String;
-    name_lt?: String;
-    name_lte?: String;
-    name_gt?: String;
-    name_gte?: String;
-    name_contains?: String;
-    name_not_contains?: String;
-    name_starts_with?: String;
-    name_not_starts_with?: String;
-    name_ends_with?: String;
-    name_not_ends_with?: String;
-    balance?: Float;
-    balance_not?: Float;
-    balance_in?: Float[] | Float;
-    balance_not_in?: Float[] | Float;
-    balance_lt?: Float;
-    balance_lte?: Float;
-    balance_gt?: Float;
-    balance_gte?: Float;
-    transactions_every?: TransactionWhereInput;
-    transactions_some?: TransactionWhereInput;
-    transactions_none?: TransactionWhereInput;
-    AND?: AccountWhereInput[] | AccountWhereInput;
-    OR?: AccountWhereInput[] | AccountWhereInput;
-    NOT?: AccountWhereInput[] | AccountWhereInput;
-}
-
-export interface HumanUpdateWithWhereUniqueWithoutColleaguesInput {
-    where: HumanWhereUniqueInput;
-    data: HumanUpdateWithoutColleaguesDataInput;
-}
-
-export interface BookTransactionSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: BookTransactionWhereInput;
-    AND?:
-        | BookTransactionSubscriptionWhereInput[]
-        | BookTransactionSubscriptionWhereInput;
-    OR?:
-        | BookTransactionSubscriptionWhereInput[]
-        | BookTransactionSubscriptionWhereInput;
-    NOT?:
-        | BookTransactionSubscriptionWhereInput[]
-        | BookTransactionSubscriptionWhereInput;
-}
-
-export interface HumanUpdateWithoutColleaguesDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export interface HumanUpdateWithoutWeight_historyDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-    acted_in?: MovieUpdateManyWithoutActorsInput;
-}
-
-export interface WeightHistoryItemUpdateManyWithoutHumanInput {
-    create?:
-        | WeightHistoryItemCreateWithoutHumanInput[]
-        | WeightHistoryItemCreateWithoutHumanInput;
-    delete?:
-        | WeightHistoryItemWhereUniqueInput[]
-        | WeightHistoryItemWhereUniqueInput;
-    connect?:
-        | WeightHistoryItemWhereUniqueInput[]
-        | WeightHistoryItemWhereUniqueInput;
-    disconnect?:
-        | WeightHistoryItemWhereUniqueInput[]
-        | WeightHistoryItemWhereUniqueInput;
-    update?:
-        | WeightHistoryItemUpdateWithWhereUniqueWithoutHumanInput[]
-        | WeightHistoryItemUpdateWithWhereUniqueWithoutHumanInput;
-    upsert?:
-        | WeightHistoryItemUpsertWithWhereUniqueWithoutHumanInput[]
-        | WeightHistoryItemUpsertWithWhereUniqueWithoutHumanInput;
-}
-
-export interface HumanCreateWithoutWeight_historyInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
-}
-
-export interface WeightHistoryItemUpdateWithWhereUniqueWithoutHumanInput {
-    where: WeightHistoryItemWhereUniqueInput;
-    data: WeightHistoryItemUpdateWithoutHumanDataInput;
-}
-
-export interface HumanCreateWithoutTv_showsInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
-}
-
-export interface WeightHistoryItemUpdateWithoutHumanDataInput {
-    weight?: Float;
-    date?: DateTimeInput;
-}
-
-export interface HumanUpsertNestedInput {
-    update: HumanUpdateDataInput;
-    create: HumanCreateInput;
-}
-
-export interface WeightHistoryItemUpsertWithWhereUniqueWithoutHumanInput {
-    where: WeightHistoryItemWhereUniqueInput;
-    update: WeightHistoryItemUpdateWithoutHumanDataInput;
-    create: WeightHistoryItemCreateWithoutHumanInput;
-}
-
-export interface TimelineUpdateInput {
-    events?: EventUpdateManyInput;
-    belongs_to?: HumanUpdateOneRequiredInput;
-}
-
-export interface MovieUpdateManyWithoutDirectorInput {
-    create?:
-        | MovieCreateWithoutDirectorInput[]
-        | MovieCreateWithoutDirectorInput;
-    delete?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
-    connect?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
-    disconnect?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
-    update?:
-        | MovieUpdateWithWhereUniqueWithoutDirectorInput[]
-        | MovieUpdateWithWhereUniqueWithoutDirectorInput;
-    upsert?:
-        | MovieUpsertWithWhereUniqueWithoutDirectorInput[]
-        | MovieUpsertWithWhereUniqueWithoutDirectorInput;
-}
-
-export interface FinanceGoalsWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    name?: String;
-    name_not?: String;
-    name_in?: String[] | String;
-    name_not_in?: String[] | String;
-    name_lt?: String;
-    name_lte?: String;
-    name_gt?: String;
-    name_gte?: String;
-    name_contains?: String;
-    name_not_contains?: String;
-    name_starts_with?: String;
-    name_not_starts_with?: String;
-    name_ends_with?: String;
-    name_not_ends_with?: String;
-    cost?: Float;
-    cost_not?: Float;
-    cost_in?: Float[] | Float;
-    cost_not_in?: Float[] | Float;
-    cost_lt?: Float;
-    cost_lte?: Float;
-    cost_gt?: Float;
-    cost_gte?: Float;
-    due?: DateTimeInput;
-    due_not?: DateTimeInput;
-    due_in?: DateTimeInput[] | DateTimeInput;
-    due_not_in?: DateTimeInput[] | DateTimeInput;
-    due_lt?: DateTimeInput;
-    due_lte?: DateTimeInput;
-    due_gt?: DateTimeInput;
-    due_gte?: DateTimeInput;
-    AND?: FinanceGoalsWhereInput[] | FinanceGoalsWhereInput;
-    OR?: FinanceGoalsWhereInput[] | FinanceGoalsWhereInput;
-    NOT?: FinanceGoalsWhereInput[] | FinanceGoalsWhereInput;
-}
-
-export interface MovieUpdateWithWhereUniqueWithoutDirectorInput {
-    where: MovieWhereUniqueInput;
-    data: MovieUpdateWithoutDirectorDataInput;
-}
-
-export interface BudgetUpdateOneInput {
-    create?: BudgetCreateInput;
-    update?: BudgetUpdateDataInput;
-    upsert?: BudgetUpsertNestedInput;
-    delete?: Boolean;
-    disconnect?: Boolean;
-    connect?: BudgetWhereUniqueInput;
-}
-
-export interface MovieUpdateWithoutDirectorDataInput {
-    name?: String;
-    category?: String;
-    release_date?: DateTimeInput;
-    actors?: HumanUpdateManyWithoutActed_inInput;
-}
-
-export interface AccountCreateManyInput {
-    create?: AccountCreateInput[] | AccountCreateInput;
-    connect?: AccountWhereUniqueInput[] | AccountWhereUniqueInput;
-}
-
-export interface HumanUpdateManyWithoutActed_inInput {
-    create?:
-        | HumanCreateWithoutActed_inInput[]
-        | HumanCreateWithoutActed_inInput;
-    delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
-    update?:
-        | HumanUpdateWithWhereUniqueWithoutActed_inInput[]
-        | HumanUpdateWithWhereUniqueWithoutActed_inInput;
-    upsert?:
-        | HumanUpsertWithWhereUniqueWithoutActed_inInput[]
-        | HumanUpsertWithWhereUniqueWithoutActed_inInput;
-}
-
-export interface LocationUpdateInput {
-    longitude?: Float;
-    latitude?: Float;
-    address?: String;
-    type?: String;
-    name?: String;
-    events?: EventUpdateManyWithoutLocationInput;
-}
-
-export interface HumanUpdateWithWhereUniqueWithoutActed_inInput {
-    where: HumanWhereUniqueInput;
-    data: HumanUpdateWithoutActed_inDataInput;
-}
-
-export interface TransactionSplitWhereInput {
-    human?: HumanWhereInput;
-    percentage?: Float;
-    percentage_not?: Float;
-    percentage_in?: Float[] | Float;
-    percentage_not_in?: Float[] | Float;
-    percentage_lt?: Float;
-    percentage_lte?: Float;
-    percentage_gt?: Float;
-    percentage_gte?: Float;
-    amount?: Float;
-    amount_not?: Float;
-    amount_in?: Float[] | Float;
-    amount_not_in?: Float[] | Float;
-    amount_lt?: Float;
-    amount_lte?: Float;
-    amount_gt?: Float;
-    amount_gte?: Float;
-    pending?: Boolean;
-    pending_not?: Boolean;
-    AND?: TransactionSplitWhereInput[] | TransactionSplitWhereInput;
-    OR?: TransactionSplitWhereInput[] | TransactionSplitWhereInput;
-    NOT?: TransactionSplitWhereInput[] | TransactionSplitWhereInput;
-}
-
-export interface HumanUpdateWithoutActed_inDataInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteUpdateManyInput;
-    wish_list?: GoodOrServiceUpdateManyInput;
-    contact?: ContactInfoUpdateOneWithoutHumanInput;
-    education?: EducationUpdateOneInput;
-    tasks?: TaskUpdateManyInput;
-    tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
-    movies?: MovieTransactionUpdateManyInput;
-    books?: BookTransactionUpdateManyInput;
-    father?: HumanUpdateOneWithoutFatherInput;
-    mother?: HumanUpdateOneWithoutMotherInput;
-    siblings?: HumanUpdateManyWithoutSiblingsInput;
-    aunts?: HumanUpdateManyWithoutAuntsInput;
-    uncles?: HumanUpdateManyWithoutUnclesInput;
-    grandparents?: HumanUpdateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
-    friends?: HumanUpdateManyWithoutFriendsInput;
-    acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
-    colleagues?: HumanUpdateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
-    directed?: MovieUpdateManyWithoutDirectorInput;
-}
-
-export type TaskWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface HumanUpsertWithWhereUniqueWithoutActed_inInput {
-    where: HumanWhereUniqueInput;
-    update: HumanUpdateWithoutActed_inDataInput;
-    create: HumanCreateWithoutActed_inInput;
-}
-
-export interface CourseLectureCreateInput {
-    title: String;
-    description: String;
-    course: CourseCreateOneWithoutLecturesInput;
-}
-
-export interface MovieUpsertWithWhereUniqueWithoutDirectorInput {
-    where: MovieWhereUniqueInput;
-    update: MovieUpdateWithoutDirectorDataInput;
-    create: MovieCreateWithoutDirectorInput;
-}
-
-export interface CourseAssignmentCreateInput {
-    description: String;
-    grade?: Float;
-    course: CourseCreateOneWithoutAssignmentsInput;
-}
-
-export interface MovieUpdateManyWithoutActorsInput {
-    create?: MovieCreateWithoutActorsInput[] | MovieCreateWithoutActorsInput;
-    delete?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
-    connect?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
-    disconnect?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
-    update?:
-        | MovieUpdateWithWhereUniqueWithoutActorsInput[]
-        | MovieUpdateWithWhereUniqueWithoutActorsInput;
-    upsert?:
-        | MovieUpsertWithWhereUniqueWithoutActorsInput[]
-        | MovieUpsertWithWhereUniqueWithoutActorsInput;
-}
-
-export interface CourseAssignmentUpdateManyWithoutCourseInput {
-    create?:
-        | CourseAssignmentCreateWithoutCourseInput[]
-        | CourseAssignmentCreateWithoutCourseInput;
-    delete?:
-        | CourseAssignmentWhereUniqueInput[]
-        | CourseAssignmentWhereUniqueInput;
-    connect?:
-        | CourseAssignmentWhereUniqueInput[]
-        | CourseAssignmentWhereUniqueInput;
-    disconnect?:
-        | CourseAssignmentWhereUniqueInput[]
-        | CourseAssignmentWhereUniqueInput;
-    update?:
-        | CourseAssignmentUpdateWithWhereUniqueWithoutCourseInput[]
-        | CourseAssignmentUpdateWithWhereUniqueWithoutCourseInput;
-    upsert?:
-        | CourseAssignmentUpsertWithWhereUniqueWithoutCourseInput[]
-        | CourseAssignmentUpsertWithWhereUniqueWithoutCourseInput;
-}
-
-export interface MovieUpdateWithWhereUniqueWithoutActorsInput {
-    where: MovieWhereUniqueInput;
-    data: MovieUpdateWithoutActorsDataInput;
-}
-
-export interface HumanUpsertWithoutContactInput {
-    update: HumanUpdateWithoutContactDataInput;
-    create: HumanCreateWithoutContactInput;
-}
-
-export interface MovieUpdateWithoutActorsDataInput {
-    name?: String;
-    category?: String;
-    release_date?: DateTimeInput;
-    director?: HumanUpdateOneWithoutDirectedInput;
-}
-
-export interface FixedCostUpsertWithWhereUniqueNestedInput {
-    where: FixedCostWhereUniqueInput;
-    update: FixedCostUpdateDataInput;
-    create: FixedCostCreateInput;
-}
-
-export interface MovieUpsertWithWhereUniqueWithoutActorsInput {
-    where: MovieWhereUniqueInput;
-    update: MovieUpdateWithoutActorsDataInput;
-    create: MovieCreateWithoutActorsInput;
-}
-
-export interface HumanCreateInput {
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    favorites?: FavoriteCreateManyInput;
-    wish_list?: GoodOrServiceCreateManyInput;
-    contact?: ContactInfoCreateOneWithoutHumanInput;
-    education?: EducationCreateOneInput;
-    tasks?: TaskCreateManyInput;
-    tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
-    movies?: MovieTransactionCreateManyInput;
-    books?: BookTransactionCreateManyInput;
-    father?: HumanCreateOneWithoutFatherInput;
-    mother?: HumanCreateOneWithoutMotherInput;
-    siblings?: HumanCreateManyWithoutSiblingsInput;
-    aunts?: HumanCreateManyWithoutAuntsInput;
-    uncles?: HumanCreateManyWithoutUnclesInput;
-    grandparents?: HumanCreateManyWithoutGrandparentsInput;
-    great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
-    friends?: HumanCreateManyWithoutFriendsInput;
-    acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
-    colleagues?: HumanCreateManyWithoutColleaguesInput;
-    height?: Float;
-    weight?: Float;
-    weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
-    directed?: MovieCreateManyWithoutDirectorInput;
-    acted_in?: MovieCreateManyWithoutActorsInput;
-}
-
-export interface HumanUpsertWithWhereUniqueWithoutColleaguesInput {
-    where: HumanWhereUniqueInput;
-    update: HumanUpdateWithoutColleaguesDataInput;
-    create: HumanCreateWithoutColleaguesInput;
-}
-
-export interface LocationCreateInput {
-    longitude: Float;
-    latitude: Float;
-    address: String;
-    type?: String;
-    name: String;
-    events?: EventCreateManyWithoutLocationInput;
-}
-
-export interface HumanUpsertWithWhereUniqueWithoutAcquaintancesInput {
-    where: HumanWhereUniqueInput;
-    update: HumanUpdateWithoutAcquaintancesDataInput;
-    create: HumanCreateWithoutAcquaintancesInput;
-}
-
-export interface ContactInfoCreateOneWithoutHumanInput {
-    create?: ContactInfoCreateWithoutHumanInput;
-}
-
-export interface HumanUpsertWithWhereUniqueWithoutFriendsInput {
-    where: HumanWhereUniqueInput;
-    update: HumanUpdateWithoutFriendsDataInput;
-    create: HumanCreateWithoutFriendsInput;
-}
-
-export interface CourseLectureCreateManyWithoutCourseInput {
-    create?:
-        | CourseLectureCreateWithoutCourseInput[]
-        | CourseLectureCreateWithoutCourseInput;
-    connect?: CourseLectureWhereUniqueInput[] | CourseLectureWhereUniqueInput;
-}
-
-export interface HumanUpsertWithWhereUniqueWithoutGreat_grandparentsInput {
-    where: HumanWhereUniqueInput;
-    update: HumanUpdateWithoutGreat_grandparentsDataInput;
-    create: HumanCreateWithoutGreat_grandparentsInput;
-}
-
-export interface MovieWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    name?: String;
-    name_not?: String;
-    name_in?: String[] | String;
-    name_not_in?: String[] | String;
-    name_lt?: String;
-    name_lte?: String;
-    name_gt?: String;
-    name_gte?: String;
-    name_contains?: String;
-    name_not_contains?: String;
-    name_starts_with?: String;
-    name_not_starts_with?: String;
-    name_ends_with?: String;
-    name_not_ends_with?: String;
-    category?: String;
-    category_not?: String;
-    category_in?: String[] | String;
-    category_not_in?: String[] | String;
-    category_lt?: String;
-    category_lte?: String;
-    category_gt?: String;
-    category_gte?: String;
-    category_contains?: String;
-    category_not_contains?: String;
-    category_starts_with?: String;
-    category_not_starts_with?: String;
-    category_ends_with?: String;
-    category_not_ends_with?: String;
-    release_date?: DateTimeInput;
-    release_date_not?: DateTimeInput;
-    release_date_in?: DateTimeInput[] | DateTimeInput;
-    release_date_not_in?: DateTimeInput[] | DateTimeInput;
-    release_date_lt?: DateTimeInput;
-    release_date_lte?: DateTimeInput;
-    release_date_gt?: DateTimeInput;
-    release_date_gte?: DateTimeInput;
-    director?: HumanWhereInput;
-    actors_every?: HumanWhereInput;
-    actors_some?: HumanWhereInput;
-    actors_none?: HumanWhereInput;
-    AND?: MovieWhereInput[] | MovieWhereInput;
-    OR?: MovieWhereInput[] | MovieWhereInput;
-    NOT?: MovieWhereInput[] | MovieWhereInput;
-}
-
-export interface HumanUpsertWithWhereUniqueWithoutGrandparentsInput {
-    where: HumanWhereUniqueInput;
-    update: HumanUpdateWithoutGrandparentsDataInput;
-    create: HumanCreateWithoutGrandparentsInput;
-}
-
-export interface CourseAssignmentWhereInput {
-    id?: ID_Input;
-    id_not?: ID_Input;
-    id_in?: ID_Input[] | ID_Input;
-    id_not_in?: ID_Input[] | ID_Input;
-    id_lt?: ID_Input;
-    id_lte?: ID_Input;
-    id_gt?: ID_Input;
-    id_gte?: ID_Input;
-    id_contains?: ID_Input;
-    id_not_contains?: ID_Input;
-    id_starts_with?: ID_Input;
-    id_not_starts_with?: ID_Input;
-    id_ends_with?: ID_Input;
-    id_not_ends_with?: ID_Input;
-    description?: String;
-    description_not?: String;
-    description_in?: String[] | String;
-    description_not_in?: String[] | String;
-    description_lt?: String;
-    description_lte?: String;
-    description_gt?: String;
-    description_gte?: String;
-    description_contains?: String;
-    description_not_contains?: String;
-    description_starts_with?: String;
-    description_not_starts_with?: String;
-    description_ends_with?: String;
-    description_not_ends_with?: String;
-    grade?: Float;
-    grade_not?: Float;
-    grade_in?: Float[] | Float;
-    grade_not_in?: Float[] | Float;
-    grade_lt?: Float;
-    grade_lte?: Float;
-    grade_gt?: Float;
-    grade_gte?: Float;
-    course?: CourseWhereInput;
-    AND?: CourseAssignmentWhereInput[] | CourseAssignmentWhereInput;
-    OR?: CourseAssignmentWhereInput[] | CourseAssignmentWhereInput;
-    NOT?: CourseAssignmentWhereInput[] | CourseAssignmentWhereInput;
-}
-
-export interface HumanUpsertWithWhereUniqueWithoutUnclesInput {
-    where: HumanWhereUniqueInput;
-    update: HumanUpdateWithoutUnclesDataInput;
-    create: HumanCreateWithoutUnclesInput;
-}
-
-export interface WishListUpdateInput {
-    balance?: Float;
-    items?: GoodOrServiceUpdateManyInput;
-}
-
-export interface HumanUpsertWithWhereUniqueWithoutAuntsInput {
-    where: HumanWhereUniqueInput;
-    update: HumanUpdateWithoutAuntsDataInput;
-    create: HumanCreateWithoutAuntsInput;
-}
-
-export interface HumanUpsertWithoutTv_showsInput {
-    update: HumanUpdateWithoutTv_showsDataInput;
-    create: HumanCreateWithoutTv_showsInput;
-}
-
-export interface HumanUpsertWithWhereUniqueWithoutSiblingsInput {
-    where: HumanWhereUniqueInput;
-    update: HumanUpdateWithoutSiblingsDataInput;
-    create: HumanCreateWithoutSiblingsInput;
-}
-
-export interface EventUpsertWithWhereUniqueNestedInput {
-    where: EventWhereUniqueInput;
-    update: EventUpdateDataInput;
-    create: EventCreateInput;
-}
-
-export interface HumanUpsertWithoutMotherInput {
-    update: HumanUpdateWithoutMotherDataInput;
-    create: HumanCreateWithoutMotherInput;
-}
-
-export interface AccountUpdateManyInput {
-    create?: AccountCreateInput[] | AccountCreateInput;
-    delete?: AccountWhereUniqueInput[] | AccountWhereUniqueInput;
-    connect?: AccountWhereUniqueInput[] | AccountWhereUniqueInput;
-    disconnect?: AccountWhereUniqueInput[] | AccountWhereUniqueInput;
-    update?:
-        | AccountUpdateWithWhereUniqueNestedInput[]
-        | AccountUpdateWithWhereUniqueNestedInput;
-    upsert?:
-        | AccountUpsertWithWhereUniqueNestedInput[]
-        | AccountUpsertWithWhereUniqueNestedInput;
-}
-
-export interface HumanUpsertWithoutFatherInput {
-    update: HumanUpdateWithoutFatherDataInput;
-    create: HumanCreateWithoutFatherInput;
+export interface AccountUpdateInput {
+  name?: String;
+  balance?: Float;
+  transactions?: TransactionUpdateManyInput;
 }
 
 export interface OverviewCreateInput {
-    net_worth: Float;
-    credit_score?: Int;
-    income: Float;
-    goals?: FinanceGoalsCreateManyInput;
-    budget?: BudgetCreateOneInput;
-    accounts?: AccountCreateManyInput;
+  net_worth: Float;
+  credit_score?: Int;
+  income: Float;
+  goals?: FinanceGoalsCreateManyInput;
+  budget?: BudgetCreateOneInput;
+  accounts?: AccountCreateManyInput;
 }
 
-export interface HumanUpsertWithoutDirectedInput {
-    update: HumanUpdateWithoutDirectedDataInput;
-    create: HumanCreateWithoutDirectedInput;
+export interface TransactionUpdateManyInput {
+  create?: TransactionCreateInput[] | TransactionCreateInput;
+  delete?: TransactionWhereUniqueInput[] | TransactionWhereUniqueInput;
+  connect?: TransactionWhereUniqueInput[] | TransactionWhereUniqueInput;
+  disconnect?: TransactionWhereUniqueInput[] | TransactionWhereUniqueInput;
+  update?:
+    | TransactionUpdateWithWhereUniqueNestedInput[]
+    | TransactionUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | TransactionUpsertWithWhereUniqueNestedInput[]
+    | TransactionUpsertWithWhereUniqueNestedInput;
 }
 
-export type SchoolWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface MovieUpsertNestedInput {
-    update: MovieUpdateDataInput;
-    create: MovieCreateInput;
+export interface MovieTransactionUpdateInput {
+  movie?: MovieUpdateOneRequiredInput;
+  date_watched?: DateTimeInput;
 }
 
-export interface CourseUpdateOneRequiredWithoutAssignmentsInput {
-    create?: CourseCreateWithoutAssignmentsInput;
-    update?: CourseUpdateWithoutAssignmentsDataInput;
-    upsert?: CourseUpsertWithoutAssignmentsInput;
+export interface TransactionUpdateWithWhereUniqueNestedInput {
+  where: TransactionWhereUniqueInput;
+  data: TransactionUpdateDataInput;
 }
 
-export interface MovieTransactionUpsertWithWhereUniqueNestedInput {
-    where: MovieTransactionWhereUniqueInput;
-    update: MovieTransactionUpdateDataInput;
-    create: MovieTransactionCreateInput;
+export interface LocationUpdateInput {
+  longitude?: Float;
+  latitude?: Float;
+  address?: String;
+  type?: String;
+  name?: String;
+  events?: EventUpdateManyWithoutLocationInput;
 }
 
-export interface CourseLectureUpdateWithWhereUniqueWithoutCourseInput {
-    where: CourseLectureWhereUniqueInput;
-    data: CourseLectureUpdateWithoutCourseDataInput;
+export interface TransactionUpdateDataInput {
+  payee?: String;
+  amount?: Float;
+  date?: String;
+  category?: String;
+  splits?: TransactionSplitUpdateManyInput;
+  location?: LocationUpdateOneInput;
+  items?: GoodOrServiceUpdateManyWithoutTransactionInput;
+  with?: HumanUpdateManyInput;
+  event?: EventUpdateOneInput;
 }
 
-export interface HumanUpsertWithWhereUniqueNestedInput {
-    where: HumanWhereUniqueInput;
-    update: HumanUpdateDataInput;
-    create: HumanCreateInput;
+export interface HumanUpdateInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
 }
 
-export interface TransactionCreateInput {
-    payee: String;
-    amount: Float;
-    date: String;
-    category: String;
-    splits?: TransactionSplitCreateManyInput;
-    where?: LocationCreateOneInput;
-    items?: GoodOrServiceCreateManyWithoutTransactionInput;
-    with?: HumanCreateManyInput;
-    event?: EventCreateOneInput;
-}
-
-export interface EventUpsertWithWhereUniqueWithoutLocationInput {
-    where: EventWhereUniqueInput;
-    update: EventUpdateWithoutLocationDataInput;
-    create: EventCreateWithoutLocationInput;
-}
-
-export interface EventCreateOneInput {
-    create?: EventCreateInput;
-    connect?: EventWhereUniqueInput;
-}
-
-export interface LocationUpsertNestedInput {
-    update: LocationUpdateDataInput;
-    create: LocationCreateInput;
-}
-
-export interface LocationWhereInput {
-    longitude?: Float;
-    longitude_not?: Float;
-    longitude_in?: Float[] | Float;
-    longitude_not_in?: Float[] | Float;
-    longitude_lt?: Float;
-    longitude_lte?: Float;
-    longitude_gt?: Float;
-    longitude_gte?: Float;
-    latitude?: Float;
-    latitude_not?: Float;
-    latitude_in?: Float[] | Float;
-    latitude_not_in?: Float[] | Float;
-    latitude_lt?: Float;
-    latitude_lte?: Float;
-    latitude_gt?: Float;
-    latitude_gte?: Float;
-    address?: String;
-    address_not?: String;
-    address_in?: String[] | String;
-    address_not_in?: String[] | String;
-    address_lt?: String;
-    address_lte?: String;
-    address_gt?: String;
-    address_gte?: String;
-    address_contains?: String;
-    address_not_contains?: String;
-    address_starts_with?: String;
-    address_not_starts_with?: String;
-    address_ends_with?: String;
-    address_not_ends_with?: String;
-    type?: String;
-    type_not?: String;
-    type_in?: String[] | String;
-    type_not_in?: String[] | String;
-    type_lt?: String;
-    type_lte?: String;
-    type_gt?: String;
-    type_gte?: String;
-    type_contains?: String;
-    type_not_contains?: String;
-    type_starts_with?: String;
-    type_not_starts_with?: String;
-    type_ends_with?: String;
-    type_not_ends_with?: String;
-    name?: String;
-    name_not?: String;
-    name_in?: String[] | String;
-    name_not_in?: String[] | String;
-    name_lt?: String;
-    name_lte?: String;
-    name_gt?: String;
-    name_gte?: String;
-    name_contains?: String;
-    name_not_contains?: String;
-    name_starts_with?: String;
-    name_not_starts_with?: String;
-    name_ends_with?: String;
-    name_not_ends_with?: String;
-    events_every?: EventWhereInput;
-    events_some?: EventWhereInput;
-    events_none?: EventWhereInput;
-    AND?: LocationWhereInput[] | LocationWhereInput;
-    OR?: LocationWhereInput[] | LocationWhereInput;
-    NOT?: LocationWhereInput[] | LocationWhereInput;
-}
-
-export interface GoodOrServiceUpdateManyWithoutTransactionInput {
-    create?:
-        | GoodOrServiceCreateWithoutTransactionInput[]
-        | GoodOrServiceCreateWithoutTransactionInput;
-    delete?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
-    connect?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
-    disconnect?:
-        | GoodOrServiceWhereUniqueInput[]
-        | GoodOrServiceWhereUniqueInput;
-    update?:
-        | GoodOrServiceUpdateWithWhereUniqueWithoutTransactionInput[]
-        | GoodOrServiceUpdateWithWhereUniqueWithoutTransactionInput;
-    upsert?:
-        | GoodOrServiceUpsertWithWhereUniqueWithoutTransactionInput[]
-        | GoodOrServiceUpsertWithWhereUniqueWithoutTransactionInput;
-}
-
-export interface ContactInfoSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: ContactInfoWhereInput;
-    AND?:
-        | ContactInfoSubscriptionWhereInput[]
-        | ContactInfoSubscriptionWhereInput;
-    OR?:
-        | ContactInfoSubscriptionWhereInput[]
-        | ContactInfoSubscriptionWhereInput;
-    NOT?:
-        | ContactInfoSubscriptionWhereInput[]
-        | ContactInfoSubscriptionWhereInput;
-}
-
-export interface GoodOrServiceUpdateWithWhereUniqueWithoutTransactionInput {
-    where: GoodOrServiceWhereUniqueInput;
-    data: GoodOrServiceUpdateWithoutTransactionDataInput;
-}
-
-export interface TvEpisodeUpdateInput {
-    name?: String;
-    episode?: Int;
-    season?: Int;
-    watched?: Boolean;
-    show?: TvShowUpdateOneRequiredWithoutEpisodesInput;
-    date_watched?: DateTimeInput;
-    release_date?: DateTimeInput;
-}
-
-export interface GoodOrServiceUpdateWithoutTransactionDataInput {
-    type?: String;
-    name?: String;
-    brand?: String;
-    price?: Float;
-    url?: String;
-    purchased?: Boolean;
-}
-
-export interface FinanceGoalsUpdateWithWhereUniqueNestedInput {
-    where: FinanceGoalsWhereUniqueInput;
-    data: FinanceGoalsUpdateDataInput;
-}
-
-export interface GoodOrServiceUpsertWithWhereUniqueWithoutTransactionInput {
-    where: GoodOrServiceWhereUniqueInput;
-    update: GoodOrServiceUpdateWithoutTransactionDataInput;
-    create: GoodOrServiceCreateWithoutTransactionInput;
-}
-
-export type TimelineWhereUniqueInput = AtLeastOne<{
-    id: ID_Input;
-}>;
-
-export interface TransactionUpsertWithWhereUniqueNestedInput {
-    where: TransactionWhereUniqueInput;
-    update: TransactionUpdateDataInput;
-    create: TransactionCreateInput;
-}
-
-export interface ContactInfoUpdateInput {
-    email?: String;
-    phone_number?: String;
-    twitter?: String;
-    snapchat?: String;
-    human?: HumanUpdateOneRequiredWithoutContactInput;
-}
-
-export interface FixedCostUpdateManyInput {
-    create?: FixedCostCreateInput[] | FixedCostCreateInput;
-    delete?: FixedCostWhereUniqueInput[] | FixedCostWhereUniqueInput;
-    connect?: FixedCostWhereUniqueInput[] | FixedCostWhereUniqueInput;
-    disconnect?: FixedCostWhereUniqueInput[] | FixedCostWhereUniqueInput;
-    update?:
-        | FixedCostUpdateWithWhereUniqueNestedInput[]
-        | FixedCostUpdateWithWhereUniqueNestedInput;
-    upsert?:
-        | FixedCostUpsertWithWhereUniqueNestedInput[]
-        | FixedCostUpsertWithWhereUniqueNestedInput;
-}
-
-export interface SchoolCreateManyInput {
-    create?: SchoolCreateInput[] | SchoolCreateInput;
-    connect?: SchoolWhereUniqueInput[] | SchoolWhereUniqueInput;
-}
-
-export interface BudgetUpdateInput {
-    flexible_spending?: Float;
-    total_fixed_cost?: Float;
-    fixed_costs?: FixedCostUpdateManyInput;
-}
-
-export interface HumanUpdateOneRequiredWithoutWeight_historyInput {
-    create?: HumanCreateWithoutWeight_historyInput;
-    update?: HumanUpdateWithoutWeight_historyDataInput;
-    upsert?: HumanUpsertWithoutWeight_historyInput;
-    connect?: HumanWhereUniqueInput;
-}
-
-export interface FixedCostCreateManyInput {
-    create?: FixedCostCreateInput[] | FixedCostCreateInput;
-    connect?: FixedCostWhereUniqueInput[] | FixedCostWhereUniqueInput;
-}
-
-export interface BudgetCreateInput {
-    flexible_spending?: Float;
-    total_fixed_cost?: Float;
-    fixed_costs?: FixedCostCreateManyInput;
-}
-
-export interface BookTransactionUpdateInput {
-    book?: BookUpdateOneInput;
-    date_started?: DateTimeInput;
-    date_finished?: DateTimeInput;
-}
-
-export interface BookUpdateInput {
-    name?: String;
-    author?: String;
-    release_date?: DateTimeInput;
-    word_count?: Int;
-}
-
-export interface TaskUpdateInput {
-    name?: String;
-    start?: DateTimeInput;
-    end?: DateTimeInput;
-    status?: TaskStatus;
-}
-
-export interface HumanSubscriptionWhereInput {
-    mutation_in?: MutationType[] | MutationType;
-    updatedFields_contains?: String;
-    updatedFields_contains_every?: String[] | String;
-    updatedFields_contains_some?: String[] | String;
-    node?: HumanWhereInput;
-    AND?: HumanSubscriptionWhereInput[] | HumanSubscriptionWhereInput;
-    OR?: HumanSubscriptionWhereInput[] | HumanSubscriptionWhereInput;
-    NOT?: HumanSubscriptionWhereInput[] | HumanSubscriptionWhereInput;
-}
-
-export interface GoodOrServiceCreateInput {
-    type?: String;
-    name?: String;
-    brand: String;
-    price: Float;
-    url?: String;
-    purchased?: Boolean;
-    transaction?: TransactionCreateOneWithoutItemsInput;
-}
-
-export interface CourseAssignmentUpsertWithWhereUniqueWithoutCourseInput {
-    where: CourseAssignmentWhereUniqueInput;
-    update: CourseAssignmentUpdateWithoutCourseDataInput;
-    create: CourseAssignmentCreateWithoutCourseInput;
+export interface TransactionSplitUpdateManyInput {
+  create?: TransactionSplitCreateInput[] | TransactionSplitCreateInput;
 }
 
 export interface FixedCostUpdateInput {
-    name?: String;
-    amount?: Float;
-    type?: FixedCostType;
+  name?: String;
+  amount?: Float;
+  type?: FixedCostType;
+}
+
+export interface LocationUpdateOneInput {
+  create?: LocationCreateInput;
+  update?: LocationUpdateDataInput;
+  upsert?: LocationUpsertNestedInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: LocationWhereUniqueInput;
+}
+
+export interface FinanceGoalsUpdateInput {
+  name?: String;
+  cost?: Float;
+  due?: DateTimeInput;
+}
+
+export interface LocationUpdateDataInput {
+  longitude?: Float;
+  latitude?: Float;
+  address?: String;
+  type?: String;
+  name?: String;
+  events?: EventUpdateManyWithoutLocationInput;
+}
+
+export interface TransactionSplitWhereInput {
+  human?: HumanWhereInput;
+  percentage?: Float;
+  percentage_not?: Float;
+  percentage_in?: Float[] | Float;
+  percentage_not_in?: Float[] | Float;
+  percentage_lt?: Float;
+  percentage_lte?: Float;
+  percentage_gt?: Float;
+  percentage_gte?: Float;
+  amount?: Float;
+  amount_not?: Float;
+  amount_in?: Float[] | Float;
+  amount_not_in?: Float[] | Float;
+  amount_lt?: Float;
+  amount_lte?: Float;
+  amount_gt?: Float;
+  amount_gte?: Float;
+  pending?: Boolean;
+  pending_not?: Boolean;
+  AND?: TransactionSplitWhereInput[] | TransactionSplitWhereInput;
+  OR?: TransactionSplitWhereInput[] | TransactionSplitWhereInput;
+  NOT?: TransactionSplitWhereInput[] | TransactionSplitWhereInput;
+}
+
+export interface EventUpdateManyWithoutLocationInput {
+  create?: EventCreateWithoutLocationInput[] | EventCreateWithoutLocationInput;
+  delete?: EventWhereUniqueInput[] | EventWhereUniqueInput;
+  connect?: EventWhereUniqueInput[] | EventWhereUniqueInput;
+  disconnect?: EventWhereUniqueInput[] | EventWhereUniqueInput;
+  update?:
+    | EventUpdateWithWhereUniqueWithoutLocationInput[]
+    | EventUpdateWithWhereUniqueWithoutLocationInput;
+  upsert?:
+    | EventUpsertWithWhereUniqueWithoutLocationInput[]
+    | EventUpsertWithWhereUniqueWithoutLocationInput;
+}
+
+export interface FavoriteUpdateInput {
+  kind?: FavoriteKind;
+  thing?: ID_Input;
+}
+
+export interface EventUpdateWithWhereUniqueWithoutLocationInput {
+  where: EventWhereUniqueInput;
+  data: EventUpdateWithoutLocationDataInput;
+}
+
+export type SchoolWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface EventUpdateWithoutLocationDataInput {
+  date?: DateTimeInput;
+  type?: EventType;
+  description?: String;
+  with?: HumanUpdateManyInput;
+}
+
+export interface CourseUpsertWithoutLecturesInput {
+  update: CourseUpdateWithoutLecturesDataInput;
+  create: CourseCreateWithoutLecturesInput;
+}
+
+export interface HumanUpdateManyInput {
+  create?: HumanCreateInput[] | HumanCreateInput;
+  delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  update?:
+    | HumanUpdateWithWhereUniqueNestedInput[]
+    | HumanUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | HumanUpsertWithWhereUniqueNestedInput[]
+    | HumanUpsertWithWhereUniqueNestedInput;
+}
+
+export type TaskWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface HumanUpdateWithWhereUniqueNestedInput {
+  where: HumanWhereUniqueInput;
+  data: HumanUpdateDataInput;
+}
+
+export interface CourseLectureUpdateInput {
+  title?: String;
+  description?: String;
+  course?: CourseUpdateOneRequiredWithoutLecturesInput;
+}
+
+export interface HumanUpdateDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export type TimelineWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface FavoriteUpdateManyInput {
+  create?: FavoriteCreateInput[] | FavoriteCreateInput;
+  delete?: FavoriteWhereUniqueInput[] | FavoriteWhereUniqueInput;
+  connect?: FavoriteWhereUniqueInput[] | FavoriteWhereUniqueInput;
+  disconnect?: FavoriteWhereUniqueInput[] | FavoriteWhereUniqueInput;
+  update?:
+    | FavoriteUpdateWithWhereUniqueNestedInput[]
+    | FavoriteUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | FavoriteUpsertWithWhereUniqueNestedInput[]
+    | FavoriteUpsertWithWhereUniqueNestedInput;
+}
+
+export interface TimelineWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  events_every?: EventWhereInput;
+  events_some?: EventWhereInput;
+  events_none?: EventWhereInput;
+  belongs_to?: HumanWhereInput;
+  AND?: TimelineWhereInput[] | TimelineWhereInput;
+  OR?: TimelineWhereInput[] | TimelineWhereInput;
+  NOT?: TimelineWhereInput[] | TimelineWhereInput;
+}
+
+export interface FavoriteUpdateWithWhereUniqueNestedInput {
+  where: FavoriteWhereUniqueInput;
+  data: FavoriteUpdateDataInput;
+}
+
+export interface CourseLectureCreateInput {
+  title: String;
+  description: String;
+  course: CourseCreateOneWithoutLecturesInput;
+}
+
+export interface FavoriteUpdateDataInput {
+  kind?: FavoriteKind;
+  thing?: ID_Input;
+}
+
+export interface CourseUpdateWithoutAssignmentsDataInput {
+  name?: String;
+  subject?: ID_Input;
+  completion?: Float;
+  start_date?: DateTimeInput;
+  end_date?: DateTimeInput;
+  lectures?: CourseLectureUpdateManyWithoutCourseInput;
+  school?: SchoolUpdateOneRequiredInput;
+}
+
+export interface FixedCostUpdateDataInput {
+  name?: String;
+  amount?: Float;
+  type?: FixedCostType;
+}
+
+export interface CourseUpdateOneRequiredWithoutAssignmentsInput {
+  create?: CourseCreateWithoutAssignmentsInput;
+  update?: CourseUpdateWithoutAssignmentsDataInput;
+  upsert?: CourseUpsertWithoutAssignmentsInput;
+}
+
+export interface GoodOrServiceUpdateManyInput {
+  create?: GoodOrServiceCreateInput[] | GoodOrServiceCreateInput;
+  delete?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
+  connect?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
+  disconnect?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
+  update?:
+    | GoodOrServiceUpdateWithWhereUniqueNestedInput[]
+    | GoodOrServiceUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | GoodOrServiceUpsertWithWhereUniqueNestedInput[]
+    | GoodOrServiceUpsertWithWhereUniqueNestedInput;
+}
+
+export interface CourseCreateWithoutAssignmentsInput {
+  name?: String;
+  subject: ID_Input;
+  completion: Float;
+  start_date: DateTimeInput;
+  end_date: DateTimeInput;
+  lectures?: CourseLectureCreateManyWithoutCourseInput;
+  school: SchoolCreateOneInput;
+}
+
+export interface GoodOrServiceUpdateWithWhereUniqueNestedInput {
+  where: GoodOrServiceWhereUniqueInput;
+  data: GoodOrServiceUpdateDataInput;
+}
+
+export interface CourseAssignmentCreateInput {
+  description: String;
+  grade?: Float;
+  course: CourseCreateOneWithoutAssignmentsInput;
+}
+
+export interface GoodOrServiceUpdateDataInput {
+  type?: String;
+  name?: String;
+  brand?: String;
+  price?: Float;
+  url?: String;
+  purchased?: Boolean;
+  transaction?: TransactionUpdateOneWithoutItemsInput;
+}
+
+export type TvEpisodeWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface TransactionUpdateOneWithoutItemsInput {
+  create?: TransactionCreateWithoutItemsInput;
+  update?: TransactionUpdateWithoutItemsDataInput;
+  upsert?: TransactionUpsertWithoutItemsInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: TransactionWhereUniqueInput;
+}
+
+export interface CourseAssignmentUpsertWithWhereUniqueWithoutCourseInput {
+  where: CourseAssignmentWhereUniqueInput;
+  update: CourseAssignmentUpdateWithoutCourseDataInput;
+  create: CourseAssignmentCreateWithoutCourseInput;
+}
+
+export interface TransactionUpdateWithoutItemsDataInput {
+  payee?: String;
+  amount?: Float;
+  date?: String;
+  category?: String;
+  splits?: TransactionSplitUpdateManyInput;
+  location?: LocationUpdateOneInput;
+  with?: HumanUpdateManyInput;
+  event?: EventUpdateOneInput;
+}
+
+export type TvEpisodeTransactionWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface EventUpdateOneInput {
+  create?: EventCreateInput;
+  update?: EventUpdateDataInput;
+  upsert?: EventUpsertNestedInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: EventWhereUniqueInput;
+}
+
+export interface CourseAssignmentUpdateManyWithoutCourseInput {
+  create?:
+    | CourseAssignmentCreateWithoutCourseInput[]
+    | CourseAssignmentCreateWithoutCourseInput;
+  delete?:
+    | CourseAssignmentWhereUniqueInput[]
+    | CourseAssignmentWhereUniqueInput;
+  connect?:
+    | CourseAssignmentWhereUniqueInput[]
+    | CourseAssignmentWhereUniqueInput;
+  disconnect?:
+    | CourseAssignmentWhereUniqueInput[]
+    | CourseAssignmentWhereUniqueInput;
+  update?:
+    | CourseAssignmentUpdateWithWhereUniqueWithoutCourseInput[]
+    | CourseAssignmentUpdateWithWhereUniqueWithoutCourseInput;
+  upsert?:
+    | CourseAssignmentUpsertWithWhereUniqueWithoutCourseInput[]
+    | CourseAssignmentUpsertWithWhereUniqueWithoutCourseInput;
+}
+
+export interface EventUpdateDataInput {
+  date?: DateTimeInput;
+  location?: LocationUpdateOneRequiredWithoutEventsInput;
+  type?: EventType;
+  description?: String;
+  with?: HumanUpdateManyInput;
+}
+
+export type TvShowWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface LocationUpdateOneRequiredWithoutEventsInput {
+  create?: LocationCreateWithoutEventsInput;
+  update?: LocationUpdateWithoutEventsDataInput;
+  upsert?: LocationUpsertWithoutEventsInput;
+  connect?: LocationWhereUniqueInput;
+}
+
+export interface CourseLectureUpdateWithWhereUniqueWithoutCourseInput {
+  where: CourseLectureWhereUniqueInput;
+  data: CourseLectureUpdateWithoutCourseDataInput;
+}
+
+export interface LocationUpdateWithoutEventsDataInput {
+  longitude?: Float;
+  latitude?: Float;
+  address?: String;
+  type?: String;
+  name?: String;
+}
+
+export interface CourseUpdateInput {
+  name?: String;
+  subject?: ID_Input;
+  completion?: Float;
+  start_date?: DateTimeInput;
+  end_date?: DateTimeInput;
+  lectures?: CourseLectureUpdateManyWithoutCourseInput;
+  assignments?: CourseAssignmentUpdateManyWithoutCourseInput;
+  school?: SchoolUpdateOneRequiredInput;
+}
+
+export interface LocationUpsertWithoutEventsInput {
+  update: LocationUpdateWithoutEventsDataInput;
+  create: LocationCreateWithoutEventsInput;
+}
+
+export interface HumanUpsertWithoutContactInput {
+  update: HumanUpdateWithoutContactDataInput;
+  create: HumanCreateWithoutContactInput;
+}
+
+export interface EventUpsertNestedInput {
+  update: EventUpdateDataInput;
+  create: EventCreateInput;
+}
+
+export interface HumanUpdateOneRequiredWithoutContactInput {
+  create?: HumanCreateWithoutContactInput;
+  update?: HumanUpdateWithoutContactDataInput;
+  upsert?: HumanUpsertWithoutContactInput;
+  connect?: HumanWhereUniqueInput;
+}
+
+export interface TransactionUpsertWithoutItemsInput {
+  update: TransactionUpdateWithoutItemsDataInput;
+  create: TransactionCreateWithoutItemsInput;
+}
+
+export interface ContactInfoUpdateInput {
+  email?: String;
+  phone_number?: String;
+  twitter?: String;
+  snapchat?: String;
+  human?: HumanUpdateOneRequiredWithoutContactInput;
+}
+
+export interface GoodOrServiceUpsertWithWhereUniqueNestedInput {
+  where: GoodOrServiceWhereUniqueInput;
+  update: GoodOrServiceUpdateDataInput;
+  create: GoodOrServiceCreateInput;
+}
+
+export interface HumanCreateOneWithoutContactInput {
+  create?: HumanCreateWithoutContactInput;
+  connect?: HumanWhereUniqueInput;
+}
+
+export interface ContactInfoUpdateOneWithoutHumanInput {
+  create?: ContactInfoCreateWithoutHumanInput;
+  update?: ContactInfoUpdateWithoutHumanDataInput;
+  upsert?: ContactInfoUpsertWithoutHumanInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+}
+
+export interface FixedCostUpsertWithWhereUniqueNestedInput {
+  where: FixedCostWhereUniqueInput;
+  update: FixedCostUpdateDataInput;
+  create: FixedCostCreateInput;
+}
+
+export interface ContactInfoUpdateWithoutHumanDataInput {
+  email?: String;
+  phone_number?: String;
+  twitter?: String;
+  snapchat?: String;
+}
+
+export interface AccountCreateInput {
+  name: String;
+  balance: Float;
+  transactions?: TransactionCreateManyInput;
+}
+
+export interface ContactInfoUpsertWithoutHumanInput {
+  update: ContactInfoUpdateWithoutHumanDataInput;
+  create: ContactInfoCreateWithoutHumanInput;
+}
+
+export interface TransactionCreateInput {
+  payee: String;
+  amount: Float;
+  date: String;
+  category: String;
+  splits?: TransactionSplitCreateManyInput;
+  location?: LocationCreateOneInput;
+  items?: GoodOrServiceCreateManyWithoutTransactionInput;
+  with?: HumanCreateManyInput;
+  event?: EventCreateOneInput;
+}
+
+export interface EducationUpdateOneInput {
+  create?: EducationCreateInput;
+  update?: EducationUpdateDataInput;
+  upsert?: EducationUpsertNestedInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: EducationWhereUniqueInput;
+}
+
+export interface TransactionSplitCreateInput {
+  human: HumanCreateOneInput;
+  percentage?: Float;
+  amount?: Float;
+  pending?: Boolean;
+}
+
+export interface FixedCostUpdateWithWhereUniqueNestedInput {
+  where: FixedCostWhereUniqueInput;
+  data: FixedCostUpdateDataInput;
+}
+
+export interface HumanCreateInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
+}
+
+export interface SchoolUpdateManyInput {
+  create?: SchoolCreateInput[] | SchoolCreateInput;
+  delete?: SchoolWhereUniqueInput[] | SchoolWhereUniqueInput;
+  connect?: SchoolWhereUniqueInput[] | SchoolWhereUniqueInput;
+  disconnect?: SchoolWhereUniqueInput[] | SchoolWhereUniqueInput;
+  update?:
+    | SchoolUpdateWithWhereUniqueNestedInput[]
+    | SchoolUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | SchoolUpsertWithWhereUniqueNestedInput[]
+    | SchoolUpsertWithWhereUniqueNestedInput;
+}
+
+export interface FavoriteCreateInput {
+  kind: FavoriteKind;
+  thing: ID_Input;
+}
+
+export interface SchoolUpdateWithWhereUniqueNestedInput {
+  where: SchoolWhereUniqueInput;
+  data: SchoolUpdateDataInput;
+}
+
+export interface GoodOrServiceCreateInput {
+  type?: String;
+  name?: String;
+  brand: String;
+  price: Float;
+  url?: String;
+  purchased?: Boolean;
+  transaction?: TransactionCreateOneWithoutItemsInput;
+}
+
+export interface SchoolUpdateDataInput {
+  name?: String;
+  location?: String;
+}
+
+export interface TransactionCreateWithoutItemsInput {
+  payee: String;
+  amount: Float;
+  date: String;
+  category: String;
+  splits?: TransactionSplitCreateManyInput;
+  location?: LocationCreateOneInput;
+  with?: HumanCreateManyInput;
+  event?: EventCreateOneInput;
+}
+
+export interface SchoolUpsertWithWhereUniqueNestedInput {
+  where: SchoolWhereUniqueInput;
+  update: SchoolUpdateDataInput;
+  create: SchoolCreateInput;
+}
+
+export interface LocationCreateInput {
+  longitude: Float;
+  latitude: Float;
+  address: String;
+  type?: String;
+  name: String;
+  events?: EventCreateManyWithoutLocationInput;
+}
+
+export interface CourseUpdateManyInput {
+  create?: CourseCreateInput[] | CourseCreateInput;
+}
+
+export interface EventCreateWithoutLocationInput {
+  date: DateTimeInput;
+  type: EventType;
+  description?: String;
+  with?: HumanCreateManyInput;
+}
+
+export interface EducationUpsertNestedInput {
+  update: EducationUpdateDataInput;
+  create: EducationCreateInput;
+}
+
+export interface EventCreateOneInput {
+  create?: EventCreateInput;
+  connect?: EventWhereUniqueInput;
+}
+
+export interface TaskUpdateManyInput {
+  create?: TaskCreateInput[] | TaskCreateInput;
+  delete?: TaskWhereUniqueInput[] | TaskWhereUniqueInput;
+  connect?: TaskWhereUniqueInput[] | TaskWhereUniqueInput;
+  disconnect?: TaskWhereUniqueInput[] | TaskWhereUniqueInput;
+  update?:
+    | TaskUpdateWithWhereUniqueNestedInput[]
+    | TaskUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | TaskUpsertWithWhereUniqueNestedInput[]
+    | TaskUpsertWithWhereUniqueNestedInput;
+}
+
+export interface LocationCreateOneWithoutEventsInput {
+  create?: LocationCreateWithoutEventsInput;
+  connect?: LocationWhereUniqueInput;
+}
+
+export interface TaskUpdateWithWhereUniqueNestedInput {
+  where: TaskWhereUniqueInput;
+  data: TaskUpdateDataInput;
+}
+
+export interface ContactInfoCreateOneWithoutHumanInput {
+  create?: ContactInfoCreateWithoutHumanInput;
+}
+
+export interface TaskUpdateDataInput {
+  name?: String;
+  start?: DateTimeInput;
+  end?: DateTimeInput;
+  status?: TaskStatus;
+}
+
+export interface EducationCreateOneInput {
+  create?: EducationCreateInput;
+  connect?: EducationWhereUniqueInput;
+}
+
+export interface TaskUpsertWithWhereUniqueNestedInput {
+  where: TaskWhereUniqueInput;
+  update: TaskUpdateDataInput;
+  create: TaskCreateInput;
+}
+
+export interface SchoolCreateManyInput {
+  create?: SchoolCreateInput[] | SchoolCreateInput;
+  connect?: SchoolWhereUniqueInput[] | SchoolWhereUniqueInput;
+}
+
+export interface TvEpisodeTransactionUpdateManyWithoutHumanInput {
+  create?:
+    | TvEpisodeTransactionCreateWithoutHumanInput[]
+    | TvEpisodeTransactionCreateWithoutHumanInput;
+  delete?:
+    | TvEpisodeTransactionWhereUniqueInput[]
+    | TvEpisodeTransactionWhereUniqueInput;
+  connect?:
+    | TvEpisodeTransactionWhereUniqueInput[]
+    | TvEpisodeTransactionWhereUniqueInput;
+  disconnect?:
+    | TvEpisodeTransactionWhereUniqueInput[]
+    | TvEpisodeTransactionWhereUniqueInput;
+  update?:
+    | TvEpisodeTransactionUpdateWithWhereUniqueWithoutHumanInput[]
+    | TvEpisodeTransactionUpdateWithWhereUniqueWithoutHumanInput;
+  upsert?:
+    | TvEpisodeTransactionUpsertWithWhereUniqueWithoutHumanInput[]
+    | TvEpisodeTransactionUpsertWithWhereUniqueWithoutHumanInput;
+}
+
+export interface CourseCreateManyInput {
+  create?: CourseCreateInput[] | CourseCreateInput;
+}
+
+export interface TvEpisodeTransactionUpdateWithWhereUniqueWithoutHumanInput {
+  where: TvEpisodeTransactionWhereUniqueInput;
+  data: TvEpisodeTransactionUpdateWithoutHumanDataInput;
+}
+
+export interface WishListSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: WishListWhereInput;
+  AND?: WishListSubscriptionWhereInput[] | WishListSubscriptionWhereInput;
+  OR?: WishListSubscriptionWhereInput[] | WishListSubscriptionWhereInput;
+  NOT?: WishListSubscriptionWhereInput[] | WishListSubscriptionWhereInput;
+}
+
+export interface TvEpisodeTransactionUpdateWithoutHumanDataInput {
+  show?: TvShowUpdateOneRequiredInput;
+  episode?: TvEpisodeUpdateOneRequiredInput;
+  date_watched?: DateTimeInput;
+}
+
+export interface TvEpisodeTransactionSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TvEpisodeTransactionWhereInput;
+  AND?:
+    | TvEpisodeTransactionSubscriptionWhereInput[]
+    | TvEpisodeTransactionSubscriptionWhereInput;
+  OR?:
+    | TvEpisodeTransactionSubscriptionWhereInput[]
+    | TvEpisodeTransactionSubscriptionWhereInput;
+  NOT?:
+    | TvEpisodeTransactionSubscriptionWhereInput[]
+    | TvEpisodeTransactionSubscriptionWhereInput;
+}
+
+export interface TvShowUpdateOneRequiredInput {
+  create?: TvShowCreateInput;
+  update?: TvShowUpdateDataInput;
+  upsert?: TvShowUpsertNestedInput;
+  connect?: TvShowWhereUniqueInput;
+}
+
+export interface WeightHistoryItemWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  weight?: Float;
+  weight_not?: Float;
+  weight_in?: Float[] | Float;
+  weight_not_in?: Float[] | Float;
+  weight_lt?: Float;
+  weight_lte?: Float;
+  weight_gt?: Float;
+  weight_gte?: Float;
+  date?: DateTimeInput;
+  date_not?: DateTimeInput;
+  date_in?: DateTimeInput[] | DateTimeInput;
+  date_not_in?: DateTimeInput[] | DateTimeInput;
+  date_lt?: DateTimeInput;
+  date_lte?: DateTimeInput;
+  date_gt?: DateTimeInput;
+  date_gte?: DateTimeInput;
+  human?: HumanWhereInput;
+  AND?: WeightHistoryItemWhereInput[] | WeightHistoryItemWhereInput;
+  OR?: WeightHistoryItemWhereInput[] | WeightHistoryItemWhereInput;
+  NOT?: WeightHistoryItemWhereInput[] | WeightHistoryItemWhereInput;
+}
+
+export interface TvShowUpdateDataInput {
+  name?: String;
+  episodes?: TvEpisodeUpdateManyWithoutShowInput;
+}
+
+export interface BookTransactionWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  book?: BookWhereInput;
+  date_started?: DateTimeInput;
+  date_started_not?: DateTimeInput;
+  date_started_in?: DateTimeInput[] | DateTimeInput;
+  date_started_not_in?: DateTimeInput[] | DateTimeInput;
+  date_started_lt?: DateTimeInput;
+  date_started_lte?: DateTimeInput;
+  date_started_gt?: DateTimeInput;
+  date_started_gte?: DateTimeInput;
+  date_finished?: DateTimeInput;
+  date_finished_not?: DateTimeInput;
+  date_finished_in?: DateTimeInput[] | DateTimeInput;
+  date_finished_not_in?: DateTimeInput[] | DateTimeInput;
+  date_finished_lt?: DateTimeInput;
+  date_finished_lte?: DateTimeInput;
+  date_finished_gt?: DateTimeInput;
+  date_finished_gte?: DateTimeInput;
+  AND?: BookTransactionWhereInput[] | BookTransactionWhereInput;
+  OR?: BookTransactionWhereInput[] | BookTransactionWhereInput;
+  NOT?: BookTransactionWhereInput[] | BookTransactionWhereInput;
+}
+
+export interface TvEpisodeUpdateManyWithoutShowInput {
+  create?: TvEpisodeCreateWithoutShowInput[] | TvEpisodeCreateWithoutShowInput;
+  delete?: TvEpisodeWhereUniqueInput[] | TvEpisodeWhereUniqueInput;
+  connect?: TvEpisodeWhereUniqueInput[] | TvEpisodeWhereUniqueInput;
+  disconnect?: TvEpisodeWhereUniqueInput[] | TvEpisodeWhereUniqueInput;
+  update?:
+    | TvEpisodeUpdateWithWhereUniqueWithoutShowInput[]
+    | TvEpisodeUpdateWithWhereUniqueWithoutShowInput;
+  upsert?:
+    | TvEpisodeUpsertWithWhereUniqueWithoutShowInput[]
+    | TvEpisodeUpsertWithWhereUniqueWithoutShowInput;
+}
+
+export interface MovieTransactionWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  movie?: MovieWhereInput;
+  date_watched?: DateTimeInput;
+  date_watched_not?: DateTimeInput;
+  date_watched_in?: DateTimeInput[] | DateTimeInput;
+  date_watched_not_in?: DateTimeInput[] | DateTimeInput;
+  date_watched_lt?: DateTimeInput;
+  date_watched_lte?: DateTimeInput;
+  date_watched_gt?: DateTimeInput;
+  date_watched_gte?: DateTimeInput;
+  AND?: MovieTransactionWhereInput[] | MovieTransactionWhereInput;
+  OR?: MovieTransactionWhereInput[] | MovieTransactionWhereInput;
+  NOT?: MovieTransactionWhereInput[] | MovieTransactionWhereInput;
+}
+
+export interface TvEpisodeUpdateWithWhereUniqueWithoutShowInput {
+  where: TvEpisodeWhereUniqueInput;
+  data: TvEpisodeUpdateWithoutShowDataInput;
+}
+
+export interface LocationSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: LocationWhereInput;
+  AND?: LocationSubscriptionWhereInput[] | LocationSubscriptionWhereInput;
+  OR?: LocationSubscriptionWhereInput[] | LocationSubscriptionWhereInput;
+  NOT?: LocationSubscriptionWhereInput[] | LocationSubscriptionWhereInput;
+}
+
+export interface TvEpisodeUpdateWithoutShowDataInput {
+  name?: String;
+  episode?: Int;
+  season?: Int;
+  watched?: Boolean;
+  date_watched?: DateTimeInput;
+  release_date?: DateTimeInput;
+}
+
+export interface TvShowWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  episodes_every?: TvEpisodeWhereInput;
+  episodes_some?: TvEpisodeWhereInput;
+  episodes_none?: TvEpisodeWhereInput;
+  AND?: TvShowWhereInput[] | TvShowWhereInput;
+  OR?: TvShowWhereInput[] | TvShowWhereInput;
+  NOT?: TvShowWhereInput[] | TvShowWhereInput;
+}
+
+export interface TvEpisodeUpsertWithWhereUniqueWithoutShowInput {
+  where: TvEpisodeWhereUniqueInput;
+  update: TvEpisodeUpdateWithoutShowDataInput;
+  create: TvEpisodeCreateWithoutShowInput;
+}
+
+export interface TaskWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  start?: DateTimeInput;
+  start_not?: DateTimeInput;
+  start_in?: DateTimeInput[] | DateTimeInput;
+  start_not_in?: DateTimeInput[] | DateTimeInput;
+  start_lt?: DateTimeInput;
+  start_lte?: DateTimeInput;
+  start_gt?: DateTimeInput;
+  start_gte?: DateTimeInput;
+  end?: DateTimeInput;
+  end_not?: DateTimeInput;
+  end_in?: DateTimeInput[] | DateTimeInput;
+  end_not_in?: DateTimeInput[] | DateTimeInput;
+  end_lt?: DateTimeInput;
+  end_lte?: DateTimeInput;
+  end_gt?: DateTimeInput;
+  end_gte?: DateTimeInput;
+  status?: TaskStatus;
+  status_not?: TaskStatus;
+  status_in?: TaskStatus[] | TaskStatus;
+  status_not_in?: TaskStatus[] | TaskStatus;
+  AND?: TaskWhereInput[] | TaskWhereInput;
+  OR?: TaskWhereInput[] | TaskWhereInput;
+  NOT?: TaskWhereInput[] | TaskWhereInput;
+}
+
+export interface TvShowUpsertNestedInput {
+  update: TvShowUpdateDataInput;
+  create: TvShowCreateInput;
+}
+
+export interface CourseLectureWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  title?: String;
+  title_not?: String;
+  title_in?: String[] | String;
+  title_not_in?: String[] | String;
+  title_lt?: String;
+  title_lte?: String;
+  title_gt?: String;
+  title_gte?: String;
+  title_contains?: String;
+  title_not_contains?: String;
+  title_starts_with?: String;
+  title_not_starts_with?: String;
+  title_ends_with?: String;
+  title_not_ends_with?: String;
+  description?: String;
+  description_not?: String;
+  description_in?: String[] | String;
+  description_not_in?: String[] | String;
+  description_lt?: String;
+  description_lte?: String;
+  description_gt?: String;
+  description_gte?: String;
+  description_contains?: String;
+  description_not_contains?: String;
+  description_starts_with?: String;
+  description_not_starts_with?: String;
+  description_ends_with?: String;
+  description_not_ends_with?: String;
+  course?: CourseWhereInput;
+  AND?: CourseLectureWhereInput[] | CourseLectureWhereInput;
+  OR?: CourseLectureWhereInput[] | CourseLectureWhereInput;
+  NOT?: CourseLectureWhereInput[] | CourseLectureWhereInput;
+}
+
+export interface TvEpisodeUpdateOneRequiredInput {
+  create?: TvEpisodeCreateInput;
+  update?: TvEpisodeUpdateDataInput;
+  upsert?: TvEpisodeUpsertNestedInput;
+  connect?: TvEpisodeWhereUniqueInput;
+}
+
+export interface CourseAssignmentSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: CourseAssignmentWhereInput;
+  AND?:
+    | CourseAssignmentSubscriptionWhereInput[]
+    | CourseAssignmentSubscriptionWhereInput;
+  OR?:
+    | CourseAssignmentSubscriptionWhereInput[]
+    | CourseAssignmentSubscriptionWhereInput;
+  NOT?:
+    | CourseAssignmentSubscriptionWhereInput[]
+    | CourseAssignmentSubscriptionWhereInput;
+}
+
+export interface TvEpisodeUpdateDataInput {
+  name?: String;
+  episode?: Int;
+  season?: Int;
+  watched?: Boolean;
+  show?: TvShowUpdateOneRequiredWithoutEpisodesInput;
+  date_watched?: DateTimeInput;
+  release_date?: DateTimeInput;
+}
+
+export type BookWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface TvShowUpdateOneRequiredWithoutEpisodesInput {
+  create?: TvShowCreateWithoutEpisodesInput;
+  update?: TvShowUpdateWithoutEpisodesDataInput;
+  upsert?: TvShowUpsertWithoutEpisodesInput;
+  connect?: TvShowWhereUniqueInput;
+}
+
+export interface AccountSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: AccountWhereInput;
+  AND?: AccountSubscriptionWhereInput[] | AccountSubscriptionWhereInput;
+  OR?: AccountSubscriptionWhereInput[] | AccountSubscriptionWhereInput;
+  NOT?: AccountSubscriptionWhereInput[] | AccountSubscriptionWhereInput;
+}
+
+export interface TvShowUpdateWithoutEpisodesDataInput {
+  name?: String;
+}
+
+export interface HumanUpsertWithoutWeight_historyInput {
+  update: HumanUpdateWithoutWeight_historyDataInput;
+  create: HumanCreateWithoutWeight_historyInput;
+}
+
+export interface TvShowUpsertWithoutEpisodesInput {
+  update: TvShowUpdateWithoutEpisodesDataInput;
+  create: TvShowCreateWithoutEpisodesInput;
+}
+
+export interface SchoolWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  location?: String;
+  location_not?: String;
+  location_in?: String[] | String;
+  location_not_in?: String[] | String;
+  location_lt?: String;
+  location_lte?: String;
+  location_gt?: String;
+  location_gte?: String;
+  location_contains?: String;
+  location_not_contains?: String;
+  location_starts_with?: String;
+  location_not_starts_with?: String;
+  location_ends_with?: String;
+  location_not_ends_with?: String;
+  AND?: SchoolWhereInput[] | SchoolWhereInput;
+  OR?: SchoolWhereInput[] | SchoolWhereInput;
+  NOT?: SchoolWhereInput[] | SchoolWhereInput;
+}
+
+export interface TvEpisodeUpsertNestedInput {
+  update: TvEpisodeUpdateDataInput;
+  create: TvEpisodeCreateInput;
+}
+
+export interface ContactInfoWhereInput {
+  email?: String;
+  email_not?: String;
+  email_in?: String[] | String;
+  email_not_in?: String[] | String;
+  email_lt?: String;
+  email_lte?: String;
+  email_gt?: String;
+  email_gte?: String;
+  email_contains?: String;
+  email_not_contains?: String;
+  email_starts_with?: String;
+  email_not_starts_with?: String;
+  email_ends_with?: String;
+  email_not_ends_with?: String;
+  phone_number?: String;
+  phone_number_not?: String;
+  phone_number_in?: String[] | String;
+  phone_number_not_in?: String[] | String;
+  phone_number_lt?: String;
+  phone_number_lte?: String;
+  phone_number_gt?: String;
+  phone_number_gte?: String;
+  phone_number_contains?: String;
+  phone_number_not_contains?: String;
+  phone_number_starts_with?: String;
+  phone_number_not_starts_with?: String;
+  phone_number_ends_with?: String;
+  phone_number_not_ends_with?: String;
+  twitter?: String;
+  twitter_not?: String;
+  twitter_in?: String[] | String;
+  twitter_not_in?: String[] | String;
+  twitter_lt?: String;
+  twitter_lte?: String;
+  twitter_gt?: String;
+  twitter_gte?: String;
+  twitter_contains?: String;
+  twitter_not_contains?: String;
+  twitter_starts_with?: String;
+  twitter_not_starts_with?: String;
+  twitter_ends_with?: String;
+  twitter_not_ends_with?: String;
+  snapchat?: String;
+  snapchat_not?: String;
+  snapchat_in?: String[] | String;
+  snapchat_not_in?: String[] | String;
+  snapchat_lt?: String;
+  snapchat_lte?: String;
+  snapchat_gt?: String;
+  snapchat_gte?: String;
+  snapchat_contains?: String;
+  snapchat_not_contains?: String;
+  snapchat_starts_with?: String;
+  snapchat_not_starts_with?: String;
+  snapchat_ends_with?: String;
+  snapchat_not_ends_with?: String;
+  human?: HumanWhereInput;
+  AND?: ContactInfoWhereInput[] | ContactInfoWhereInput;
+  OR?: ContactInfoWhereInput[] | ContactInfoWhereInput;
+  NOT?: ContactInfoWhereInput[] | ContactInfoWhereInput;
+}
+
+export interface TvEpisodeTransactionUpsertWithWhereUniqueWithoutHumanInput {
+  where: TvEpisodeTransactionWhereUniqueInput;
+  update: TvEpisodeTransactionUpdateWithoutHumanDataInput;
+  create: TvEpisodeTransactionCreateWithoutHumanInput;
+}
+
+export interface WeightHistoryItemCreateInput {
+  weight?: Float;
+  date: DateTimeInput;
+  human: HumanCreateOneWithoutWeight_historyInput;
+}
+
+export interface MovieTransactionUpdateManyInput {
+  create?: MovieTransactionCreateInput[] | MovieTransactionCreateInput;
+  delete?:
+    | MovieTransactionWhereUniqueInput[]
+    | MovieTransactionWhereUniqueInput;
+  connect?:
+    | MovieTransactionWhereUniqueInput[]
+    | MovieTransactionWhereUniqueInput;
+  disconnect?:
+    | MovieTransactionWhereUniqueInput[]
+    | MovieTransactionWhereUniqueInput;
+  update?:
+    | MovieTransactionUpdateWithWhereUniqueNestedInput[]
+    | MovieTransactionUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | MovieTransactionUpsertWithWhereUniqueNestedInput[]
+    | MovieTransactionUpsertWithWhereUniqueNestedInput;
+}
+
+export interface HumanUpdateOneRequiredWithoutTv_showsInput {
+  create?: HumanCreateWithoutTv_showsInput;
+  update?: HumanUpdateWithoutTv_showsDataInput;
+  upsert?: HumanUpsertWithoutTv_showsInput;
+  connect?: HumanWhereUniqueInput;
+}
+
+export interface MovieTransactionUpdateWithWhereUniqueNestedInput {
+  where: MovieTransactionWhereUniqueInput;
+  data: MovieTransactionUpdateDataInput;
+}
+
+export interface HumanCreateOneWithoutTv_showsInput {
+  create?: HumanCreateWithoutTv_showsInput;
+  connect?: HumanWhereUniqueInput;
+}
+
+export interface MovieTransactionUpdateDataInput {
+  movie?: MovieUpdateOneRequiredInput;
+  date_watched?: DateTimeInput;
+}
+
+export interface TransactionSplitUpdateInput {
+  human?: HumanUpdateOneRequiredInput;
+  percentage?: Float;
+  amount?: Float;
+  pending?: Boolean;
+}
+
+export interface MovieUpdateOneRequiredInput {
+  create?: MovieCreateInput;
+  update?: MovieUpdateDataInput;
+  upsert?: MovieUpsertNestedInput;
+  connect?: MovieWhereUniqueInput;
+}
+
+export interface GoodOrServiceWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  type?: String;
+  type_not?: String;
+  type_in?: String[] | String;
+  type_not_in?: String[] | String;
+  type_lt?: String;
+  type_lte?: String;
+  type_gt?: String;
+  type_gte?: String;
+  type_contains?: String;
+  type_not_contains?: String;
+  type_starts_with?: String;
+  type_not_starts_with?: String;
+  type_ends_with?: String;
+  type_not_ends_with?: String;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  brand?: String;
+  brand_not?: String;
+  brand_in?: String[] | String;
+  brand_not_in?: String[] | String;
+  brand_lt?: String;
+  brand_lte?: String;
+  brand_gt?: String;
+  brand_gte?: String;
+  brand_contains?: String;
+  brand_not_contains?: String;
+  brand_starts_with?: String;
+  brand_not_starts_with?: String;
+  brand_ends_with?: String;
+  brand_not_ends_with?: String;
+  price?: Float;
+  price_not?: Float;
+  price_in?: Float[] | Float;
+  price_not_in?: Float[] | Float;
+  price_lt?: Float;
+  price_lte?: Float;
+  price_gt?: Float;
+  price_gte?: Float;
+  url?: String;
+  url_not?: String;
+  url_in?: String[] | String;
+  url_not_in?: String[] | String;
+  url_lt?: String;
+  url_lte?: String;
+  url_gt?: String;
+  url_gte?: String;
+  url_contains?: String;
+  url_not_contains?: String;
+  url_starts_with?: String;
+  url_not_starts_with?: String;
+  url_ends_with?: String;
+  url_not_ends_with?: String;
+  purchased?: Boolean;
+  purchased_not?: Boolean;
+  transaction?: TransactionWhereInput;
+  AND?: GoodOrServiceWhereInput[] | GoodOrServiceWhereInput;
+  OR?: GoodOrServiceWhereInput[] | GoodOrServiceWhereInput;
+  NOT?: GoodOrServiceWhereInput[] | GoodOrServiceWhereInput;
+}
+
+export interface MovieUpdateDataInput {
+  name?: String;
+  category?: String;
+  release_date?: DateTimeInput;
+  director?: HumanUpdateOneWithoutDirectedInput;
+  actors?: HumanUpdateManyWithoutActed_inInput;
+}
+
+export type EventWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface HumanUpdateOneWithoutDirectedInput {
+  create?: HumanCreateWithoutDirectedInput;
+  update?: HumanUpdateWithoutDirectedDataInput;
+  upsert?: HumanUpsertWithoutDirectedInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: HumanWhereUniqueInput;
+}
+
+export type FavoriteWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface HumanUpdateWithoutDirectedDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export type FinanceGoalsWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface BookTransactionUpdateManyInput {
+  create?: BookTransactionCreateInput[] | BookTransactionCreateInput;
+  delete?: BookTransactionWhereUniqueInput[] | BookTransactionWhereUniqueInput;
+  connect?: BookTransactionWhereUniqueInput[] | BookTransactionWhereUniqueInput;
+  disconnect?:
+    | BookTransactionWhereUniqueInput[]
+    | BookTransactionWhereUniqueInput;
+  update?:
+    | BookTransactionUpdateWithWhereUniqueNestedInput[]
+    | BookTransactionUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | BookTransactionUpsertWithWhereUniqueNestedInput[]
+    | BookTransactionUpsertWithWhereUniqueNestedInput;
+}
+
+export interface AccountUpdateDataInput {
+  name?: String;
+  balance?: Float;
+  transactions?: TransactionUpdateManyInput;
+}
+
+export interface BookTransactionUpdateWithWhereUniqueNestedInput {
+  where: BookTransactionWhereUniqueInput;
+  data: BookTransactionUpdateDataInput;
+}
+
+export interface BudgetUpsertNestedInput {
+  update: BudgetUpdateDataInput;
+  create: BudgetCreateInput;
+}
+
+export interface BookTransactionUpdateDataInput {
+  book?: BookUpdateOneInput;
+  date_started?: DateTimeInput;
+  date_finished?: DateTimeInput;
+}
+
+export interface FinanceGoalsUpsertWithWhereUniqueNestedInput {
+  where: FinanceGoalsWhereUniqueInput;
+  update: FinanceGoalsUpdateDataInput;
+  create: FinanceGoalsCreateInput;
+}
+
+export interface BookUpdateOneInput {
+  create?: BookCreateInput;
+  update?: BookUpdateDataInput;
+  upsert?: BookUpsertNestedInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: BookWhereUniqueInput;
+}
+
+export interface FinanceGoalsUpdateManyInput {
+  create?: FinanceGoalsCreateInput[] | FinanceGoalsCreateInput;
+  delete?: FinanceGoalsWhereUniqueInput[] | FinanceGoalsWhereUniqueInput;
+  connect?: FinanceGoalsWhereUniqueInput[] | FinanceGoalsWhereUniqueInput;
+  disconnect?: FinanceGoalsWhereUniqueInput[] | FinanceGoalsWhereUniqueInput;
+  update?:
+    | FinanceGoalsUpdateWithWhereUniqueNestedInput[]
+    | FinanceGoalsUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | FinanceGoalsUpsertWithWhereUniqueNestedInput[]
+    | FinanceGoalsUpsertWithWhereUniqueNestedInput;
+}
+
+export interface BookUpdateDataInput {
+  name?: String;
+  author?: String;
+  release_date?: DateTimeInput;
+  word_count?: Int;
+}
+
+export interface HumanWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  first_name?: String;
+  first_name_not?: String;
+  first_name_in?: String[] | String;
+  first_name_not_in?: String[] | String;
+  first_name_lt?: String;
+  first_name_lte?: String;
+  first_name_gt?: String;
+  first_name_gte?: String;
+  first_name_contains?: String;
+  first_name_not_contains?: String;
+  first_name_starts_with?: String;
+  first_name_not_starts_with?: String;
+  first_name_ends_with?: String;
+  first_name_not_ends_with?: String;
+  last_name?: String;
+  last_name_not?: String;
+  last_name_in?: String[] | String;
+  last_name_not_in?: String[] | String;
+  last_name_lt?: String;
+  last_name_lte?: String;
+  last_name_gt?: String;
+  last_name_gte?: String;
+  last_name_contains?: String;
+  last_name_not_contains?: String;
+  last_name_starts_with?: String;
+  last_name_not_starts_with?: String;
+  last_name_ends_with?: String;
+  last_name_not_ends_with?: String;
+  middle_name?: String;
+  middle_name_not?: String;
+  middle_name_in?: String[] | String;
+  middle_name_not_in?: String[] | String;
+  middle_name_lt?: String;
+  middle_name_lte?: String;
+  middle_name_gt?: String;
+  middle_name_gte?: String;
+  middle_name_contains?: String;
+  middle_name_not_contains?: String;
+  middle_name_starts_with?: String;
+  middle_name_not_starts_with?: String;
+  middle_name_ends_with?: String;
+  middle_name_not_ends_with?: String;
+  birthday?: String;
+  birthday_not?: String;
+  birthday_in?: String[] | String;
+  birthday_not_in?: String[] | String;
+  birthday_lt?: String;
+  birthday_lte?: String;
+  birthday_gt?: String;
+  birthday_gte?: String;
+  birthday_contains?: String;
+  birthday_not_contains?: String;
+  birthday_starts_with?: String;
+  birthday_not_starts_with?: String;
+  birthday_ends_with?: String;
+  birthday_not_ends_with?: String;
+  favorites_every?: FavoriteWhereInput;
+  favorites_some?: FavoriteWhereInput;
+  favorites_none?: FavoriteWhereInput;
+  wish_list_every?: GoodOrServiceWhereInput;
+  wish_list_some?: GoodOrServiceWhereInput;
+  wish_list_none?: GoodOrServiceWhereInput;
+  contact?: ContactInfoWhereInput;
+  education?: EducationWhereInput;
+  tasks_every?: TaskWhereInput;
+  tasks_some?: TaskWhereInput;
+  tasks_none?: TaskWhereInput;
+  tv_shows_every?: TvEpisodeTransactionWhereInput;
+  tv_shows_some?: TvEpisodeTransactionWhereInput;
+  tv_shows_none?: TvEpisodeTransactionWhereInput;
+  movies_every?: MovieTransactionWhereInput;
+  movies_some?: MovieTransactionWhereInput;
+  movies_none?: MovieTransactionWhereInput;
+  books_every?: BookTransactionWhereInput;
+  books_some?: BookTransactionWhereInput;
+  books_none?: BookTransactionWhereInput;
+  father?: HumanWhereInput;
+  mother?: HumanWhereInput;
+  siblings_every?: HumanWhereInput;
+  siblings_some?: HumanWhereInput;
+  siblings_none?: HumanWhereInput;
+  aunts_every?: HumanWhereInput;
+  aunts_some?: HumanWhereInput;
+  aunts_none?: HumanWhereInput;
+  uncles_every?: HumanWhereInput;
+  uncles_some?: HumanWhereInput;
+  uncles_none?: HumanWhereInput;
+  grandparents_every?: HumanWhereInput;
+  grandparents_some?: HumanWhereInput;
+  grandparents_none?: HumanWhereInput;
+  great_grandparents_every?: HumanWhereInput;
+  great_grandparents_some?: HumanWhereInput;
+  great_grandparents_none?: HumanWhereInput;
+  friends_every?: HumanWhereInput;
+  friends_some?: HumanWhereInput;
+  friends_none?: HumanWhereInput;
+  acquaintances_every?: HumanWhereInput;
+  acquaintances_some?: HumanWhereInput;
+  acquaintances_none?: HumanWhereInput;
+  colleagues_every?: HumanWhereInput;
+  colleagues_some?: HumanWhereInput;
+  colleagues_none?: HumanWhereInput;
+  height?: Float;
+  height_not?: Float;
+  height_in?: Float[] | Float;
+  height_not_in?: Float[] | Float;
+  height_lt?: Float;
+  height_lte?: Float;
+  height_gt?: Float;
+  height_gte?: Float;
+  weight?: Float;
+  weight_not?: Float;
+  weight_in?: Float[] | Float;
+  weight_not_in?: Float[] | Float;
+  weight_lt?: Float;
+  weight_lte?: Float;
+  weight_gt?: Float;
+  weight_gte?: Float;
+  weight_history_every?: WeightHistoryItemWhereInput;
+  weight_history_some?: WeightHistoryItemWhereInput;
+  weight_history_none?: WeightHistoryItemWhereInput;
+  directed_every?: MovieWhereInput;
+  directed_some?: MovieWhereInput;
+  directed_none?: MovieWhereInput;
+  acted_in_every?: MovieWhereInput;
+  acted_in_some?: MovieWhereInput;
+  acted_in_none?: MovieWhereInput;
+  AND?: HumanWhereInput[] | HumanWhereInput;
+  OR?: HumanWhereInput[] | HumanWhereInput;
+  NOT?: HumanWhereInput[] | HumanWhereInput;
+}
+
+export interface BookUpsertNestedInput {
+  update: BookUpdateDataInput;
+  create: BookCreateInput;
+}
+
+export type MovieWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface BookTransactionUpsertWithWhereUniqueNestedInput {
+  where: BookTransactionWhereUniqueInput;
+  update: BookTransactionUpdateDataInput;
+  create: BookTransactionCreateInput;
+}
+
+export type MovieTransactionWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface HumanUpdateOneWithoutFatherInput {
+  create?: HumanCreateWithoutFatherInput;
+  update?: HumanUpdateWithoutFatherDataInput;
+  upsert?: HumanUpsertWithoutFatherInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: HumanWhereUniqueInput;
+}
+
+export type OverviewWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface HumanUpdateWithoutFatherDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export interface FinanceGoalsCreateInput {
+  name: String;
+  cost?: Float;
+  due?: DateTimeInput;
+}
+
+export interface HumanUpdateOneWithoutMotherInput {
+  create?: HumanCreateWithoutMotherInput;
+  update?: HumanUpdateWithoutMotherDataInput;
+  upsert?: HumanUpsertWithoutMotherInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: HumanWhereUniqueInput;
+}
+
+export interface EducationUpdateInput {
+  schools?: SchoolUpdateManyInput;
+  courses?: CourseUpdateManyInput;
+}
+
+export interface HumanUpdateWithoutMotherDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export interface CourseUpdateOneRequiredWithoutLecturesInput {
+  create?: CourseCreateWithoutLecturesInput;
+  update?: CourseUpdateWithoutLecturesDataInput;
+  upsert?: CourseUpsertWithoutLecturesInput;
+}
+
+export interface HumanUpdateManyWithoutSiblingsInput {
+  create?: HumanCreateWithoutSiblingsInput[] | HumanCreateWithoutSiblingsInput;
+  delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  update?:
+    | HumanUpdateWithWhereUniqueWithoutSiblingsInput[]
+    | HumanUpdateWithWhereUniqueWithoutSiblingsInput;
+  upsert?:
+    | HumanUpsertWithWhereUniqueWithoutSiblingsInput[]
+    | HumanUpsertWithWhereUniqueWithoutSiblingsInput;
+}
+
+export interface CourseCreateOneWithoutLecturesInput {
+  create?: CourseCreateWithoutLecturesInput;
+}
+
+export interface HumanUpdateWithWhereUniqueWithoutSiblingsInput {
+  where: HumanWhereUniqueInput;
+  data: HumanUpdateWithoutSiblingsDataInput;
+}
+
+export interface CourseUpsertWithoutAssignmentsInput {
+  update: CourseUpdateWithoutAssignmentsDataInput;
+  create: CourseCreateWithoutAssignmentsInput;
+}
+
+export interface HumanUpdateWithoutSiblingsDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export interface CourseAssignmentUpdateInput {
+  description?: String;
+  grade?: Float;
+  course?: CourseUpdateOneRequiredWithoutAssignmentsInput;
+}
+
+export interface HumanUpdateManyWithoutAuntsInput {
+  create?: HumanCreateWithoutAuntsInput[] | HumanCreateWithoutAuntsInput;
+  delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  update?:
+    | HumanUpdateWithWhereUniqueWithoutAuntsInput[]
+    | HumanUpdateWithWhereUniqueWithoutAuntsInput;
+  upsert?:
+    | HumanUpsertWithWhereUniqueWithoutAuntsInput[]
+    | HumanUpsertWithWhereUniqueWithoutAuntsInput;
+}
+
+export interface SchoolUpsertNestedInput {
+  update: SchoolUpdateDataInput;
+  create: SchoolCreateInput;
+}
+
+export interface HumanUpdateWithWhereUniqueWithoutAuntsInput {
+  where: HumanWhereUniqueInput;
+  data: HumanUpdateWithoutAuntsDataInput;
+}
+
+export interface CourseAssignmentUpdateWithoutCourseDataInput {
+  description?: String;
+  grade?: Float;
+}
+
+export interface HumanUpdateWithoutAuntsDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export interface CourseLectureUpsertWithWhereUniqueWithoutCourseInput {
+  where: CourseLectureWhereUniqueInput;
+  update: CourseLectureUpdateWithoutCourseDataInput;
+  create: CourseLectureCreateWithoutCourseInput;
+}
+
+export interface HumanUpdateManyWithoutUnclesInput {
+  create?: HumanCreateWithoutUnclesInput[] | HumanCreateWithoutUnclesInput;
+  delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  update?:
+    | HumanUpdateWithWhereUniqueWithoutUnclesInput[]
+    | HumanUpdateWithWhereUniqueWithoutUnclesInput;
+  upsert?:
+    | HumanUpsertWithWhereUniqueWithoutUnclesInput[]
+    | HumanUpsertWithWhereUniqueWithoutUnclesInput;
+}
+
+export interface CourseLectureUpdateManyWithoutCourseInput {
+  create?:
+    | CourseLectureCreateWithoutCourseInput[]
+    | CourseLectureCreateWithoutCourseInput;
+  delete?: CourseLectureWhereUniqueInput[] | CourseLectureWhereUniqueInput;
+  connect?: CourseLectureWhereUniqueInput[] | CourseLectureWhereUniqueInput;
+  disconnect?: CourseLectureWhereUniqueInput[] | CourseLectureWhereUniqueInput;
+  update?:
+    | CourseLectureUpdateWithWhereUniqueWithoutCourseInput[]
+    | CourseLectureUpdateWithWhereUniqueWithoutCourseInput;
+  upsert?:
+    | CourseLectureUpsertWithWhereUniqueWithoutCourseInput[]
+    | CourseLectureUpsertWithWhereUniqueWithoutCourseInput;
+}
+
+export interface HumanUpdateWithWhereUniqueWithoutUnclesInput {
+  where: HumanWhereUniqueInput;
+  data: HumanUpdateWithoutUnclesDataInput;
+}
+
+export interface HumanUpdateWithoutContactDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export interface HumanUpdateWithoutUnclesDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export interface HumanCreateWithoutContactInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
+}
+
+export interface HumanUpdateManyWithoutGrandparentsInput {
+  create?:
+    | HumanCreateWithoutGrandparentsInput[]
+    | HumanCreateWithoutGrandparentsInput;
+  delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  update?:
+    | HumanUpdateWithWhereUniqueWithoutGrandparentsInput[]
+    | HumanUpdateWithWhereUniqueWithoutGrandparentsInput;
+  upsert?:
+    | HumanUpsertWithWhereUniqueWithoutGrandparentsInput[]
+    | HumanUpsertWithWhereUniqueWithoutGrandparentsInput;
+}
+
+export interface TransactionSplitCreateManyInput {
+  create?: TransactionSplitCreateInput[] | TransactionSplitCreateInput;
+}
+
+export interface HumanUpdateWithWhereUniqueWithoutGrandparentsInput {
+  where: HumanWhereUniqueInput;
+  data: HumanUpdateWithoutGrandparentsDataInput;
+}
+
+export interface FavoriteCreateManyInput {
+  create?: FavoriteCreateInput[] | FavoriteCreateInput;
+  connect?: FavoriteWhereUniqueInput[] | FavoriteWhereUniqueInput;
+}
+
+export interface HumanUpdateWithoutGrandparentsDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export interface TransactionCreateOneWithoutItemsInput {
+  create?: TransactionCreateWithoutItemsInput;
+  connect?: TransactionWhereUniqueInput;
+}
+
+export interface HumanUpdateManyWithoutGreat_grandparentsInput {
+  create?:
+    | HumanCreateWithoutGreat_grandparentsInput[]
+    | HumanCreateWithoutGreat_grandparentsInput;
+  delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  update?:
+    | HumanUpdateWithWhereUniqueWithoutGreat_grandparentsInput[]
+    | HumanUpdateWithWhereUniqueWithoutGreat_grandparentsInput;
+  upsert?:
+    | HumanUpsertWithWhereUniqueWithoutGreat_grandparentsInput[]
+    | HumanUpsertWithWhereUniqueWithoutGreat_grandparentsInput;
+}
+
+export interface EventCreateManyWithoutLocationInput {
+  create?: EventCreateWithoutLocationInput[] | EventCreateWithoutLocationInput;
+  connect?: EventWhereUniqueInput[] | EventWhereUniqueInput;
+}
+
+export interface HumanUpdateWithWhereUniqueWithoutGreat_grandparentsInput {
+  where: HumanWhereUniqueInput;
+  data: HumanUpdateWithoutGreat_grandparentsDataInput;
+}
+
+export interface EventCreateInput {
+  date: DateTimeInput;
+  location: LocationCreateOneWithoutEventsInput;
+  type: EventType;
+  description?: String;
+  with?: HumanCreateManyInput;
+}
+
+export interface HumanUpdateWithoutGreat_grandparentsDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export interface ContactInfoCreateWithoutHumanInput {
+  email?: String;
+  phone_number?: String;
+  twitter?: String;
+  snapchat?: String;
+}
+
+export interface HumanUpdateManyWithoutFriendsInput {
+  create?: HumanCreateWithoutFriendsInput[] | HumanCreateWithoutFriendsInput;
+  delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  update?:
+    | HumanUpdateWithWhereUniqueWithoutFriendsInput[]
+    | HumanUpdateWithWhereUniqueWithoutFriendsInput;
+  upsert?:
+    | HumanUpsertWithWhereUniqueWithoutFriendsInput[]
+    | HumanUpsertWithWhereUniqueWithoutFriendsInput;
+}
+
+export interface SchoolCreateInput {
+  name: String;
+  location: String;
+}
+
+export interface HumanUpdateWithWhereUniqueWithoutFriendsInput {
+  where: HumanWhereUniqueInput;
+  data: HumanUpdateWithoutFriendsDataInput;
+}
+
+export interface EventWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  date?: DateTimeInput;
+  date_not?: DateTimeInput;
+  date_in?: DateTimeInput[] | DateTimeInput;
+  date_not_in?: DateTimeInput[] | DateTimeInput;
+  date_lt?: DateTimeInput;
+  date_lte?: DateTimeInput;
+  date_gt?: DateTimeInput;
+  date_gte?: DateTimeInput;
+  location?: LocationWhereInput;
+  type?: EventType;
+  type_not?: EventType;
+  type_in?: EventType[] | EventType;
+  type_not_in?: EventType[] | EventType;
+  description?: String;
+  description_not?: String;
+  description_in?: String[] | String;
+  description_not_in?: String[] | String;
+  description_lt?: String;
+  description_lte?: String;
+  description_gt?: String;
+  description_gte?: String;
+  description_contains?: String;
+  description_not_contains?: String;
+  description_starts_with?: String;
+  description_not_starts_with?: String;
+  description_ends_with?: String;
+  description_not_ends_with?: String;
+  with_every?: HumanWhereInput;
+  with_some?: HumanWhereInput;
+  with_none?: HumanWhereInput;
+  AND?: EventWhereInput[] | EventWhereInput;
+  OR?: EventWhereInput[] | EventWhereInput;
+  NOT?: EventWhereInput[] | EventWhereInput;
+}
+
+export interface HumanUpdateWithoutFriendsDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export interface BookWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  author?: String;
+  author_not?: String;
+  author_in?: String[] | String;
+  author_not_in?: String[] | String;
+  author_lt?: String;
+  author_lte?: String;
+  author_gt?: String;
+  author_gte?: String;
+  author_contains?: String;
+  author_not_contains?: String;
+  author_starts_with?: String;
+  author_not_starts_with?: String;
+  author_ends_with?: String;
+  author_not_ends_with?: String;
+  release_date?: DateTimeInput;
+  release_date_not?: DateTimeInput;
+  release_date_in?: DateTimeInput[] | DateTimeInput;
+  release_date_not_in?: DateTimeInput[] | DateTimeInput;
+  release_date_lt?: DateTimeInput;
+  release_date_lte?: DateTimeInput;
+  release_date_gt?: DateTimeInput;
+  release_date_gte?: DateTimeInput;
+  word_count?: Int;
+  word_count_not?: Int;
+  word_count_in?: Int[] | Int;
+  word_count_not_in?: Int[] | Int;
+  word_count_lt?: Int;
+  word_count_lte?: Int;
+  word_count_gt?: Int;
+  word_count_gte?: Int;
+  AND?: BookWhereInput[] | BookWhereInput;
+  OR?: BookWhereInput[] | BookWhereInput;
+  NOT?: BookWhereInput[] | BookWhereInput;
+}
+
+export interface HumanUpdateManyWithoutAcquaintancesInput {
+  create?:
+    | HumanCreateWithoutAcquaintancesInput[]
+    | HumanCreateWithoutAcquaintancesInput;
+  delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  update?:
+    | HumanUpdateWithWhereUniqueWithoutAcquaintancesInput[]
+    | HumanUpdateWithWhereUniqueWithoutAcquaintancesInput;
+  upsert?:
+    | HumanUpsertWithWhereUniqueWithoutAcquaintancesInput[]
+    | HumanUpsertWithWhereUniqueWithoutAcquaintancesInput;
+}
+
+export interface MovieTransactionSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: MovieTransactionWhereInput;
+  AND?:
+    | MovieTransactionSubscriptionWhereInput[]
+    | MovieTransactionSubscriptionWhereInput;
+  OR?:
+    | MovieTransactionSubscriptionWhereInput[]
+    | MovieTransactionSubscriptionWhereInput;
+  NOT?:
+    | MovieTransactionSubscriptionWhereInput[]
+    | MovieTransactionSubscriptionWhereInput;
+}
+
+export interface HumanUpdateWithWhereUniqueWithoutAcquaintancesInput {
+  where: HumanWhereUniqueInput;
+  data: HumanUpdateWithoutAcquaintancesDataInput;
+}
+
+export interface FixedCostSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: FixedCostWhereInput;
+  AND?: FixedCostSubscriptionWhereInput[] | FixedCostSubscriptionWhereInput;
+  OR?: FixedCostSubscriptionWhereInput[] | FixedCostSubscriptionWhereInput;
+  NOT?: FixedCostSubscriptionWhereInput[] | FixedCostSubscriptionWhereInput;
+}
+
+export interface HumanUpdateWithoutAcquaintancesDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export interface AccountWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  balance?: Float;
+  balance_not?: Float;
+  balance_in?: Float[] | Float;
+  balance_not_in?: Float[] | Float;
+  balance_lt?: Float;
+  balance_lte?: Float;
+  balance_gt?: Float;
+  balance_gte?: Float;
+  transactions_every?: TransactionWhereInput;
+  transactions_some?: TransactionWhereInput;
+  transactions_none?: TransactionWhereInput;
+  AND?: AccountWhereInput[] | AccountWhereInput;
+  OR?: AccountWhereInput[] | AccountWhereInput;
+  NOT?: AccountWhereInput[] | AccountWhereInput;
+}
+
+export interface HumanUpdateManyWithoutColleaguesInput {
+  create?:
+    | HumanCreateWithoutColleaguesInput[]
+    | HumanCreateWithoutColleaguesInput;
+  delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  update?:
+    | HumanUpdateWithWhereUniqueWithoutColleaguesInput[]
+    | HumanUpdateWithWhereUniqueWithoutColleaguesInput;
+  upsert?:
+    | HumanUpsertWithWhereUniqueWithoutColleaguesInput[]
+    | HumanUpsertWithWhereUniqueWithoutColleaguesInput;
+}
+
+export interface BookTransactionSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: BookTransactionWhereInput;
+  AND?:
+    | BookTransactionSubscriptionWhereInput[]
+    | BookTransactionSubscriptionWhereInput;
+  OR?:
+    | BookTransactionSubscriptionWhereInput[]
+    | BookTransactionSubscriptionWhereInput;
+  NOT?:
+    | BookTransactionSubscriptionWhereInput[]
+    | BookTransactionSubscriptionWhereInput;
+}
+
+export interface HumanUpdateWithWhereUniqueWithoutColleaguesInput {
+  where: HumanWhereUniqueInput;
+  data: HumanUpdateWithoutColleaguesDataInput;
+}
+
+export interface HumanUpdateWithoutWeight_historyDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export interface HumanUpdateWithoutColleaguesDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+  acted_in?: MovieUpdateManyWithoutActorsInput;
+}
+
+export interface HumanCreateWithoutWeight_historyInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  tv_shows?: TvEpisodeTransactionCreateManyWithoutHumanInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
+}
+
+export interface WeightHistoryItemUpdateManyWithoutHumanInput {
+  create?:
+    | WeightHistoryItemCreateWithoutHumanInput[]
+    | WeightHistoryItemCreateWithoutHumanInput;
+  delete?:
+    | WeightHistoryItemWhereUniqueInput[]
+    | WeightHistoryItemWhereUniqueInput;
+  connect?:
+    | WeightHistoryItemWhereUniqueInput[]
+    | WeightHistoryItemWhereUniqueInput;
+  disconnect?:
+    | WeightHistoryItemWhereUniqueInput[]
+    | WeightHistoryItemWhereUniqueInput;
+  update?:
+    | WeightHistoryItemUpdateWithWhereUniqueWithoutHumanInput[]
+    | WeightHistoryItemUpdateWithWhereUniqueWithoutHumanInput;
+  upsert?:
+    | WeightHistoryItemUpsertWithWhereUniqueWithoutHumanInput[]
+    | WeightHistoryItemUpsertWithWhereUniqueWithoutHumanInput;
+}
+
+export interface HumanCreateWithoutTv_showsInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteCreateManyInput;
+  wish_list?: GoodOrServiceCreateManyInput;
+  contact?: ContactInfoCreateOneWithoutHumanInput;
+  education?: EducationCreateOneInput;
+  tasks?: TaskCreateManyInput;
+  movies?: MovieTransactionCreateManyInput;
+  books?: BookTransactionCreateManyInput;
+  father?: HumanCreateOneWithoutFatherInput;
+  mother?: HumanCreateOneWithoutMotherInput;
+  siblings?: HumanCreateManyWithoutSiblingsInput;
+  aunts?: HumanCreateManyWithoutAuntsInput;
+  uncles?: HumanCreateManyWithoutUnclesInput;
+  grandparents?: HumanCreateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanCreateManyWithoutGreat_grandparentsInput;
+  friends?: HumanCreateManyWithoutFriendsInput;
+  acquaintances?: HumanCreateManyWithoutAcquaintancesInput;
+  colleagues?: HumanCreateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemCreateManyWithoutHumanInput;
+  directed?: MovieCreateManyWithoutDirectorInput;
+  acted_in?: MovieCreateManyWithoutActorsInput;
+}
+
+export interface WeightHistoryItemUpdateWithWhereUniqueWithoutHumanInput {
+  where: WeightHistoryItemWhereUniqueInput;
+  data: WeightHistoryItemUpdateWithoutHumanDataInput;
+}
+
+export interface HumanUpsertNestedInput {
+  update: HumanUpdateDataInput;
+  create: HumanCreateInput;
+}
+
+export interface WeightHistoryItemUpdateWithoutHumanDataInput {
+  weight?: Float;
+  date?: DateTimeInput;
+}
+
+export interface TimelineUpdateInput {
+  events?: EventUpdateManyInput;
+  belongs_to?: HumanUpdateOneRequiredInput;
+}
+
+export interface WeightHistoryItemUpsertWithWhereUniqueWithoutHumanInput {
+  where: WeightHistoryItemWhereUniqueInput;
+  update: WeightHistoryItemUpdateWithoutHumanDataInput;
+  create: WeightHistoryItemCreateWithoutHumanInput;
+}
+
+export interface FinanceGoalsWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  cost?: Float;
+  cost_not?: Float;
+  cost_in?: Float[] | Float;
+  cost_not_in?: Float[] | Float;
+  cost_lt?: Float;
+  cost_lte?: Float;
+  cost_gt?: Float;
+  cost_gte?: Float;
+  due?: DateTimeInput;
+  due_not?: DateTimeInput;
+  due_in?: DateTimeInput[] | DateTimeInput;
+  due_not_in?: DateTimeInput[] | DateTimeInput;
+  due_lt?: DateTimeInput;
+  due_lte?: DateTimeInput;
+  due_gt?: DateTimeInput;
+  due_gte?: DateTimeInput;
+  AND?: FinanceGoalsWhereInput[] | FinanceGoalsWhereInput;
+  OR?: FinanceGoalsWhereInput[] | FinanceGoalsWhereInput;
+  NOT?: FinanceGoalsWhereInput[] | FinanceGoalsWhereInput;
+}
+
+export interface MovieUpdateManyWithoutDirectorInput {
+  create?: MovieCreateWithoutDirectorInput[] | MovieCreateWithoutDirectorInput;
+  delete?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
+  connect?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
+  disconnect?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
+  update?:
+    | MovieUpdateWithWhereUniqueWithoutDirectorInput[]
+    | MovieUpdateWithWhereUniqueWithoutDirectorInput;
+  upsert?:
+    | MovieUpsertWithWhereUniqueWithoutDirectorInput[]
+    | MovieUpsertWithWhereUniqueWithoutDirectorInput;
+}
+
+export interface BudgetUpdateOneInput {
+  create?: BudgetCreateInput;
+  update?: BudgetUpdateDataInput;
+  upsert?: BudgetUpsertNestedInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: BudgetWhereUniqueInput;
+}
+
+export interface MovieUpdateWithWhereUniqueWithoutDirectorInput {
+  where: MovieWhereUniqueInput;
+  data: MovieUpdateWithoutDirectorDataInput;
+}
+
+export interface AccountCreateManyInput {
+  create?: AccountCreateInput[] | AccountCreateInput;
+  connect?: AccountWhereUniqueInput[] | AccountWhereUniqueInput;
+}
+
+export interface MovieUpdateWithoutDirectorDataInput {
+  name?: String;
+  category?: String;
+  release_date?: DateTimeInput;
+  actors?: HumanUpdateManyWithoutActed_inInput;
+}
+
+export interface MovieUpdateInput {
+  name?: String;
+  category?: String;
+  release_date?: DateTimeInput;
+  director?: HumanUpdateOneWithoutDirectedInput;
+  actors?: HumanUpdateManyWithoutActed_inInput;
+}
+
+export interface HumanUpdateManyWithoutActed_inInput {
+  create?: HumanCreateWithoutActed_inInput[] | HumanCreateWithoutActed_inInput;
+  delete?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  disconnect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+  update?:
+    | HumanUpdateWithWhereUniqueWithoutActed_inInput[]
+    | HumanUpdateWithWhereUniqueWithoutActed_inInput;
+  upsert?:
+    | HumanUpsertWithWhereUniqueWithoutActed_inInput[]
+    | HumanUpsertWithWhereUniqueWithoutActed_inInput;
+}
+
+export interface OverviewWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  net_worth?: Float;
+  net_worth_not?: Float;
+  net_worth_in?: Float[] | Float;
+  net_worth_not_in?: Float[] | Float;
+  net_worth_lt?: Float;
+  net_worth_lte?: Float;
+  net_worth_gt?: Float;
+  net_worth_gte?: Float;
+  credit_score?: Int;
+  credit_score_not?: Int;
+  credit_score_in?: Int[] | Int;
+  credit_score_not_in?: Int[] | Int;
+  credit_score_lt?: Int;
+  credit_score_lte?: Int;
+  credit_score_gt?: Int;
+  credit_score_gte?: Int;
+  income?: Float;
+  income_not?: Float;
+  income_in?: Float[] | Float;
+  income_not_in?: Float[] | Float;
+  income_lt?: Float;
+  income_lte?: Float;
+  income_gt?: Float;
+  income_gte?: Float;
+  goals_every?: FinanceGoalsWhereInput;
+  goals_some?: FinanceGoalsWhereInput;
+  goals_none?: FinanceGoalsWhereInput;
+  budget?: BudgetWhereInput;
+  accounts_every?: AccountWhereInput;
+  accounts_some?: AccountWhereInput;
+  accounts_none?: AccountWhereInput;
+  AND?: OverviewWhereInput[] | OverviewWhereInput;
+  OR?: OverviewWhereInput[] | OverviewWhereInput;
+  NOT?: OverviewWhereInput[] | OverviewWhereInput;
+}
+
+export interface HumanUpdateWithWhereUniqueWithoutActed_inInput {
+  where: HumanWhereUniqueInput;
+  data: HumanUpdateWithoutActed_inDataInput;
+}
+
+export interface CourseUpdateWithoutLecturesDataInput {
+  name?: String;
+  subject?: ID_Input;
+  completion?: Float;
+  start_date?: DateTimeInput;
+  end_date?: DateTimeInput;
+  assignments?: CourseAssignmentUpdateManyWithoutCourseInput;
+  school?: SchoolUpdateOneRequiredInput;
+}
+
+export interface HumanUpdateWithoutActed_inDataInput {
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  favorites?: FavoriteUpdateManyInput;
+  wish_list?: GoodOrServiceUpdateManyInput;
+  contact?: ContactInfoUpdateOneWithoutHumanInput;
+  education?: EducationUpdateOneInput;
+  tasks?: TaskUpdateManyInput;
+  tv_shows?: TvEpisodeTransactionUpdateManyWithoutHumanInput;
+  movies?: MovieTransactionUpdateManyInput;
+  books?: BookTransactionUpdateManyInput;
+  father?: HumanUpdateOneWithoutFatherInput;
+  mother?: HumanUpdateOneWithoutMotherInput;
+  siblings?: HumanUpdateManyWithoutSiblingsInput;
+  aunts?: HumanUpdateManyWithoutAuntsInput;
+  uncles?: HumanUpdateManyWithoutUnclesInput;
+  grandparents?: HumanUpdateManyWithoutGrandparentsInput;
+  great_grandparents?: HumanUpdateManyWithoutGreat_grandparentsInput;
+  friends?: HumanUpdateManyWithoutFriendsInput;
+  acquaintances?: HumanUpdateManyWithoutAcquaintancesInput;
+  colleagues?: HumanUpdateManyWithoutColleaguesInput;
+  height?: Float;
+  weight?: Float;
+  weight_history?: WeightHistoryItemUpdateManyWithoutHumanInput;
+  directed?: MovieUpdateManyWithoutDirectorInput;
+}
+
+export interface TransactionWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  payee?: String;
+  payee_not?: String;
+  payee_in?: String[] | String;
+  payee_not_in?: String[] | String;
+  payee_lt?: String;
+  payee_lte?: String;
+  payee_gt?: String;
+  payee_gte?: String;
+  payee_contains?: String;
+  payee_not_contains?: String;
+  payee_starts_with?: String;
+  payee_not_starts_with?: String;
+  payee_ends_with?: String;
+  payee_not_ends_with?: String;
+  amount?: Float;
+  amount_not?: Float;
+  amount_in?: Float[] | Float;
+  amount_not_in?: Float[] | Float;
+  amount_lt?: Float;
+  amount_lte?: Float;
+  amount_gt?: Float;
+  amount_gte?: Float;
+  date?: String;
+  date_not?: String;
+  date_in?: String[] | String;
+  date_not_in?: String[] | String;
+  date_lt?: String;
+  date_lte?: String;
+  date_gt?: String;
+  date_gte?: String;
+  date_contains?: String;
+  date_not_contains?: String;
+  date_starts_with?: String;
+  date_not_starts_with?: String;
+  date_ends_with?: String;
+  date_not_ends_with?: String;
+  category?: String;
+  category_not?: String;
+  category_in?: String[] | String;
+  category_not_in?: String[] | String;
+  category_lt?: String;
+  category_lte?: String;
+  category_gt?: String;
+  category_gte?: String;
+  category_contains?: String;
+  category_not_contains?: String;
+  category_starts_with?: String;
+  category_not_starts_with?: String;
+  category_ends_with?: String;
+  category_not_ends_with?: String;
+  splits_every?: TransactionSplitWhereInput;
+  splits_some?: TransactionSplitWhereInput;
+  splits_none?: TransactionSplitWhereInput;
+  location?: LocationWhereInput;
+  items_every?: GoodOrServiceWhereInput;
+  items_some?: GoodOrServiceWhereInput;
+  items_none?: GoodOrServiceWhereInput;
+  with_every?: HumanWhereInput;
+  with_some?: HumanWhereInput;
+  with_none?: HumanWhereInput;
+  event?: EventWhereInput;
+  AND?: TransactionWhereInput[] | TransactionWhereInput;
+  OR?: TransactionWhereInput[] | TransactionWhereInput;
+  NOT?: TransactionWhereInput[] | TransactionWhereInput;
+}
+
+export interface HumanUpsertWithWhereUniqueWithoutActed_inInput {
+  where: HumanWhereUniqueInput;
+  update: HumanUpdateWithoutActed_inDataInput;
+  create: HumanCreateWithoutActed_inInput;
+}
+
+export interface CourseCreateOneWithoutAssignmentsInput {
+  create?: CourseCreateWithoutAssignmentsInput;
+}
+
+export interface MovieUpsertWithWhereUniqueWithoutDirectorInput {
+  where: MovieWhereUniqueInput;
+  update: MovieUpdateWithoutDirectorDataInput;
+  create: MovieCreateWithoutDirectorInput;
+}
+
+export interface CourseAssignmentUpdateWithWhereUniqueWithoutCourseInput {
+  where: CourseAssignmentWhereUniqueInput;
+  data: CourseAssignmentUpdateWithoutCourseDataInput;
+}
+
+export interface MovieUpdateManyWithoutActorsInput {
+  create?: MovieCreateWithoutActorsInput[] | MovieCreateWithoutActorsInput;
+  delete?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
+  connect?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
+  disconnect?: MovieWhereUniqueInput[] | MovieWhereUniqueInput;
+  update?:
+    | MovieUpdateWithWhereUniqueWithoutActorsInput[]
+    | MovieUpdateWithWhereUniqueWithoutActorsInput;
+  upsert?:
+    | MovieUpsertWithWhereUniqueWithoutActorsInput[]
+    | MovieUpsertWithWhereUniqueWithoutActorsInput;
+}
+
+export type WeightHistoryItemWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface MovieUpdateWithWhereUniqueWithoutActorsInput {
+  where: MovieWhereUniqueInput;
+  data: MovieUpdateWithoutActorsDataInput;
+}
+
+export interface ContactInfoCreateInput {
+  email?: String;
+  phone_number?: String;
+  twitter?: String;
+  snapchat?: String;
+  human: HumanCreateOneWithoutContactInput;
+}
+
+export interface MovieUpdateWithoutActorsDataInput {
+  name?: String;
+  category?: String;
+  release_date?: DateTimeInput;
+  director?: HumanUpdateOneWithoutDirectedInput;
+}
+
+export interface HumanCreateOneInput {
+  create?: HumanCreateInput;
+  connect?: HumanWhereUniqueInput;
+}
+
+export interface MovieUpsertWithWhereUniqueWithoutActorsInput {
+  where: MovieWhereUniqueInput;
+  update: MovieUpdateWithoutActorsDataInput;
+  create: MovieCreateWithoutActorsInput;
+}
+
+export interface LocationCreateOneInput {
+  create?: LocationCreateInput;
+  connect?: LocationWhereUniqueInput;
+}
+
+export interface HumanUpsertWithWhereUniqueWithoutColleaguesInput {
+  where: HumanWhereUniqueInput;
+  update: HumanUpdateWithoutColleaguesDataInput;
+  create: HumanCreateWithoutColleaguesInput;
+}
+
+export interface LocationCreateWithoutEventsInput {
+  longitude: Float;
+  latitude: Float;
+  address: String;
+  type?: String;
+  name: String;
+}
+
+export interface HumanUpsertWithWhereUniqueWithoutAcquaintancesInput {
+  where: HumanWhereUniqueInput;
+  update: HumanUpdateWithoutAcquaintancesDataInput;
+  create: HumanCreateWithoutAcquaintancesInput;
+}
+
+export interface CourseCreateInput {
+  name?: String;
+  subject: ID_Input;
+  completion: Float;
+  start_date: DateTimeInput;
+  end_date: DateTimeInput;
+  lectures?: CourseLectureCreateManyWithoutCourseInput;
+  assignments?: CourseAssignmentCreateManyWithoutCourseInput;
+  school: SchoolCreateOneInput;
+}
+
+export interface HumanUpsertWithWhereUniqueWithoutFriendsInput {
+  where: HumanWhereUniqueInput;
+  update: HumanUpdateWithoutFriendsDataInput;
+  create: HumanCreateWithoutFriendsInput;
+}
+
+export interface MovieWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  category?: String;
+  category_not?: String;
+  category_in?: String[] | String;
+  category_not_in?: String[] | String;
+  category_lt?: String;
+  category_lte?: String;
+  category_gt?: String;
+  category_gte?: String;
+  category_contains?: String;
+  category_not_contains?: String;
+  category_starts_with?: String;
+  category_not_starts_with?: String;
+  category_ends_with?: String;
+  category_not_ends_with?: String;
+  release_date?: DateTimeInput;
+  release_date_not?: DateTimeInput;
+  release_date_in?: DateTimeInput[] | DateTimeInput;
+  release_date_not_in?: DateTimeInput[] | DateTimeInput;
+  release_date_lt?: DateTimeInput;
+  release_date_lte?: DateTimeInput;
+  release_date_gt?: DateTimeInput;
+  release_date_gte?: DateTimeInput;
+  director?: HumanWhereInput;
+  actors_every?: HumanWhereInput;
+  actors_some?: HumanWhereInput;
+  actors_none?: HumanWhereInput;
+  AND?: MovieWhereInput[] | MovieWhereInput;
+  OR?: MovieWhereInput[] | MovieWhereInput;
+  NOT?: MovieWhereInput[] | MovieWhereInput;
+}
+
+export interface HumanUpsertWithWhereUniqueWithoutGreat_grandparentsInput {
+  where: HumanWhereUniqueInput;
+  update: HumanUpdateWithoutGreat_grandparentsDataInput;
+  create: HumanCreateWithoutGreat_grandparentsInput;
+}
+
+export interface CourseAssignmentWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  description?: String;
+  description_not?: String;
+  description_in?: String[] | String;
+  description_not_in?: String[] | String;
+  description_lt?: String;
+  description_lte?: String;
+  description_gt?: String;
+  description_gte?: String;
+  description_contains?: String;
+  description_not_contains?: String;
+  description_starts_with?: String;
+  description_not_starts_with?: String;
+  description_ends_with?: String;
+  description_not_ends_with?: String;
+  grade?: Float;
+  grade_not?: Float;
+  grade_in?: Float[] | Float;
+  grade_not_in?: Float[] | Float;
+  grade_lt?: Float;
+  grade_lte?: Float;
+  grade_gt?: Float;
+  grade_gte?: Float;
+  course?: CourseWhereInput;
+  AND?: CourseAssignmentWhereInput[] | CourseAssignmentWhereInput;
+  OR?: CourseAssignmentWhereInput[] | CourseAssignmentWhereInput;
+  NOT?: CourseAssignmentWhereInput[] | CourseAssignmentWhereInput;
+}
+
+export interface HumanUpsertWithWhereUniqueWithoutGrandparentsInput {
+  where: HumanWhereUniqueInput;
+  update: HumanUpdateWithoutGrandparentsDataInput;
+  create: HumanCreateWithoutGrandparentsInput;
+}
+
+export interface WishListUpdateInput {
+  balance?: Float;
+  items?: GoodOrServiceUpdateManyInput;
+}
+
+export interface HumanUpsertWithWhereUniqueWithoutUnclesInput {
+  where: HumanWhereUniqueInput;
+  update: HumanUpdateWithoutUnclesDataInput;
+  create: HumanCreateWithoutUnclesInput;
+}
+
+export interface HumanUpsertWithoutTv_showsInput {
+  update: HumanUpdateWithoutTv_showsDataInput;
+  create: HumanCreateWithoutTv_showsInput;
+}
+
+export interface HumanUpsertWithWhereUniqueWithoutAuntsInput {
+  where: HumanWhereUniqueInput;
+  update: HumanUpdateWithoutAuntsDataInput;
+  create: HumanCreateWithoutAuntsInput;
+}
+
+export interface EventUpsertWithWhereUniqueNestedInput {
+  where: EventWhereUniqueInput;
+  update: EventUpdateDataInput;
+  create: EventCreateInput;
+}
+
+export interface HumanUpsertWithWhereUniqueWithoutSiblingsInput {
+  where: HumanWhereUniqueInput;
+  update: HumanUpdateWithoutSiblingsDataInput;
+  create: HumanCreateWithoutSiblingsInput;
+}
+
+export interface AccountUpdateManyInput {
+  create?: AccountCreateInput[] | AccountCreateInput;
+  delete?: AccountWhereUniqueInput[] | AccountWhereUniqueInput;
+  connect?: AccountWhereUniqueInput[] | AccountWhereUniqueInput;
+  disconnect?: AccountWhereUniqueInput[] | AccountWhereUniqueInput;
+  update?:
+    | AccountUpdateWithWhereUniqueNestedInput[]
+    | AccountUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | AccountUpsertWithWhereUniqueNestedInput[]
+    | AccountUpsertWithWhereUniqueNestedInput;
+}
+
+export interface HumanUpsertWithoutMotherInput {
+  update: HumanUpdateWithoutMotherDataInput;
+  create: HumanCreateWithoutMotherInput;
+}
+
+export interface FinanceGoalsCreateManyInput {
+  create?: FinanceGoalsCreateInput[] | FinanceGoalsCreateInput;
+  connect?: FinanceGoalsWhereUniqueInput[] | FinanceGoalsWhereUniqueInput;
+}
+
+export interface HumanUpsertWithoutFatherInput {
+  update: HumanUpdateWithoutFatherDataInput;
+  create: HumanCreateWithoutFatherInput;
+}
+
+export interface EventUpdateInput {
+  date?: DateTimeInput;
+  location?: LocationUpdateOneRequiredWithoutEventsInput;
+  type?: EventType;
+  description?: String;
+  with?: HumanUpdateManyInput;
+}
+
+export interface HumanUpsertWithoutDirectedInput {
+  update: HumanUpdateWithoutDirectedDataInput;
+  create: HumanCreateWithoutDirectedInput;
+}
+
+export type TransactionWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface MovieUpsertNestedInput {
+  update: MovieUpdateDataInput;
+  create: MovieCreateInput;
+}
+
+export interface CourseLectureUpdateWithoutCourseDataInput {
+  title?: String;
+  description?: String;
+}
+
+export interface MovieTransactionUpsertWithWhereUniqueNestedInput {
+  where: MovieTransactionWhereUniqueInput;
+  update: MovieTransactionUpdateDataInput;
+  create: MovieTransactionCreateInput;
+}
+
+export interface TransactionCreateManyInput {
+  create?: TransactionCreateInput[] | TransactionCreateInput;
+  connect?: TransactionWhereUniqueInput[] | TransactionWhereUniqueInput;
+}
+
+export interface HumanUpsertWithWhereUniqueNestedInput {
+  where: HumanWhereUniqueInput;
+  update: HumanUpdateDataInput;
+  create: HumanCreateInput;
+}
+
+export interface HumanCreateManyInput {
+  create?: HumanCreateInput[] | HumanCreateInput;
+  connect?: HumanWhereUniqueInput[] | HumanWhereUniqueInput;
+}
+
+export interface EventUpsertWithWhereUniqueWithoutLocationInput {
+  where: EventWhereUniqueInput;
+  update: EventUpdateWithoutLocationDataInput;
+  create: EventCreateWithoutLocationInput;
+}
+
+export interface LocationWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  longitude?: Float;
+  longitude_not?: Float;
+  longitude_in?: Float[] | Float;
+  longitude_not_in?: Float[] | Float;
+  longitude_lt?: Float;
+  longitude_lte?: Float;
+  longitude_gt?: Float;
+  longitude_gte?: Float;
+  latitude?: Float;
+  latitude_not?: Float;
+  latitude_in?: Float[] | Float;
+  latitude_not_in?: Float[] | Float;
+  latitude_lt?: Float;
+  latitude_lte?: Float;
+  latitude_gt?: Float;
+  latitude_gte?: Float;
+  address?: String;
+  address_not?: String;
+  address_in?: String[] | String;
+  address_not_in?: String[] | String;
+  address_lt?: String;
+  address_lte?: String;
+  address_gt?: String;
+  address_gte?: String;
+  address_contains?: String;
+  address_not_contains?: String;
+  address_starts_with?: String;
+  address_not_starts_with?: String;
+  address_ends_with?: String;
+  address_not_ends_with?: String;
+  type?: String;
+  type_not?: String;
+  type_in?: String[] | String;
+  type_not_in?: String[] | String;
+  type_lt?: String;
+  type_lte?: String;
+  type_gt?: String;
+  type_gte?: String;
+  type_contains?: String;
+  type_not_contains?: String;
+  type_starts_with?: String;
+  type_not_starts_with?: String;
+  type_ends_with?: String;
+  type_not_ends_with?: String;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  events_every?: EventWhereInput;
+  events_some?: EventWhereInput;
+  events_none?: EventWhereInput;
+  AND?: LocationWhereInput[] | LocationWhereInput;
+  OR?: LocationWhereInput[] | LocationWhereInput;
+  NOT?: LocationWhereInput[] | LocationWhereInput;
+}
+
+export interface LocationUpsertNestedInput {
+  update: LocationUpdateDataInput;
+  create: LocationCreateInput;
+}
+
+export interface ContactInfoSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ContactInfoWhereInput;
+  AND?: ContactInfoSubscriptionWhereInput[] | ContactInfoSubscriptionWhereInput;
+  OR?: ContactInfoSubscriptionWhereInput[] | ContactInfoSubscriptionWhereInput;
+  NOT?: ContactInfoSubscriptionWhereInput[] | ContactInfoSubscriptionWhereInput;
+}
+
+export interface GoodOrServiceUpdateManyWithoutTransactionInput {
+  create?:
+    | GoodOrServiceCreateWithoutTransactionInput[]
+    | GoodOrServiceCreateWithoutTransactionInput;
+  delete?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
+  connect?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
+  disconnect?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
+  update?:
+    | GoodOrServiceUpdateWithWhereUniqueWithoutTransactionInput[]
+    | GoodOrServiceUpdateWithWhereUniqueWithoutTransactionInput;
+  upsert?:
+    | GoodOrServiceUpsertWithWhereUniqueWithoutTransactionInput[]
+    | GoodOrServiceUpsertWithWhereUniqueWithoutTransactionInput;
+}
+
+export interface TvEpisodeUpdateInput {
+  name?: String;
+  episode?: Int;
+  season?: Int;
+  watched?: Boolean;
+  show?: TvShowUpdateOneRequiredWithoutEpisodesInput;
+  date_watched?: DateTimeInput;
+  release_date?: DateTimeInput;
+}
+
+export interface GoodOrServiceUpdateWithWhereUniqueWithoutTransactionInput {
+  where: GoodOrServiceWhereUniqueInput;
+  data: GoodOrServiceUpdateWithoutTransactionDataInput;
+}
+
+export interface FinanceGoalsUpdateWithWhereUniqueNestedInput {
+  where: FinanceGoalsWhereUniqueInput;
+  data: FinanceGoalsUpdateDataInput;
+}
+
+export interface GoodOrServiceUpdateWithoutTransactionDataInput {
+  type?: String;
+  name?: String;
+  brand?: String;
+  price?: Float;
+  url?: String;
+  purchased?: Boolean;
+}
+
+export interface CourseCreateWithoutLecturesInput {
+  name?: String;
+  subject: ID_Input;
+  completion: Float;
+  start_date: DateTimeInput;
+  end_date: DateTimeInput;
+  assignments?: CourseAssignmentCreateManyWithoutCourseInput;
+  school: SchoolCreateOneInput;
+}
+
+export interface GoodOrServiceUpsertWithWhereUniqueWithoutTransactionInput {
+  where: GoodOrServiceWhereUniqueInput;
+  update: GoodOrServiceUpdateWithoutTransactionDataInput;
+  create: GoodOrServiceCreateWithoutTransactionInput;
+}
+
+export interface WishListWhereInput {
+  balance?: Float;
+  balance_not?: Float;
+  balance_in?: Float[] | Float;
+  balance_not_in?: Float[] | Float;
+  balance_lt?: Float;
+  balance_lte?: Float;
+  balance_gt?: Float;
+  balance_gte?: Float;
+  items_every?: GoodOrServiceWhereInput;
+  items_some?: GoodOrServiceWhereInput;
+  items_none?: GoodOrServiceWhereInput;
+  AND?: WishListWhereInput[] | WishListWhereInput;
+  OR?: WishListWhereInput[] | WishListWhereInput;
+  NOT?: WishListWhereInput[] | WishListWhereInput;
+}
+
+export interface TransactionUpsertWithWhereUniqueNestedInput {
+  where: TransactionWhereUniqueInput;
+  update: TransactionUpdateDataInput;
+  create: TransactionCreateInput;
+}
+
+export interface EducationCreateInput {
+  schools?: SchoolCreateManyInput;
+  courses?: CourseCreateManyInput;
+}
+
+export interface FixedCostUpdateManyInput {
+  create?: FixedCostCreateInput[] | FixedCostCreateInput;
+  delete?: FixedCostWhereUniqueInput[] | FixedCostWhereUniqueInput;
+  connect?: FixedCostWhereUniqueInput[] | FixedCostWhereUniqueInput;
+  disconnect?: FixedCostWhereUniqueInput[] | FixedCostWhereUniqueInput;
+  update?:
+    | FixedCostUpdateWithWhereUniqueNestedInput[]
+    | FixedCostUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | FixedCostUpsertWithWhereUniqueNestedInput[]
+    | FixedCostUpsertWithWhereUniqueNestedInput;
+}
+
+export interface HumanUpdateOneRequiredWithoutWeight_historyInput {
+  create?: HumanCreateWithoutWeight_historyInput;
+  update?: HumanUpdateWithoutWeight_historyDataInput;
+  upsert?: HumanUpsertWithoutWeight_historyInput;
+  connect?: HumanWhereUniqueInput;
+}
+
+export interface BudgetUpdateInput {
+  flexible_spending?: Float;
+  total_fixed_cost?: Float;
+  fixed_costs?: FixedCostUpdateManyInput;
+}
+
+export interface GoodOrServiceUpdateInput {
+  type?: String;
+  name?: String;
+  brand?: String;
+  price?: Float;
+  url?: String;
+  purchased?: Boolean;
+  transaction?: TransactionUpdateOneWithoutItemsInput;
+}
+
+export interface FixedCostCreateManyInput {
+  create?: FixedCostCreateInput[] | FixedCostCreateInput;
+  connect?: FixedCostWhereUniqueInput[] | FixedCostWhereUniqueInput;
+}
+
+export interface BudgetCreateInput {
+  flexible_spending?: Float;
+  total_fixed_cost?: Float;
+  fixed_costs?: FixedCostCreateManyInput;
+}
+
+export interface BookTransactionUpdateInput {
+  book?: BookUpdateOneInput;
+  date_started?: DateTimeInput;
+  date_finished?: DateTimeInput;
+}
+
+export interface BookUpdateInput {
+  name?: String;
+  author?: String;
+  release_date?: DateTimeInput;
+  word_count?: Int;
+}
+
+export interface SchoolUpdateOneRequiredInput {
+  create?: SchoolCreateInput;
+  update?: SchoolUpdateDataInput;
+  upsert?: SchoolUpsertNestedInput;
+  connect?: SchoolWhereUniqueInput;
+}
+
+export interface TaskUpdateInput {
+  name?: String;
+  start?: DateTimeInput;
+  end?: DateTimeInput;
+  status?: TaskStatus;
+}
+
+export interface HumanSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: HumanWhereInput;
+  AND?: HumanSubscriptionWhereInput[] | HumanSubscriptionWhereInput;
+  OR?: HumanSubscriptionWhereInput[] | HumanSubscriptionWhereInput;
+  NOT?: HumanSubscriptionWhereInput[] | HumanSubscriptionWhereInput;
+}
+
+export interface GoodOrServiceCreateManyInput {
+  create?: GoodOrServiceCreateInput[] | GoodOrServiceCreateInput;
+  connect?: GoodOrServiceWhereUniqueInput[] | GoodOrServiceWhereUniqueInput;
 }
 
 export interface NodeNode {
-    id: ID_Output;
+  id: ID_Output;
 }
 
 export interface WishListPreviousValuesNode {
-    balance: Float;
+  balance: Float;
 }
 
 export interface WishListPreviousValues
-    extends Promise<WishListPreviousValuesNode>,
-        Fragmentable {
-    balance: () => Promise<Float>;
+  extends Promise<WishListPreviousValuesNode>,
+    Fragmentable {
+  balance: () => Promise<Float>;
 }
 
 export interface WishListPreviousValuesSubscription
-    extends Promise<AsyncIterator<WishListPreviousValuesNode>>,
-        Fragmentable {
-    balance: () => Promise<AsyncIterator<Float>>;
+  extends Promise<AsyncIterator<WishListPreviousValuesNode>>,
+    Fragmentable {
+  balance: () => Promise<AsyncIterator<Float>>;
 }
 
 export interface AggregateBookTransactionNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateBookTransaction
-    extends Promise<AggregateBookTransactionNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateBookTransactionNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateBookTransactionSubscription
-    extends Promise<AsyncIterator<AggregateBookTransactionNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateBookTransactionNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface TransactionSplitNode {
-    percentage?: Float;
-    amount?: Float;
-    pending?: Boolean;
+  percentage?: Float;
+  amount?: Float;
+  pending?: Boolean;
 }
 
 export interface TransactionSplit
-    extends Promise<TransactionSplitNode>,
-        Fragmentable {
-    human: <T = Human>() => T;
-    percentage: () => Promise<Float>;
-    amount: () => Promise<Float>;
-    pending: () => Promise<Boolean>;
+  extends Promise<TransactionSplitNode>,
+    Fragmentable {
+  human: <T = Human>() => T;
+  percentage: () => Promise<Float>;
+  amount: () => Promise<Float>;
+  pending: () => Promise<Boolean>;
 }
 
 export interface TransactionSplitSubscription
-    extends Promise<AsyncIterator<TransactionSplitNode>>,
-        Fragmentable {
-    human: <T = HumanSubscription>() => T;
-    percentage: () => Promise<AsyncIterator<Float>>;
-    amount: () => Promise<AsyncIterator<Float>>;
-    pending: () => Promise<AsyncIterator<Boolean>>;
+  extends Promise<AsyncIterator<TransactionSplitNode>>,
+    Fragmentable {
+  human: <T = HumanSubscription>() => T;
+  percentage: () => Promise<AsyncIterator<Float>>;
+  amount: () => Promise<AsyncIterator<Float>>;
+  pending: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface BookTransactionEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface BookTransactionEdge
-    extends Promise<BookTransactionEdgeNode>,
-        Fragmentable {
-    node: <T = BookTransaction>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<BookTransactionEdgeNode>,
+    Fragmentable {
+  node: <T = BookTransaction>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface BookTransactionEdgeSubscription
-    extends Promise<AsyncIterator<BookTransactionEdgeNode>>,
-        Fragmentable {
-    node: <T = BookTransactionSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<BookTransactionEdgeNode>>,
+    Fragmentable {
+  node: <T = BookTransactionSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface HumanNode {
-    id: ID_Output;
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    height?: Float;
-    weight?: Float;
+  id: ID_Output;
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  height?: Float;
+  weight?: Float;
 }
 
 export interface Human extends Promise<HumanNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    first_name: () => Promise<String>;
-    last_name: () => Promise<String>;
-    middle_name: () => Promise<String>;
-    birthday: () => Promise<String>;
-    favorites: <T = Promise<Array<FavoriteNode>>>(
-        args?: {
-            where?: FavoriteWhereInput;
-            orderBy?: FavoriteOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    wish_list: <T = Promise<Array<GoodOrServiceNode>>>(
-        args?: {
-            where?: GoodOrServiceWhereInput;
-            orderBy?: GoodOrServiceOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    contact: <T = ContactInfo>() => T;
-    education: <T = Education>() => T;
-    tasks: <T = Promise<Array<TaskNode>>>(
-        args?: {
-            where?: TaskWhereInput;
-            orderBy?: TaskOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    tv_shows: <T = Promise<Array<TvEpisodeTransactionNode>>>(
-        args?: {
-            where?: TvEpisodeTransactionWhereInput;
-            orderBy?: TvEpisodeTransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    movies: <T = Promise<Array<MovieTransactionNode>>>(
-        args?: {
-            where?: MovieTransactionWhereInput;
-            orderBy?: MovieTransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    books: <T = Promise<Array<BookTransactionNode>>>(
-        args?: {
-            where?: BookTransactionWhereInput;
-            orderBy?: BookTransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    father: <T = Human>() => T;
-    mother: <T = Human>() => T;
-    siblings: <T = Promise<Array<HumanNode>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    aunts: <T = Promise<Array<HumanNode>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    uncles: <T = Promise<Array<HumanNode>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    grandparents: <T = Promise<Array<HumanNode>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    great_grandparents: <T = Promise<Array<HumanNode>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    friends: <T = Promise<Array<HumanNode>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    acquaintances: <T = Promise<Array<HumanNode>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    colleagues: <T = Promise<Array<HumanNode>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    height: () => Promise<Float>;
-    weight: () => Promise<Float>;
-    weight_history: <T = Promise<Array<WeightHistoryItemNode>>>(
-        args?: {
-            where?: WeightHistoryItemWhereInput;
-            orderBy?: WeightHistoryItemOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    directed: <T = Promise<Array<MovieNode>>>(
-        args?: {
-            where?: MovieWhereInput;
-            orderBy?: MovieOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    acted_in: <T = Promise<Array<MovieNode>>>(
-        args?: {
-            where?: MovieWhereInput;
-            orderBy?: MovieOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  id: () => Promise<ID_Output>;
+  first_name: () => Promise<String>;
+  last_name: () => Promise<String>;
+  middle_name: () => Promise<String>;
+  birthday: () => Promise<String>;
+  favorites: <T = Promise<Array<FavoriteNode>>>(
+    args?: {
+      where?: FavoriteWhereInput;
+      orderBy?: FavoriteOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  wish_list: <T = Promise<Array<GoodOrServiceNode>>>(
+    args?: {
+      where?: GoodOrServiceWhereInput;
+      orderBy?: GoodOrServiceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  contact: <T = ContactInfo>() => T;
+  education: <T = Education>() => T;
+  tasks: <T = Promise<Array<TaskNode>>>(
+    args?: {
+      where?: TaskWhereInput;
+      orderBy?: TaskOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  tv_shows: <T = Promise<Array<TvEpisodeTransactionNode>>>(
+    args?: {
+      where?: TvEpisodeTransactionWhereInput;
+      orderBy?: TvEpisodeTransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  movies: <T = Promise<Array<MovieTransactionNode>>>(
+    args?: {
+      where?: MovieTransactionWhereInput;
+      orderBy?: MovieTransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  books: <T = Promise<Array<BookTransactionNode>>>(
+    args?: {
+      where?: BookTransactionWhereInput;
+      orderBy?: BookTransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  father: <T = Human>() => T;
+  mother: <T = Human>() => T;
+  siblings: <T = Promise<Array<HumanNode>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  aunts: <T = Promise<Array<HumanNode>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  uncles: <T = Promise<Array<HumanNode>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  grandparents: <T = Promise<Array<HumanNode>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  great_grandparents: <T = Promise<Array<HumanNode>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  friends: <T = Promise<Array<HumanNode>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  acquaintances: <T = Promise<Array<HumanNode>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  colleagues: <T = Promise<Array<HumanNode>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  height: () => Promise<Float>;
+  weight: () => Promise<Float>;
+  weight_history: <T = Promise<Array<WeightHistoryItemNode>>>(
+    args?: {
+      where?: WeightHistoryItemWhereInput;
+      orderBy?: WeightHistoryItemOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  directed: <T = Promise<Array<MovieNode>>>(
+    args?: {
+      where?: MovieWhereInput;
+      orderBy?: MovieOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  acted_in: <T = Promise<Array<MovieNode>>>(
+    args?: {
+      where?: MovieWhereInput;
+      orderBy?: MovieOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface HumanSubscription
-    extends Promise<AsyncIterator<HumanNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    first_name: () => Promise<AsyncIterator<String>>;
-    last_name: () => Promise<AsyncIterator<String>>;
-    middle_name: () => Promise<AsyncIterator<String>>;
-    birthday: () => Promise<AsyncIterator<String>>;
-    favorites: <T = Promise<AsyncIterator<Array<FavoriteSubscription>>>>(
-        args?: {
-            where?: FavoriteWhereInput;
-            orderBy?: FavoriteOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    wish_list: <T = Promise<AsyncIterator<Array<GoodOrServiceSubscription>>>>(
-        args?: {
-            where?: GoodOrServiceWhereInput;
-            orderBy?: GoodOrServiceOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    contact: <T = ContactInfoSubscription>() => T;
-    education: <T = EducationSubscription>() => T;
-    tasks: <T = Promise<AsyncIterator<Array<TaskSubscription>>>>(
-        args?: {
-            where?: TaskWhereInput;
-            orderBy?: TaskOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    tv_shows: <
-        T = Promise<AsyncIterator<Array<TvEpisodeTransactionSubscription>>>
-    >(
-        args?: {
-            where?: TvEpisodeTransactionWhereInput;
-            orderBy?: TvEpisodeTransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    movies: <T = Promise<AsyncIterator<Array<MovieTransactionSubscription>>>>(
-        args?: {
-            where?: MovieTransactionWhereInput;
-            orderBy?: MovieTransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    books: <T = Promise<AsyncIterator<Array<BookTransactionSubscription>>>>(
-        args?: {
-            where?: BookTransactionWhereInput;
-            orderBy?: BookTransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    father: <T = HumanSubscription>() => T;
-    mother: <T = HumanSubscription>() => T;
-    siblings: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    aunts: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    uncles: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    grandparents: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    great_grandparents: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    friends: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    acquaintances: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    colleagues: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    height: () => Promise<AsyncIterator<Float>>;
-    weight: () => Promise<AsyncIterator<Float>>;
-    weight_history: <
-        T = Promise<AsyncIterator<Array<WeightHistoryItemSubscription>>>
-    >(
-        args?: {
-            where?: WeightHistoryItemWhereInput;
-            orderBy?: WeightHistoryItemOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    directed: <T = Promise<AsyncIterator<Array<MovieSubscription>>>>(
-        args?: {
-            where?: MovieWhereInput;
-            orderBy?: MovieOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    acted_in: <T = Promise<AsyncIterator<Array<MovieSubscription>>>>(
-        args?: {
-            where?: MovieWhereInput;
-            orderBy?: MovieOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  extends Promise<AsyncIterator<HumanNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  first_name: () => Promise<AsyncIterator<String>>;
+  last_name: () => Promise<AsyncIterator<String>>;
+  middle_name: () => Promise<AsyncIterator<String>>;
+  birthday: () => Promise<AsyncIterator<String>>;
+  favorites: <T = Promise<AsyncIterator<Array<FavoriteSubscription>>>>(
+    args?: {
+      where?: FavoriteWhereInput;
+      orderBy?: FavoriteOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  wish_list: <T = Promise<AsyncIterator<Array<GoodOrServiceSubscription>>>>(
+    args?: {
+      where?: GoodOrServiceWhereInput;
+      orderBy?: GoodOrServiceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  contact: <T = ContactInfoSubscription>() => T;
+  education: <T = EducationSubscription>() => T;
+  tasks: <T = Promise<AsyncIterator<Array<TaskSubscription>>>>(
+    args?: {
+      where?: TaskWhereInput;
+      orderBy?: TaskOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  tv_shows: <
+    T = Promise<AsyncIterator<Array<TvEpisodeTransactionSubscription>>>
+  >(
+    args?: {
+      where?: TvEpisodeTransactionWhereInput;
+      orderBy?: TvEpisodeTransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  movies: <T = Promise<AsyncIterator<Array<MovieTransactionSubscription>>>>(
+    args?: {
+      where?: MovieTransactionWhereInput;
+      orderBy?: MovieTransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  books: <T = Promise<AsyncIterator<Array<BookTransactionSubscription>>>>(
+    args?: {
+      where?: BookTransactionWhereInput;
+      orderBy?: BookTransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  father: <T = HumanSubscription>() => T;
+  mother: <T = HumanSubscription>() => T;
+  siblings: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  aunts: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  uncles: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  grandparents: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  great_grandparents: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  friends: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  acquaintances: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  colleagues: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  height: () => Promise<AsyncIterator<Float>>;
+  weight: () => Promise<AsyncIterator<Float>>;
+  weight_history: <
+    T = Promise<AsyncIterator<Array<WeightHistoryItemSubscription>>>
+  >(
+    args?: {
+      where?: WeightHistoryItemWhereInput;
+      orderBy?: WeightHistoryItemOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  directed: <T = Promise<AsyncIterator<Array<MovieSubscription>>>>(
+    args?: {
+      where?: MovieWhereInput;
+      orderBy?: MovieOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  acted_in: <T = Promise<AsyncIterator<Array<MovieSubscription>>>>(
+    args?: {
+      where?: MovieWhereInput;
+      orderBy?: MovieOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface BookTransactionConnectionNode {}
 
 export interface BookTransactionConnection
-    extends Promise<BookTransactionConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<BookTransactionEdgeNode>>>() => T;
-    aggregate: <T = AggregateBookTransaction>() => T;
+  extends Promise<BookTransactionConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<BookTransactionEdgeNode>>>() => T;
+  aggregate: <T = AggregateBookTransaction>() => T;
 }
 
 export interface BookTransactionConnectionSubscription
-    extends Promise<AsyncIterator<BookTransactionConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<BookTransactionEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateBookTransactionSubscription>() => T;
+  extends Promise<AsyncIterator<BookTransactionConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<Array<BookTransactionEdgeSubscription>>>
+  >() => T;
+  aggregate: <T = AggregateBookTransactionSubscription>() => T;
 }
 
 export interface AggregateWishListNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateWishList
-    extends Promise<AggregateWishListNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateWishListNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateWishListSubscription
-    extends Promise<AsyncIterator<AggregateWishListNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateWishListNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface AggregateBookNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateBook
-    extends Promise<AggregateBookNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateBookNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateBookSubscription
-    extends Promise<AsyncIterator<AggregateBookNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateBookNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface WishListConnectionNode {}
 
 export interface WishListConnection
-    extends Promise<WishListConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<WishListEdgeNode>>>() => T;
-    aggregate: <T = AggregateWishList>() => T;
+  extends Promise<WishListConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<WishListEdgeNode>>>() => T;
+  aggregate: <T = AggregateWishList>() => T;
 }
 
 export interface WishListConnectionSubscription
-    extends Promise<AsyncIterator<WishListConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<WishListEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateWishListSubscription>() => T;
+  extends Promise<AsyncIterator<WishListConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<WishListEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateWishListSubscription>() => T;
 }
 
 export interface WeightHistoryItemPreviousValuesNode {
-    id: ID_Output;
-    weight?: Float;
-    date: DateTimeOutput;
+  id: ID_Output;
+  weight?: Float;
+  date: DateTimeOutput;
 }
 
 export interface WeightHistoryItemPreviousValues
-    extends Promise<WeightHistoryItemPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    weight: () => Promise<Float>;
-    date: () => Promise<DateTimeOutput>;
+  extends Promise<WeightHistoryItemPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  weight: () => Promise<Float>;
+  date: () => Promise<DateTimeOutput>;
 }
 
 export interface WeightHistoryItemPreviousValuesSubscription
-    extends Promise<AsyncIterator<WeightHistoryItemPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    weight: () => Promise<AsyncIterator<Float>>;
-    date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  extends Promise<AsyncIterator<WeightHistoryItemPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  weight: () => Promise<AsyncIterator<Float>>;
+  date: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface TvShowPreviousValuesNode {
-    id: ID_Output;
-    name: String;
+  id: ID_Output;
+  name: String;
 }
 
 export interface TvShowPreviousValues
-    extends Promise<TvShowPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
+  extends Promise<TvShowPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
 }
 
 export interface TvShowPreviousValuesSubscription
-    extends Promise<AsyncIterator<TvShowPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<TvShowPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
 }
 
 export interface WishListEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface WishListEdge extends Promise<WishListEdgeNode>, Fragmentable {
-    node: <T = WishList>() => T;
-    cursor: () => Promise<String>;
+  node: <T = WishList>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface WishListEdgeSubscription
-    extends Promise<AsyncIterator<WishListEdgeNode>>,
-        Fragmentable {
-    node: <T = WishListSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<WishListEdgeNode>>,
+    Fragmentable {
+  node: <T = WishListSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface AccountNode {
-    id: ID_Output;
-    name: String;
-    balance: Float;
+  id: ID_Output;
+  name: String;
+  balance: Float;
 }
 
 export interface Account extends Promise<AccountNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    balance: () => Promise<Float>;
-    transactions: <T = Promise<Array<TransactionNode>>>(
-        args?: {
-            where?: TransactionWhereInput;
-            orderBy?: TransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  balance: () => Promise<Float>;
+  transactions: <T = Promise<Array<TransactionNode>>>(
+    args?: {
+      where?: TransactionWhereInput;
+      orderBy?: TransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface AccountSubscription
-    extends Promise<AsyncIterator<AccountNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    balance: () => Promise<AsyncIterator<Float>>;
-    transactions: <T = Promise<AsyncIterator<Array<TransactionSubscription>>>>(
-        args?: {
-            where?: TransactionWhereInput;
-            orderBy?: TransactionOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  extends Promise<AsyncIterator<AccountNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  balance: () => Promise<AsyncIterator<Float>>;
+  transactions: <T = Promise<AsyncIterator<Array<TransactionSubscription>>>>(
+    args?: {
+      where?: TransactionWhereInput;
+      orderBy?: TransactionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface WishListNode {
-    balance: Float;
+  balance: Float;
 }
 
 export interface WishList extends Promise<WishListNode>, Fragmentable {
-    balance: () => Promise<Float>;
-    items: <T = Promise<Array<GoodOrServiceNode>>>(
-        args?: {
-            where?: GoodOrServiceWhereInput;
-            orderBy?: GoodOrServiceOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  balance: () => Promise<Float>;
+  items: <T = Promise<Array<GoodOrServiceNode>>>(
+    args?: {
+      where?: GoodOrServiceWhereInput;
+      orderBy?: GoodOrServiceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface WishListSubscription
-    extends Promise<AsyncIterator<WishListNode>>,
-        Fragmentable {
-    balance: () => Promise<AsyncIterator<Float>>;
-    items: <T = Promise<AsyncIterator<Array<GoodOrServiceSubscription>>>>(
-        args?: {
-            where?: GoodOrServiceWhereInput;
-            orderBy?: GoodOrServiceOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  extends Promise<AsyncIterator<WishListNode>>,
+    Fragmentable {
+  balance: () => Promise<AsyncIterator<Float>>;
+  items: <T = Promise<AsyncIterator<Array<GoodOrServiceSubscription>>>>(
+    args?: {
+      where?: GoodOrServiceWhereInput;
+      orderBy?: GoodOrServiceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface WeightHistoryItemConnectionNode {}
 
 export interface WeightHistoryItemConnection
-    extends Promise<WeightHistoryItemConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<WeightHistoryItemEdgeNode>>>() => T;
-    aggregate: <T = AggregateWeightHistoryItem>() => T;
+  extends Promise<WeightHistoryItemConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<WeightHistoryItemEdgeNode>>>() => T;
+  aggregate: <T = AggregateWeightHistoryItem>() => T;
 }
 
 export interface WeightHistoryItemConnectionSubscription
-    extends Promise<AsyncIterator<WeightHistoryItemConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<WeightHistoryItemEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateWeightHistoryItemSubscription>() => T;
+  extends Promise<AsyncIterator<WeightHistoryItemConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<Array<WeightHistoryItemEdgeSubscription>>>
+  >() => T;
+  aggregate: <T = AggregateWeightHistoryItemSubscription>() => T;
 }
 
 export interface AggregateWeightHistoryItemNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateWeightHistoryItem
-    extends Promise<AggregateWeightHistoryItemNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateWeightHistoryItemNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateWeightHistoryItemSubscription
-    extends Promise<AsyncIterator<AggregateWeightHistoryItemNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateWeightHistoryItemNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface TvShowEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface TvShowEdge extends Promise<TvShowEdgeNode>, Fragmentable {
-    node: <T = TvShow>() => T;
-    cursor: () => Promise<String>;
+  node: <T = TvShow>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface TvShowEdgeSubscription
-    extends Promise<AsyncIterator<TvShowEdgeNode>>,
-        Fragmentable {
-    node: <T = TvShowSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<TvShowEdgeNode>>,
+    Fragmentable {
+  node: <T = TvShowSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface AccountSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface AccountSubscriptionPayload
-    extends Promise<AccountSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Account>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = AccountPreviousValues>() => T;
+  extends Promise<AccountSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Account>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = AccountPreviousValues>() => T;
 }
 
 export interface AccountSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<AccountSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = AccountSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = AccountPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<AccountSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = AccountSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = AccountPreviousValuesSubscription>() => T;
 }
 
 export interface WishListSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface WishListSubscriptionPayload
-    extends Promise<WishListSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = WishList>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = WishListPreviousValues>() => T;
+  extends Promise<WishListSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = WishList>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = WishListPreviousValues>() => T;
 }
 
 export interface WishListSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<WishListSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = WishListSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = WishListPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<WishListSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = WishListSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = WishListPreviousValuesSubscription>() => T;
 }
 
 export interface AccountPreviousValuesNode {
-    id: ID_Output;
-    name: String;
-    balance: Float;
+  id: ID_Output;
+  name: String;
+  balance: Float;
 }
 
 export interface AccountPreviousValues
-    extends Promise<AccountPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    balance: () => Promise<Float>;
+  extends Promise<AccountPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  balance: () => Promise<Float>;
 }
 
 export interface AccountPreviousValuesSubscription
-    extends Promise<AsyncIterator<AccountPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    balance: () => Promise<AsyncIterator<Float>>;
+  extends Promise<AsyncIterator<AccountPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  balance: () => Promise<AsyncIterator<Float>>;
 }
 
 export interface TvEpisodeTransactionEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface TvEpisodeTransactionEdge
-    extends Promise<TvEpisodeTransactionEdgeNode>,
-        Fragmentable {
-    node: <T = TvEpisodeTransaction>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<TvEpisodeTransactionEdgeNode>,
+    Fragmentable {
+  node: <T = TvEpisodeTransaction>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface TvEpisodeTransactionEdgeSubscription
-    extends Promise<AsyncIterator<TvEpisodeTransactionEdgeNode>>,
-        Fragmentable {
-    node: <T = TvEpisodeTransactionSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<TvEpisodeTransactionEdgeNode>>,
+    Fragmentable {
+  node: <T = TvEpisodeTransactionSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BookEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface BookEdge extends Promise<BookEdgeNode>, Fragmentable {
-    node: <T = Book>() => T;
-    cursor: () => Promise<String>;
+  node: <T = Book>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface BookEdgeSubscription
-    extends Promise<AsyncIterator<BookEdgeNode>>,
-        Fragmentable {
-    node: <T = BookSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<BookEdgeNode>>,
+    Fragmentable {
+  node: <T = BookSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface AggregateTvEpisodeNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateTvEpisode
-    extends Promise<AggregateTvEpisodeNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateTvEpisodeNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateTvEpisodeSubscription
-    extends Promise<AsyncIterator<AggregateTvEpisodeNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateTvEpisodeNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface BookSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface BookSubscriptionPayload
-    extends Promise<BookSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Book>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = BookPreviousValues>() => T;
+  extends Promise<BookSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Book>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = BookPreviousValues>() => T;
 }
 
 export interface BookSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<BookSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = BookSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = BookPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<BookSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = BookSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = BookPreviousValuesSubscription>() => T;
 }
 
 export interface TvEpisodeConnectionNode {}
 
 export interface TvEpisodeConnection
-    extends Promise<TvEpisodeConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<TvEpisodeEdgeNode>>>() => T;
-    aggregate: <T = AggregateTvEpisode>() => T;
+  extends Promise<TvEpisodeConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<TvEpisodeEdgeNode>>>() => T;
+  aggregate: <T = AggregateTvEpisode>() => T;
 }
 
 export interface TvEpisodeConnectionSubscription
-    extends Promise<AsyncIterator<TvEpisodeConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<TvEpisodeEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateTvEpisodeSubscription>() => T;
+  extends Promise<AsyncIterator<TvEpisodeConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<TvEpisodeEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateTvEpisodeSubscription>() => T;
 }
 
 export interface BookPreviousValuesNode {
-    id: ID_Output;
-    name?: String;
-    author?: String;
-    release_date: DateTimeOutput;
-    word_count?: Int;
+  id: ID_Output;
+  name?: String;
+  author?: String;
+  release_date: DateTimeOutput;
+  word_count?: Int;
 }
 
 export interface BookPreviousValues
-    extends Promise<BookPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    author: () => Promise<String>;
-    release_date: () => Promise<DateTimeOutput>;
-    word_count: () => Promise<Int>;
+  extends Promise<BookPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  author: () => Promise<String>;
+  release_date: () => Promise<DateTimeOutput>;
+  word_count: () => Promise<Int>;
 }
 
 export interface BookPreviousValuesSubscription
-    extends Promise<AsyncIterator<BookPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    author: () => Promise<AsyncIterator<String>>;
-    release_date: () => Promise<AsyncIterator<DateTimeOutput>>;
-    word_count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<BookPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  author: () => Promise<AsyncIterator<String>>;
+  release_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  word_count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface TransactionSplitEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface TransactionSplitEdge
-    extends Promise<TransactionSplitEdgeNode>,
-        Fragmentable {
-    node: <T = TransactionSplit>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<TransactionSplitEdgeNode>,
+    Fragmentable {
+  node: <T = TransactionSplit>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface TransactionSplitEdgeSubscription
-    extends Promise<AsyncIterator<TransactionSplitEdgeNode>>,
-        Fragmentable {
-    node: <T = TransactionSplitSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<TransactionSplitEdgeNode>>,
+    Fragmentable {
+  node: <T = TransactionSplitSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BookConnectionNode {}
 
 export interface BookConnection
-    extends Promise<BookConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<BookEdgeNode>>>() => T;
-    aggregate: <T = AggregateBook>() => T;
+  extends Promise<BookConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<BookEdgeNode>>>() => T;
+  aggregate: <T = AggregateBook>() => T;
 }
 
 export interface BookConnectionSubscription
-    extends Promise<AsyncIterator<BookConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<BookEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateBookSubscription>() => T;
+  extends Promise<AsyncIterator<BookConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<BookEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateBookSubscription>() => T;
 }
 
 export interface AggregateTransactionNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateTransaction
-    extends Promise<AggregateTransactionNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateTransactionNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateTransactionSubscription
-    extends Promise<AsyncIterator<AggregateTransactionNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateTransactionNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface BookTransactionSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface BookTransactionSubscriptionPayload
-    extends Promise<BookTransactionSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = BookTransaction>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = BookTransactionPreviousValues>() => T;
+  extends Promise<BookTransactionSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = BookTransaction>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = BookTransactionPreviousValues>() => T;
 }
 
 export interface BookTransactionSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<BookTransactionSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = BookTransactionSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = BookTransactionPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<BookTransactionSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = BookTransactionSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = BookTransactionPreviousValuesSubscription>() => T;
 }
 
 export interface TransactionConnectionNode {}
 
 export interface TransactionConnection
-    extends Promise<TransactionConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<TransactionEdgeNode>>>() => T;
-    aggregate: <T = AggregateTransaction>() => T;
+  extends Promise<TransactionConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<TransactionEdgeNode>>>() => T;
+  aggregate: <T = AggregateTransaction>() => T;
 }
 
 export interface TransactionConnectionSubscription
-    extends Promise<AsyncIterator<TransactionConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<TransactionEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateTransactionSubscription>() => T;
+  extends Promise<AsyncIterator<TransactionConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<Array<TransactionEdgeSubscription>>>
+  >() => T;
+  aggregate: <T = AggregateTransactionSubscription>() => T;
 }
 
 export interface BookTransactionPreviousValuesNode {
-    id: ID_Output;
-    date_started?: DateTimeOutput;
-    date_finished?: DateTimeOutput;
+  id: ID_Output;
+  date_started?: DateTimeOutput;
+  date_finished?: DateTimeOutput;
 }
 
 export interface BookTransactionPreviousValues
-    extends Promise<BookTransactionPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    date_started: () => Promise<DateTimeOutput>;
-    date_finished: () => Promise<DateTimeOutput>;
+  extends Promise<BookTransactionPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  date_started: () => Promise<DateTimeOutput>;
+  date_finished: () => Promise<DateTimeOutput>;
 }
 
 export interface BookTransactionPreviousValuesSubscription
-    extends Promise<AsyncIterator<BookTransactionPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    date_started: () => Promise<AsyncIterator<DateTimeOutput>>;
-    date_finished: () => Promise<AsyncIterator<DateTimeOutput>>;
+  extends Promise<AsyncIterator<BookTransactionPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  date_started: () => Promise<AsyncIterator<DateTimeOutput>>;
+  date_finished: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface TimelineEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface TimelineEdge extends Promise<TimelineEdgeNode>, Fragmentable {
-    node: <T = Timeline>() => T;
-    cursor: () => Promise<String>;
+  node: <T = Timeline>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface TimelineEdgeSubscription
-    extends Promise<AsyncIterator<TimelineEdgeNode>>,
-        Fragmentable {
-    node: <T = TimelineSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<TimelineEdgeNode>>,
+    Fragmentable {
+  node: <T = TimelineSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface AggregateAccountNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateAccount
-    extends Promise<AggregateAccountNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateAccountNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateAccountSubscription
-    extends Promise<AsyncIterator<AggregateAccountNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateAccountNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface TimelineNode {
-    id: ID_Output;
+  id: ID_Output;
 }
 
 export interface Timeline extends Promise<TimelineNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    events: <T = Promise<Array<EventNode>>>(
-        args?: {
-            where?: EventWhereInput;
-            orderBy?: EventOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    belongs_to: <T = Human>() => T;
+  id: () => Promise<ID_Output>;
+  events: <T = Promise<Array<EventNode>>>(
+    args?: {
+      where?: EventWhereInput;
+      orderBy?: EventOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  belongs_to: <T = Human>() => T;
 }
 
 export interface TimelineSubscription
-    extends Promise<AsyncIterator<TimelineNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    events: <T = Promise<AsyncIterator<Array<EventSubscription>>>>(
-        args?: {
-            where?: EventWhereInput;
-            orderBy?: EventOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    belongs_to: <T = HumanSubscription>() => T;
+  extends Promise<AsyncIterator<TimelineNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  events: <T = Promise<AsyncIterator<Array<EventSubscription>>>>(
+    args?: {
+      where?: EventWhereInput;
+      orderBy?: EventOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  belongs_to: <T = HumanSubscription>() => T;
 }
 
 export interface BudgetSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface BudgetSubscriptionPayload
-    extends Promise<BudgetSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Budget>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = BudgetPreviousValues>() => T;
+  extends Promise<BudgetSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Budget>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = BudgetPreviousValues>() => T;
 }
 
 export interface BudgetSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<BudgetSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = BudgetSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = BudgetPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<BudgetSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = BudgetSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = BudgetPreviousValuesSubscription>() => T;
 }
 
 export interface TaskEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface TaskEdge extends Promise<TaskEdgeNode>, Fragmentable {
-    node: <T = Task>() => T;
-    cursor: () => Promise<String>;
+  node: <T = Task>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface TaskEdgeSubscription
-    extends Promise<AsyncIterator<TaskEdgeNode>>,
-        Fragmentable {
-    node: <T = TaskSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<TaskEdgeNode>>,
+    Fragmentable {
+  node: <T = TaskSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BudgetPreviousValuesNode {
-    id: ID_Output;
-    flexible_spending?: Float;
-    total_fixed_cost?: Float;
+  id: ID_Output;
+  flexible_spending?: Float;
+  total_fixed_cost?: Float;
 }
 
 export interface BudgetPreviousValues
-    extends Promise<BudgetPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    flexible_spending: () => Promise<Float>;
-    total_fixed_cost: () => Promise<Float>;
+  extends Promise<BudgetPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  flexible_spending: () => Promise<Float>;
+  total_fixed_cost: () => Promise<Float>;
 }
 
 export interface BudgetPreviousValuesSubscription
-    extends Promise<AsyncIterator<BudgetPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    flexible_spending: () => Promise<AsyncIterator<Float>>;
-    total_fixed_cost: () => Promise<AsyncIterator<Float>>;
+  extends Promise<AsyncIterator<BudgetPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  flexible_spending: () => Promise<AsyncIterator<Float>>;
+  total_fixed_cost: () => Promise<AsyncIterator<Float>>;
 }
 
 export interface AggregateSchoolNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateSchool
-    extends Promise<AggregateSchoolNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateSchoolNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateSchoolSubscription
-    extends Promise<AsyncIterator<AggregateSchoolNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateSchoolNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface AccountEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface AccountEdge extends Promise<AccountEdgeNode>, Fragmentable {
-    node: <T = Account>() => T;
-    cursor: () => Promise<String>;
+  node: <T = Account>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface AccountEdgeSubscription
-    extends Promise<AsyncIterator<AccountEdgeNode>>,
-        Fragmentable {
-    node: <T = AccountSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<AccountEdgeNode>>,
+    Fragmentable {
+  node: <T = AccountSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface SchoolConnectionNode {}
 
 export interface SchoolConnection
-    extends Promise<SchoolConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<SchoolEdgeNode>>>() => T;
-    aggregate: <T = AggregateSchool>() => T;
+  extends Promise<SchoolConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<SchoolEdgeNode>>>() => T;
+  aggregate: <T = AggregateSchool>() => T;
 }
 
 export interface SchoolConnectionSubscription
-    extends Promise<AsyncIterator<SchoolConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<SchoolEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateSchoolSubscription>() => T;
+  extends Promise<AsyncIterator<SchoolConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<SchoolEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateSchoolSubscription>() => T;
 }
 
 export interface ContactInfoSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface ContactInfoSubscriptionPayload
-    extends Promise<ContactInfoSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = ContactInfo>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = ContactInfoPreviousValues>() => T;
+  extends Promise<ContactInfoSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ContactInfo>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ContactInfoPreviousValues>() => T;
 }
 
 export interface ContactInfoSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<ContactInfoSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = ContactInfoSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = ContactInfoPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<ContactInfoSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ContactInfoSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ContactInfoPreviousValuesSubscription>() => T;
 }
 
 export interface OverviewEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface OverviewEdge extends Promise<OverviewEdgeNode>, Fragmentable {
-    node: <T = Overview>() => T;
-    cursor: () => Promise<String>;
+  node: <T = Overview>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface OverviewEdgeSubscription
-    extends Promise<AsyncIterator<OverviewEdgeNode>>,
-        Fragmentable {
-    node: <T = OverviewSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<OverviewEdgeNode>>,
+    Fragmentable {
+  node: <T = OverviewSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface ContactInfoPreviousValuesNode {
-    email?: String;
-    phone_number?: String;
-    twitter?: String;
-    snapchat?: String;
+  email?: String;
+  phone_number?: String;
+  twitter?: String;
+  snapchat?: String;
 }
 
 export interface ContactInfoPreviousValues
-    extends Promise<ContactInfoPreviousValuesNode>,
-        Fragmentable {
-    email: () => Promise<String>;
-    phone_number: () => Promise<String>;
-    twitter: () => Promise<String>;
-    snapchat: () => Promise<String>;
+  extends Promise<ContactInfoPreviousValuesNode>,
+    Fragmentable {
+  email: () => Promise<String>;
+  phone_number: () => Promise<String>;
+  twitter: () => Promise<String>;
+  snapchat: () => Promise<String>;
 }
 
 export interface ContactInfoPreviousValuesSubscription
-    extends Promise<AsyncIterator<ContactInfoPreviousValuesNode>>,
-        Fragmentable {
-    email: () => Promise<AsyncIterator<String>>;
-    phone_number: () => Promise<AsyncIterator<String>>;
-    twitter: () => Promise<AsyncIterator<String>>;
-    snapchat: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<ContactInfoPreviousValuesNode>>,
+    Fragmentable {
+  email: () => Promise<AsyncIterator<String>>;
+  phone_number: () => Promise<AsyncIterator<String>>;
+  twitter: () => Promise<AsyncIterator<String>>;
+  snapchat: () => Promise<AsyncIterator<String>>;
 }
 
 export interface OverviewNode {
-    id: ID_Output;
-    net_worth: Float;
-    credit_score?: Int;
-    income: Float;
+  id: ID_Output;
+  net_worth: Float;
+  credit_score?: Int;
+  income: Float;
 }
 
 export interface Overview extends Promise<OverviewNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    net_worth: () => Promise<Float>;
-    credit_score: () => Promise<Int>;
-    income: () => Promise<Float>;
-    goals: <T = Promise<Array<FinanceGoalsNode>>>(
-        args?: {
-            where?: FinanceGoalsWhereInput;
-            orderBy?: FinanceGoalsOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    budget: <T = Budget>() => T;
-    accounts: <T = Promise<Array<AccountNode>>>(
-        args?: {
-            where?: AccountWhereInput;
-            orderBy?: AccountOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  id: () => Promise<ID_Output>;
+  net_worth: () => Promise<Float>;
+  credit_score: () => Promise<Int>;
+  income: () => Promise<Float>;
+  goals: <T = Promise<Array<FinanceGoalsNode>>>(
+    args?: {
+      where?: FinanceGoalsWhereInput;
+      orderBy?: FinanceGoalsOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  budget: <T = Budget>() => T;
+  accounts: <T = Promise<Array<AccountNode>>>(
+    args?: {
+      where?: AccountWhereInput;
+      orderBy?: AccountOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface OverviewSubscription
-    extends Promise<AsyncIterator<OverviewNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    net_worth: () => Promise<AsyncIterator<Float>>;
-    credit_score: () => Promise<AsyncIterator<Int>>;
-    income: () => Promise<AsyncIterator<Float>>;
-    goals: <T = Promise<AsyncIterator<Array<FinanceGoalsSubscription>>>>(
-        args?: {
-            where?: FinanceGoalsWhereInput;
-            orderBy?: FinanceGoalsOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    budget: <T = BudgetSubscription>() => T;
-    accounts: <T = Promise<AsyncIterator<Array<AccountSubscription>>>>(
-        args?: {
-            where?: AccountWhereInput;
-            orderBy?: AccountOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  extends Promise<AsyncIterator<OverviewNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  net_worth: () => Promise<AsyncIterator<Float>>;
+  credit_score: () => Promise<AsyncIterator<Int>>;
+  income: () => Promise<AsyncIterator<Float>>;
+  goals: <T = Promise<AsyncIterator<Array<FinanceGoalsSubscription>>>>(
+    args?: {
+      where?: FinanceGoalsWhereInput;
+      orderBy?: FinanceGoalsOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  budget: <T = BudgetSubscription>() => T;
+  accounts: <T = Promise<AsyncIterator<Array<AccountSubscription>>>>(
+    args?: {
+      where?: AccountWhereInput;
+      orderBy?: AccountOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface PageInfoNode {
-    hasNextPage: Boolean;
-    hasPreviousPage: Boolean;
-    startCursor?: String;
-    endCursor?: String;
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
 }
 
 export interface PageInfo extends Promise<PageInfoNode>, Fragmentable {
-    hasNextPage: () => Promise<Boolean>;
-    hasPreviousPage: () => Promise<Boolean>;
-    startCursor: () => Promise<String>;
-    endCursor: () => Promise<String>;
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
 }
 
 export interface PageInfoSubscription
-    extends Promise<AsyncIterator<PageInfoNode>>,
-        Fragmentable {
-    hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-    hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-    startCursor: () => Promise<AsyncIterator<String>>;
-    endCursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<PageInfoNode>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface MovieTransactionEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface MovieTransactionEdge
-    extends Promise<MovieTransactionEdgeNode>,
-        Fragmentable {
-    node: <T = MovieTransaction>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<MovieTransactionEdgeNode>,
+    Fragmentable {
+  node: <T = MovieTransaction>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface MovieTransactionEdgeSubscription
-    extends Promise<AsyncIterator<MovieTransactionEdgeNode>>,
-        Fragmentable {
-    node: <T = MovieTransactionSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<MovieTransactionEdgeNode>>,
+    Fragmentable {
+  node: <T = MovieTransactionSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface CourseSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface CourseSubscriptionPayload
-    extends Promise<CourseSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Course>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = CoursePreviousValues>() => T;
+  extends Promise<CourseSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Course>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = CoursePreviousValues>() => T;
 }
 
 export interface CourseSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<CourseSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = CourseSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = CoursePreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<CourseSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = CourseSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = CoursePreviousValuesSubscription>() => T;
 }
 
 export interface AggregateMovieNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateMovie
-    extends Promise<AggregateMovieNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateMovieNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateMovieSubscription
-    extends Promise<AsyncIterator<AggregateMovieNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateMovieNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface CoursePreviousValuesNode {
-    name?: String;
-    subject: ID_Output;
-    completion: Float;
-    start_date: DateTimeOutput;
-    end_date: DateTimeOutput;
+  name?: String;
+  subject: ID_Output;
+  completion: Float;
+  start_date: DateTimeOutput;
+  end_date: DateTimeOutput;
 }
 
 export interface CoursePreviousValues
-    extends Promise<CoursePreviousValuesNode>,
-        Fragmentable {
-    name: () => Promise<String>;
-    subject: () => Promise<ID_Output>;
-    completion: () => Promise<Float>;
-    start_date: () => Promise<DateTimeOutput>;
-    end_date: () => Promise<DateTimeOutput>;
+  extends Promise<CoursePreviousValuesNode>,
+    Fragmentable {
+  name: () => Promise<String>;
+  subject: () => Promise<ID_Output>;
+  completion: () => Promise<Float>;
+  start_date: () => Promise<DateTimeOutput>;
+  end_date: () => Promise<DateTimeOutput>;
 }
 
 export interface CoursePreviousValuesSubscription
-    extends Promise<AsyncIterator<CoursePreviousValuesNode>>,
-        Fragmentable {
-    name: () => Promise<AsyncIterator<String>>;
-    subject: () => Promise<AsyncIterator<ID_Output>>;
-    completion: () => Promise<AsyncIterator<Float>>;
-    start_date: () => Promise<AsyncIterator<DateTimeOutput>>;
-    end_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  extends Promise<AsyncIterator<CoursePreviousValuesNode>>,
+    Fragmentable {
+  name: () => Promise<AsyncIterator<String>>;
+  subject: () => Promise<AsyncIterator<ID_Output>>;
+  completion: () => Promise<AsyncIterator<Float>>;
+  start_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  end_date: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface MovieConnectionNode {}
 
 export interface MovieConnection
-    extends Promise<MovieConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<MovieEdgeNode>>>() => T;
-    aggregate: <T = AggregateMovie>() => T;
+  extends Promise<MovieConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<MovieEdgeNode>>>() => T;
+  aggregate: <T = AggregateMovie>() => T;
 }
 
 export interface MovieConnectionSubscription
-    extends Promise<AsyncIterator<MovieConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<MovieEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateMovieSubscription>() => T;
+  extends Promise<AsyncIterator<MovieConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<MovieEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateMovieSubscription>() => T;
 }
 
 export interface AccountConnectionNode {}
 
 export interface AccountConnection
-    extends Promise<AccountConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<AccountEdgeNode>>>() => T;
-    aggregate: <T = AggregateAccount>() => T;
+  extends Promise<AccountConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<AccountEdgeNode>>>() => T;
+  aggregate: <T = AggregateAccount>() => T;
 }
 
 export interface AccountConnectionSubscription
-    extends Promise<AsyncIterator<AccountConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<AccountEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateAccountSubscription>() => T;
+  extends Promise<AsyncIterator<AccountConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<AccountEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateAccountSubscription>() => T;
 }
 
 export interface LocationEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface LocationEdge extends Promise<LocationEdgeNode>, Fragmentable {
-    node: <T = Location>() => T;
-    cursor: () => Promise<String>;
+  node: <T = Location>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface LocationEdgeSubscription
-    extends Promise<AsyncIterator<LocationEdgeNode>>,
-        Fragmentable {
-    node: <T = LocationSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<LocationEdgeNode>>,
+    Fragmentable {
+  node: <T = LocationSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface CourseAssignmentSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface CourseAssignmentSubscriptionPayload
-    extends Promise<CourseAssignmentSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = CourseAssignment>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = CourseAssignmentPreviousValues>() => T;
+  extends Promise<CourseAssignmentSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = CourseAssignment>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = CourseAssignmentPreviousValues>() => T;
 }
 
 export interface CourseAssignmentSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<CourseAssignmentSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = CourseAssignmentSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = CourseAssignmentPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<CourseAssignmentSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = CourseAssignmentSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = CourseAssignmentPreviousValuesSubscription>() => T;
 }
 
 export interface AggregateHumanNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateHuman
-    extends Promise<AggregateHumanNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateHumanNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateHumanSubscription
-    extends Promise<AsyncIterator<AggregateHumanNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateHumanNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface CourseAssignmentPreviousValuesNode {
-    id: ID_Output;
-    description: String;
-    grade?: Float;
+  id: ID_Output;
+  description: String;
+  grade?: Float;
 }
 
 export interface CourseAssignmentPreviousValues
-    extends Promise<CourseAssignmentPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    description: () => Promise<String>;
-    grade: () => Promise<Float>;
+  extends Promise<CourseAssignmentPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  description: () => Promise<String>;
+  grade: () => Promise<Float>;
 }
 
 export interface CourseAssignmentPreviousValuesSubscription
-    extends Promise<AsyncIterator<CourseAssignmentPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    description: () => Promise<AsyncIterator<String>>;
-    grade: () => Promise<AsyncIterator<Float>>;
+  extends Promise<AsyncIterator<CourseAssignmentPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  description: () => Promise<AsyncIterator<String>>;
+  grade: () => Promise<AsyncIterator<Float>>;
 }
 
 export interface HumanConnectionNode {}
 
 export interface HumanConnection
-    extends Promise<HumanConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<HumanEdgeNode>>>() => T;
-    aggregate: <T = AggregateHuman>() => T;
+  extends Promise<HumanConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<HumanEdgeNode>>>() => T;
+  aggregate: <T = AggregateHuman>() => T;
 }
 
 export interface HumanConnectionSubscription
-    extends Promise<AsyncIterator<HumanConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<HumanEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateHumanSubscription>() => T;
+  extends Promise<AsyncIterator<HumanConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<HumanEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateHumanSubscription>() => T;
 }
 
 export interface WeightHistoryItemSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface WeightHistoryItemSubscriptionPayload
-    extends Promise<WeightHistoryItemSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = WeightHistoryItem>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = WeightHistoryItemPreviousValues>() => T;
+  extends Promise<WeightHistoryItemSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = WeightHistoryItem>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = WeightHistoryItemPreviousValues>() => T;
 }
 
 export interface WeightHistoryItemSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<WeightHistoryItemSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = WeightHistoryItemSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = WeightHistoryItemPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<WeightHistoryItemSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = WeightHistoryItemSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = WeightHistoryItemPreviousValuesSubscription>() => T;
 }
 
 export interface GoodOrServiceEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface GoodOrServiceEdge
-    extends Promise<GoodOrServiceEdgeNode>,
-        Fragmentable {
-    node: <T = GoodOrService>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<GoodOrServiceEdgeNode>,
+    Fragmentable {
+  node: <T = GoodOrService>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface GoodOrServiceEdgeSubscription
-    extends Promise<AsyncIterator<GoodOrServiceEdgeNode>>,
-        Fragmentable {
-    node: <T = GoodOrServiceSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<GoodOrServiceEdgeNode>>,
+    Fragmentable {
+  node: <T = GoodOrServiceSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface CourseLectureSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface CourseLectureSubscriptionPayload
-    extends Promise<CourseLectureSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = CourseLecture>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = CourseLecturePreviousValues>() => T;
+  extends Promise<CourseLectureSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = CourseLecture>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = CourseLecturePreviousValues>() => T;
 }
 
 export interface CourseLectureSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<CourseLectureSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = CourseLectureSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = CourseLecturePreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<CourseLectureSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = CourseLectureSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = CourseLecturePreviousValuesSubscription>() => T;
 }
 
 export interface AggregateFixedCostNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateFixedCost
-    extends Promise<AggregateFixedCostNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateFixedCostNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateFixedCostSubscription
-    extends Promise<AsyncIterator<AggregateFixedCostNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateFixedCostNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface CourseLecturePreviousValuesNode {
-    id: ID_Output;
-    title: String;
-    description: String;
+  id: ID_Output;
+  title: String;
+  description: String;
 }
 
 export interface CourseLecturePreviousValues
-    extends Promise<CourseLecturePreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    title: () => Promise<String>;
-    description: () => Promise<String>;
+  extends Promise<CourseLecturePreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  description: () => Promise<String>;
 }
 
 export interface CourseLecturePreviousValuesSubscription
-    extends Promise<AsyncIterator<CourseLecturePreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    title: () => Promise<AsyncIterator<String>>;
-    description: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<CourseLecturePreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
 }
 
 export interface FixedCostConnectionNode {}
 
 export interface FixedCostConnection
-    extends Promise<FixedCostConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<FixedCostEdgeNode>>>() => T;
-    aggregate: <T = AggregateFixedCost>() => T;
+  extends Promise<FixedCostConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<FixedCostEdgeNode>>>() => T;
+  aggregate: <T = AggregateFixedCost>() => T;
 }
 
 export interface FixedCostConnectionSubscription
-    extends Promise<AsyncIterator<FixedCostConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<FixedCostEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateFixedCostSubscription>() => T;
+  extends Promise<AsyncIterator<FixedCostConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<FixedCostEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateFixedCostSubscription>() => T;
 }
 
 export interface EventNode {
-    id: ID_Output;
-    date: DateTimeOutput;
-    type: EventType;
-    description?: String;
+  id: ID_Output;
+  date: DateTimeOutput;
+  type: EventType;
+  description?: String;
 }
 
 export interface Event extends Promise<EventNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    date: () => Promise<DateTimeOutput>;
-    location: <T = Location>() => T;
-    type: () => Promise<EventType>;
-    description: () => Promise<String>;
-    with: <T = Promise<Array<HumanNode>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  id: () => Promise<ID_Output>;
+  date: () => Promise<DateTimeOutput>;
+  location: <T = Location>() => T;
+  type: () => Promise<EventType>;
+  description: () => Promise<String>;
+  with: <T = Promise<Array<HumanNode>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface EventSubscription
-    extends Promise<AsyncIterator<EventNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    date: () => Promise<AsyncIterator<DateTimeOutput>>;
-    location: <T = LocationSubscription>() => T;
-    type: () => Promise<AsyncIterator<EventType>>;
-    description: () => Promise<AsyncIterator<String>>;
-    with: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  extends Promise<AsyncIterator<EventNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  location: <T = LocationSubscription>() => T;
+  type: () => Promise<AsyncIterator<EventType>>;
+  description: () => Promise<AsyncIterator<String>>;
+  with: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface FinanceGoalsEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface FinanceGoalsEdge
-    extends Promise<FinanceGoalsEdgeNode>,
-        Fragmentable {
-    node: <T = FinanceGoals>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<FinanceGoalsEdgeNode>,
+    Fragmentable {
+  node: <T = FinanceGoals>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface FinanceGoalsEdgeSubscription
-    extends Promise<AsyncIterator<FinanceGoalsEdgeNode>>,
-        Fragmentable {
-    node: <T = FinanceGoalsSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<FinanceGoalsEdgeNode>>,
+    Fragmentable {
+  node: <T = FinanceGoalsSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface EducationSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface EducationSubscriptionPayload
-    extends Promise<EducationSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Education>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = EducationPreviousValues>() => T;
+  extends Promise<EducationSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Education>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = EducationPreviousValues>() => T;
 }
 
 export interface EducationSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<EducationSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = EducationSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = EducationPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<EducationSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = EducationSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = EducationPreviousValuesSubscription>() => T;
 }
 
 export interface FinanceGoalsNode {
-    id: ID_Output;
-    name: String;
-    cost?: Float;
-    due?: DateTimeOutput;
+  id: ID_Output;
+  name: String;
+  cost?: Float;
+  due?: DateTimeOutput;
 }
 
 export interface FinanceGoals extends Promise<FinanceGoalsNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    cost: () => Promise<Float>;
-    due: () => Promise<DateTimeOutput>;
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  cost: () => Promise<Float>;
+  due: () => Promise<DateTimeOutput>;
 }
 
 export interface FinanceGoalsSubscription
-    extends Promise<AsyncIterator<FinanceGoalsNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    cost: () => Promise<AsyncIterator<Float>>;
-    due: () => Promise<AsyncIterator<DateTimeOutput>>;
+  extends Promise<AsyncIterator<FinanceGoalsNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  cost: () => Promise<AsyncIterator<Float>>;
+  due: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface EducationPreviousValuesNode {
-    id: ID_Output;
+  id: ID_Output;
 }
 
 export interface EducationPreviousValues
-    extends Promise<EducationPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
+  extends Promise<EducationPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
 }
 
 export interface EducationPreviousValuesSubscription
-    extends Promise<AsyncIterator<EducationPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
+  extends Promise<AsyncIterator<EducationPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
 }
 
 export interface FavoriteEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface FavoriteEdge extends Promise<FavoriteEdgeNode>, Fragmentable {
-    node: <T = Favorite>() => T;
-    cursor: () => Promise<String>;
+  node: <T = Favorite>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface FavoriteEdgeSubscription
-    extends Promise<AsyncIterator<FavoriteEdgeNode>>,
-        Fragmentable {
-    node: <T = FavoriteSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<FavoriteEdgeNode>>,
+    Fragmentable {
+  node: <T = FavoriteSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface LocationNode {
-    longitude: Float;
-    latitude: Float;
-    address: String;
-    type?: String;
-    name: String;
+  id: ID_Output;
+  longitude: Float;
+  latitude: Float;
+  address: String;
+  type?: String;
+  name: String;
 }
 
 export interface Location extends Promise<LocationNode>, Fragmentable {
-    longitude: () => Promise<Float>;
-    latitude: () => Promise<Float>;
-    address: () => Promise<String>;
-    type: () => Promise<String>;
-    name: () => Promise<String>;
-    events: <T = Promise<Array<EventNode>>>(
-        args?: {
-            where?: EventWhereInput;
-            orderBy?: EventOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  id: () => Promise<ID_Output>;
+  longitude: () => Promise<Float>;
+  latitude: () => Promise<Float>;
+  address: () => Promise<String>;
+  type: () => Promise<String>;
+  name: () => Promise<String>;
+  events: <T = Promise<Array<EventNode>>>(
+    args?: {
+      where?: EventWhereInput;
+      orderBy?: EventOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface LocationSubscription
-    extends Promise<AsyncIterator<LocationNode>>,
-        Fragmentable {
-    longitude: () => Promise<AsyncIterator<Float>>;
-    latitude: () => Promise<AsyncIterator<Float>>;
-    address: () => Promise<AsyncIterator<String>>;
-    type: () => Promise<AsyncIterator<String>>;
-    name: () => Promise<AsyncIterator<String>>;
-    events: <T = Promise<AsyncIterator<Array<EventSubscription>>>>(
-        args?: {
-            where?: EventWhereInput;
-            orderBy?: EventOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  extends Promise<AsyncIterator<LocationNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  longitude: () => Promise<AsyncIterator<Float>>;
+  latitude: () => Promise<AsyncIterator<Float>>;
+  address: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  events: <T = Promise<AsyncIterator<Array<EventSubscription>>>>(
+    args?: {
+      where?: EventWhereInput;
+      orderBy?: EventOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface AggregateEventNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateEvent
-    extends Promise<AggregateEventNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateEventNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateEventSubscription
-    extends Promise<AsyncIterator<AggregateEventNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateEventNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface EventSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface EventSubscriptionPayload
-    extends Promise<EventSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Event>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = EventPreviousValues>() => T;
+  extends Promise<EventSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Event>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = EventPreviousValues>() => T;
 }
 
 export interface EventSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<EventSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = EventSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = EventPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<EventSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = EventSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = EventPreviousValuesSubscription>() => T;
 }
 
 export interface EventConnectionNode {}
 
 export interface EventConnection
-    extends Promise<EventConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<EventEdgeNode>>>() => T;
-    aggregate: <T = AggregateEvent>() => T;
+  extends Promise<EventConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<EventEdgeNode>>>() => T;
+  aggregate: <T = AggregateEvent>() => T;
 }
 
 export interface EventConnectionSubscription
-    extends Promise<AsyncIterator<EventConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<EventEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateEventSubscription>() => T;
+  extends Promise<AsyncIterator<EventConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<EventEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateEventSubscription>() => T;
 }
 
 export interface EventPreviousValuesNode {
-    id: ID_Output;
-    date: DateTimeOutput;
-    type: EventType;
-    description?: String;
+  id: ID_Output;
+  date: DateTimeOutput;
+  type: EventType;
+  description?: String;
 }
 
 export interface EventPreviousValues
-    extends Promise<EventPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    date: () => Promise<DateTimeOutput>;
-    type: () => Promise<EventType>;
-    description: () => Promise<String>;
+  extends Promise<EventPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  date: () => Promise<DateTimeOutput>;
+  type: () => Promise<EventType>;
+  description: () => Promise<String>;
 }
 
 export interface EventPreviousValuesSubscription
-    extends Promise<AsyncIterator<EventPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    date: () => Promise<AsyncIterator<DateTimeOutput>>;
-    type: () => Promise<AsyncIterator<EventType>>;
-    description: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<EventPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  type: () => Promise<AsyncIterator<EventType>>;
+  description: () => Promise<AsyncIterator<String>>;
 }
 
 export interface EducationEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface EducationEdge
-    extends Promise<EducationEdgeNode>,
-        Fragmentable {
-    node: <T = Education>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<EducationEdgeNode>,
+    Fragmentable {
+  node: <T = Education>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface EducationEdgeSubscription
-    extends Promise<AsyncIterator<EducationEdgeNode>>,
-        Fragmentable {
-    node: <T = EducationSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<EducationEdgeNode>>,
+    Fragmentable {
+  node: <T = EducationSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface WeightHistoryItemNode {
-    id: ID_Output;
-    weight?: Float;
-    date: DateTimeOutput;
+  id: ID_Output;
+  weight?: Float;
+  date: DateTimeOutput;
 }
 
 export interface WeightHistoryItem
-    extends Promise<WeightHistoryItemNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    weight: () => Promise<Float>;
-    date: () => Promise<DateTimeOutput>;
-    human: <T = Human>() => T;
+  extends Promise<WeightHistoryItemNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  weight: () => Promise<Float>;
+  date: () => Promise<DateTimeOutput>;
+  human: <T = Human>() => T;
 }
 
 export interface WeightHistoryItemSubscription
-    extends Promise<AsyncIterator<WeightHistoryItemNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    weight: () => Promise<AsyncIterator<Float>>;
-    date: () => Promise<AsyncIterator<DateTimeOutput>>;
-    human: <T = HumanSubscription>() => T;
+  extends Promise<AsyncIterator<WeightHistoryItemNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  weight: () => Promise<AsyncIterator<Float>>;
+  date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  human: <T = HumanSubscription>() => T;
 }
 
 export interface AggregateCourseLectureNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateCourseLecture
-    extends Promise<AggregateCourseLectureNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateCourseLectureNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateCourseLectureSubscription
-    extends Promise<AsyncIterator<AggregateCourseLectureNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateCourseLectureNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface FavoriteSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface FavoriteSubscriptionPayload
-    extends Promise<FavoriteSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Favorite>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = FavoritePreviousValues>() => T;
+  extends Promise<FavoriteSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Favorite>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = FavoritePreviousValues>() => T;
 }
 
 export interface FavoriteSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<FavoriteSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = FavoriteSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = FavoritePreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<FavoriteSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = FavoriteSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = FavoritePreviousValuesSubscription>() => T;
 }
 
 export interface CourseLectureConnectionNode {}
 
 export interface CourseLectureConnection
-    extends Promise<CourseLectureConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<CourseLectureEdgeNode>>>() => T;
-    aggregate: <T = AggregateCourseLecture>() => T;
+  extends Promise<CourseLectureConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<CourseLectureEdgeNode>>>() => T;
+  aggregate: <T = AggregateCourseLecture>() => T;
 }
 
 export interface CourseLectureConnectionSubscription
-    extends Promise<AsyncIterator<CourseLectureConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<CourseLectureEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateCourseLectureSubscription>() => T;
+  extends Promise<AsyncIterator<CourseLectureConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<Array<CourseLectureEdgeSubscription>>>
+  >() => T;
+  aggregate: <T = AggregateCourseLectureSubscription>() => T;
 }
 
 export interface FavoritePreviousValuesNode {
-    id: ID_Output;
-    kind: FavoriteKind;
-    thing: ID_Output;
+  id: ID_Output;
+  kind: FavoriteKind;
+  thing: ID_Output;
 }
 
 export interface FavoritePreviousValues
-    extends Promise<FavoritePreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    kind: () => Promise<FavoriteKind>;
-    thing: () => Promise<ID_Output>;
+  extends Promise<FavoritePreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  kind: () => Promise<FavoriteKind>;
+  thing: () => Promise<ID_Output>;
 }
 
 export interface FavoritePreviousValuesSubscription
-    extends Promise<AsyncIterator<FavoritePreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    kind: () => Promise<AsyncIterator<FavoriteKind>>;
-    thing: () => Promise<AsyncIterator<ID_Output>>;
+  extends Promise<AsyncIterator<FavoritePreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  kind: () => Promise<AsyncIterator<FavoriteKind>>;
+  thing: () => Promise<AsyncIterator<ID_Output>>;
 }
 
 export interface CourseAssignmentEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface CourseAssignmentEdge
-    extends Promise<CourseAssignmentEdgeNode>,
-        Fragmentable {
-    node: <T = CourseAssignment>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<CourseAssignmentEdgeNode>,
+    Fragmentable {
+  node: <T = CourseAssignment>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface CourseAssignmentEdgeSubscription
-    extends Promise<AsyncIterator<CourseAssignmentEdgeNode>>,
-        Fragmentable {
-    node: <T = CourseAssignmentSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<CourseAssignmentEdgeNode>>,
+    Fragmentable {
+  node: <T = CourseAssignmentSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BookNode {
-    id: ID_Output;
-    name?: String;
-    author?: String;
-    release_date: DateTimeOutput;
-    word_count?: Int;
+  id: ID_Output;
+  name?: String;
+  author?: String;
+  release_date: DateTimeOutput;
+  word_count?: Int;
 }
 
 export interface Book extends Promise<BookNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    author: () => Promise<String>;
-    release_date: () => Promise<DateTimeOutput>;
-    word_count: () => Promise<Int>;
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  author: () => Promise<String>;
+  release_date: () => Promise<DateTimeOutput>;
+  word_count: () => Promise<Int>;
 }
 
 export interface BookSubscription
-    extends Promise<AsyncIterator<BookNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    author: () => Promise<AsyncIterator<String>>;
-    release_date: () => Promise<AsyncIterator<DateTimeOutput>>;
-    word_count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<BookNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  author: () => Promise<AsyncIterator<String>>;
+  release_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  word_count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface AggregateCourseNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateCourse
-    extends Promise<AggregateCourseNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateCourseNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateCourseSubscription
-    extends Promise<AsyncIterator<AggregateCourseNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateCourseNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface FinanceGoalsSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface FinanceGoalsSubscriptionPayload
-    extends Promise<FinanceGoalsSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = FinanceGoals>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = FinanceGoalsPreviousValues>() => T;
+  extends Promise<FinanceGoalsSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = FinanceGoals>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = FinanceGoalsPreviousValues>() => T;
 }
 
 export interface FinanceGoalsSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<FinanceGoalsSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = FinanceGoalsSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = FinanceGoalsPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<FinanceGoalsSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = FinanceGoalsSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = FinanceGoalsPreviousValuesSubscription>() => T;
 }
 
 export interface CourseConnectionNode {}
 
 export interface CourseConnection
-    extends Promise<CourseConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<CourseEdgeNode>>>() => T;
-    aggregate: <T = AggregateCourse>() => T;
+  extends Promise<CourseConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<CourseEdgeNode>>>() => T;
+  aggregate: <T = AggregateCourse>() => T;
 }
 
 export interface CourseConnectionSubscription
-    extends Promise<AsyncIterator<CourseConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<CourseEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateCourseSubscription>() => T;
+  extends Promise<AsyncIterator<CourseConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<CourseEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateCourseSubscription>() => T;
 }
 
 export interface FinanceGoalsPreviousValuesNode {
-    id: ID_Output;
-    name: String;
-    cost?: Float;
-    due?: DateTimeOutput;
+  id: ID_Output;
+  name: String;
+  cost?: Float;
+  due?: DateTimeOutput;
 }
 
 export interface FinanceGoalsPreviousValues
-    extends Promise<FinanceGoalsPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    cost: () => Promise<Float>;
-    due: () => Promise<DateTimeOutput>;
+  extends Promise<FinanceGoalsPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  cost: () => Promise<Float>;
+  due: () => Promise<DateTimeOutput>;
 }
 
 export interface FinanceGoalsPreviousValuesSubscription
-    extends Promise<AsyncIterator<FinanceGoalsPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    cost: () => Promise<AsyncIterator<Float>>;
-    due: () => Promise<AsyncIterator<DateTimeOutput>>;
+  extends Promise<AsyncIterator<FinanceGoalsPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  cost: () => Promise<AsyncIterator<Float>>;
+  due: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface ContactInfoEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface ContactInfoEdge
-    extends Promise<ContactInfoEdgeNode>,
-        Fragmentable {
-    node: <T = ContactInfo>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<ContactInfoEdgeNode>,
+    Fragmentable {
+  node: <T = ContactInfo>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface ContactInfoEdgeSubscription
-    extends Promise<AsyncIterator<ContactInfoEdgeNode>>,
-        Fragmentable {
-    node: <T = ContactInfoSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<ContactInfoEdgeNode>>,
+    Fragmentable {
+  node: <T = ContactInfoSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BookTransactionNode {
-    id: ID_Output;
-    date_started?: DateTimeOutput;
-    date_finished?: DateTimeOutput;
+  id: ID_Output;
+  date_started?: DateTimeOutput;
+  date_finished?: DateTimeOutput;
 }
 
 export interface BookTransaction
-    extends Promise<BookTransactionNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    book: <T = Book>() => T;
-    date_started: () => Promise<DateTimeOutput>;
-    date_finished: () => Promise<DateTimeOutput>;
+  extends Promise<BookTransactionNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  book: <T = Book>() => T;
+  date_started: () => Promise<DateTimeOutput>;
+  date_finished: () => Promise<DateTimeOutput>;
 }
 
 export interface BookTransactionSubscription
-    extends Promise<AsyncIterator<BookTransactionNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    book: <T = BookSubscription>() => T;
-    date_started: () => Promise<AsyncIterator<DateTimeOutput>>;
-    date_finished: () => Promise<AsyncIterator<DateTimeOutput>>;
+  extends Promise<AsyncIterator<BookTransactionNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  book: <T = BookSubscription>() => T;
+  date_started: () => Promise<AsyncIterator<DateTimeOutput>>;
+  date_finished: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface TransactionNode {
-    id: ID_Output;
-    payee: String;
-    amount: Float;
-    date: String;
-    category: String;
+  id: ID_Output;
+  payee: String;
+  amount: Float;
+  date: String;
+  category: String;
 }
 
 export interface Transaction extends Promise<TransactionNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    payee: () => Promise<String>;
-    amount: () => Promise<Float>;
-    date: () => Promise<String>;
-    category: () => Promise<String>;
-    splits: <T = Promise<Array<TransactionSplitNode>>>(
-        args?: {
-            where?: TransactionSplitWhereInput;
-            orderBy?: TransactionSplitOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    where: <T = Location>() => T;
-    items: <T = Promise<Array<GoodOrServiceNode>>>(
-        args?: {
-            where?: GoodOrServiceWhereInput;
-            orderBy?: GoodOrServiceOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    with: <T = Promise<Array<HumanNode>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    event: <T = Event>() => T;
+  id: () => Promise<ID_Output>;
+  payee: () => Promise<String>;
+  amount: () => Promise<Float>;
+  date: () => Promise<String>;
+  category: () => Promise<String>;
+  splits: <T = Promise<Array<TransactionSplitNode>>>(
+    args?: {
+      where?: TransactionSplitWhereInput;
+      orderBy?: TransactionSplitOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  location: <T = Location>() => T;
+  items: <T = Promise<Array<GoodOrServiceNode>>>(
+    args?: {
+      where?: GoodOrServiceWhereInput;
+      orderBy?: GoodOrServiceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  with: <T = Promise<Array<HumanNode>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  event: <T = Event>() => T;
 }
 
 export interface TransactionSubscription
-    extends Promise<AsyncIterator<TransactionNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    payee: () => Promise<AsyncIterator<String>>;
-    amount: () => Promise<AsyncIterator<Float>>;
-    date: () => Promise<AsyncIterator<String>>;
-    category: () => Promise<AsyncIterator<String>>;
-    splits: <T = Promise<AsyncIterator<Array<TransactionSplitSubscription>>>>(
-        args?: {
-            where?: TransactionSplitWhereInput;
-            orderBy?: TransactionSplitOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    where: <T = LocationSubscription>() => T;
-    items: <T = Promise<AsyncIterator<Array<GoodOrServiceSubscription>>>>(
-        args?: {
-            where?: GoodOrServiceWhereInput;
-            orderBy?: GoodOrServiceOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    with: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    event: <T = EventSubscription>() => T;
+  extends Promise<AsyncIterator<TransactionNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  payee: () => Promise<AsyncIterator<String>>;
+  amount: () => Promise<AsyncIterator<Float>>;
+  date: () => Promise<AsyncIterator<String>>;
+  category: () => Promise<AsyncIterator<String>>;
+  splits: <T = Promise<AsyncIterator<Array<TransactionSplitSubscription>>>>(
+    args?: {
+      where?: TransactionSplitWhereInput;
+      orderBy?: TransactionSplitOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  location: <T = LocationSubscription>() => T;
+  items: <T = Promise<AsyncIterator<Array<GoodOrServiceSubscription>>>>(
+    args?: {
+      where?: GoodOrServiceWhereInput;
+      orderBy?: GoodOrServiceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  with: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  event: <T = EventSubscription>() => T;
 }
 
 export interface FixedCostSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface FixedCostSubscriptionPayload
-    extends Promise<FixedCostSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = FixedCost>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = FixedCostPreviousValues>() => T;
+  extends Promise<FixedCostSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = FixedCost>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = FixedCostPreviousValues>() => T;
 }
 
 export interface FixedCostSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<FixedCostSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = FixedCostSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = FixedCostPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<FixedCostSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = FixedCostSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = FixedCostPreviousValuesSubscription>() => T;
 }
 
 export interface BudgetEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface BudgetEdge extends Promise<BudgetEdgeNode>, Fragmentable {
-    node: <T = Budget>() => T;
-    cursor: () => Promise<String>;
+  node: <T = Budget>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface BudgetEdgeSubscription
-    extends Promise<AsyncIterator<BudgetEdgeNode>>,
-        Fragmentable {
-    node: <T = BudgetSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<BudgetEdgeNode>>,
+    Fragmentable {
+  node: <T = BudgetSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface FixedCostPreviousValuesNode {
-    id: ID_Output;
-    name?: String;
-    amount?: Float;
-    type?: FixedCostType;
+  id: ID_Output;
+  name?: String;
+  amount?: Float;
+  type?: FixedCostType;
 }
 
 export interface FixedCostPreviousValues
-    extends Promise<FixedCostPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    amount: () => Promise<Float>;
-    type: () => Promise<FixedCostType>;
+  extends Promise<FixedCostPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  amount: () => Promise<Float>;
+  type: () => Promise<FixedCostType>;
 }
 
 export interface FixedCostPreviousValuesSubscription
-    extends Promise<AsyncIterator<FixedCostPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    amount: () => Promise<AsyncIterator<Float>>;
-    type: () => Promise<AsyncIterator<FixedCostType>>;
+  extends Promise<AsyncIterator<FixedCostPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  amount: () => Promise<AsyncIterator<Float>>;
+  type: () => Promise<AsyncIterator<FixedCostType>>;
 }
 
 export interface FixedCostNode {
-    id: ID_Output;
-    name?: String;
-    amount?: Float;
-    type?: FixedCostType;
+  id: ID_Output;
+  name?: String;
+  amount?: Float;
+  type?: FixedCostType;
 }
 
 export interface FixedCost extends Promise<FixedCostNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    amount: () => Promise<Float>;
-    type: () => Promise<FixedCostType>;
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  amount: () => Promise<Float>;
+  type: () => Promise<FixedCostType>;
 }
 
 export interface FixedCostSubscription
-    extends Promise<AsyncIterator<FixedCostNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    amount: () => Promise<AsyncIterator<Float>>;
-    type: () => Promise<AsyncIterator<FixedCostType>>;
+  extends Promise<AsyncIterator<FixedCostNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  amount: () => Promise<AsyncIterator<Float>>;
+  type: () => Promise<AsyncIterator<FixedCostType>>;
 }
 
 export interface MovieNode {
-    id: ID_Output;
-    name?: String;
-    category?: String;
-    release_date: DateTimeOutput;
+  id: ID_Output;
+  name?: String;
+  category?: String;
+  release_date: DateTimeOutput;
 }
 
 export interface Movie extends Promise<MovieNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    category: () => Promise<String>;
-    release_date: () => Promise<DateTimeOutput>;
-    director: <T = Human>() => T;
-    actors: <T = Promise<Array<HumanNode>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  category: () => Promise<String>;
+  release_date: () => Promise<DateTimeOutput>;
+  director: <T = Human>() => T;
+  actors: <T = Promise<Array<HumanNode>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface MovieSubscription
-    extends Promise<AsyncIterator<MovieNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    category: () => Promise<AsyncIterator<String>>;
-    release_date: () => Promise<AsyncIterator<DateTimeOutput>>;
-    director: <T = HumanSubscription>() => T;
-    actors: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
-        args?: {
-            where?: HumanWhereInput;
-            orderBy?: HumanOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  extends Promise<AsyncIterator<MovieNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  category: () => Promise<AsyncIterator<String>>;
+  release_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  director: <T = HumanSubscription>() => T;
+  actors: <T = Promise<AsyncIterator<Array<HumanSubscription>>>>(
+    args?: {
+      where?: HumanWhereInput;
+      orderBy?: HumanOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface BatchPayloadNode {
-    count: Long;
+  count: Long;
 }
 
 export interface BatchPayload extends Promise<BatchPayloadNode>, Fragmentable {
-    count: () => Promise<Long>;
+  count: () => Promise<Long>;
 }
 
 export interface BatchPayloadSubscription
-    extends Promise<AsyncIterator<BatchPayloadNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Long>>;
+  extends Promise<AsyncIterator<BatchPayloadNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
 }
 
 export interface GoodOrServiceSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface GoodOrServiceSubscriptionPayload
-    extends Promise<GoodOrServiceSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = GoodOrService>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = GoodOrServicePreviousValues>() => T;
+  extends Promise<GoodOrServiceSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = GoodOrService>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = GoodOrServicePreviousValues>() => T;
 }
 
 export interface GoodOrServiceSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<GoodOrServiceSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = GoodOrServiceSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = GoodOrServicePreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<GoodOrServiceSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = GoodOrServiceSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = GoodOrServicePreviousValuesSubscription>() => T;
 }
 
 export interface AggregateTvShowNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateTvShow
-    extends Promise<AggregateTvShowNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateTvShowNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateTvShowSubscription
-    extends Promise<AsyncIterator<AggregateTvShowNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateTvShowNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface GoodOrServicePreviousValuesNode {
-    id: ID_Output;
-    type?: String;
-    name?: String;
-    brand: String;
-    price: Float;
-    url?: String;
-    purchased: Boolean;
+  id: ID_Output;
+  type?: String;
+  name?: String;
+  brand: String;
+  price: Float;
+  url?: String;
+  purchased: Boolean;
 }
 
 export interface GoodOrServicePreviousValues
-    extends Promise<GoodOrServicePreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    type: () => Promise<String>;
-    name: () => Promise<String>;
-    brand: () => Promise<String>;
-    price: () => Promise<Float>;
-    url: () => Promise<String>;
-    purchased: () => Promise<Boolean>;
+  extends Promise<GoodOrServicePreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  type: () => Promise<String>;
+  name: () => Promise<String>;
+  brand: () => Promise<String>;
+  price: () => Promise<Float>;
+  url: () => Promise<String>;
+  purchased: () => Promise<Boolean>;
 }
 
 export interface GoodOrServicePreviousValuesSubscription
-    extends Promise<AsyncIterator<GoodOrServicePreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    type: () => Promise<AsyncIterator<String>>;
-    name: () => Promise<AsyncIterator<String>>;
-    brand: () => Promise<AsyncIterator<String>>;
-    price: () => Promise<AsyncIterator<Float>>;
-    url: () => Promise<AsyncIterator<String>>;
-    purchased: () => Promise<AsyncIterator<Boolean>>;
+  extends Promise<AsyncIterator<GoodOrServicePreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  type: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  brand: () => Promise<AsyncIterator<String>>;
+  price: () => Promise<AsyncIterator<Float>>;
+  url: () => Promise<AsyncIterator<String>>;
+  purchased: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface AggregateTvEpisodeTransactionNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateTvEpisodeTransaction
-    extends Promise<AggregateTvEpisodeTransactionNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateTvEpisodeTransactionNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateTvEpisodeTransactionSubscription
-    extends Promise<AsyncIterator<AggregateTvEpisodeTransactionNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateTvEpisodeTransactionNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface MovieTransactionNode {
-    id: ID_Output;
-    date_watched: DateTimeOutput;
+  id: ID_Output;
+  date_watched: DateTimeOutput;
 }
 
 export interface MovieTransaction
-    extends Promise<MovieTransactionNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    movie: <T = Movie>() => T;
-    date_watched: () => Promise<DateTimeOutput>;
+  extends Promise<MovieTransactionNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  movie: <T = Movie>() => T;
+  date_watched: () => Promise<DateTimeOutput>;
 }
 
 export interface MovieTransactionSubscription
-    extends Promise<AsyncIterator<MovieTransactionNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    movie: <T = MovieSubscription>() => T;
-    date_watched: () => Promise<AsyncIterator<DateTimeOutput>>;
+  extends Promise<AsyncIterator<MovieTransactionNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  movie: <T = MovieSubscription>() => T;
+  date_watched: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface TvEpisodeEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface TvEpisodeEdge
-    extends Promise<TvEpisodeEdgeNode>,
-        Fragmentable {
-    node: <T = TvEpisode>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<TvEpisodeEdgeNode>,
+    Fragmentable {
+  node: <T = TvEpisode>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface TvEpisodeEdgeSubscription
-    extends Promise<AsyncIterator<TvEpisodeEdgeNode>>,
-        Fragmentable {
-    node: <T = TvEpisodeSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<TvEpisodeEdgeNode>>,
+    Fragmentable {
+  node: <T = TvEpisodeSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface HumanSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface HumanSubscriptionPayload
-    extends Promise<HumanSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Human>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = HumanPreviousValues>() => T;
+  extends Promise<HumanSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Human>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = HumanPreviousValues>() => T;
 }
 
 export interface HumanSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<HumanSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = HumanSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = HumanPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<HumanSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = HumanSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = HumanPreviousValuesSubscription>() => T;
 }
 
 export interface TransactionSplitConnectionNode {}
 
 export interface TransactionSplitConnection
-    extends Promise<TransactionSplitConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<TransactionSplitEdgeNode>>>() => T;
-    aggregate: <T = AggregateTransactionSplit>() => T;
+  extends Promise<TransactionSplitConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<TransactionSplitEdgeNode>>>() => T;
+  aggregate: <T = AggregateTransactionSplit>() => T;
 }
 
 export interface TransactionSplitConnectionSubscription
-    extends Promise<AsyncIterator<TransactionSplitConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<TransactionSplitEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateTransactionSplitSubscription>() => T;
+  extends Promise<AsyncIterator<TransactionSplitConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<Array<TransactionSplitEdgeSubscription>>>
+  >() => T;
+  aggregate: <T = AggregateTransactionSplitSubscription>() => T;
 }
 
 export interface HumanPreviousValuesNode {
-    id: ID_Output;
-    first_name?: String;
-    last_name?: String;
-    middle_name?: String;
-    birthday?: String;
-    height?: Float;
-    weight?: Float;
+  id: ID_Output;
+  first_name?: String;
+  last_name?: String;
+  middle_name?: String;
+  birthday?: String;
+  height?: Float;
+  weight?: Float;
 }
 
 export interface HumanPreviousValues
-    extends Promise<HumanPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    first_name: () => Promise<String>;
-    last_name: () => Promise<String>;
-    middle_name: () => Promise<String>;
-    birthday: () => Promise<String>;
-    height: () => Promise<Float>;
-    weight: () => Promise<Float>;
+  extends Promise<HumanPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  first_name: () => Promise<String>;
+  last_name: () => Promise<String>;
+  middle_name: () => Promise<String>;
+  birthday: () => Promise<String>;
+  height: () => Promise<Float>;
+  weight: () => Promise<Float>;
 }
 
 export interface HumanPreviousValuesSubscription
-    extends Promise<AsyncIterator<HumanPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    first_name: () => Promise<AsyncIterator<String>>;
-    last_name: () => Promise<AsyncIterator<String>>;
-    middle_name: () => Promise<AsyncIterator<String>>;
-    birthday: () => Promise<AsyncIterator<String>>;
-    height: () => Promise<AsyncIterator<Float>>;
-    weight: () => Promise<AsyncIterator<Float>>;
+  extends Promise<AsyncIterator<HumanPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  first_name: () => Promise<AsyncIterator<String>>;
+  last_name: () => Promise<AsyncIterator<String>>;
+  middle_name: () => Promise<AsyncIterator<String>>;
+  birthday: () => Promise<AsyncIterator<String>>;
+  height: () => Promise<AsyncIterator<Float>>;
+  weight: () => Promise<AsyncIterator<Float>>;
 }
 
 export interface AggregateTimelineNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateTimeline
-    extends Promise<AggregateTimelineNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateTimelineNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateTimelineSubscription
-    extends Promise<AsyncIterator<AggregateTimelineNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateTimelineNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface TvEpisodeNode {
-    id: ID_Output;
-    name?: String;
-    episode?: Int;
-    season?: Int;
-    watched?: Boolean;
-    date_watched: DateTimeOutput;
-    release_date: DateTimeOutput;
+  id: ID_Output;
+  name?: String;
+  episode?: Int;
+  season?: Int;
+  watched?: Boolean;
+  date_watched: DateTimeOutput;
+  release_date: DateTimeOutput;
 }
 
 export interface TvEpisode extends Promise<TvEpisodeNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    episode: () => Promise<Int>;
-    season: () => Promise<Int>;
-    watched: () => Promise<Boolean>;
-    show: <T = TvShow>() => T;
-    date_watched: () => Promise<DateTimeOutput>;
-    release_date: () => Promise<DateTimeOutput>;
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  episode: () => Promise<Int>;
+  season: () => Promise<Int>;
+  watched: () => Promise<Boolean>;
+  show: <T = TvShow>() => T;
+  date_watched: () => Promise<DateTimeOutput>;
+  release_date: () => Promise<DateTimeOutput>;
 }
 
 export interface TvEpisodeSubscription
-    extends Promise<AsyncIterator<TvEpisodeNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    episode: () => Promise<AsyncIterator<Int>>;
-    season: () => Promise<AsyncIterator<Int>>;
-    watched: () => Promise<AsyncIterator<Boolean>>;
-    show: <T = TvShowSubscription>() => T;
-    date_watched: () => Promise<AsyncIterator<DateTimeOutput>>;
-    release_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  extends Promise<AsyncIterator<TvEpisodeNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  episode: () => Promise<AsyncIterator<Int>>;
+  season: () => Promise<AsyncIterator<Int>>;
+  watched: () => Promise<AsyncIterator<Boolean>>;
+  show: <T = TvShowSubscription>() => T;
+  date_watched: () => Promise<AsyncIterator<DateTimeOutput>>;
+  release_date: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface AggregateTaskNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateTask
-    extends Promise<AggregateTaskNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateTaskNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateTaskSubscription
-    extends Promise<AsyncIterator<AggregateTaskNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateTaskNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface LocationSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface LocationSubscriptionPayload
-    extends Promise<LocationSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Location>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = LocationPreviousValues>() => T;
+  extends Promise<LocationSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Location>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = LocationPreviousValues>() => T;
 }
 
 export interface LocationSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<LocationSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = LocationSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = LocationPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<LocationSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = LocationSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = LocationPreviousValuesSubscription>() => T;
 }
 
 export interface SchoolEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface SchoolEdge extends Promise<SchoolEdgeNode>, Fragmentable {
-    node: <T = School>() => T;
-    cursor: () => Promise<String>;
+  node: <T = School>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface SchoolEdgeSubscription
-    extends Promise<AsyncIterator<SchoolEdgeNode>>,
-        Fragmentable {
-    node: <T = SchoolSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<SchoolEdgeNode>>,
+    Fragmentable {
+  node: <T = SchoolSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface LocationPreviousValuesNode {
-    longitude: Float;
-    latitude: Float;
-    address: String;
-    type?: String;
-    name: String;
+  id: ID_Output;
+  longitude: Float;
+  latitude: Float;
+  address: String;
+  type?: String;
+  name: String;
 }
 
 export interface LocationPreviousValues
-    extends Promise<LocationPreviousValuesNode>,
-        Fragmentable {
-    longitude: () => Promise<Float>;
-    latitude: () => Promise<Float>;
-    address: () => Promise<String>;
-    type: () => Promise<String>;
-    name: () => Promise<String>;
+  extends Promise<LocationPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  longitude: () => Promise<Float>;
+  latitude: () => Promise<Float>;
+  address: () => Promise<String>;
+  type: () => Promise<String>;
+  name: () => Promise<String>;
 }
 
 export interface LocationPreviousValuesSubscription
-    extends Promise<AsyncIterator<LocationPreviousValuesNode>>,
-        Fragmentable {
-    longitude: () => Promise<AsyncIterator<Float>>;
-    latitude: () => Promise<AsyncIterator<Float>>;
-    address: () => Promise<AsyncIterator<String>>;
-    type: () => Promise<AsyncIterator<String>>;
-    name: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<LocationPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  longitude: () => Promise<AsyncIterator<Float>>;
+  latitude: () => Promise<AsyncIterator<Float>>;
+  address: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
 }
 
 export interface OverviewConnectionNode {}
 
 export interface OverviewConnection
-    extends Promise<OverviewConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<OverviewEdgeNode>>>() => T;
-    aggregate: <T = AggregateOverview>() => T;
+  extends Promise<OverviewConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<OverviewEdgeNode>>>() => T;
+  aggregate: <T = AggregateOverview>() => T;
 }
 
 export interface OverviewConnectionSubscription
-    extends Promise<AsyncIterator<OverviewConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<OverviewEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateOverviewSubscription>() => T;
+  extends Promise<AsyncIterator<OverviewConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<OverviewEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateOverviewSubscription>() => T;
 }
 
 export interface FavoriteNode {
-    id: ID_Output;
-    kind: FavoriteKind;
-    thing: ID_Output;
+  id: ID_Output;
+  kind: FavoriteKind;
+  thing: ID_Output;
 }
 
 export interface Favorite extends Promise<FavoriteNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    kind: () => Promise<FavoriteKind>;
-    thing: () => Promise<ID_Output>;
+  id: () => Promise<ID_Output>;
+  kind: () => Promise<FavoriteKind>;
+  thing: () => Promise<ID_Output>;
 }
 
 export interface FavoriteSubscription
-    extends Promise<AsyncIterator<FavoriteNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    kind: () => Promise<AsyncIterator<FavoriteKind>>;
-    thing: () => Promise<AsyncIterator<ID_Output>>;
+  extends Promise<AsyncIterator<FavoriteNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  kind: () => Promise<AsyncIterator<FavoriteKind>>;
+  thing: () => Promise<AsyncIterator<ID_Output>>;
 }
 
 export interface MovieTransactionConnectionNode {}
 
 export interface MovieTransactionConnection
-    extends Promise<MovieTransactionConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<MovieTransactionEdgeNode>>>() => T;
-    aggregate: <T = AggregateMovieTransaction>() => T;
+  extends Promise<MovieTransactionConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<MovieTransactionEdgeNode>>>() => T;
+  aggregate: <T = AggregateMovieTransaction>() => T;
 }
 
 export interface MovieTransactionConnectionSubscription
-    extends Promise<AsyncIterator<MovieTransactionConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<MovieTransactionEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateMovieTransactionSubscription>() => T;
+  extends Promise<AsyncIterator<MovieTransactionConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<Array<MovieTransactionEdgeSubscription>>>
+  >() => T;
+  aggregate: <T = AggregateMovieTransactionSubscription>() => T;
 }
 
 export interface MovieSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface MovieSubscriptionPayload
-    extends Promise<MovieSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Movie>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = MoviePreviousValues>() => T;
+  extends Promise<MovieSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Movie>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = MoviePreviousValues>() => T;
 }
 
 export interface MovieSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<MovieSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = MovieSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = MoviePreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<MovieSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = MovieSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = MoviePreviousValuesSubscription>() => T;
 }
 
 export interface AggregateLocationNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateLocation
-    extends Promise<AggregateLocationNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateLocationNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateLocationSubscription
-    extends Promise<AsyncIterator<AggregateLocationNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateLocationNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface MoviePreviousValuesNode {
-    id: ID_Output;
-    name?: String;
-    category?: String;
-    release_date: DateTimeOutput;
+  id: ID_Output;
+  name?: String;
+  category?: String;
+  release_date: DateTimeOutput;
 }
 
 export interface MoviePreviousValues
-    extends Promise<MoviePreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    category: () => Promise<String>;
-    release_date: () => Promise<DateTimeOutput>;
+  extends Promise<MoviePreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  category: () => Promise<String>;
+  release_date: () => Promise<DateTimeOutput>;
 }
 
 export interface MoviePreviousValuesSubscription
-    extends Promise<AsyncIterator<MoviePreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    category: () => Promise<AsyncIterator<String>>;
-    release_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  extends Promise<AsyncIterator<MoviePreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  category: () => Promise<AsyncIterator<String>>;
+  release_date: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface HumanEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface HumanEdge extends Promise<HumanEdgeNode>, Fragmentable {
-    node: <T = Human>() => T;
-    cursor: () => Promise<String>;
+  node: <T = Human>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface HumanEdgeSubscription
-    extends Promise<AsyncIterator<HumanEdgeNode>>,
-        Fragmentable {
-    node: <T = HumanSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<HumanEdgeNode>>,
+    Fragmentable {
+  node: <T = HumanSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface TvShowNode {
-    id: ID_Output;
-    name: String;
+  id: ID_Output;
+  name: String;
 }
 
 export interface TvShow extends Promise<TvShowNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    episodes: <T = Promise<Array<TvEpisodeNode>>>(
-        args?: {
-            where?: TvEpisodeWhereInput;
-            orderBy?: TvEpisodeOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  episodes: <T = Promise<Array<TvEpisodeNode>>>(
+    args?: {
+      where?: TvEpisodeWhereInput;
+      orderBy?: TvEpisodeOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface TvShowSubscription
-    extends Promise<AsyncIterator<TvShowNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    episodes: <T = Promise<AsyncIterator<Array<TvEpisodeSubscription>>>>(
-        args?: {
-            where?: TvEpisodeWhereInput;
-            orderBy?: TvEpisodeOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  extends Promise<AsyncIterator<TvShowNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  episodes: <T = Promise<AsyncIterator<Array<TvEpisodeSubscription>>>>(
+    args?: {
+      where?: TvEpisodeWhereInput;
+      orderBy?: TvEpisodeOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface GoodOrServiceConnectionNode {}
 
 export interface GoodOrServiceConnection
-    extends Promise<GoodOrServiceConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<GoodOrServiceEdgeNode>>>() => T;
-    aggregate: <T = AggregateGoodOrService>() => T;
+  extends Promise<GoodOrServiceConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<GoodOrServiceEdgeNode>>>() => T;
+  aggregate: <T = AggregateGoodOrService>() => T;
 }
 
 export interface GoodOrServiceConnectionSubscription
-    extends Promise<AsyncIterator<GoodOrServiceConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<GoodOrServiceEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateGoodOrServiceSubscription>() => T;
+  extends Promise<AsyncIterator<GoodOrServiceConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<Array<GoodOrServiceEdgeSubscription>>>
+  >() => T;
+  aggregate: <T = AggregateGoodOrServiceSubscription>() => T;
 }
 
 export interface MovieTransactionSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface MovieTransactionSubscriptionPayload
-    extends Promise<MovieTransactionSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = MovieTransaction>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = MovieTransactionPreviousValues>() => T;
+  extends Promise<MovieTransactionSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = MovieTransaction>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = MovieTransactionPreviousValues>() => T;
 }
 
 export interface MovieTransactionSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<MovieTransactionSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = MovieTransactionSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = MovieTransactionPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<MovieTransactionSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = MovieTransactionSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = MovieTransactionPreviousValuesSubscription>() => T;
 }
 
 export interface AggregateFinanceGoalsNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateFinanceGoals
-    extends Promise<AggregateFinanceGoalsNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateFinanceGoalsNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateFinanceGoalsSubscription
-    extends Promise<AsyncIterator<AggregateFinanceGoalsNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateFinanceGoalsNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface MovieTransactionPreviousValuesNode {
-    id: ID_Output;
-    date_watched: DateTimeOutput;
+  id: ID_Output;
+  date_watched: DateTimeOutput;
 }
 
 export interface MovieTransactionPreviousValues
-    extends Promise<MovieTransactionPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    date_watched: () => Promise<DateTimeOutput>;
+  extends Promise<MovieTransactionPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  date_watched: () => Promise<DateTimeOutput>;
 }
 
 export interface MovieTransactionPreviousValuesSubscription
-    extends Promise<AsyncIterator<MovieTransactionPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    date_watched: () => Promise<AsyncIterator<DateTimeOutput>>;
+  extends Promise<AsyncIterator<MovieTransactionPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  date_watched: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface AggregateFavoriteNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateFavorite
-    extends Promise<AggregateFavoriteNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateFavoriteNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateFavoriteSubscription
-    extends Promise<AsyncIterator<AggregateFavoriteNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateFavoriteNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface TvEpisodeTransactionNode {
-    id: ID_Output;
-    date_watched: DateTimeOutput;
+  id: ID_Output;
+  date_watched: DateTimeOutput;
 }
 
 export interface TvEpisodeTransaction
-    extends Promise<TvEpisodeTransactionNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    human: <T = Human>() => T;
-    show: <T = TvShow>() => T;
-    episode: <T = TvEpisode>() => T;
-    date_watched: () => Promise<DateTimeOutput>;
+  extends Promise<TvEpisodeTransactionNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  human: <T = Human>() => T;
+  show: <T = TvShow>() => T;
+  episode: <T = TvEpisode>() => T;
+  date_watched: () => Promise<DateTimeOutput>;
 }
 
 export interface TvEpisodeTransactionSubscription
-    extends Promise<AsyncIterator<TvEpisodeTransactionNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    human: <T = HumanSubscription>() => T;
-    show: <T = TvShowSubscription>() => T;
-    episode: <T = TvEpisodeSubscription>() => T;
-    date_watched: () => Promise<AsyncIterator<DateTimeOutput>>;
+  extends Promise<AsyncIterator<TvEpisodeTransactionNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  human: <T = HumanSubscription>() => T;
+  show: <T = TvShowSubscription>() => T;
+  episode: <T = TvEpisodeSubscription>() => T;
+  date_watched: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface EventEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface EventEdge extends Promise<EventEdgeNode>, Fragmentable {
-    node: <T = Event>() => T;
-    cursor: () => Promise<String>;
+  node: <T = Event>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface EventEdgeSubscription
-    extends Promise<AsyncIterator<EventEdgeNode>>,
-        Fragmentable {
-    node: <T = EventSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<EventEdgeNode>>,
+    Fragmentable {
+  node: <T = EventSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface OverviewSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface OverviewSubscriptionPayload
-    extends Promise<OverviewSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Overview>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = OverviewPreviousValues>() => T;
+  extends Promise<OverviewSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Overview>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = OverviewPreviousValues>() => T;
 }
 
 export interface OverviewSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<OverviewSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = OverviewSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = OverviewPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<OverviewSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = OverviewSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = OverviewPreviousValuesSubscription>() => T;
 }
 
 export interface EducationConnectionNode {}
 
 export interface EducationConnection
-    extends Promise<EducationConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<EducationEdgeNode>>>() => T;
-    aggregate: <T = AggregateEducation>() => T;
+  extends Promise<EducationConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<EducationEdgeNode>>>() => T;
+  aggregate: <T = AggregateEducation>() => T;
 }
 
 export interface EducationConnectionSubscription
-    extends Promise<AsyncIterator<EducationConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<EducationEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateEducationSubscription>() => T;
+  extends Promise<AsyncIterator<EducationConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<EducationEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateEducationSubscription>() => T;
 }
 
 export interface OverviewPreviousValuesNode {
-    id: ID_Output;
-    net_worth: Float;
-    credit_score?: Int;
-    income: Float;
+  id: ID_Output;
+  net_worth: Float;
+  credit_score?: Int;
+  income: Float;
 }
 
 export interface OverviewPreviousValues
-    extends Promise<OverviewPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    net_worth: () => Promise<Float>;
-    credit_score: () => Promise<Int>;
-    income: () => Promise<Float>;
+  extends Promise<OverviewPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  net_worth: () => Promise<Float>;
+  credit_score: () => Promise<Int>;
+  income: () => Promise<Float>;
 }
 
 export interface OverviewPreviousValuesSubscription
-    extends Promise<AsyncIterator<OverviewPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    net_worth: () => Promise<AsyncIterator<Float>>;
-    credit_score: () => Promise<AsyncIterator<Int>>;
-    income: () => Promise<AsyncIterator<Float>>;
+  extends Promise<AsyncIterator<OverviewPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  net_worth: () => Promise<AsyncIterator<Float>>;
+  credit_score: () => Promise<AsyncIterator<Int>>;
+  income: () => Promise<AsyncIterator<Float>>;
 }
 
 export interface AggregateCourseAssignmentNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateCourseAssignment
-    extends Promise<AggregateCourseAssignmentNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateCourseAssignmentNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateCourseAssignmentSubscription
-    extends Promise<AsyncIterator<AggregateCourseAssignmentNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateCourseAssignmentNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface TaskNode {
-    id: ID_Output;
-    name?: String;
-    start: DateTimeOutput;
-    end: DateTimeOutput;
-    status?: TaskStatus;
+  id: ID_Output;
+  name?: String;
+  start: DateTimeOutput;
+  end: DateTimeOutput;
+  status?: TaskStatus;
 }
 
 export interface Task extends Promise<TaskNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    start: () => Promise<DateTimeOutput>;
-    end: () => Promise<DateTimeOutput>;
-    status: () => Promise<TaskStatus>;
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  start: () => Promise<DateTimeOutput>;
+  end: () => Promise<DateTimeOutput>;
+  status: () => Promise<TaskStatus>;
 }
 
 export interface TaskSubscription
-    extends Promise<AsyncIterator<TaskNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    start: () => Promise<AsyncIterator<DateTimeOutput>>;
-    end: () => Promise<AsyncIterator<DateTimeOutput>>;
-    status: () => Promise<AsyncIterator<TaskStatus>>;
+  extends Promise<AsyncIterator<TaskNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  start: () => Promise<AsyncIterator<DateTimeOutput>>;
+  end: () => Promise<AsyncIterator<DateTimeOutput>>;
+  status: () => Promise<AsyncIterator<TaskStatus>>;
 }
 
 export interface CourseEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface CourseEdge extends Promise<CourseEdgeNode>, Fragmentable {
-    node: <T = Course>() => T;
-    cursor: () => Promise<String>;
+  node: <T = Course>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface CourseEdgeSubscription
-    extends Promise<AsyncIterator<CourseEdgeNode>>,
-        Fragmentable {
-    node: <T = CourseSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<CourseEdgeNode>>,
+    Fragmentable {
+  node: <T = CourseSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface SchoolSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface SchoolSubscriptionPayload
-    extends Promise<SchoolSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = School>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = SchoolPreviousValues>() => T;
+  extends Promise<SchoolSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = School>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SchoolPreviousValues>() => T;
 }
 
 export interface SchoolSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<SchoolSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = SchoolSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = SchoolPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<SchoolSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = SchoolSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = SchoolPreviousValuesSubscription>() => T;
 }
 
 export interface ContactInfoConnectionNode {}
 
 export interface ContactInfoConnection
-    extends Promise<ContactInfoConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<ContactInfoEdgeNode>>>() => T;
-    aggregate: <T = AggregateContactInfo>() => T;
+  extends Promise<ContactInfoConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<ContactInfoEdgeNode>>>() => T;
+  aggregate: <T = AggregateContactInfo>() => T;
 }
 
 export interface ContactInfoConnectionSubscription
-    extends Promise<AsyncIterator<ContactInfoConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<ContactInfoEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateContactInfoSubscription>() => T;
+  extends Promise<AsyncIterator<ContactInfoConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<Array<ContactInfoEdgeSubscription>>>
+  >() => T;
+  aggregate: <T = AggregateContactInfoSubscription>() => T;
 }
 
 export interface SchoolPreviousValuesNode {
-    id: ID_Output;
-    name: String;
-    location: String;
+  id: ID_Output;
+  name: String;
+  location: String;
 }
 
 export interface SchoolPreviousValues
-    extends Promise<SchoolPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    location: () => Promise<String>;
+  extends Promise<SchoolPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  location: () => Promise<String>;
 }
 
 export interface SchoolPreviousValuesSubscription
-    extends Promise<AsyncIterator<SchoolPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    location: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<SchoolPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  location: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BudgetConnectionNode {}
 
 export interface BudgetConnection
-    extends Promise<BudgetConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<BudgetEdgeNode>>>() => T;
-    aggregate: <T = AggregateBudget>() => T;
+  extends Promise<BudgetConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<BudgetEdgeNode>>>() => T;
+  aggregate: <T = AggregateBudget>() => T;
 }
 
 export interface BudgetConnectionSubscription
-    extends Promise<AsyncIterator<BudgetConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<BudgetEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateBudgetSubscription>() => T;
+  extends Promise<AsyncIterator<BudgetConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<BudgetEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateBudgetSubscription>() => T;
 }
 
 export interface CourseAssignmentNode {
-    id: ID_Output;
-    description: String;
-    grade?: Float;
+  id: ID_Output;
+  description: String;
+  grade?: Float;
 }
 
 export interface CourseAssignment
-    extends Promise<CourseAssignmentNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    description: () => Promise<String>;
-    grade: () => Promise<Float>;
-    course: <T = Course>() => T;
+  extends Promise<CourseAssignmentNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  description: () => Promise<String>;
+  grade: () => Promise<Float>;
+  course: <T = Course>() => T;
 }
 
 export interface CourseAssignmentSubscription
-    extends Promise<AsyncIterator<CourseAssignmentNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    description: () => Promise<AsyncIterator<String>>;
-    grade: () => Promise<AsyncIterator<Float>>;
-    course: <T = CourseSubscription>() => T;
+  extends Promise<AsyncIterator<CourseAssignmentNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  description: () => Promise<AsyncIterator<String>>;
+  grade: () => Promise<AsyncIterator<Float>>;
+  course: <T = CourseSubscription>() => T;
 }
 
 export interface WeightHistoryItemEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface WeightHistoryItemEdge
-    extends Promise<WeightHistoryItemEdgeNode>,
-        Fragmentable {
-    node: <T = WeightHistoryItem>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<WeightHistoryItemEdgeNode>,
+    Fragmentable {
+  node: <T = WeightHistoryItem>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface WeightHistoryItemEdgeSubscription
-    extends Promise<AsyncIterator<WeightHistoryItemEdgeNode>>,
-        Fragmentable {
-    node: <T = WeightHistoryItemSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<WeightHistoryItemEdgeNode>>,
+    Fragmentable {
+  node: <T = WeightHistoryItemSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface TaskSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface TaskSubscriptionPayload
-    extends Promise<TaskSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Task>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = TaskPreviousValues>() => T;
+  extends Promise<TaskSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Task>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TaskPreviousValues>() => T;
 }
 
 export interface TaskSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<TaskSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = TaskSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = TaskPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<TaskSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TaskSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TaskPreviousValuesSubscription>() => T;
 }
 
 export interface TvEpisodeTransactionConnectionNode {}
 
 export interface TvEpisodeTransactionConnection
-    extends Promise<TvEpisodeTransactionConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<TvEpisodeTransactionEdgeNode>>>() => T;
-    aggregate: <T = AggregateTvEpisodeTransaction>() => T;
+  extends Promise<TvEpisodeTransactionConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<TvEpisodeTransactionEdgeNode>>>() => T;
+  aggregate: <T = AggregateTvEpisodeTransaction>() => T;
 }
 
 export interface TvEpisodeTransactionConnectionSubscription
-    extends Promise<AsyncIterator<TvEpisodeTransactionConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<TvEpisodeTransactionEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateTvEpisodeTransactionSubscription>() => T;
+  extends Promise<AsyncIterator<TvEpisodeTransactionConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<Array<TvEpisodeTransactionEdgeSubscription>>>
+  >() => T;
+  aggregate: <T = AggregateTvEpisodeTransactionSubscription>() => T;
 }
 
 export interface TaskPreviousValuesNode {
-    id: ID_Output;
-    name?: String;
-    start: DateTimeOutput;
-    end: DateTimeOutput;
-    status?: TaskStatus;
+  id: ID_Output;
+  name?: String;
+  start: DateTimeOutput;
+  end: DateTimeOutput;
+  status?: TaskStatus;
 }
 
 export interface TaskPreviousValues
-    extends Promise<TaskPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    start: () => Promise<DateTimeOutput>;
-    end: () => Promise<DateTimeOutput>;
-    status: () => Promise<TaskStatus>;
+  extends Promise<TaskPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  start: () => Promise<DateTimeOutput>;
+  end: () => Promise<DateTimeOutput>;
+  status: () => Promise<TaskStatus>;
 }
 
 export interface TaskPreviousValuesSubscription
-    extends Promise<AsyncIterator<TaskPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    start: () => Promise<AsyncIterator<DateTimeOutput>>;
-    end: () => Promise<AsyncIterator<DateTimeOutput>>;
-    status: () => Promise<AsyncIterator<TaskStatus>>;
+  extends Promise<AsyncIterator<TaskPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  start: () => Promise<AsyncIterator<DateTimeOutput>>;
+  end: () => Promise<AsyncIterator<DateTimeOutput>>;
+  status: () => Promise<AsyncIterator<TaskStatus>>;
 }
 
 export interface TransactionEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface TransactionEdge
-    extends Promise<TransactionEdgeNode>,
-        Fragmentable {
-    node: <T = Transaction>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<TransactionEdgeNode>,
+    Fragmentable {
+  node: <T = Transaction>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface TransactionEdgeSubscription
-    extends Promise<AsyncIterator<TransactionEdgeNode>>,
-        Fragmentable {
-    node: <T = TransactionSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<TransactionEdgeNode>>,
+    Fragmentable {
+  node: <T = TransactionSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface CourseLectureNode {
-    id: ID_Output;
-    title: String;
-    description: String;
+  id: ID_Output;
+  title: String;
+  description: String;
 }
 
 export interface CourseLecture
-    extends Promise<CourseLectureNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    title: () => Promise<String>;
-    description: () => Promise<String>;
-    course: <T = Course>() => T;
+  extends Promise<CourseLectureNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  description: () => Promise<String>;
+  course: <T = Course>() => T;
 }
 
 export interface CourseLectureSubscription
-    extends Promise<AsyncIterator<CourseLectureNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    title: () => Promise<AsyncIterator<String>>;
-    description: () => Promise<AsyncIterator<String>>;
-    course: <T = CourseSubscription>() => T;
+  extends Promise<AsyncIterator<CourseLectureNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  course: <T = CourseSubscription>() => T;
 }
 
 export interface TaskConnectionNode {}
 
 export interface TaskConnection
-    extends Promise<TaskConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<TaskEdgeNode>>>() => T;
-    aggregate: <T = AggregateTask>() => T;
+  extends Promise<TaskConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<TaskEdgeNode>>>() => T;
+  aggregate: <T = AggregateTask>() => T;
 }
 
 export interface TaskConnectionSubscription
-    extends Promise<AsyncIterator<TaskConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<TaskEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateTaskSubscription>() => T;
+  extends Promise<AsyncIterator<TaskConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<TaskEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateTaskSubscription>() => T;
 }
 
 export interface TimelineSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface TimelineSubscriptionPayload
-    extends Promise<TimelineSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Timeline>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = TimelinePreviousValues>() => T;
+  extends Promise<TimelineSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Timeline>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TimelinePreviousValues>() => T;
 }
 
 export interface TimelineSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<TimelineSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = TimelineSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = TimelinePreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<TimelineSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TimelineSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TimelinePreviousValuesSubscription>() => T;
 }
 
 export interface AggregateMovieTransactionNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateMovieTransaction
-    extends Promise<AggregateMovieTransactionNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateMovieTransactionNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateMovieTransactionSubscription
-    extends Promise<AsyncIterator<AggregateMovieTransactionNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateMovieTransactionNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface TimelinePreviousValuesNode {
-    id: ID_Output;
+  id: ID_Output;
 }
 
 export interface TimelinePreviousValues
-    extends Promise<TimelinePreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
+  extends Promise<TimelinePreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
 }
 
 export interface TimelinePreviousValuesSubscription
-    extends Promise<AsyncIterator<TimelinePreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
+  extends Promise<AsyncIterator<TimelinePreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
 }
 
 export interface LocationConnectionNode {}
 
 export interface LocationConnection
-    extends Promise<LocationConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<LocationEdgeNode>>>() => T;
-    aggregate: <T = AggregateLocation>() => T;
+  extends Promise<LocationConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<LocationEdgeNode>>>() => T;
+  aggregate: <T = AggregateLocation>() => T;
 }
 
 export interface LocationConnectionSubscription
-    extends Promise<AsyncIterator<LocationConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<LocationEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateLocationSubscription>() => T;
+  extends Promise<AsyncIterator<LocationConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<LocationEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateLocationSubscription>() => T;
 }
 
 export interface CourseNode {
-    name?: String;
-    subject: ID_Output;
-    completion: Float;
-    start_date: DateTimeOutput;
-    end_date: DateTimeOutput;
+  name?: String;
+  subject: ID_Output;
+  completion: Float;
+  start_date: DateTimeOutput;
+  end_date: DateTimeOutput;
 }
 
 export interface Course extends Promise<CourseNode>, Fragmentable {
-    name: () => Promise<String>;
-    subject: () => Promise<ID_Output>;
-    completion: () => Promise<Float>;
-    start_date: () => Promise<DateTimeOutput>;
-    end_date: () => Promise<DateTimeOutput>;
-    lectures: <T = Promise<Array<CourseLectureNode>>>(
-        args?: {
-            where?: CourseLectureWhereInput;
-            orderBy?: CourseLectureOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    assignments: <T = Promise<Array<CourseAssignmentNode>>>(
-        args?: {
-            where?: CourseAssignmentWhereInput;
-            orderBy?: CourseAssignmentOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    school: <T = School>() => T;
+  name: () => Promise<String>;
+  subject: () => Promise<ID_Output>;
+  completion: () => Promise<Float>;
+  start_date: () => Promise<DateTimeOutput>;
+  end_date: () => Promise<DateTimeOutput>;
+  lectures: <T = Promise<Array<CourseLectureNode>>>(
+    args?: {
+      where?: CourseLectureWhereInput;
+      orderBy?: CourseLectureOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  assignments: <T = Promise<Array<CourseAssignmentNode>>>(
+    args?: {
+      where?: CourseAssignmentWhereInput;
+      orderBy?: CourseAssignmentOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  school: <T = School>() => T;
 }
 
 export interface CourseSubscription
-    extends Promise<AsyncIterator<CourseNode>>,
-        Fragmentable {
-    name: () => Promise<AsyncIterator<String>>;
-    subject: () => Promise<AsyncIterator<ID_Output>>;
-    completion: () => Promise<AsyncIterator<Float>>;
-    start_date: () => Promise<AsyncIterator<DateTimeOutput>>;
-    end_date: () => Promise<AsyncIterator<DateTimeOutput>>;
-    lectures: <T = Promise<AsyncIterator<Array<CourseLectureSubscription>>>>(
-        args?: {
-            where?: CourseLectureWhereInput;
-            orderBy?: CourseLectureOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    assignments: <
-        T = Promise<AsyncIterator<Array<CourseAssignmentSubscription>>>
-    >(
-        args?: {
-            where?: CourseAssignmentWhereInput;
-            orderBy?: CourseAssignmentOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    school: <T = SchoolSubscription>() => T;
+  extends Promise<AsyncIterator<CourseNode>>,
+    Fragmentable {
+  name: () => Promise<AsyncIterator<String>>;
+  subject: () => Promise<AsyncIterator<ID_Output>>;
+  completion: () => Promise<AsyncIterator<Float>>;
+  start_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  end_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  lectures: <T = Promise<AsyncIterator<Array<CourseLectureSubscription>>>>(
+    args?: {
+      where?: CourseLectureWhereInput;
+      orderBy?: CourseLectureOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  assignments: <
+    T = Promise<AsyncIterator<Array<CourseAssignmentSubscription>>>
+  >(
+    args?: {
+      where?: CourseAssignmentWhereInput;
+      orderBy?: CourseAssignmentOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  school: <T = SchoolSubscription>() => T;
 }
 
 export interface FixedCostEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface FixedCostEdge
-    extends Promise<FixedCostEdgeNode>,
-        Fragmentable {
-    node: <T = FixedCost>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<FixedCostEdgeNode>,
+    Fragmentable {
+  node: <T = FixedCost>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface FixedCostEdgeSubscription
-    extends Promise<AsyncIterator<FixedCostEdgeNode>>,
-        Fragmentable {
-    node: <T = FixedCostSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<FixedCostEdgeNode>>,
+    Fragmentable {
+  node: <T = FixedCostSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface TransactionSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface TransactionSubscriptionPayload
-    extends Promise<TransactionSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = Transaction>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = TransactionPreviousValues>() => T;
+  extends Promise<TransactionSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Transaction>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TransactionPreviousValues>() => T;
 }
 
 export interface TransactionSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<TransactionSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = TransactionSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = TransactionPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<TransactionSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TransactionSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TransactionPreviousValuesSubscription>() => T;
 }
 
 export interface FavoriteConnectionNode {}
 
 export interface FavoriteConnection
-    extends Promise<FavoriteConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<FavoriteEdgeNode>>>() => T;
-    aggregate: <T = AggregateFavorite>() => T;
+  extends Promise<FavoriteConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<FavoriteEdgeNode>>>() => T;
+  aggregate: <T = AggregateFavorite>() => T;
 }
 
 export interface FavoriteConnectionSubscription
-    extends Promise<AsyncIterator<FavoriteConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<FavoriteEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateFavoriteSubscription>() => T;
+  extends Promise<AsyncIterator<FavoriteConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<FavoriteEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateFavoriteSubscription>() => T;
 }
 
 export interface TransactionPreviousValuesNode {
-    id: ID_Output;
-    payee: String;
-    amount: Float;
-    date: String;
-    category: String;
+  id: ID_Output;
+  payee: String;
+  amount: Float;
+  date: String;
+  category: String;
 }
 
 export interface TransactionPreviousValues
-    extends Promise<TransactionPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    payee: () => Promise<String>;
-    amount: () => Promise<Float>;
-    date: () => Promise<String>;
-    category: () => Promise<String>;
+  extends Promise<TransactionPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  payee: () => Promise<String>;
+  amount: () => Promise<Float>;
+  date: () => Promise<String>;
+  category: () => Promise<String>;
 }
 
 export interface TransactionPreviousValuesSubscription
-    extends Promise<AsyncIterator<TransactionPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    payee: () => Promise<AsyncIterator<String>>;
-    amount: () => Promise<AsyncIterator<Float>>;
-    date: () => Promise<AsyncIterator<String>>;
-    category: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<TransactionPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  payee: () => Promise<AsyncIterator<String>>;
+  amount: () => Promise<AsyncIterator<Float>>;
+  date: () => Promise<AsyncIterator<String>>;
+  category: () => Promise<AsyncIterator<String>>;
 }
 
 export interface CourseLectureEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface CourseLectureEdge
-    extends Promise<CourseLectureEdgeNode>,
-        Fragmentable {
-    node: <T = CourseLecture>() => T;
-    cursor: () => Promise<String>;
+  extends Promise<CourseLectureEdgeNode>,
+    Fragmentable {
+  node: <T = CourseLecture>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface CourseLectureEdgeSubscription
-    extends Promise<AsyncIterator<CourseLectureEdgeNode>>,
-        Fragmentable {
-    node: <T = CourseLectureSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<CourseLectureEdgeNode>>,
+    Fragmentable {
+  node: <T = CourseLectureSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface SchoolNode {
-    id: ID_Output;
-    name: String;
-    location: String;
+  id: ID_Output;
+  name: String;
+  location: String;
 }
 
 export interface School extends Promise<SchoolNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    location: () => Promise<String>;
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  location: () => Promise<String>;
 }
 
 export interface SchoolSubscription
-    extends Promise<AsyncIterator<SchoolNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    location: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<SchoolNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  location: () => Promise<AsyncIterator<String>>;
 }
 
 export interface AggregateContactInfoNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateContactInfo
-    extends Promise<AggregateContactInfoNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateContactInfoNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateContactInfoSubscription
-    extends Promise<AsyncIterator<AggregateContactInfoNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateContactInfoNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface TransactionSplitSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface TransactionSplitSubscriptionPayload
-    extends Promise<TransactionSplitSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = TransactionSplit>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = TransactionSplitPreviousValues>() => T;
+  extends Promise<TransactionSplitSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TransactionSplit>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TransactionSplitPreviousValues>() => T;
 }
 
 export interface TransactionSplitSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<TransactionSplitSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = TransactionSplitSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = TransactionSplitPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<TransactionSplitSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TransactionSplitSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TransactionSplitPreviousValuesSubscription>() => T;
 }
 
 export interface BudgetNode {
-    id: ID_Output;
-    flexible_spending?: Float;
-    total_fixed_cost?: Float;
+  id: ID_Output;
+  flexible_spending?: Float;
+  total_fixed_cost?: Float;
 }
 
 export interface Budget extends Promise<BudgetNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    flexible_spending: () => Promise<Float>;
-    total_fixed_cost: () => Promise<Float>;
-    fixed_costs: <T = Promise<Array<FixedCostNode>>>(
-        args?: {
-            where?: FixedCostWhereInput;
-            orderBy?: FixedCostOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  id: () => Promise<ID_Output>;
+  flexible_spending: () => Promise<Float>;
+  total_fixed_cost: () => Promise<Float>;
+  fixed_costs: <T = Promise<Array<FixedCostNode>>>(
+    args?: {
+      where?: FixedCostWhereInput;
+      orderBy?: FixedCostOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface BudgetSubscription
-    extends Promise<AsyncIterator<BudgetNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    flexible_spending: () => Promise<AsyncIterator<Float>>;
-    total_fixed_cost: () => Promise<AsyncIterator<Float>>;
-    fixed_costs: <T = Promise<AsyncIterator<Array<FixedCostSubscription>>>>(
-        args?: {
-            where?: FixedCostWhereInput;
-            orderBy?: FixedCostOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  extends Promise<AsyncIterator<BudgetNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  flexible_spending: () => Promise<AsyncIterator<Float>>;
+  total_fixed_cost: () => Promise<AsyncIterator<Float>>;
+  fixed_costs: <T = Promise<AsyncIterator<Array<FixedCostSubscription>>>>(
+    args?: {
+      where?: FixedCostWhereInput;
+      orderBy?: FixedCostOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface TransactionSplitPreviousValuesNode {
-    percentage?: Float;
-    amount?: Float;
-    pending?: Boolean;
+  percentage?: Float;
+  amount?: Float;
+  pending?: Boolean;
 }
 
 export interface TransactionSplitPreviousValues
-    extends Promise<TransactionSplitPreviousValuesNode>,
-        Fragmentable {
-    percentage: () => Promise<Float>;
-    amount: () => Promise<Float>;
-    pending: () => Promise<Boolean>;
+  extends Promise<TransactionSplitPreviousValuesNode>,
+    Fragmentable {
+  percentage: () => Promise<Float>;
+  amount: () => Promise<Float>;
+  pending: () => Promise<Boolean>;
 }
 
 export interface TransactionSplitPreviousValuesSubscription
-    extends Promise<AsyncIterator<TransactionSplitPreviousValuesNode>>,
-        Fragmentable {
-    percentage: () => Promise<AsyncIterator<Float>>;
-    amount: () => Promise<AsyncIterator<Float>>;
-    pending: () => Promise<AsyncIterator<Boolean>>;
+  extends Promise<AsyncIterator<TransactionSplitPreviousValuesNode>>,
+    Fragmentable {
+  percentage: () => Promise<AsyncIterator<Float>>;
+  amount: () => Promise<AsyncIterator<Float>>;
+  pending: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface AggregateTransactionSplitNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateTransactionSplit
-    extends Promise<AggregateTransactionSplitNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateTransactionSplitNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateTransactionSplitSubscription
-    extends Promise<AsyncIterator<AggregateTransactionSplitNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateTransactionSplitNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface EducationNode {
-    id: ID_Output;
+  id: ID_Output;
 }
 
 export interface Education extends Promise<EducationNode>, Fragmentable {
-    id: () => Promise<ID_Output>;
-    schools: <T = Promise<Array<SchoolNode>>>(
-        args?: {
-            where?: SchoolWhereInput;
-            orderBy?: SchoolOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    courses: <T = Promise<Array<CourseNode>>>(
-        args?: {
-            where?: CourseWhereInput;
-            orderBy?: CourseOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  id: () => Promise<ID_Output>;
+  schools: <T = Promise<Array<SchoolNode>>>(
+    args?: {
+      where?: SchoolWhereInput;
+      orderBy?: SchoolOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  courses: <T = Promise<Array<CourseNode>>>(
+    args?: {
+      where?: CourseWhereInput;
+      orderBy?: CourseOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface EducationSubscription
-    extends Promise<AsyncIterator<EducationNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    schools: <T = Promise<AsyncIterator<Array<SchoolSubscription>>>>(
-        args?: {
-            where?: SchoolWhereInput;
-            orderBy?: SchoolOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
-    courses: <T = Promise<AsyncIterator<Array<CourseSubscription>>>>(
-        args?: {
-            where?: CourseWhereInput;
-            orderBy?: CourseOrderByInput;
-            skip?: Int;
-            after?: String;
-            before?: String;
-            first?: Int;
-            last?: Int;
-        }
-    ) => T;
+  extends Promise<AsyncIterator<EducationNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  schools: <T = Promise<AsyncIterator<Array<SchoolSubscription>>>>(
+    args?: {
+      where?: SchoolWhereInput;
+      orderBy?: SchoolOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  courses: <T = Promise<AsyncIterator<Array<CourseSubscription>>>>(
+    args?: {
+      where?: CourseWhereInput;
+      orderBy?: CourseOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface AggregateOverviewNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateOverview
-    extends Promise<AggregateOverviewNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateOverviewNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateOverviewSubscription
-    extends Promise<AsyncIterator<AggregateOverviewNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateOverviewNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface TvEpisodeSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface TvEpisodeSubscriptionPayload
-    extends Promise<TvEpisodeSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = TvEpisode>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = TvEpisodePreviousValues>() => T;
+  extends Promise<TvEpisodeSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TvEpisode>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TvEpisodePreviousValues>() => T;
 }
 
 export interface TvEpisodeSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<TvEpisodeSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = TvEpisodeSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = TvEpisodePreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<TvEpisodeSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TvEpisodeSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TvEpisodePreviousValuesSubscription>() => T;
 }
 
 export interface AggregateGoodOrServiceNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateGoodOrService
-    extends Promise<AggregateGoodOrServiceNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateGoodOrServiceNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateGoodOrServiceSubscription
-    extends Promise<AsyncIterator<AggregateGoodOrServiceNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateGoodOrServiceNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface TvEpisodePreviousValuesNode {
-    id: ID_Output;
-    name?: String;
-    episode?: Int;
-    season?: Int;
-    watched?: Boolean;
-    date_watched: DateTimeOutput;
-    release_date: DateTimeOutput;
+  id: ID_Output;
+  name?: String;
+  episode?: Int;
+  season?: Int;
+  watched?: Boolean;
+  date_watched: DateTimeOutput;
+  release_date: DateTimeOutput;
 }
 
 export interface TvEpisodePreviousValues
-    extends Promise<TvEpisodePreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    name: () => Promise<String>;
-    episode: () => Promise<Int>;
-    season: () => Promise<Int>;
-    watched: () => Promise<Boolean>;
-    date_watched: () => Promise<DateTimeOutput>;
-    release_date: () => Promise<DateTimeOutput>;
+  extends Promise<TvEpisodePreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  episode: () => Promise<Int>;
+  season: () => Promise<Int>;
+  watched: () => Promise<Boolean>;
+  date_watched: () => Promise<DateTimeOutput>;
+  release_date: () => Promise<DateTimeOutput>;
 }
 
 export interface TvEpisodePreviousValuesSubscription
-    extends Promise<AsyncIterator<TvEpisodePreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    name: () => Promise<AsyncIterator<String>>;
-    episode: () => Promise<AsyncIterator<Int>>;
-    season: () => Promise<AsyncIterator<Int>>;
-    watched: () => Promise<AsyncIterator<Boolean>>;
-    date_watched: () => Promise<AsyncIterator<DateTimeOutput>>;
-    release_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  extends Promise<AsyncIterator<TvEpisodePreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  episode: () => Promise<AsyncIterator<Int>>;
+  season: () => Promise<AsyncIterator<Int>>;
+  watched: () => Promise<AsyncIterator<Boolean>>;
+  date_watched: () => Promise<AsyncIterator<DateTimeOutput>>;
+  release_date: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface AggregateEducationNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateEducation
-    extends Promise<AggregateEducationNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateEducationNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateEducationSubscription
-    extends Promise<AsyncIterator<AggregateEducationNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateEducationNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface ContactInfoNode {
-    email?: String;
-    phone_number?: String;
-    twitter?: String;
-    snapchat?: String;
+  email?: String;
+  phone_number?: String;
+  twitter?: String;
+  snapchat?: String;
 }
 
 export interface ContactInfo extends Promise<ContactInfoNode>, Fragmentable {
-    email: () => Promise<String>;
-    phone_number: () => Promise<String>;
-    twitter: () => Promise<String>;
-    snapchat: () => Promise<String>;
-    human: <T = Human>() => T;
+  email: () => Promise<String>;
+  phone_number: () => Promise<String>;
+  twitter: () => Promise<String>;
+  snapchat: () => Promise<String>;
+  human: <T = Human>() => T;
 }
 
 export interface ContactInfoSubscription
-    extends Promise<AsyncIterator<ContactInfoNode>>,
-        Fragmentable {
-    email: () => Promise<AsyncIterator<String>>;
-    phone_number: () => Promise<AsyncIterator<String>>;
-    twitter: () => Promise<AsyncIterator<String>>;
-    snapchat: () => Promise<AsyncIterator<String>>;
-    human: <T = HumanSubscription>() => T;
+  extends Promise<AsyncIterator<ContactInfoNode>>,
+    Fragmentable {
+  email: () => Promise<AsyncIterator<String>>;
+  phone_number: () => Promise<AsyncIterator<String>>;
+  twitter: () => Promise<AsyncIterator<String>>;
+  snapchat: () => Promise<AsyncIterator<String>>;
+  human: <T = HumanSubscription>() => T;
 }
 
 export interface AggregateBudgetNode {
-    count: Int;
+  count: Int;
 }
 
 export interface AggregateBudget
-    extends Promise<AggregateBudgetNode>,
-        Fragmentable {
-    count: () => Promise<Int>;
+  extends Promise<AggregateBudgetNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
 }
 
 export interface AggregateBudgetSubscription
-    extends Promise<AsyncIterator<AggregateBudgetNode>>,
-        Fragmentable {
-    count: () => Promise<AsyncIterator<Int>>;
+  extends Promise<AsyncIterator<AggregateBudgetNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface TimelineConnectionNode {}
 
 export interface TimelineConnection
-    extends Promise<TimelineConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<TimelineEdgeNode>>>() => T;
-    aggregate: <T = AggregateTimeline>() => T;
+  extends Promise<TimelineConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<TimelineEdgeNode>>>() => T;
+  aggregate: <T = AggregateTimeline>() => T;
 }
 
 export interface TimelineConnectionSubscription
-    extends Promise<AsyncIterator<TimelineConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<TimelineEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateTimelineSubscription>() => T;
+  extends Promise<AsyncIterator<TimelineConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<TimelineEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateTimelineSubscription>() => T;
 }
 
 export interface TvShowSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface TvShowSubscriptionPayload
-    extends Promise<TvShowSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = TvShow>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = TvShowPreviousValues>() => T;
+  extends Promise<TvShowSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TvShow>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TvShowPreviousValues>() => T;
 }
 
 export interface TvShowSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<TvShowSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = TvShowSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = TvShowPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<TvShowSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TvShowSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TvShowPreviousValuesSubscription>() => T;
 }
 
 export interface GoodOrServiceNode {
-    id: ID_Output;
-    type?: String;
-    name?: String;
-    brand: String;
-    price: Float;
-    url?: String;
-    purchased: Boolean;
+  id: ID_Output;
+  type?: String;
+  name?: String;
+  brand: String;
+  price: Float;
+  url?: String;
+  purchased: Boolean;
 }
 
 export interface GoodOrService
-    extends Promise<GoodOrServiceNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    type: () => Promise<String>;
-    name: () => Promise<String>;
-    brand: () => Promise<String>;
-    price: () => Promise<Float>;
-    url: () => Promise<String>;
-    purchased: () => Promise<Boolean>;
-    transaction: <T = Transaction>() => T;
+  extends Promise<GoodOrServiceNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  type: () => Promise<String>;
+  name: () => Promise<String>;
+  brand: () => Promise<String>;
+  price: () => Promise<Float>;
+  url: () => Promise<String>;
+  purchased: () => Promise<Boolean>;
+  transaction: <T = Transaction>() => T;
 }
 
 export interface GoodOrServiceSubscription
-    extends Promise<AsyncIterator<GoodOrServiceNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    type: () => Promise<AsyncIterator<String>>;
-    name: () => Promise<AsyncIterator<String>>;
-    brand: () => Promise<AsyncIterator<String>>;
-    price: () => Promise<AsyncIterator<Float>>;
-    url: () => Promise<AsyncIterator<String>>;
-    purchased: () => Promise<AsyncIterator<Boolean>>;
-    transaction: <T = TransactionSubscription>() => T;
+  extends Promise<AsyncIterator<GoodOrServiceNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  type: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  brand: () => Promise<AsyncIterator<String>>;
+  price: () => Promise<AsyncIterator<Float>>;
+  url: () => Promise<AsyncIterator<String>>;
+  purchased: () => Promise<AsyncIterator<Boolean>>;
+  transaction: <T = TransactionSubscription>() => T;
 }
 
 export interface TvEpisodeTransactionPreviousValuesNode {
-    id: ID_Output;
-    date_watched: DateTimeOutput;
+  id: ID_Output;
+  date_watched: DateTimeOutput;
 }
 
 export interface TvEpisodeTransactionPreviousValues
-    extends Promise<TvEpisodeTransactionPreviousValuesNode>,
-        Fragmentable {
-    id: () => Promise<ID_Output>;
-    date_watched: () => Promise<DateTimeOutput>;
+  extends Promise<TvEpisodeTransactionPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  date_watched: () => Promise<DateTimeOutput>;
 }
 
 export interface TvEpisodeTransactionPreviousValuesSubscription
-    extends Promise<AsyncIterator<TvEpisodeTransactionPreviousValuesNode>>,
-        Fragmentable {
-    id: () => Promise<AsyncIterator<ID_Output>>;
-    date_watched: () => Promise<AsyncIterator<DateTimeOutput>>;
+  extends Promise<AsyncIterator<TvEpisodeTransactionPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  date_watched: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface TvEpisodeTransactionSubscriptionPayloadNode {
-    mutation: MutationType;
-    updatedFields?: String[];
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
 export interface TvEpisodeTransactionSubscriptionPayload
-    extends Promise<TvEpisodeTransactionSubscriptionPayloadNode>,
-        Fragmentable {
-    mutation: () => Promise<MutationType>;
-    node: <T = TvEpisodeTransaction>() => T;
-    updatedFields: () => Promise<String[]>;
-    previousValues: <T = TvEpisodeTransactionPreviousValues>() => T;
+  extends Promise<TvEpisodeTransactionSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TvEpisodeTransaction>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TvEpisodeTransactionPreviousValues>() => T;
 }
 
 export interface TvEpisodeTransactionSubscriptionPayloadSubscription
-    extends Promise<AsyncIterator<TvEpisodeTransactionSubscriptionPayloadNode>>,
-        Fragmentable {
-    mutation: () => Promise<AsyncIterator<MutationType>>;
-    node: <T = TvEpisodeTransactionSubscription>() => T;
-    updatedFields: () => Promise<AsyncIterator<String[]>>;
-    previousValues: <T = TvEpisodeTransactionPreviousValuesSubscription>() => T;
+  extends Promise<AsyncIterator<TvEpisodeTransactionSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TvEpisodeTransactionSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TvEpisodeTransactionPreviousValuesSubscription>() => T;
 }
 
 export interface MovieEdgeNode {
-    cursor: String;
+  cursor: String;
 }
 
 export interface MovieEdge extends Promise<MovieEdgeNode>, Fragmentable {
-    node: <T = Movie>() => T;
-    cursor: () => Promise<String>;
+  node: <T = Movie>() => T;
+  cursor: () => Promise<String>;
 }
 
 export interface MovieEdgeSubscription
-    extends Promise<AsyncIterator<MovieEdgeNode>>,
-        Fragmentable {
-    node: <T = MovieSubscription>() => T;
-    cursor: () => Promise<AsyncIterator<String>>;
+  extends Promise<AsyncIterator<MovieEdgeNode>>,
+    Fragmentable {
+  node: <T = MovieSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface TvShowConnectionNode {}
 
 export interface TvShowConnection
-    extends Promise<TvShowConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<TvShowEdgeNode>>>() => T;
-    aggregate: <T = AggregateTvShow>() => T;
+  extends Promise<TvShowConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<TvShowEdgeNode>>>() => T;
+  aggregate: <T = AggregateTvShow>() => T;
 }
 
 export interface TvShowConnectionSubscription
-    extends Promise<AsyncIterator<TvShowConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <T = Promise<AsyncIterator<Array<TvShowEdgeSubscription>>>>() => T;
-    aggregate: <T = AggregateTvShowSubscription>() => T;
+  extends Promise<AsyncIterator<TvShowConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<Array<TvShowEdgeSubscription>>>>() => T;
+  aggregate: <T = AggregateTvShowSubscription>() => T;
 }
 
 export interface CourseAssignmentConnectionNode {}
 
 export interface CourseAssignmentConnection
-    extends Promise<CourseAssignmentConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<CourseAssignmentEdgeNode>>>() => T;
-    aggregate: <T = AggregateCourseAssignment>() => T;
+  extends Promise<CourseAssignmentConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<CourseAssignmentEdgeNode>>>() => T;
+  aggregate: <T = AggregateCourseAssignment>() => T;
 }
 
 export interface CourseAssignmentConnectionSubscription
-    extends Promise<AsyncIterator<CourseAssignmentConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<CourseAssignmentEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateCourseAssignmentSubscription>() => T;
+  extends Promise<AsyncIterator<CourseAssignmentConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<Array<CourseAssignmentEdgeSubscription>>>
+  >() => T;
+  aggregate: <T = AggregateCourseAssignmentSubscription>() => T;
 }
 
 export interface FinanceGoalsConnectionNode {}
 
 export interface FinanceGoalsConnection
-    extends Promise<FinanceGoalsConnectionNode>,
-        Fragmentable {
-    pageInfo: <T = PageInfo>() => T;
-    edges: <T = Promise<Array<FinanceGoalsEdgeNode>>>() => T;
-    aggregate: <T = AggregateFinanceGoals>() => T;
+  extends Promise<FinanceGoalsConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = Promise<Array<FinanceGoalsEdgeNode>>>() => T;
+  aggregate: <T = AggregateFinanceGoals>() => T;
 }
 
 export interface FinanceGoalsConnectionSubscription
-    extends Promise<AsyncIterator<FinanceGoalsConnectionNode>>,
-        Fragmentable {
-    pageInfo: <T = PageInfoSubscription>() => T;
-    edges: <
-        T = Promise<AsyncIterator<Array<FinanceGoalsEdgeSubscription>>>
-    >() => T;
-    aggregate: <T = AggregateFinanceGoalsSubscription>() => T;
+  extends Promise<AsyncIterator<FinanceGoalsConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<Array<FinanceGoalsEdgeSubscription>>>
+  >() => T;
+  aggregate: <T = AggregateFinanceGoalsSubscription>() => T;
 }
 
 export type Long = string;
@@ -11200,8 +11168,8 @@ export type Int = number;
  */
 
 export const Prisma = makePrismaClientClass<ClientConstructor<Prisma>>({
-    typeDefs,
-    endpoint: `http://${process.env["PRISMA_HOST"]}:4466`,
-    secret: `${process.env["PRISMA_MANAGEMENT_API_SECRET"]}`
+  typeDefs,
+  endpoint: `http://${process.env["PRISMA_HOST"]}:4466`,
+  secret: `${process.env["PRISMA_MANAGEMENT_API_SECRET"]}`
 });
 export const prisma = new Prisma();

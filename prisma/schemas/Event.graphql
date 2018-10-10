@@ -17,7 +17,7 @@ enum EventType {
 type Event {
     id: ID! @unique
     date: DateTime!
-    location: Location!
+    location: Location! @relation(name: "LocationEvents")
     type: EventType!
     description: String
     with: [Human!]!

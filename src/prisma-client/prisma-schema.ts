@@ -4057,6 +4057,7 @@ input HumanWhereUniqueInput {
 }
 
 type Location {
+  id: ID!
   longitude: Float!
   latitude: Float!
   address: String!
@@ -4082,10 +4083,12 @@ input LocationCreateInput {
 
 input LocationCreateOneInput {
   create: LocationCreateInput
+  connect: LocationWhereUniqueInput
 }
 
 input LocationCreateOneWithoutEventsInput {
   create: LocationCreateWithoutEventsInput
+  connect: LocationWhereUniqueInput
 }
 
 input LocationCreateWithoutEventsInput {
@@ -4102,6 +4105,8 @@ type LocationEdge {
 }
 
 enum LocationOrderByInput {
+  id_ASC
+  id_DESC
   longitude_ASC
   longitude_DESC
   latitude_ASC
@@ -4112,8 +4117,6 @@ enum LocationOrderByInput {
   type_DESC
   name_ASC
   name_DESC
-  id_ASC
-  id_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -4121,6 +4124,7 @@ enum LocationOrderByInput {
 }
 
 type LocationPreviousValues {
+  id: ID!
   longitude: Float!
   latitude: Float!
   address: String!
@@ -4170,12 +4174,14 @@ input LocationUpdateOneInput {
   upsert: LocationUpsertNestedInput
   delete: Boolean
   disconnect: Boolean
+  connect: LocationWhereUniqueInput
 }
 
 input LocationUpdateOneRequiredWithoutEventsInput {
   create: LocationCreateWithoutEventsInput
   update: LocationUpdateWithoutEventsDataInput
   upsert: LocationUpsertWithoutEventsInput
+  connect: LocationWhereUniqueInput
 }
 
 input LocationUpdateWithoutEventsDataInput {
@@ -4197,6 +4203,20 @@ input LocationUpsertWithoutEventsInput {
 }
 
 input LocationWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
   longitude: Float
   longitude_not: Float
   longitude_in: [Float!]
@@ -4261,6 +4281,10 @@ input LocationWhereInput {
   AND: [LocationWhereInput!]
   OR: [LocationWhereInput!]
   NOT: [LocationWhereInput!]
+}
+
+input LocationWhereUniqueInput {
+  id: ID
 }
 
 scalar Long
@@ -4718,7 +4742,10 @@ type Mutation {
   deleteHuman(where: HumanWhereUniqueInput!): Human
   deleteManyHumans(where: HumanWhereInput): BatchPayload!
   createLocation(data: LocationCreateInput!): Location!
+  updateLocation(data: LocationUpdateInput!, where: LocationWhereUniqueInput!): Location
   updateManyLocations(data: LocationUpdateInput!, where: LocationWhereInput): BatchPayload!
+  upsertLocation(where: LocationWhereUniqueInput!, create: LocationCreateInput!, update: LocationUpdateInput!): Location!
+  deleteLocation(where: LocationWhereUniqueInput!): Location
   deleteManyLocations(where: LocationWhereInput): BatchPayload!
   createMovie(data: MovieCreateInput!): Movie!
   updateMovie(data: MovieUpdateInput!, where: MovieWhereUniqueInput!): Movie
@@ -4989,6 +5016,7 @@ type Query {
   human(where: HumanWhereUniqueInput!): Human
   humans(where: HumanWhereInput, orderBy: HumanOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Human]!
   humansConnection(where: HumanWhereInput, orderBy: HumanOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HumanConnection!
+  location(where: LocationWhereUniqueInput!): Location
   locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
   locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
   movie(where: MovieWhereUniqueInput!): Movie
@@ -5491,7 +5519,7 @@ type Transaction {
   date: String!
   category: String!
   splits(where: TransactionSplitWhereInput, orderBy: TransactionSplitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TransactionSplit!]
-  where: Location
+  location: Location
   items(where: GoodOrServiceWhereInput, orderBy: GoodOrServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GoodOrService!]
   with(where: HumanWhereInput, orderBy: HumanOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Human!]
   event: Event
@@ -5509,7 +5537,7 @@ input TransactionCreateInput {
   date: String!
   category: String!
   splits: TransactionSplitCreateManyInput
-  where: LocationCreateOneInput
+  location: LocationCreateOneInput
   items: GoodOrServiceCreateManyWithoutTransactionInput
   with: HumanCreateManyInput
   event: EventCreateOneInput
@@ -5531,7 +5559,7 @@ input TransactionCreateWithoutItemsInput {
   date: String!
   category: String!
   splits: TransactionSplitCreateManyInput
-  where: LocationCreateOneInput
+  location: LocationCreateOneInput
   with: HumanCreateManyInput
   event: EventCreateOneInput
 }
@@ -5694,7 +5722,7 @@ input TransactionUpdateDataInput {
   date: String
   category: String
   splits: TransactionSplitUpdateManyInput
-  where: LocationUpdateOneInput
+  location: LocationUpdateOneInput
   items: GoodOrServiceUpdateManyWithoutTransactionInput
   with: HumanUpdateManyInput
   event: EventUpdateOneInput
@@ -5706,7 +5734,7 @@ input TransactionUpdateInput {
   date: String
   category: String
   splits: TransactionSplitUpdateManyInput
-  where: LocationUpdateOneInput
+  location: LocationUpdateOneInput
   items: GoodOrServiceUpdateManyWithoutTransactionInput
   with: HumanUpdateManyInput
   event: EventUpdateOneInput
@@ -5736,7 +5764,7 @@ input TransactionUpdateWithoutItemsDataInput {
   date: String
   category: String
   splits: TransactionSplitUpdateManyInput
-  where: LocationUpdateOneInput
+  location: LocationUpdateOneInput
   with: HumanUpdateManyInput
   event: EventUpdateOneInput
 }
@@ -5825,7 +5853,7 @@ input TransactionWhereInput {
   splits_every: TransactionSplitWhereInput
   splits_some: TransactionSplitWhereInput
   splits_none: TransactionSplitWhereInput
-  where: LocationWhereInput
+  location: LocationWhereInput
   items_every: GoodOrServiceWhereInput
   items_some: GoodOrServiceWhereInput
   items_none: GoodOrServiceWhereInput
@@ -6582,4 +6610,4 @@ input WishListWhereInput {
   OR: [WishListWhereInput!]
   NOT: [WishListWhereInput!]
 }
-`;
+`

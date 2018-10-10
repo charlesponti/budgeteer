@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Sun Oct 07 2018 21:21:47 GMT-0400 (EDT)
+# timestamp: Sun Oct 07 2018 22:09:15 GMT-0400 (EDT)
 
 type Account implements Node {
   id: ID!
@@ -4993,7 +4993,8 @@ input HumanWhereUniqueInput {
   id: ID
 }
 
-type Location {
+type Location implements Node {
+  id: ID!
   longitude: Float!
   latitude: Float!
   address: String!
@@ -5023,10 +5024,12 @@ input LocationCreateInput {
 
 input LocationCreateOneInput {
   create: LocationCreateInput
+  connect: LocationWhereUniqueInput
 }
 
 input LocationCreateOneWithoutEventsInput {
   create: LocationCreateWithoutEventsInput
+  connect: LocationWhereUniqueInput
 }
 
 input LocationCreateWithoutEventsInput {
@@ -5047,6 +5050,8 @@ type LocationEdge {
 }
 
 enum LocationOrderByInput {
+  id_ASC
+  id_DESC
   longitude_ASC
   longitude_DESC
   latitude_ASC
@@ -5057,8 +5062,6 @@ enum LocationOrderByInput {
   type_DESC
   name_ASC
   name_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -5066,6 +5069,7 @@ enum LocationOrderByInput {
 }
 
 type LocationPreviousValues {
+  id: ID!
   longitude: Float!
   latitude: Float!
   address: String!
@@ -5132,6 +5136,7 @@ input LocationUpdateInput {
 
 input LocationUpdateOneInput {
   create: LocationCreateInput
+  connect: LocationWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
   update: LocationUpdateDataInput
@@ -5140,6 +5145,7 @@ input LocationUpdateOneInput {
 
 input LocationUpdateOneWithoutEventsInput {
   create: LocationCreateWithoutEventsInput
+  connect: LocationWhereUniqueInput
   delete: Boolean
   update: LocationUpdateWithoutEventsDataInput
   upsert: LocationUpsertWithoutEventsInput
@@ -5172,6 +5178,46 @@ input LocationWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [LocationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
   longitude: Float
 
   """All values that are not equal to given value."""
@@ -5339,6 +5385,10 @@ input LocationWhereInput {
   events_every: EventWhereInput
   events_some: EventWhereInput
   events_none: EventWhereInput
+}
+
+input LocationWhereUniqueInput {
+  id: ID
 }
 
 """
@@ -5964,6 +6014,7 @@ type Mutation {
   updateTvShow(data: TvShowUpdateInput!, where: TvShowWhereUniqueInput!): TvShow
   updateFavorite(data: FavoriteUpdateInput!, where: FavoriteWhereUniqueInput!): Favorite
   updateEvent(data: EventUpdateInput!, where: EventWhereUniqueInput!): Event
+  updateLocation(data: LocationUpdateInput!, where: LocationWhereUniqueInput!): Location
   updateSchool(data: SchoolUpdateInput!, where: SchoolWhereUniqueInput!): School
   updateAccount(data: AccountUpdateInput!, where: AccountWhereUniqueInput!): Account
   updateFixedCost(data: FixedCostUpdateInput!, where: FixedCostWhereUniqueInput!): FixedCost
@@ -5988,6 +6039,7 @@ type Mutation {
   deleteTvShow(where: TvShowWhereUniqueInput!): TvShow
   deleteFavorite(where: FavoriteWhereUniqueInput!): Favorite
   deleteEvent(where: EventWhereUniqueInput!): Event
+  deleteLocation(where: LocationWhereUniqueInput!): Location
   deleteSchool(where: SchoolWhereUniqueInput!): School
   deleteAccount(where: AccountWhereUniqueInput!): Account
   deleteFixedCost(where: FixedCostWhereUniqueInput!): FixedCost
@@ -6012,6 +6064,7 @@ type Mutation {
   upsertTvShow(where: TvShowWhereUniqueInput!, create: TvShowCreateInput!, update: TvShowUpdateInput!): TvShow!
   upsertFavorite(where: FavoriteWhereUniqueInput!, create: FavoriteCreateInput!, update: FavoriteUpdateInput!): Favorite!
   upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
+  upsertLocation(where: LocationWhereUniqueInput!, create: LocationCreateInput!, update: LocationUpdateInput!): Location!
   upsertSchool(where: SchoolWhereUniqueInput!, create: SchoolCreateInput!, update: SchoolUpdateInput!): School!
   upsertAccount(where: AccountWhereUniqueInput!, create: AccountCreateInput!, update: AccountUpdateInput!): Account!
   upsertFixedCost(where: FixedCostWhereUniqueInput!, create: FixedCostCreateInput!, update: FixedCostUpdateInput!): FixedCost!
@@ -6389,6 +6442,7 @@ type Query {
   tvShow(where: TvShowWhereUniqueInput!): TvShow
   favorite(where: FavoriteWhereUniqueInput!): Favorite
   event(where: EventWhereUniqueInput!): Event
+  location(where: LocationWhereUniqueInput!): Location
   school(where: SchoolWhereUniqueInput!): School
   account(where: AccountWhereUniqueInput!): Account
   fixedCost(where: FixedCostWhereUniqueInput!): FixedCost
@@ -7184,7 +7238,7 @@ type Transaction implements Node {
   date: String!
   category: String!
   splits(where: TransactionSplitWhereInput, orderBy: TransactionSplitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TransactionSplit!]
-  where(where: LocationWhereInput): Location
+  location(where: LocationWhereInput): Location
   items(where: GoodOrServiceWhereInput, orderBy: GoodOrServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GoodOrService!]
   with(where: HumanWhereInput, orderBy: HumanOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Human!]
   event(where: EventWhereInput): Event
@@ -7206,7 +7260,7 @@ input TransactionCreateInput {
   date: String!
   category: String!
   splits: TransactionSplitCreateManyInput
-  where: LocationCreateOneInput
+  location: LocationCreateOneInput
   items: GoodOrServiceCreateManyWithoutTransactionInput
   with: HumanCreateManyInput
   event: EventCreateOneInput
@@ -7228,7 +7282,7 @@ input TransactionCreateWithoutItemsInput {
   date: String!
   category: String!
   splits: TransactionSplitCreateManyInput
-  where: LocationCreateOneInput
+  location: LocationCreateOneInput
   with: HumanCreateManyInput
   event: EventCreateOneInput
 }
@@ -7480,7 +7534,7 @@ input TransactionUpdateDataInput {
   date: String
   category: String
   splits: TransactionSplitUpdateManyInput
-  where: LocationUpdateOneInput
+  location: LocationUpdateOneInput
   items: GoodOrServiceUpdateManyWithoutTransactionInput
   with: HumanUpdateManyInput
   event: EventUpdateOneInput
@@ -7492,7 +7546,7 @@ input TransactionUpdateInput {
   date: String
   category: String
   splits: TransactionSplitUpdateManyInput
-  where: LocationUpdateOneInput
+  location: LocationUpdateOneInput
   items: GoodOrServiceUpdateManyWithoutTransactionInput
   with: HumanUpdateManyInput
   event: EventUpdateOneInput
@@ -7522,7 +7576,7 @@ input TransactionUpdateWithoutItemsDataInput {
   date: String
   category: String
   splits: TransactionSplitUpdateManyInput
-  where: LocationUpdateOneInput
+  location: LocationUpdateOneInput
   with: HumanUpdateManyInput
   event: EventUpdateOneInput
 }
@@ -7737,7 +7791,7 @@ input TransactionWhereInput {
   splits_every: TransactionSplitWhereInput
   splits_some: TransactionSplitWhereInput
   splits_none: TransactionSplitWhereInput
-  where: LocationWhereInput
+  location: LocationWhereInput
   items_every: GoodOrServiceWhereInput
   items_some: GoodOrServiceWhereInput
   items_none: GoodOrServiceWhereInput
