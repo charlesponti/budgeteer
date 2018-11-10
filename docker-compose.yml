@@ -5,9 +5,10 @@ services:
             context: .
             dockerfile: Dockerfile
         ports:
-            - "4200:4200"
+            - "4000:4000"
         volumes:
-            - ../backpack-ui/dist:/home/app/dist
+            - ./dist:/home/app/dist
+
     prisma:
         image: prismagraphql/prisma:1.15
         restart: always

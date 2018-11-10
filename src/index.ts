@@ -38,11 +38,4 @@ app.post("/api/events", async (req, res) => {
     res.json(events);
 });
 
-const staticDir = path.resolve(
-    __dirname,
-    "../../backpack-ui/dist/backpack-ui/"
-);
-app.use(express.static(staticDir));
-app.use("*", express.static(staticDir));
-
-app.listen(4200, () => logger.info(`🚀 GraphQL server is running 🚀`));
+app.listen(4000, () => logger.info(`🚀 GraphQL server is running 🚀`));
