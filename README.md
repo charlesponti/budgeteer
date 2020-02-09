@@ -1,38 +1,68 @@
-# Backpack
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## A life management application
+## Available Scripts
 
-The goal of this application is to build a task management application that will work for both the average person needing to manage their day-to-day life and teams needing to manage their tasks and missions.
+In the project directory, you can run:
 
-I started building this application about a year ago in Ruby and Ember. Then translated it over to NodeJS and Ember. Then went from Ember to Angular. Then went from Angular to Backbone. And now the current stack consists of:
+### `npm start`
 
-I've kept this project running as a sort of testing ground for when I've wanted to learn some new technology. It's kind of like the basic to-do applicaton that many people build to display how some new-fangled MVC framework works. I never liked those because real world developers are not building to-do apps.
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-We're building apps in the real world for real consumers. These apps have to be both stable and scalable. The apps we build are not one JavaScript file with about 50 lines of code. They're more like 100+ files with 20,000+ lines of code.
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-So I wanted to take the basic premise of the basic to-do application and build out some extra real-world features such as:
+### `npm test`
 
-My other goal for this application is for it become a sort of snapshot of what the current state of full-stack JavaScript application development looks like. It should use the current "go-to" tools, frameworks, libraries, architectures, and methodologies that have proven themselves as "here for the long haul" technologies that every developer should have in their tool kit and integrated into their stack.
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## TODO
--   Server-side rendering
--   Authentication & OAuth
--   Build systems
--   Testing
--   Server-side error logging
--   An analytics layer
--   File uploading
--   An application dashboard layer
--   Phone Authentication (NO MORE PASSWORDS!)
+### `npm run build`
 
-## Human API
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-========
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
-This is a scratchpad for created a JSON document that could reflect the current
-state of a person's life. The idea came to me when I was thinking about how in a
-uni-directional data flow application there is one state tree/object that has the
-current state of the application. Every human being as a current state tree/object
-of their life but it is spread across multiple devices, services, etc. This is
-a thought experiment of what a JSON object would look like if it displayed the
-current state of human being's life.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

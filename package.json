@@ -1,16 +1,7 @@
 {
   "name": "backpack",
-  "version": "1.0.0",
-  "betterScripts": {
-    "server:dev": {
-      "command": "nodemon",
-      "env": {
-        "NODE_ENV": "development",
-        "PRISMA_SECRET": "my-secret-secret",
-        "PRISMA_ENDPOINT": "http://localhost:4466"
-      }
-    }
-  },
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "@playlyfe/gql": "^2.6.1",
     "@types/graphql": "^0.13.4",
@@ -30,20 +21,34 @@
     "@babel/core": "^7.0.0",
     "husky": "^0.14.3",
     "nodemon": "^1.18.4",
-    "prettier": "^1.14.2",
+    "prettier": "^1.19.1",
     "pretty-quick": "^1.6.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "3.3.0",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0"
   },
-  "license": "MIT",
-  "main": "server/index.js",
-  "private": false,
-  "repository": "http://github.com/theponti/backpack",
   "scripts": {
-    "precommit": "pretty-quick --lint-staged",
-    "start": "node dist/index.js",
-    "build": "$(npm bin)/tsc",
-    "start:dev": "better-npm-run server:dev",
-    "prisma:rebuild": "prisma deploy && prisma generate"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "format": "prettier --write package.json"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
