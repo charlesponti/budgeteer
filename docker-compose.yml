@@ -1,15 +1,24 @@
 version: "3.7"
 
 services:
-  web:
-    build: ./services/web
+  api:
+    build: ./services/api
     command: python manage.py run -h 0.0.0.0
     volumes:
-      - ./services/web/:/usr/src/app/
+      - ./services/api/:/usr/src/app/
     ports:
       - 5000:5000
     env_file:
       - ./.env
+
+  web:
+    build: ./services/web
+    volumes:
+      - ./services/web:/usr/src/app/
+    ports:
+      - 5001:5001
+    env_file: ./.env
+
   db:
     image: postgres:12.0-alpine
     volumes:
@@ -20,6 +29,8 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     env_file:
       - ./.env
+
+  # -- No nginx service because development
 
 volumes:
   postgres_data:
