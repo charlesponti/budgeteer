@@ -1,9 +1,9 @@
 version: "3.7"
 
 services:
-  web:
+  api:
     build:
-      context: ./services/web
+      context: ./services/api
       dockerfile: Dockerfile.prod
     command: gunicorn --bind 0.0.0.0:5000 manage:app
     expose:
@@ -18,7 +18,7 @@ services:
       ports:
         - 1337:80
       depends_on:
-        - web
+        - api
 
   db:
     image: postgres:12.0-alpine
