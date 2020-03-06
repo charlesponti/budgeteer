@@ -1,3 +1,8 @@
-
 # Run tests with coverage
-coverage run --source project -m py.test && coverage report
+python -m \
+    coverage run \
+    --source=project \
+    --omit=**/site-packages/** \
+    -m py.test
+
+coverage html

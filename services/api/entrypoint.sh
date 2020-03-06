@@ -10,9 +10,10 @@ if [ "$DATABASE" == "postgres" ]; then
     echo "PostgresSQL started"
 fi
 
-if [ "$FLASK_ENV" = "develoment" ]; then
+if [ "$FLASK_ENV" = "development" ]; then
     echo "Creating the database tables..."
     python manage.py create_db
+    python manage.py seed_db
     echo "Tables created"
 fi
 
