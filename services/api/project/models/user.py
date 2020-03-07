@@ -13,6 +13,7 @@ class User(db.Model):
 
     def __init__(self, email):
         self.email = email
+        self.active = True
 
     def deactivate(self):
         self.active = False
@@ -22,7 +23,7 @@ class User(db.Model):
         return {"id": self.id, "email": self.email, "active": self.active}
 
 
-class UserSchema(SQLAlchemyObjectType):
+class UserSchema:
     class Meta:
         model = User
         interfaces = (relay.node,)
