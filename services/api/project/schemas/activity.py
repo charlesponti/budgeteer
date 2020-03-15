@@ -6,4 +6,4 @@ from project.models import Activity as ActivityModel
 
 
 class Activity(graphene.ObjectType):
-    def resolve_
+    pass
