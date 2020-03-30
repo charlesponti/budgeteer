@@ -3,7 +3,6 @@ from flask import Blueprint, jsonify
 
 from project import app
 from project.models.activity import Activity
-from project.models.match import Match
 from project.models.user import User
 from project.schemas import Query
 
@@ -26,10 +25,4 @@ def users():
 @app_routes.route("/activities")
 def activities():
     data: [Activity] = Activity.query.all()
-    return jsonify(data=[i.serialize for i in data])
-
-
-@app_routes.route("/matches")
-def matches():
-    data: [User] = Match.query.all()
     return jsonify(data=[i.serialize for i in data])
