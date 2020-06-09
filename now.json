@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/src/main.js",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/src/main.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "@node-env",
+    "PORT": "@port",
+    "MONGO_URL": "@mongo-url",
+    "HUMAN_SHEET_ID": "@human-sheet-id",
+    "FINANCE_SHEET_ID": "@finance-sheet-id"
+  }
+}

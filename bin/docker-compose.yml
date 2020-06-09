@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo
+    container_name: hominem-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/dev/mongo:/data/db
+    restart: always

@@ -1,0 +1,226 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""The Category model"""
+type Category {
+  """ID of category"""
+  _id: ID!
+
+  """Name of category"""
+  name: String!
+
+  """Percentage of income"""
+  percentage: Float!
+}
+
+type EmailAddress {
+  """email address"""
+  address: String!
+
+  """email service provider"""
+  provider: String!
+
+  """Is email address still active?"""
+  active: Boolean!
+}
+
+type PhoneNumber {
+  number: String!
+
+  """carrier who provides service"""
+  carrier: String!
+
+  """Is phone number still active?"""
+  active: Boolean!
+}
+
+type Human {
+  """UID of the human"""
+  _id: String!
+
+  """Name of the human"""
+  name: String!
+
+  """Unique human-readable identifier of the human"""
+  username: String!
+
+  """birthday of the human"""
+  birthday: DateTime!
+
+  """main email address of human"""
+  email_address: EmailAddress!
+
+  """all email addresses belonging to human"""
+  email_addresses: [EmailAddress!]!
+
+  """main phone number of human"""
+  phone_number: PhoneNumber!
+
+  """phone numbers belonging to human"""
+  phoneNumbers: [PhoneNumber!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Account {
+  """ID of account"""
+  _id: String!
+
+  """name of account"""
+  name: String!
+
+  """unique readale identifier account"""
+  accountName: String!
+
+  """routing number for banking instition"""
+  routingNumber: String!
+
+  """human who owns the account"""
+  human: Human!
+
+  """amound of funds in account"""
+  balance: Float!
+
+  """if account is active or not"""
+  active: Boolean!
+
+  """three-letter code for currency of account funds"""
+  currency: String!
+
+  """type of account"""
+  type: String!
+}
+
+type Transaction {
+  _id: ID!
+
+  """date transaction took place"""
+  date: DateTime!
+
+  """Person paid"""
+  payee: String!
+
+  """total cost of transaction"""
+  amount: Float!
+
+  """Three letter currency code"""
+  currency: String!
+
+  """Description of transaction"""
+  description: String!
+
+  """Original record in json serialized format"""
+  metadata: String!
+
+  """category of transaction"""
+  category: Category!
+
+  """Account user used to fulfill this transaction"""
+  account: Account!
+
+  """user who enacted transaction"""
+  human: Human!
+}
+
+"""The Expenses model"""
+type Expense {
+  """ID of expense"""
+  _id: ID!
+
+  """merchant or person to give money to"""
+  payee: String!
+
+  """cost of expense"""
+  cost: Float!
+
+  """Day of month when bill is due"""
+  billingDay: String!
+
+  """Is this expense, MONTHLY or YEARLY"""
+  billingPeriod: String!
+
+  """Date the human joined the service"""
+  joined: DateTime!
+
+  """Account which is used to pay expense"""
+  account: String!
+
+  """ID of category which expense belongs to"""
+  category: String!
+
+  """If expense is active"""
+  active: Boolean!
+}
+
+type Query {
+  getTransactions(_id: String, payee: String, account: String, category: String, after: String, before: String): [Transaction!]!
+  getTransaction(_id: String, payee: String, account: String, category: String, after: String, before: String): Transaction!
+  getAccounts(query: GetAccountsRequest): [Account!]!
+  getCategory(id: String!): Category!
+  getCategories(name: String): [Category!]!
+  getHumans: [Human!]!
+  getExpenses(query: ExpenseInput): [Expense!]!
+  getExpense(id: String!): Expense!
+}
+
+input GetAccountsRequest {
+  _id: String
+  name: String
+  accountName: String
+  active: Boolean
+  currency: String
+  type: String
+}
+
+input ExpenseInput {
+  """id of account"""
+  _id: String!
+  payee: String!
+}
+
+type Mutation {
+  createTransaction(transaction: TransactionInput!): Transaction!
+  updateTransaction(transaction: UpdateTransactionInput!): Boolean!
+  deleteTransaction(id: String!): Boolean!
+  createAccount(account: AccountInput!): Account!
+  createCategory(data: CategoriesInput!): Category!
+  deleteCategory(id: String!): Boolean!
+  updateCategory(category: CategoriesInput!, id: String!): Category!
+  createExpense(data: ExpenseInput!): Expense!
+  deleteExpense(id: String!): Boolean!
+  updateExpense(expense: ExpenseInput!): Expense!
+}
+
+input TransactionInput {
+  payee: String!
+  amount: Float!
+  date: String
+  description: String
+  account: String!
+  category: String!
+}
+
+input UpdateTransactionInput {
+  payee: String!
+  amount: Float!
+  date: String
+  description: String
+  account: String!
+  category: String!
+  _id: String
+}
+
+input AccountInput {
+  _id: String
+  name: String!
+  accountName: String!
+  active: Boolean
+}
+
+input CategoriesInput {
+  name: String!
+}
