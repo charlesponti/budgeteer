@@ -38,7 +38,7 @@
     "@nestjs/platform-express": "^7.0.0",
     "@typegoose/typegoose": "^7.1.2",
     "@types/twitter": "^1.7.0",
-    "apollo-server-express": "^2.14.1",
+    "apollo-server-express": "^2.14.2",
     "dotenv": "^8.2.0",
     "googleapis": "^51.0.0",
     "graphql": "^15.0.0",
