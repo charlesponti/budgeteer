@@ -3,4 +3,6 @@ module.exports = {
     arrowParens: 'always',
     singleQuote: true,
     jsxSingleQuote: false,
+    "singleQuote": true,
+    trailingComma: "all"
 };

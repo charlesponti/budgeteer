@@ -6,7 +6,7 @@ module.exports = {
   // automock: false,
 
   // Stop running tests after `n` failures
-  // bail: 0,
+  bail: 5,
 
   // Respect "browser" field in package.json when resolving modules
   // browser: false,
@@ -21,7 +21,11 @@ module.exports = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ['src/**/*.{ts,tsx}'],
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!**/*.d.ts',
+    '!**/node_modules/**'
+  ],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
@@ -33,7 +37,14 @@ module.exports = {
   coverageReporters: ['json', 'text', 'lcov', 'clover', 'html'],
 
   // An object that configures minimum threshold enforcement for coverage results
-  // coverageThreshold: null,
+  coverageThreshold: {
+    global: {
+      statements: 98,
+      branches: 91,
+      functions: 98,
+      lines: 98
+    }
+  },
 
   // A path to a custom dependency extractor
   // dependencyExtractor: null,
@@ -105,7 +116,7 @@ module.exports = {
   // restoreMocks: false,
 
   // The root directory that Jest should scan for tests and modules within
-  // rootDir: null,
+  "rootDir": "src",
 
   // A list of paths to directories that Jest should use to search for files in
   // roots: [
