@@ -4,8 +4,8 @@ import { Model } from 'mongoose';
 
 import { buildRegExpQuery } from '../query';
 import { TransactionDTO } from './dto/transaction.dto';
-import { AccountDTO } from 'src/accounts/accounts.dto';
-import { CategoriesService } from 'src/categories/categories.service';
+import { AccountDTO } from '../accounts/accounts.dto';
+import { CategoriesService } from '../categories/categories.service';
 
 @Injectable()
 export class TransactionService {

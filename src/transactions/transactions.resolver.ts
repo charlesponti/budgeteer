@@ -8,11 +8,10 @@ import {
   Args,
   ObjectType,
 } from '@nestjs/graphql';
-// import moment from 'moment'
 
 import { TransactionService } from './transactions.service';
 import { Transaction } from './transaction.model';
-import { HumansService } from 'src/humans/humans.service';
+import { HumansService } from '../humans/humans.service';
 
 @ArgsType()
 export class GetTransactionsRequest {

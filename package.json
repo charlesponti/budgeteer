@@ -10,7 +10,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:mongo": "sh bin/dev.sh",
+    "start:mongo": "sh database/dev.sh",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -24,7 +24,6 @@
     "coverage": "open coverage/index.html",
     "docker:up": "docker-compose up --remove-orphans --force-recreate --build -V",
     "lint:fix": "npm run lint -- --fix",
-    "postinstall": "chmod +x ./bin/dev.sh",
     "snyk-protect": "snyk protect",
     "prepare": "yarn run snyk-protect"
   },
@@ -39,7 +38,6 @@
     "@types/twitter": "^1.7.0",
     "apollo-server-express": "^2.14.2",
     "dotenv": "^8.2.0",
-    "googleapis": "^51.0.0",
     "graphql": "^15.0.0",
     "graphql-tools": "^5.0.0",
     "moment": "^2.25.3",
@@ -48,9 +46,9 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
+    "snyk": "^1.336.0",
     "twitter": "^1.7.1",
-    "winston": "^3.2.1",
-    "snyk": "^1.336.0"
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-FILE=bin/docker-compose.yml
+FILE=database/docker-compose.yml
 cleanup() {
     docker-compose -f $FILE down --remove-orphans
     trap '' EXIT INT TERM
