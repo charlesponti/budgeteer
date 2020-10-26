@@ -20,7 +20,7 @@
     "winston": "^3.3.3"
   },
   "scripts": {
-    "docker:up": "docker-compose -f docker-compose.yml -f docker-compose.override.yml up --build",
+    "docker:up": "docker-compose -f docker-compose.yml up --build",
     "docker:restart": "docker-compose down && yarn docker:up",
     "db:sync": "node ./src/data/sync.js",
     "prestart": "npm run db:sync",
