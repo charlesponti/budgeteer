@@ -23,7 +23,7 @@
     "docker:up": "docker-compose -f docker-compose.yml -f docker-compose.override.yml up --build",
     "docker:restart": "docker-compose down && yarn docker:up",
     "db:sync": "node ./src/data/sync.js",
-    "prestart": "yarn db:sync",
+    "prestart": "npm run db:sync",
     "start": "node ./src/server.js",
     "start:dev": "$(npm bin)/nodemon ./src/server.js",
     "test": "mocha './src/**/*.test.js'",
