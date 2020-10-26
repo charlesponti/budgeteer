@@ -1,12 +1,9 @@
 const Sequelize = require("sequelize");
 const logger = require("../logger");
-const { DB, DB_LOGIN, DB_PASSWORD, DB_HOST } = process.env;
+const { DATABASE_URL } = process.env;
 const { FLOAT, STRING, BOOLEAN } = Sequelize;
 
-// const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/budgeteer')
-const sequelize = new Sequelize(DB, DB_LOGIN, DB_PASSWORD, {
-  dialect: "postgres",
-  host: DB_HOST,
+const sequelize = new Sequelize(DATABASE_URL, {
   logging: msg => logger.log("info", `🎒 ${msg}`)
 });
 
@@ -15,8 +12,8 @@ sequelize
   .then(() => {
     logger.info("✅ Connected to PostgreSQL 🎒");
   })
-  .catch(() => {
-    logger.info("🛑 Unable to connect to PostgreSQL 🎒");
+  .catch(e => {
+    logger.info(`🛑 Unable to connect to PostgreSQL 🎒... \n ${e}`);
   });
 
 const Account = sequelize.define("account", {
@@ -46,19 +43,19 @@ const Tag = sequelize.define("tag", {
   name: { type: STRING, allowNull: false }
 });
 
-// const PersonModel = sequelize.define('person', {
-//   firstName: { type: STRING, allowNull: false },
-//   lastName: { type: STRING, allowNull: false },
-//   email: {
-//     type: STRING,
-//     allowNull: false,
-//     validate: { isEmail: true }
-//   }
-// })
+const PersonModel = sequelize.define("person", {
+  firstName: { type: STRING, allowNull: false },
+  lastName: { type: STRING, allowNull: false },
+  email: {
+    type: STRING,
+    allowNull: false,
+    validate: { isEmail: true }
+  }
+});
 
 // Relationships
-// PersonModel.hasMany(Account)
-// PersonModel.hasMany(Transaction)
+PersonModel.hasMany(Account);
+PersonModel.hasMany(Transaction);
 
 Account.hasMany(Transaction, { foreignKey: "account_id" });
 Transaction.belongsTo(Account, { foreignKey: "account_id" });
