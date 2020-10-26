@@ -1,26 +1,35 @@
 const Sequelize = require("sequelize");
 const logger = require("../logger");
-const { DB, DB_LOGIN, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
+const { DB, DB_LOGIN, DB_PASSWORD, DB_HOST } = process.env;
 const { FLOAT, STRING, BOOLEAN } = Sequelize;
 
-const Conn = new Sequelize(DB, DB_LOGIN, DB_PASSWORD, {
+// const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/budgeteer')
+const sequelize = new Sequelize(DB, DB_LOGIN, DB_PASSWORD, {
   dialect: "postgres",
   host: DB_HOST,
-  port: DB_PORT ? DB_PORT : "5432",
-  logging: msg => logger.log("info", msg)
+  logging: msg => logger.log("info", `🎒 ${msg}`)
 });
 
-const Account = Conn.define("account", {
+sequelize
+  .authenticate()
+  .then(() => {
+    logger.info("✅ Connected to PostgreSQL 🎒");
+  })
+  .catch(() => {
+    logger.info("🛑 Unable to connect to PostgreSQL 🎒");
+  });
+
+const Account = sequelize.define("account", {
   name: { type: STRING, allowNull: false },
   balance: { type: FLOAT }
 });
 
-const Category = Conn.define("category", {
+const Category = sequelize.define("category", {
   name: { type: STRING, allowNull: false },
   balance: { type: FLOAT, allowNull: false }
 });
 
-const Transaction = Conn.define("transaction", {
+const Transaction = sequelize.define("transaction", {
   amount: { type: FLOAT, allowNull: false },
   date: { type: Sequelize.DATE, allowNull: false },
   processed: { type: Sequelize.DATE, allowNull: true },
@@ -33,11 +42,11 @@ const Transaction = Conn.define("transaction", {
   exchange_rate: { type: STRING }
 });
 
-const Tag = Conn.define("tag", {
+const Tag = sequelize.define("tag", {
   name: { type: STRING, allowNull: false }
 });
 
-// const PersonModel = Conn.define('person', {
+// const PersonModel = sequelize.define('person', {
 //   firstName: { type: STRING, allowNull: false },
 //   lastName: { type: STRING, allowNull: false },
 //   email: {
@@ -58,7 +67,7 @@ Transaction.hasMany(Category);
 Transaction.hasMany(Tag);
 
 module.exports = {
-  Conn,
+  sequelize,
   // Person,
   Account,
   Transaction,
