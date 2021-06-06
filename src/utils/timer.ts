@@ -1,7 +1,7 @@
 import moment, { Moment } from 'moment';
 import winston from 'winston';
 
-import logger from './utils/logger';
+import logger from '../../src/utils/logger';
 
 export class Timer {
   now: Moment;

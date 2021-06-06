@@ -6,7 +6,7 @@ import { resolve } from 'path';
 import { promisify } from 'util';
 
 import { SpreadSheetRange } from './google-sheets-types';
-import logger from './logger';
+import logger from '../logger';
 
 dotenv.config({
   path: resolve(__dirname, `../.env.${process.env.NODE_ENV}`),

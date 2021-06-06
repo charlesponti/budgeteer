@@ -1,5 +1,5 @@
 import { Timer } from './timer';
-import logger from './utils/logger'
+import logger from './logger'
 
 export async function createRecords(name: string, fn: Function): Promise<void> {
   try {

@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv'
 
 dotenv.config()
 
-import logger from './utils/logger';
+import logger from '../../src/utils/logger';
 import MongoConnection from './mongo-connection';
 
 /**
