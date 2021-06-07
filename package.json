@@ -31,7 +31,7 @@
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.15.1",
     "@oclif/plugin-help": "^2.2.3",
-    "@nestjs/common": "^7.0.0",
+    "@nestjs/common": "^7.6.5",
     "@nestjs/config": "^0.4.2",
     "@nestjs/core": "^7.0.0",
     "@nestjs/graphql": "^7.3.9",
@@ -52,11 +52,11 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
-    "snyk": "^1.336.0",
+    "snyk": "^1.518.0",
     "tslib": "^1.11.1",
     "twitter": "^1.7.1",
     "winston": "^3.2.1",
-    "xlsx": "^0.15.6"
+    "xlsx": "^0.16.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
